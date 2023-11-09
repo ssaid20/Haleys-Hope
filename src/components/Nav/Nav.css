@@ -1,26 +1,25 @@
 .nav {
-  /* flex box layout */
   display: flex;
   justify-content: space-between;
-  align-items: center;
 
   margin: 0 0 30px;
-  background-color: #00acb0;
-  overflow: hidden;
+  background-color: #0f3c5c;
 }
 
-.nav a {
+/* .nav a {
   text-decoration: none;
-}
+} */
 
 .nav-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #f2f2f2;
-  padding-left: 10px;
-  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: url("../../../public/HH_Logo.png") no-repeat;
+  background-position: 10px center;
+  background-size: auto 100%; /* This will scale the height to 100% of the element and adjust the width automatically */
+  width: 390px;
+  height: 80px;
 }
-
 .navLink {
   display: inline-block;
   color: #f2f2f2;

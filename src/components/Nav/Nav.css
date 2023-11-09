@@ -3,28 +3,23 @@
   justify-content: space-between;
 
   margin: 0 0 30px;
-  background-color: #d7dcdc;
+  background-color: #0f3c5c;
 }
 
 /* .nav a {
   text-decoration: none;
 } */
 
-/* .nav-title {
-  align-items: center;
-  justify-content: start;
-  background-image: url("../../../public/HH_Logo.png");
-} */
 .nav-title {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background: url("../../../public/HH_Logo.png") no-repeat left top;
-  background-size: contain;
-  width: 300px;
-  height: 65px;
+  background: url("../../../public/HH_Logo.png") no-repeat;
+  background-position: 10px center;
+  background-size: auto 100%; /* This will scale the height to 100% of the element and adjust the width automatically */
+  width: 390px;
+  height: 80px;
 }
-
 .navLink {
   display: inline-block;
   color: #f2f2f2;

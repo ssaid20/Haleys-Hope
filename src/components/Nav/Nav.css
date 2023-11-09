@@ -1,24 +1,28 @@
 .nav {
-  /* flex box layout */
   display: flex;
   justify-content: space-between;
-  align-items: center;
 
   margin: 0 0 30px;
-  background-color: #00acb0;
-  overflow: hidden;
+  background-color: #d7dcdc;
 }
 
-.nav a {
+/* .nav a {
   text-decoration: none;
-}
+} */
 
+/* .nav-title {
+  align-items: center;
+  justify-content: start;
+  background-image: url("../../../public/HH_Logo.png");
+} */
 .nav-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #f2f2f2;
-  padding-left: 10px;
-  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: url("../../../public/HH_Logo.png") no-repeat left top;
+  background-size: contain;
+  width: 300px;
+  height: 65px;
 }
 
 .navLink {

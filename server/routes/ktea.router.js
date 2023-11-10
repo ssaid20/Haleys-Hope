@@ -7,25 +7,21 @@ const {
 
 // Routes for KTEA test
 
-// GET route to grab KTEA test data
-router.get("/", rejectUnauthenticated, (req, res) => {
-  if (!req.user) {
-    res.status(401).json({ error: "Not Authenticated" });
-    return;
+//TODO reject unauth
+// GET route to fetch all KTEA items for a specific student
+router.get("/:studentId", async (req, res) => {
+  try {
+    const studentId = req.params.studentId;
+
+    // Query to fetch all KTEA items for the given student ID
+    const query = "SELECT * FROM ktea WHERE student_id = $1";
+    const { rows } = await pool.query(query, [studentId]);
+
+    // Sending the response with the KTEA items
+    res.json(rows);
+  } catch (error) {
+    console.error("Error fetching KTEA items:", error);
+    res.status(500).send("Internal Server Error");
   }
-  //need to get the student id somehow
-  //const studentId = req.
-
-  //grab all ktea tests for this student
-  //need to walk the databases and join to get the student specific data
-  // const queryText = `SELECT * FROM ktea WHERE student_id = $1 ORDER BY date DESC;`;
-
-  pool.query(queryText, [studentId], (error, results) => {
-    if (error) {
-      console.error("Error fetching ktea tests for this student", error);
-      res.status(500).json({ error: "Database error in ktea get" });
-    } else {
-      res.json(results.rows);
-    }
-  });
-}); //end router.get
+});
+module.exports = router;

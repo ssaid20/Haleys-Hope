@@ -57,7 +57,7 @@ function* deleteElementaryWist(action) {
     console.log("Error deleting elementary wist data", error);
   }
 }
-
+// watcher saga
 function* elementaryWistSaga() {
   yield takeLatest("FETCH_ELEMENTARY_WIST", fetchElementaryWist);
   yield takeLatest("ADD_ELEMENTARY_WIST", addElementaryWist);

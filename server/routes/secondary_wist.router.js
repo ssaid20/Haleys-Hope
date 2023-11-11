@@ -19,7 +19,7 @@ router.get("/:student_id", (req, res) => {
       );
       res.sendStatus(500);
     });
-});
+}); // end router.get
 
 // POST route to add a new record for a specific student
 // Tested and working in Postman
@@ -88,7 +88,7 @@ router.post("/", (req, res) => {
       console.error("Error completing INSERT secondary_wist query", err);
       res.sendStatus(500);
     });
-});
+}); //end router.post
 
 // UPDATE route to modify a specific record for a given student
 // Tested and working in Postman
@@ -97,7 +97,7 @@ router.put("/:student_id/:id", (req, res) => {
   const recordId = req.params.id;
   const updatedWist = req.body;
 
-  // Constructing the query dynamically based on the fields provided in the body
+  // Constructing the query dynamically based on the fields provided in the body, can update as many or little as needed
   let querySet = [];
   for (let key in updatedWist) {
     if (
@@ -125,12 +125,12 @@ router.put("/:student_id/:id", (req, res) => {
       console.error("Error completing UPDATE secondary_wist query", err);
       res.sendStatus(500);
     });
-});
+}); // end router.put
 
 // DELETE route to remove a specific record for a given student
 // Tested and working in Postman
 router.delete("/:student_id/:id", (req, res) => {
-  const studentId = req.params.student_id;
+  const studentId = req.params.student_id; // Identifier for the specific student
   const recordId = req.params.id; // This is the unique identifier for the specific test
 
   const queryText =
@@ -144,6 +144,6 @@ router.delete("/:student_id/:id", (req, res) => {
       console.error("Error completing DELETE secondary_wist query", err);
       res.sendStatus(500);
     });
-});
+}); // end router.delete
 
 module.exports = router;

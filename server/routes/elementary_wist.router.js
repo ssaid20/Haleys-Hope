@@ -87,7 +87,7 @@ router.post("/", (req, res) => {
       console.error("Error completing INSERT elementary_wist query", err);
       res.sendStatus(500);
     });
-});
+}); // end router.post
 
 // UPDATE route to modify a specific record for a given student
 // tested and working with postman
@@ -124,12 +124,12 @@ router.put("/:student_id/:id", (req, res) => {
       console.error("Error completing UPDATE elementary_wist query", err);
       res.sendStatus(500);
     });
-});
+}); // end router.put
 
 // DELETE route to remove a specific record for a given student
 // Tested and working in Postman
 router.delete("/:student_id/:id", (req, res) => {
-  const studentId = req.params.student_id;
+  const studentId = req.params.student_id; //Unique identifier for specific student
   const recordId = req.params.id; // This is the unique identifier for the specific test
 
   const queryText =
@@ -143,6 +143,6 @@ router.delete("/:student_id/:id", (req, res) => {
       console.error("Error completing DELETE elementary_wist query", err);
       res.sendStatus(500);
     });
-});
+}); // end router.delete
 
 module.exports = router;

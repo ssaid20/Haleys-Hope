@@ -16,4 +16,49 @@ router.get("/:student_id", (req, res) => {
     });
 });
 
+// POST route to add a new record for a specific student
+router.post("/", (req, res) => {
+  const newOCtopp = req.body;
+  // Check if student_id is provided
+  if (!newOCtopp.student_id) {
+    return res.status(400).send("Student ID is required");
+  }
+  const queryText = `INSERT INTO "older_ctopp" (
+      "student_id", "date", "examiner_id", 
+      "elison_scaled_score", "blending_words_scaled_score", "phoneme_isolation_scaled_score", 
+      "memory_for_digits_scaled_score", "nonword_repetition_scaled_score", 
+      "rapid_digit_naming_scaled_score", "rapid_letter_naming_scaled_score", 
+      "blending_nonwords_scaled_score", "segmenting_nonwords_scaled_score", 
+      "phonological_awareness_composite", "phonological_memory_composite", 
+      "rapid_symbolic_naming_composite", "alt_phonological_awareness"
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)`;
+
+  const values = [
+    newOCtopp.student_id,
+    newOCtopp.date,
+    newOCtopp.examiner_id,
+    newOCtopp.elison_scaled_score,
+    newOCtopp.blending_words_scaled_score,
+    newOCtopp.phoneme_isolation_scaled_score,
+    newOCtopp.memory_for_digits_scaled_score,
+    newOCtopp.nonword_repetition_scaled_score,
+    newOCtopp.rapid_digit_naming_scaled_score,
+    newOCtopp.rapid_letter_naming_scaled_score,
+    newOCtopp.blending_nonwords_scaled_score,
+    newOCtopp.segmenting_nonwords_scaled_score,
+    newOCtopp.phonological_awareness_composite,
+    newOCtopp.phonological_memory_composite,
+    newOCtopp.rapid_symbolic_naming_composite,
+    newOCtopp.alt_phonological_awareness,
+  ];
+
+  pool
+    .query(queryText, values)
+    .then(() => res.sendStatus(201))
+    .catch((err) => {
+      console.error("Error completing INSERT older_ctopp query", err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

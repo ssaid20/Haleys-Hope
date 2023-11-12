@@ -6,6 +6,7 @@ import elementaryWistSaga from "./elementaryWist.saga";
 import secondaryWistSaga from "./secondaryWist.saga";
 import youngerCtoppSaga from "./youngerCtopp.saga";
 import olderCtoppSaga from "./olderCtopp.saga";
+import studentSaga from "./student.saga";
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -23,5 +24,6 @@ export default function* rootSaga() {
     secondaryWistSaga(),
     youngerCtoppSaga(),
     olderCtoppSaga(),
+    studentSaga(),
   ]);
 }

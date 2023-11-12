@@ -54,6 +54,41 @@ router.post('/', (req, res) => {
     });
 });
 
+// PUT route to update a student's information
+router.put('/:id', (req, res) => {
+  const studentId = req.params.id;
+  const updatedStudent = req.body;
+  const queryText = `UPDATE "students" SET
+    "first_name" = $1, "last_name" = $2, "is_active" = $3, "grade" = $4, "gender" = $5, "dob" = $6, 
+    "address" = $7, "zip_code" = $8, "county" = $9, "picture" = $10, "school" = $11, "on_site" = $12, 
+    "pretest_passed" = $13, "pretest_date" = $14 WHERE "id" = $15`;
 
+  const values = [
+    updatedStudent.first_name, updatedStudent.last_name, updatedStudent.is_active, updatedStudent.grade, updatedStudent.gender, 
+    updatedStudent.dob, updatedStudent.address, updatedStudent.zip_code, updatedStudent.county, updatedStudent.picture, 
+    updatedStudent.school, updatedStudent.on_site, updatedStudent.pretest_passed, updatedStudent.pretest_date,
+    studentId
+  ];
+
+  pool.query(queryText, values)
+    .then(() => res.sendStatus(204))
+    .catch((err) => {
+      console.error('Error in PUT update student', err);
+      res.sendStatus(500);
+    });
+});
+
+// DELETE (soft delete) route to archive a student
+router.delete('/:id', (req, res) => {
+  const studentId = req.params.id;
+  const queryText = `UPDATE "students" SET "is_active" = FALSE WHERE "id" = $1`;
+
+  pool.query(queryText, [studentId])
+    .then(() => res.sendStatus(204))
+    .catch((err) => {
+      console.error('Error in DELETE (archive) student', err);
+      res.sendStatus(500);
+    });
+});
 
 module.exports = router;

@@ -16,6 +16,49 @@ router.get("/:student_id", (req, res) => {
     });
 });
 
-// POST route to add a new record for a specific student   
+// POST route to add a new record for a specific student
+router.post("/", (req, res) => {
+  const newYCtopp = req.body;
+  // Check if student_id is provided
+  if (!newYCtopp.student_id) {
+    return res.status(400).send("Student ID is required");
+  }
+  const queryText = `INSERT INTO "younger_ctopp" (
+        "student_id", "date", "examiner_id", 
+        "elison_scaled_score", "blending_words_scaled_score", "sound_matching_scaled_score", 
+        "memory_for_digits_scaled_score", "nonword_repetition_scaled_score", 
+        "rapid_digit_naming_scaled_score", "rapid_letter_naming_scaled_score", 
+        "rapid_color_naming_scaled_score", "rapid_object_naming", 
+        "blending_nonwords_scaled_score", "phonological_awareness_composite", 
+        "phonological_memory_composite", "rapid_symbolic_naming_composite"
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)`;
+
+  const values = [
+    newYCtopp.student_id,
+    newYCtopp.date,
+    newYCtopp.examiner_id,
+    newYCtopp.elison_scaled_score,
+    newYCtopp.blending_words_scaled_score,
+    newYCtopp.sound_matching_scaled_score,
+    newYCtopp.memory_for_digits_scaled_score,
+    newYCtopp.nonword_repetition_scaled_score,
+    newYCtopp.rapid_digit_naming_scaled_score,
+    newYCtopp.rapid_letter_naming_scaled_score,
+    newYCtopp.rapid_color_naming_scaled_score,
+    newYCtopp.rapid_object_naming,
+    newYCtopp.blending_nonwords_scaled_score,
+    newYCtopp.phonological_awareness_composite,
+    newYCtopp.phonological_memory_composite,
+    newYCtopp.rapid_symbolic_naming_composite,
+  ];
+
+  pool
+    .query(queryText, values)
+    .then(() => res.sendStatus(201))
+    .catch((err) => {
+      console.error("Error completing INSERT younger_ctopp query", err);
+      res.sendStatus(500);
+    });
+});
 
 module.exports = router;

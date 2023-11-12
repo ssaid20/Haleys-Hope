@@ -61,4 +61,40 @@ router.post("/", (req, res) => {
     });
 });
 
+// UPDATE route to modify a specific record for a given student
+router.put("/:student_id/:id", (req, res) => {
+  const studentId = req.params.student_id;
+  const recordId = req.params.id;
+  const updatedYCtopp = req.body;
+
+  // Constructing the query dynamically based on the fields provided in the body
+  let querySet = [];
+  for (let key in updatedYCtopp) {
+    if (
+      updatedYCtopp.hasOwnProperty(key) &&
+      key !== "student_id" &&
+      key !== "id"
+    ) {
+      querySet.push(`"${key}" = '${updatedYCtopp[key]}'`);
+    }
+  }
+  if (querySet.length === 0) {
+    return res.status(400).send("No update fields provided");
+  }
+
+  const queryText = `UPDATE "younger_ctopp" SET ${querySet.join(
+    ", "
+  )} WHERE "student_id" = $1 AND "id" = $2`;
+
+  pool
+    .query(queryText, [studentId, recordId])
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.error("Error completing UPDATE younger_ctopp query", err);
+      res.sendStatus(500);
+    });
+}); // end router.put
+
 module.exports = router;

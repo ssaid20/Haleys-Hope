@@ -21,8 +21,29 @@ const studentReducer = (state = initialState, action) => {
         isLoading: false,
         error: null,
       };
-    // Handle other action types like FETCH_STUDENTS, ADD_STUDENT, UPDATE_STUDENT, DELETE_STUDENT
-    // You can set isLoading to true when fetching and handle errors accordingly
+    case "ADD_STUDENT":
+      return {
+        ...state,
+        list: [...state.list, action.payload],
+        isLoading: false,
+        error: null,
+      };
+    case "UPDATE_STUDENT":
+      return {
+        ...state,
+        list: state.list.map((student) =>
+          student.id === action.payload.id ? action.payload : student
+        ),
+        isLoading: false,
+        error: null,
+      };
+    case "DELETE_STUDENT":
+      return {
+        ...state,
+        list: state.list.filter((student) => student.id !== action.payload.id),
+        isLoading: false,
+        error: null,
+      };
     default:
       return state;
   }

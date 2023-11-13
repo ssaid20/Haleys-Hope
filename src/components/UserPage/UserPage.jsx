@@ -1,7 +1,7 @@
 import React from "react";
 import LogOutButton from "../LogOutButton/LogOutButton";
 import { useSelector } from "react-redux";
-//import ElementaryWistList from "../ElementaryWistList/ElementaryWistList"; // imported to test data
+import ElementaryWistList from "../ElementaryWistList/ElementaryWistList"; // imported to test data
 import StudentCard from "../Cards/StudentCard";
 function UserPage() {
   const user = useSelector((store) => store.user);
@@ -11,7 +11,7 @@ function UserPage() {
       <h2>Welcome, {user.username}!</h2>
       <p>Your ID is: {user.id}</p>
       <LogOutButton className="btn" />
-      {/* <ElementaryWistList /> */}
+      <ElementaryWistList />
       <StudentCard />
     </div>
   );

@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import ElementaryWistList from "../../ElementaryWistList/ElementaryWistList";
 
 const TestTab = () => {
   return (
-    <div>TestTab</div>
-  )
-}
+    <div>
+      <div>TestTab</div>
+      <ElementaryWistList />
+    </div>
+  );
+};
 
-export default TestTab
+export default TestTab;

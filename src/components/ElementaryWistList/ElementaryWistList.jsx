@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { formatDate } from "../Utilities/formatDate";
+import { formatDate } from "../../lib/utils";
 
 const ElementaryWistList = () => {
   const dispatch = useDispatch();
@@ -33,6 +33,7 @@ const ElementaryWistList = () => {
 
   return (
     <div>
+      <h1>Wist</h1>
       {tests.map((test) => (
         <div key={test.id} onClick={() => handleTestClick(test)}>
           <p>Test Date: {formatDate(test.date)} (click for details)</p>

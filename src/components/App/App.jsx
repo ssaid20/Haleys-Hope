@@ -33,6 +33,11 @@ function App() {
     dispatch({ type: "FETCH_USER" });
   }, [dispatch]);
 
+  console.log(
+    "%cGreat Job Team!",
+    "color: green; font-style: italic; background-color: yellow; padding: 4px; border-radius: 5px; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 0px blue;"
+  );
+
   return (
     <Router>
       <div>

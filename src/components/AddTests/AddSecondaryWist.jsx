@@ -61,7 +61,7 @@ const AddElementaryWist = () => {
     e.preventDefault();
     console.log("New WIST Entry:", newWist);
     dispatch({
-      type: "ADD_ELEMENTARY_WIST",
+      type: "ADD_SECONDARY_WIST",
       payload: newWist,
     });
 

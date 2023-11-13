@@ -29,6 +29,45 @@ router.get("/:studentId", async (req, res) => {
 router.post("/:studentId", async (req, res) => {
     try{
         const studentId = req.params.studentId; // TODO: may just be id from front end
-        const query = ""
+        const { date,
+            examiner_id,
+            sum_scaled_score,
+            oral_reading_percentile_rank,
+            oral_reading_index,
+            rate_raw_total,
+            accuracy_raw_total,
+            fluency_raw_total,
+            comprehension_raw_total,
+            rate_percentile_rank,
+            accuracy_percentile_rank,
+            fluency_percentile_rank,
+            comprehension_percentile_rank,
+            rate_scaled_score,
+            accuracy_scaled_score,
+            fluency_scaled_score,
+            comprehension_scaled_score
+        } = req.body;
+        const query = ` INSERT INTO gort (
+            student_id, date, examiner_id, sum_scaled_score, oral_reading_percentile_rank, 
+            oral_reading_index, rate_raw_total, accuracy_raw_total, fluency_raw_total, 
+            comprehension_raw_total, rate_percentile_rank, accuracy_percentile_rank, 
+            fluency_percentile_rank, comprehension_percentile_rank, rate_scaled_score, 
+            accuracy_scaled_score, fluency_scaled_score, comprehension_scaled_score
+        ) VALUES (
+            $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18
+        );`;
+        const values = [
+            studentId, date, examiner_id, sum_scaled_score, oral_reading_percentile_rank, 
+            oral_reading_index, rate_raw_total, accuracy_raw_total, fluency_raw_total, 
+            comprehension_raw_total, rate_percentile_rank, accuracy_percentile_rank, 
+            fluency_percentile_rank, comprehension_percentile_rank, rate_scaled_score, 
+            accuracy_scaled_score, fluency_scaled_score, comprehension_scaled_score
+        ];
+        await pool.query(query, values);
+
+        res.status(201).send("GORT record added successfully");
+    } catch (error) {
+        console.error("Error adding GORT record:", error);
+        res.status(500).send("Internal Server Error");
     }
-})
+});

@@ -10,6 +10,8 @@ const passport = require("./strategies/user.strategy");
 // Route includes
 const userRouter = require("./routes/user.router");
 const kteaRouter = require("./routes/ktea.router");
+const elementary_wistRouter = require("./routes/elementary_wist.router");
+const secondary_wistRouter = require("./routes/secondary_wist.router");
 const gortRouter = require("./routes/gort.router");
 
 // Body parser middleware
@@ -26,6 +28,8 @@ app.use(passport.session());
 /* Routes */
 app.use("/api/user", userRouter);
 app.use("/api/ktea", kteaRouter);
+app.use("/api/elementary_wist", elementary_wistRouter);
+app.use("/api/secondary_wist", secondary_wistRouter);
 app.use('/api/gort', gortRouter)
 
 // Serve static files

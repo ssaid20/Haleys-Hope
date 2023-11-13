@@ -60,12 +60,23 @@ function App() {
           >
             <UserPage />
           </ProtectedRoute>
-          <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
-            exact
-            path="/addElementaryWist/:id"
-          >
+          <ProtectedRoute exact path="/addElementaryWist/:id">
             <AddElementaryWist />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/addSecondaryWist/:id">
+            {/* <AddSecondaryWist /> */}
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/addGort/:id">
+            {/* <AddGort /> */}
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/addElementaryCtopp/:id">
+            {/* <AddElementaryCtopp /> */}
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/addSecondaryCtopp/:id">
+            {/* <AddSecondaryCtopp /> */}
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/addKtea/:id">
+            {/* <AddKtea /> */}
           </ProtectedRoute>
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage

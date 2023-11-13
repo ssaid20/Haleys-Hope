@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDate } from "../../lib/utils";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
-const ElementaryWistList = () => {
+const SecondaryWistList = () => {
   const dispatch = useDispatch();
-  const tests = useSelector((state) => state.elementaryWistReducer.list);
+  const tests = useSelector((state) => state.secondaryWistReducer.list);
+  const student = useParams();
   const [selectedTest, setSelectedTest] = useState(null);
   // const studentId = useSelector((state) => state.studentId);
   const isLoading = useSelector(
-    (state) => state.elementaryWistReducer.isLoading
+    (state) => state.secondaryWistReducer.isLoading
   );
-  //const error = useSelector((state) => state.elementaryWist.error);
+  console.log("logging studenttttt", student);
   console.log(tests);
   useEffect(() => {
-    console.log("dispatching fetch_elementary_wist");
+    console.log("dispatching fetch_secondary_wist");
     //need to get student id and pass it in somehow in the dispatch, with a payload: studentId
-    dispatch({ type: "FETCH_ELEMENTARY_WIST", payload: 1 });
+    dispatch({ type: "FETCH_SECONDARY_WIST", payload: student.id });
   }, [dispatch]);
 
   //if loading tests, display a loading message
@@ -35,7 +37,9 @@ const ElementaryWistList = () => {
     <div>
       {tests.map((test) => (
         <div key={test.id} onClick={() => handleTestClick(test)}>
-          <p>Wist Date: {formatDate(test.date)} (click for details)</p>
+          <p>
+            Wist Age 11-18 Date: {formatDate(test.date)} (click for details)
+          </p>
         </div>
       ))}
 
@@ -92,4 +96,4 @@ const ElementaryWistList = () => {
   );
 };
 
-export default ElementaryWistList;
+export default SecondaryWistList;

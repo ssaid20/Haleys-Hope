@@ -1,3 +1,19 @@
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs) {
+  return twMerge(clsx(inputs));
+}
+
+export const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = date.toLocaleString("default", { month: "short" }); // Abbreviated month name
+  const day = date.getDate().toString().padStart(2, "0"); // Two-digit day
+
+  return `${year}/${month}/${day}`;
+};
+
 // Define the score ranges and descriptive terms
 const scoreRanges = [
   { min: 1, max: 3, term: "Very Poor" },
@@ -10,7 +26,7 @@ const scoreRanges = [
 ];
 
 // Function to get the descriptive term based on the scaled score
-const getDescriptiveTerm = (score) => {
+export const getDescriptiveTerm = (score) => {
   const range = scoreRanges.find(
     (range) => score >= range.min && score <= range.max
   );
@@ -37,5 +53,3 @@ const getDescriptiveTerm = (score) => {
 // };
 
 //export default ScoreInterpreter;
-
-export default getDescriptiveTerm;

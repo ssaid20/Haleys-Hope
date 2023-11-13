@@ -46,11 +46,6 @@ const StudentCard = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  // Handler for row click - navigates to the student's detail page
-  const handleRowClick = () => {
-    history.push(`/students/${students.id}`);
-  };
-  // Rendering the student table with pagination
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer sx={{ maxHeight: 440 }}>
@@ -92,7 +87,7 @@ const StudentCard = () => {
                     role="checkbox"
                     tabIndex={-1}
                     key={student.id}
-                    onClick={() => handleRowClick(students.id)}
+                    onClick={() => history.push(`/students/${student.id}`)}
                     style={{ cursor: "pointer" }}
                   >
                     {columns.map((column) => {

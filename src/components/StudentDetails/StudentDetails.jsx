@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 function StudentDetails() {
   const dispatch = useDispatch();
-  const student = useSelector((store) => store.studentReducer);
+  const student = useSelector((store) => store.studentReducer.Details);
   console.log("student", student);
   const { studentId } = useParams(); // Retrieve the student ID from the URL
 

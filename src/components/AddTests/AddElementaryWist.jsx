@@ -167,7 +167,7 @@ const AddElementaryWist = () => {
             id="word_identification"
             name="word_identification"
             value={newWist.word_identification}
-            onChange={handleChange}
+            readOnly // Making the input read-only
           />
         </div>
         <div className="input-field">
@@ -221,7 +221,7 @@ const AddElementaryWist = () => {
             id="spelling"
             name="spelling"
             value={newWist.spelling}
-            onChange={handleChange}
+            readOnly // Making the input read-only
           />
         </div>
         <div className="input-field">
@@ -253,7 +253,7 @@ const AddElementaryWist = () => {
             id="fundamental_literacy"
             name="fundamental_literacy"
             value={newWist.fundamental_literacy}
-            onChange={handleChange}
+            readOnly // Making the input read-only
           />
         </div>
         <div className="input-field">
@@ -309,7 +309,7 @@ const AddElementaryWist = () => {
             id="sound_symbol_knowledge"
             name="sound_symbol_knowledge"
             value={newWist.sound_symbol_knowledge}
-            onChange={handleChange}
+            readOnly // Making the input read-only
           />
         </div>
         <div className="input-field">

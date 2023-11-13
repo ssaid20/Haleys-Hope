@@ -13,6 +13,9 @@ const kteaRouter = require("./routes/ktea.router");
 const elementary_wistRouter = require("./routes/elementary_wist.router");
 const secondary_wistRouter = require("./routes/secondary_wist.router");
 const gortRouter = require("./routes/gort.router");
+const young_ctoppRouter = require("./routes/young_ctopp.router");
+const old_ctoppRouter = require("./routes/old_ctopp.router");
+const studentRouter = require("./routes/student.router");
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -31,6 +34,9 @@ app.use("/api/ktea", kteaRouter);
 app.use("/api/elementary_wist", elementary_wistRouter);
 app.use("/api/secondary_wist", secondary_wistRouter);
 app.use('/api/gort', gortRouter)
+app.use("/api/young_ctopp", young_ctoppRouter);
+app.use("/api/old_ctopp", old_ctoppRouter);
+app.use("/api/students", studentRouter);
 
 // Serve static files
 app.use(express.static("build"));

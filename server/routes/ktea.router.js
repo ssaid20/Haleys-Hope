@@ -24,4 +24,77 @@ router.get("/:studentId", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+
+// POST route for KTEA
+router.post("/:studentId", async (req, res) => {
+  try {
+    const studentId = req.params.studentId; // TODO: may just be id from front end
+    const {
+      student_id,
+      date,
+      examiner_id,
+      lwr_scaled_score,
+      lwr_percentile,
+      spelling_scaled_score,
+      spelling_percentile,
+    } = req.body;
+    const query = ` INSERT INTO ktea (
+            student_id, date, examiner_id, lwr_scaled_score, lwr_percentile, spelling_scaled_score, spelling_percentile
+        ) VALUES (
+            $1, $2, $3, $4, $5, $6, $7);`;
+    const values = [
+      studentId,
+      date,
+      examiner_id,
+      lwr_scaled_score,
+      lwr_percentile,
+      spelling_scaled_score,
+      spelling_percentile,
+    ];
+    await pool.query(query, values);
+
+    res.status(201).send("KTEA record added successfully");
+  } catch (error) {
+    console.error("Error adding KTEA record:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+// PUT route for KTEA
+router.put("/:studentId", async (req, res) => {
+  try {
+    const studentId = req.params.studentId; // TODO: may just be id from front end
+    const {
+      date,
+      examiner_id,
+      lwr_scaled_score,
+      lwr_percentile,
+      spelling_scaled_score,
+      spelling_percentile,
+    } = req.body;
+    const query = `UPDATE ktea SET
+      date = $2,
+      examiner_id = $3,
+      lwr_scaled_score = $4,
+      lwr_percentile = $5,
+      spelling_scaled_score = $6,
+      spelling_percentile = $7
+      WHERE student_id = $1;`;
+    const values = [
+      studentId,
+      date,
+      examiner_id,
+      lwr_scaled_score,
+      lwr_percentile,
+      spelling_scaled_score,
+      spelling_percentile,
+    ];
+    await pool.query(query, values);
+
+    res.status(200).send("KTEA record updated successfully");
+  } catch (error) {
+    console.error("Error updating KTEA record:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 module.exports = router;

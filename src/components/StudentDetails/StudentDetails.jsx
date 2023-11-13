@@ -15,7 +15,7 @@ function StudentDetails() {
   const dispatch = useDispatch();
   const student = useSelector((store) => store.studentReducer.Details);
   console.log("student", student);
-  const  studentId  = useParams(); // Retrieve the student ID from the URL
+  const studentId = useParams(); // Retrieve the student ID from the URL
   console.log("studentId", studentId);
 
   useEffect(() => {

@@ -20,11 +20,9 @@ const StudentCard = () => {
   const dispatch = useDispatch();
   const student = useSelector((store) => store.studentReducer.Details);
   const studentId = useParams();
-
+  console.log("student and id in card", student, studentId);
   useEffect(() => {
-    if (studentId) {
-      dispatch({ type: "FETCH_STUDENT", payload: studentId });
-    }
+    dispatch({ type: "FETCH_STUDENT", payload: studentId });
   }, [dispatch, studentId]);
 
   if (!student) {
@@ -86,7 +84,7 @@ const StudentCard = () => {
                 <Input
                   id="dob"
                   type="date"
-                  defaultValue={student.dob.split("T")[0]}
+                  defaultValue={student.dob ? student.dob.split("T")[0] : 0}
                 />
 
                 <Label htmlFor="address">Address</Label>
@@ -102,7 +100,11 @@ const StudentCard = () => {
                 <Input
                   id="pretestDate"
                   type="date"
-                  defaultValue={student.pretest_date.split("T")[0]}
+                  defaultValue={
+                    student.pretest_date
+                      ? student.pretest_date.split("T")[0]
+                      : 0
+                  }
                 />
 
                 <Label htmlFor="pretestPassed">Pretest Passed</Label>

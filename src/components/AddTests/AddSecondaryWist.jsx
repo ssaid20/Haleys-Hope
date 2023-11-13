@@ -56,6 +56,15 @@ const AddElementaryWist = () => {
       [e.target.name]: e.target.value,
     });
   };
+  //useEffect so the go back doesn't click immediately and the page can display
+  useEffect(() => {
+    handleGoBack;
+  });
+
+  //function to go back to student more info page
+  const handleGoBack = () => {
+    history.push(`/students/${student.id}`);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -74,7 +83,7 @@ const AddElementaryWist = () => {
   return (
     <>
       <ToastContainer />
-
+      <button onClick={handleGoBack}>GO BACK</button>
       <form onSubmit={handleSubmit}>
         <div className="input-field">
           <label htmlFor="date">Date:</label>

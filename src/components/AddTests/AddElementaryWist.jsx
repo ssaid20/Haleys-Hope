@@ -6,7 +6,6 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import "./AddElementaryWist.css";
 
 //component to add a new elementary wist test
@@ -26,6 +25,10 @@ const AddElementaryWist = () => {
   useEffect(() => {
     dispatch({ type: "FETCH_USERS" });
   });
+  useEffect(() => {
+    handleGoBack;
+  });
+
   const [newWist, setNewWist] = useState({
     student_id: student.id,
     date: todayDate,
@@ -49,6 +52,9 @@ const AddElementaryWist = () => {
     sound_symbol_knowledge_percentile: null,
     sound_symbol_knowledge_standard_score: null,
   });
+  const handleGoBack = () => {
+    history.push(`/students/${student.id}`);
+  };
 
   const handleChange = (e) => {
     setNewWist({
@@ -74,7 +80,7 @@ const AddElementaryWist = () => {
   return (
     <>
       <ToastContainer />
-
+      <button onClick={handleGoBack}>GO BACK</button>
       <form onSubmit={handleSubmit}>
         <div className="input-field">
           <label htmlFor="date">Date:</label>

@@ -20,6 +20,7 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import StudentDetails from "../StudentDetails/StudentDetails";
+import AddElementaryWist from "../AddTests/AddElementaryWist";
 import "./App.css";
 
 function App() {
@@ -59,7 +60,13 @@ function App() {
           >
             <UserPage />
           </ProtectedRoute>
-
+          <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path="/addElementaryWist/:id"
+          >
+            <AddElementaryWist />
+          </ProtectedRoute>
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact

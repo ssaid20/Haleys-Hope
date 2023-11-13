@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { formatDate } from "../../lib/utils"; // Adjust the import path as necessary
+import { formatDate } from "../../lib/utils"; 
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -37,6 +37,7 @@ const StudentCard = () => {
     dispatch({ type: "FETCH_STUDENTS" });
   }, [dispatch]);
 
+  // Handlers for pagination
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -45,7 +46,6 @@ const StudentCard = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer sx={{ maxHeight: 440 }}>

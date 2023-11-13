@@ -1,5 +1,6 @@
 const initialState = {
   list: [], // Array of all students
+  Details: [], // Array of specific student details
   currentStudent: null, // Details of the selected student
   isLoading: false,
   error: null,
@@ -17,7 +18,7 @@ const studentReducer = (state = initialState, action) => {
     case "SET_CURRENT_STUDENT":
       return {
         ...state,
-        currentStudent: action.payload,
+        Details: action.payload,
         isLoading: false,
         error: null,
       };

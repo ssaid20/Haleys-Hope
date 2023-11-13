@@ -10,6 +10,7 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const columns = [
   { id: "id", label: "ID", minWidth: 100 },
@@ -27,6 +28,7 @@ const columns = [
 
 const StudentCard = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const students = useSelector((store) => store.studentReducer.list);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -42,6 +44,9 @@ const StudentCard = () => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+  const handleRowClick = () => {
+    history.push(`/students/${students.id}`);
   };
 
   return (
@@ -85,16 +90,14 @@ const StudentCard = () => {
                     role="checkbox"
                     tabIndex={-1}
                     key={student.id}
+                    onClick={() => handleRowClick(students.id)}
+                    style={{ cursor: "pointer" }}
                   >
                     {columns.map((column) => {
                       const value = formattedStudent[column.id];
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {column.id === "id" ? (
-                            <Link to={`/student/${student.id}`}>{value}</Link>
-                          ) : (
-                            value
-                          )}
+                          {value}
                         </TableCell>
                       );
                     })}

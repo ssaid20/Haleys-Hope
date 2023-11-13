@@ -9,6 +9,7 @@ import AssesmentTab from "../shared/AssesmentTab/AssesmentTab";
 import GraphTab from "../shared/GraphTab/GraphTab";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 function StudentDetails() {
   const dispatch = useDispatch();
   const student = useSelector((store) => store.studentReducer);
@@ -37,7 +38,10 @@ function StudentDetails() {
             className="rounded-full object-cover"
           />
           <div className="mt-3">
-            <h2 className="h2-bold text-dark100_light900">{student.firstname}{student.lastname}</h2>
+            <h2 className="h2-bold text-dark100_light900">
+              {student.firstname}
+              {student.lastname}
+            </h2>
           </div>
         </div>
 

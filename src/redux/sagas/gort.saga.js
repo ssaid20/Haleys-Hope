@@ -5,10 +5,7 @@ import axios from "axios";
 function* fetchGort(action) {
   console.log("payload in Gort saga:", action.payload);
   try {
-    const response = yield call(
-      axios.get,
-      `/api/gort/${action.payload}`
-    );
+    const response = yield call(axios.get, `/api/gort/${action.payload}`);
     yield put({ type: "SET_GORT", payload: response.data });
   } catch (error) {
     console.log("Error fetching GORT data", error);

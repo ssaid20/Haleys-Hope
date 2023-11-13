@@ -159,3 +159,21 @@ router.put("/:studentId", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+// DELETE route to remove a specific record for a given student
+router.delete("/:student_id/:id", (req, res) => {
+  const studentId = req.params.student_id; // Identifier for the specific student
+  const recordId = req.params.id; // This is the unique identifier for the specific test
+
+  const queryText = 'DELETE FROM "gort" WHERE "student_id" = $1 AND "id" = $2';
+  pool
+    .query(queryText, [studentId, recordId])
+    .then(() => {
+      res.sendStatus(204);
+    }) // 204 No Content
+    .catch((err) => {
+      console.error("Error completing DELETE Gort query", err);
+      res.sendStatus(500);
+    });
+}); // end router.delete
+
+module.exports = router;

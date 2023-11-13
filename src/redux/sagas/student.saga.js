@@ -8,18 +8,18 @@ function* fetchStudents() {
     yield put({ type: "SET_STUDENTS", payload: response.data });
   } catch (error) {
     console.log("Error fetching students", error);
-    // Optionally, dispatch a failure action
+  
   }
 }
 
 // Saga to fetch a specific student
 function* fetchStudent(action) {
   try {
-    const response = yield call(axios.get, `/api/students/${action.payload}`);
+    const response = yield call(axios.get, `/api/students/${action.payload.id}`);
     yield put({ type: "SET_CURRENT_STUDENT", payload: response.data });
   } catch (error) {
     console.log("Error fetching specific student", error);
-    // Optionally, dispatch a failure action
+   
   }
 }
 
@@ -30,7 +30,7 @@ function* addStudent(action) {
     yield put({ type: "FETCH_STUDENTS" });
   } catch (error) {
     console.log("Error adding student", error);
-    // Optionally, dispatch a failure action
+    
   }
 }
 
@@ -41,7 +41,7 @@ function* updateStudent(action) {
     yield put({ type: "FETCH_STUDENTS" });
   } catch (error) {
     console.log("Error updating student", error);
-    // Optionally, dispatch a failure action
+
   }
 }
 
@@ -52,7 +52,7 @@ function* deleteStudent(action) {
     yield put({ type: "FETCH_STUDENTS" });
   } catch (error) {
     console.log("Error deleting student", error);
-    // Optionally, dispatch a failure action
+   
   }
 }
 

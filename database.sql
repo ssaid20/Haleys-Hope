@@ -174,3 +174,11 @@ CREATE TABLE IF NOT EXISTS "roles" (
   "id" SERIAL PRIMARY KEY,
   "role" VARCHAR(100)
 );
+
+-- insert for roles:
+INSERT INTO roles (role) VALUES 
+('Academic Assessment Coordinator'),
+('Dyslexia Specialist'),
+('Literacy Coach Manager'),
+('Lead Performing Agent'),
+('Admin');

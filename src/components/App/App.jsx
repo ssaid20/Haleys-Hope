@@ -21,6 +21,7 @@ import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import StudentDetails from "../StudentDetails/StudentDetails";
 import AddElementaryWist from "../AddTests/AddElementaryWist";
+import AddSecondaryWist from "../AddTests/AddSecondaryWist";
 import "./App.css";
 
 function App() {
@@ -64,7 +65,7 @@ function App() {
             <AddElementaryWist />
           </ProtectedRoute>
           <ProtectedRoute exact path="/addSecondaryWist/:id">
-            {/* <AddSecondaryWist /> */}
+            <AddSecondaryWist />
           </ProtectedRoute>
           <ProtectedRoute exact path="/addGort/:id">
             {/* <AddGort /> */}

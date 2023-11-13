@@ -45,9 +45,6 @@ const StudentCard = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  const handleRowClick = () => {
-    history.push(`/students/${students.id}`);
-  };
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -90,7 +87,7 @@ const StudentCard = () => {
                     role="checkbox"
                     tabIndex={-1}
                     key={student.id}
-                    onClick={() => handleRowClick(students.id)}
+                    onClick={() => history.push(`/students/${student.id}`)}
                     style={{ cursor: "pointer" }}
                   >
                     {columns.map((column) => {

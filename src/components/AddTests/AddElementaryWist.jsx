@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 
 import "./AddElementaryWist.css";
 
@@ -8,15 +11,17 @@ import "./AddElementaryWist.css";
 const AddElementaryWist = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const student = useSelector((state) => state.studentReducer.currentStudent);
-  useEffect(() => {
-    dispatch({ type: "FETCH_STUDENT", payload: { id: 1 } });
-  }, [dispatch, 1]);
+  const student = useParams();
+  console.log("logging studentid in addwist", student.id);
 
-  console.log("logging student in addwist", student);
+  //   useEffect(() => {
+  //     if (student.id) {
+  //       dispatch({ type: "FETCH_STUDENT", payload: student.id });
+  //     }
+  //   });
 
   const [newWist, setNewWist] = useState({
-    student_id: "",
+    student_id: student.id,
     date: "",
     examiner_id: "",
     read_regular_words: "",

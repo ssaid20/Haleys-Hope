@@ -1,18 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 
 const Tests = () => {
+  const history = useHistory();
+
+  const studentId = useParams();
+
   const [selectedTests, setSelectedTests] = useState({
     CTOPP2: false,
     WIST: false,
     GORT5: false,
   });
 
+  useEffect(() => {
+    handleElementaryWistClick;
+  }, []);
+
+  const handleElementaryWistClick = () => {
+    history.push(`/addElementaryWist/${studentId.id}`);
+  };
+
   const handleCheckboxChange = (event) => {
-    setSelectedTests({ ...selectedTests, [event.target.name]: event.target.checked });
+    setSelectedTests({
+      ...selectedTests,
+      [event.target.name]: event.target.checked,
+    });
   };
 
   const handleStartClick = () => {
-    console.log('Selected Tests: ', selectedTests);
+    console.log("Selected Tests: ", selectedTests);
     // Add logic for what happens when 'Start' is clicked
   };
 
@@ -20,40 +39,44 @@ const Tests = () => {
     <div className="mt-10">
       <h4 className="h3-semibold text-dark200_light900">Tests</h4>
       <div className="mt-5 grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-4">
-        
         <div className="light-border background-light900_dark300 flex flex-wrap items-center justify-evenly gap-4 rounded-md border p-6 shadow-light-300 dark:shadow-dark-200">
-          
-        <div className="checkbox-group">
-          <label>
-            <input
-              type="checkbox"
-              name="CTOPP2"
-              checked={selectedTests.CTOPP2}
-              onChange={handleCheckboxChange}
-            />
-            CTOPP-2
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="WIST"
-              checked={selectedTests.WIST}
-              onChange={handleCheckboxChange}
-            />
-            WIST
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="GORT5"
-              checked={selectedTests.GORT5}
-              onChange={handleCheckboxChange}
-            />
-            GORT-5
-          </label>
+          <div>
+            <button onClick={handleElementaryWistClick}>Elementary Wist</button>
+          </div>
+          <div className="checkbox-group">
+            <label>
+              <input
+                type="checkbox"
+                name="CTOPP2"
+                checked={selectedTests.CTOPP2}
+                onChange={handleCheckboxChange}
+              />
+              CTOPP-2
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="WIST"
+                checked={selectedTests.WIST}
+                onChange={handleCheckboxChange}
+              />
+              WIST
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="GORT5"
+                checked={selectedTests.GORT5}
+                onChange={handleCheckboxChange}
+              />
+              GORT-5
+            </label>
           </div>
         </div>
-        <button className="paragraph-medium btn-secondary text-dark300_light900 min-h-[46px] min-w-[175px] px-4 py-3" onClick={handleStartClick}>
+        <button
+          className="paragraph-medium btn-secondary text-dark300_light900 min-h-[46px] min-w-[175px] px-4 py-3"
+          onClick={handleStartClick}
+        >
           Start
         </button>
       </div>

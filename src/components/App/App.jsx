@@ -63,7 +63,7 @@ function App() {
           <ProtectedRoute
             // logged in shows UserPage else shows LoginPage
             exact
-            path="/addElementaryWist"
+            path="/addElementaryWist/:id"
           >
             <AddElementaryWist />
           </ProtectedRoute>

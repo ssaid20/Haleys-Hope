@@ -30,8 +30,10 @@ const StudentCard = () => {
   }
 
   const sheetStyle = {
-    backgroundColor: "white", // or any color of your choice
-    boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)", // to add some shadow
+    backgroundColor: "white",
+    boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+    maxHeight: "80vh", // Example: 80% of the viewport height
+    overflowY: "auto", // Enables vertical scrolling
   };
 
   return (

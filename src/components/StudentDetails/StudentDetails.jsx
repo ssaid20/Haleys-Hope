@@ -9,12 +9,14 @@ import AssesmentTab from "../shared/AssesmentTab/AssesmentTab";
 import GraphTab from "../shared/GraphTab/GraphTab";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import StudentCard from "../Cards/StudentCard";
 
 function StudentDetails() {
   const dispatch = useDispatch();
   const student = useSelector((store) => store.studentReducer.Details);
   console.log("student", student);
-  const { studentId } = useParams(); // Retrieve the student ID from the URL
+  const  studentId  = useParams(); // Retrieve the student ID from the URL
+  console.log("studentId", studentId);
 
   useEffect(() => {
     if (studentId) {
@@ -29,7 +31,8 @@ function StudentDetails() {
   return (
     <>
       <div className="flex flex-col-reverse items-start justify-between sm:flex-row">
-        <div className="flex flex-col items-start gap-4 lg:flex-row">
+        <StudentCard />
+        {/* <div className="flex flex-col items-start gap-4 lg:flex-row">
           <img
             src={student.picture} //change it to student store
             alt="Student picture"
@@ -39,19 +42,11 @@ function StudentDetails() {
           />
           <div className="mt-3">
             <h2 className="h2-bold text-dark100_light900">
-              {student.firstname}
-              {student.lastname}
+              {student.first_name}
+              {student.last_name}
             </h2>
           </div>
-        </div>
-
-        <div className="flex justify-end max-sm:mb-5 max-sm:w-full sm:mt-3">
-          <Link to="/student/edit">
-            <Button className="paragraph-medium btn-secondary text-dark300_light900 min-h-[46px] min-w-[175px] px-4 py-3">
-              Edit Student
-            </Button>
-          </Link>
-        </div>
+        </div> */}
       </div>
 
       <Tests />

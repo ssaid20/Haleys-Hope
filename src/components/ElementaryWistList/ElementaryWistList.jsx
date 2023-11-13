@@ -33,10 +33,9 @@ const ElementaryWistList = () => {
 
   return (
     <div>
-      <h1>Wist</h1>
       {tests.map((test) => (
         <div key={test.id} onClick={() => handleTestClick(test)}>
-          <p>Test Date: {formatDate(test.date)} (click for details)</p>
+          <p>Wist Date: {formatDate(test.date)} (click for details)</p>
         </div>
       ))}
 

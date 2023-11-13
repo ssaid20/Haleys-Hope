@@ -1,7 +1,7 @@
 import React from "react";
 import LogOutButton from "../LogOutButton/LogOutButton";
 import { useSelector } from "react-redux";
-import StudentCard from "../Cards/StudentCard";
+import StudentList from "../StudentList/StudentList";
 function UserPage() {
   const user = useSelector((store) => store.user);
   console.log(user);
@@ -10,7 +10,7 @@ function UserPage() {
       <h2>Welcome, {user.username}!</h2>
       <p>Your ID is: {user.id}</p>
       <LogOutButton className="btn" />
-      <StudentCard />
+      <StudentList />
     </div>
   );
 }

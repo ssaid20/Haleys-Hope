@@ -14,11 +14,11 @@ const AddElementaryWist = () => {
   const student = useParams();
   console.log("logging studentid in addwist", student.id);
 
-  //   useEffect(() => {
-  //     if (student.id) {
-  //       dispatch({ type: "FETCH_STUDENT", payload: student.id });
-  //     }
-  //   });
+  useEffect(() => {
+    if (student) {
+      dispatch({ type: "FETCH_STUDENT", payload: student });
+    }
+  });
 
   const [newWist, setNewWist] = useState({
     student_id: student.id,

@@ -12,16 +12,14 @@ CREATE TABLE IF NOT EXISTS "user" (
   "first_name" VARCHAR(50),
   "last_name" VARCHAR(50),
   "password" VARCHAR(1000) NOT NULL,
-  "academic_assessment_coordinator" BOOLEAN DEFAULT false NOT NULL,
-  "admin" BOOLEAN DEFAULT false NOT NULL,
-  "literary_coach" BOOLEAN DEFAULT false NOT NULL
+  "role_id" INTEGER REFERENCES "roles" ("id")
 );
 
 CREATE TABLE IF NOT EXISTS "students" (
   "id" SERIAL PRIMARY KEY,
   "first_name" VARCHAR(20) NOT NULL,
   "last_name" VARCHAR(20) NOT NULL,
-  "is_active" BOOLEAN DEFAULT true NOT NULL,
+  "is_active" BOOLEAN NOT NULL DEFAULT true,
   "grade" INTEGER NOT NULL,
   "gender" VARCHAR(1),
   "dob" DATE NOT NULL,
@@ -30,16 +28,17 @@ CREATE TABLE IF NOT EXISTS "students" (
   "county" VARCHAR(20),
   "picture" VARCHAR(1000),
   "school" VARCHAR(30),
-  "on_site" BOOLEAN DEFAULT true NOT NULL,
+  "on_site" BOOLEAN NOT NULL DEFAULT true,
   "pretest_passed" BOOLEAN,
-  "pretest_date" DATE
+  "pretest_date" DATE,
+  "coach_id" INTEGER REFERENCES "coaches" ("id")
 );
 
 CREATE TABLE IF NOT EXISTS "gort" (
   "id" SERIAL PRIMARY KEY,
-  "student_id" INTEGER NOT NULL,
+  "student_id" INTEGER REFERENCES "students" ("id"),
   "date" DATE NOT NULL,
-  "examiner_id" INTEGER NOT NULL,
+  "examiner_id" INTEGER REFERENCES "user" ("id"),
   "sum_scaled_score" INTEGER,
   "oral_reading_percentile_rank" INTEGER,
   "oral_reading_index" INTEGER,
@@ -54,16 +53,14 @@ CREATE TABLE IF NOT EXISTS "gort" (
   "rate_scaled_score" INTEGER,
   "accuracy_scaled_score" INTEGER,
   "fluency_scaled_score" INTEGER,
-  "comprehension_scaled_score" INTEGER,
-  FOREIGN KEY ("student_id") REFERENCES "students" ("id"),
-  FOREIGN KEY ("examiner_id") REFERENCES "user" ("id")
+  "comprehension_scaled_score" INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS "elementary_wist" (
   "id" SERIAL PRIMARY KEY,
-  "student_id" INTEGER NOT NULL,
+  "student_id" INTEGER REFERENCES "students" ("id"),
   "date" DATE NOT NULL,
-  "examiner_id" INTEGER NOT NULL,
+  "examiner_id" INTEGER REFERENCES "user" ("id"),
   "read_regular_words" INTEGER,
   "read_irregular_words" INTEGER,
   "word_identification" INTEGER,
@@ -81,24 +78,20 @@ CREATE TABLE IF NOT EXISTS "elementary_wist" (
   "letter_sounds" INTEGER,
   "sound_symbol_knowledge" INTEGER,
   "sound_symbol_knowledge_percentile" INTEGER,
-  "sound_symbol_knowledge_standard_score" INTEGER,
-  FOREIGN KEY ("student_id") REFERENCES "students" ("id"),
-  FOREIGN KEY ("examiner_id") REFERENCES "user" ("id")
+  "sound_symbol_knowledge_standard_score" INTEGER
 );
 
-CREATE TABLE IF NOT EXISTS "user_students" (
+CREATE TABLE IF NOT EXISTS "coaches" (
   "id" SERIAL PRIMARY KEY,
-  "user_id" INTEGER NOT NULL,
-  "student_id" INTEGER NOT NULL,
-  FOREIGN KEY ("user_id") REFERENCES "user" ("id"),
-  FOREIGN KEY ("student_id") REFERENCES "students" ("id")
+  "first_name" VARCHAR,
+  "last_name" VARCHAR
 );
 
 CREATE TABLE IF NOT EXISTS "younger_ctopp" (
   "id" SERIAL PRIMARY KEY,
-  "student_id" INTEGER NOT NULL,
+  "student_id" INTEGER REFERENCES "students" ("id"),
   "date" DATE NOT NULL,
-  "examiner_id" INTEGER NOT NULL,
+  "examiner_id" INTEGER REFERENCES "user" ("id"),
   "elison_scaled_score" INTEGER,
   "blending_words_scaled_score" INTEGER,
   "sound_matching_scaled_score" INTEGER,
@@ -112,15 +105,14 @@ CREATE TABLE IF NOT EXISTS "younger_ctopp" (
   "phonological_awareness_composite" INTEGER,
   "phonological_memory_composite" INTEGER,
   "rapid_symbolic_naming_composite" INTEGER,
-  FOREIGN KEY ("student_id") REFERENCES "students" ("id"),
-  FOREIGN KEY ("examiner_id") REFERENCES "user" ("id")
+  "rapid_non_symbolic_naming_composite" INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS "secondary_wist" (
   "id" SERIAL PRIMARY KEY,
-  "student_id" INTEGER NOT NULL,
+  "student_id" INTEGER REFERENCES "students" ("id"),
   "date" DATE NOT NULL,
-  "examiner_id" INTEGER NOT NULL,
+  "examiner_id" INTEGER REFERENCES "user" ("id"),
   "read_regular_words" INTEGER,
   "read_irregular_words" INTEGER,
   "word_identification" INTEGER,
@@ -138,16 +130,14 @@ CREATE TABLE IF NOT EXISTS "secondary_wist" (
   "letter_sounds" INTEGER,
   "sound_symbol_knowledge" INTEGER,
   "sound_symbol_knowledge_percentile" INTEGER,
-  "sound_symbol_knowledge_standard_score" INTEGER,
-  FOREIGN KEY ("student_id") REFERENCES "students" ("id"),
-  FOREIGN KEY ("examiner_id") REFERENCES "user" ("id")
+  "sound_symbol_knowledge_standard_score" INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS "older_ctopp" (
   "id" SERIAL PRIMARY KEY,
-  "student_id" INTEGER NOT NULL,
+  "student_id" INTEGER REFERENCES "students" ("id"),
   "date" DATE NOT NULL,
-  "examiner_id" INTEGER NOT NULL,
+  "examiner_id" INTEGER REFERENCES "user" ("id"),
   "elison_scaled_score" INTEGER,
   "blending_words_scaled_score" INTEGER,
   "phoneme_isolation_scaled_score" INTEGER,
@@ -160,27 +150,27 @@ CREATE TABLE IF NOT EXISTS "older_ctopp" (
   "phonological_awareness_composite" INTEGER,
   "phonological_memory_composite" INTEGER,
   "rapid_symbolic_naming_composite" INTEGER,
-  "alt_phonological_awareness" INTEGER,
-  FOREIGN KEY ("student_id") REFERENCES "students" ("id"),
-  FOREIGN KEY ("examiner_id") REFERENCES "user" ("id")
+  "alt_phonological_awareness" INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS "ktea" (
   "id" SERIAL PRIMARY KEY,
-  "student_id" INTEGER NOT NULL,
+  "student_id" INTEGER REFERENCES "students" ("id"),
   "date" DATE NOT NULL,
-  "examiner_id" INTEGER NOT NULL,
+  "examiner_id" INTEGER REFERENCES "user" ("id"),
   "lwr_scaled_score" INTEGER,
   "lwr_percentile" INTEGER,
   "spelling_scaled_score" INTEGER,
-  "spelling_percentile" INTEGER,
-  FOREIGN KEY ("student_id") REFERENCES "students" ("id"),
-  FOREIGN KEY ("examiner_id") REFERENCES "user" ("id")
+  "spelling_percentile" INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS "student_comments" (
   "id" SERIAL PRIMARY KEY,
-  "student_id" INTEGER NOT NULL,
-  "comments" VARCHAR(1000),
-  FOREIGN KEY ("student_id") REFERENCES "students" ("id")
+  "student_id" INTEGER REFERENCES "students" ("id"),
+  "comments" VARCHAR(1000)
+);
+
+CREATE TABLE IF NOT EXISTS "roles" (
+  "id" SERIAL PRIMARY KEY,
+  "role" VARCHAR(100)
 );

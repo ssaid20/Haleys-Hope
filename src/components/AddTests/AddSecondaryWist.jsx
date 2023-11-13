@@ -4,19 +4,16 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import "./AddElementaryWist.css";
 
 //component to add a new elementary wist test
-const AddElementaryWist = () => {
+const AddSecondaryWist = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
-  console.log("logging studentid in addwist", student.id);
 
-  const todayDate = new Date().toISOString().split("T")[0]; //function to get todays date to auto populate
+  // const todayDate = new Date().toISOString().split("T")[0]; //function to get todays date to auto populate
 
   useEffect(() => {
     if (student) {
@@ -26,9 +23,13 @@ const AddElementaryWist = () => {
   useEffect(() => {
     dispatch({ type: "FETCH_USERS" });
   });
+  useEffect(() => {
+    handleGoBack;
+  });
+
   const [newWist, setNewWist] = useState({
     student_id: student.id,
-    date: todayDate,
+    date: "",
     examiner_id: "",
     read_regular_words: null,
     read_irregular_words: null,
@@ -49,23 +50,60 @@ const AddElementaryWist = () => {
     sound_symbol_knowledge_percentile: null,
     sound_symbol_knowledge_standard_score: null,
   });
-
-  const handleChange = (e) => {
-    setNewWist({
-      ...newWist,
-      [e.target.name]: e.target.value,
-    });
-  };
-  //useEffect so the go back doesn't click immediately and the page can display
-  useEffect(() => {
-    handleGoBack;
-  });
-
-  //function to go back to student more info page
   const handleGoBack = () => {
     history.push(`/students/${student.id}`);
   };
 
+  //function to handle inputs changing
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    let updatedValue = { ...newWist };
+    // Handle date field separately
+    if (name === "date") {
+      updatedValue[name] = value;
+    } else {
+      // Convert to number if the field is numeric
+      updatedValue[name] = value ? parseInt(value, 10) : 0;
+
+      // Convert to number if the field is numeric
+      updatedValue[name] = value ? parseInt(value, 10) : 0;
+
+      // Calculate word identification
+      if (name === "read_regular_words" || name === "read_irregular_words") {
+        updatedValue.word_identification =
+          (updatedValue.read_regular_words || 0) +
+          (updatedValue.read_irregular_words || 0);
+      }
+
+      // Calculate spelling
+      if (name === "spell_regular_words" || name === "spell_irregular_words") {
+        updatedValue.spelling =
+          (updatedValue.spell_regular_words || 0) +
+          (updatedValue.spell_irregular_words || 0);
+      }
+
+      // Calculate fundamental literacy
+      if (
+        name === "read_regular_words" ||
+        name === "read_irregular_words" ||
+        name === "spell_regular_words" ||
+        name === "spell_irregular_words"
+      ) {
+        updatedValue.fundamental_literacy =
+          (updatedValue.word_identification || 0) +
+          (updatedValue.spelling || 0);
+      }
+
+      // Calculate sound symbol knowledge
+      if (name === "pseudo_words" || name === "letter_sounds") {
+        updatedValue.sound_symbol_knowledge =
+          (updatedValue.pseudo_words || 0) + (updatedValue.letter_sounds || 0);
+      }
+    }
+    setNewWist(updatedValue);
+  };
+
+  //function to handle click of submit button
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("New WIST Entry:", newWist);
@@ -74,15 +112,12 @@ const AddElementaryWist = () => {
       payload: newWist,
     });
 
-    // Trigger a success toast
-    toast.success("Submitted successfully!");
     history.push(`/students/${student.id}`);
     //history.push back to student details
   };
 
   return (
     <>
-      <ToastContainer />
       <button onClick={handleGoBack}>GO BACK</button>
       <form onSubmit={handleSubmit}>
         <div className="input-field">
@@ -307,4 +342,4 @@ const AddElementaryWist = () => {
   );
 };
 
-export default AddElementaryWist;
+export default AddSecondaryWist;

@@ -27,7 +27,7 @@ const gortReducer = (state = initialState, action) => {
         ),
       };
     // I don't think we will need delete
-    //   case "DELETE_ELEMENTARY_WIST":
+    //   case "DELETE_GORT":
     //     return {
     //       ...state,
     //       list: state.list.filter((item) => item.id !== action.payload.id),

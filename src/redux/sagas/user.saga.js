@@ -34,15 +34,14 @@ function* updateUser(action) {
   } catch (error) {
     console.log("User update request failed", error);
   }
+
+  // Send a PUT request to update the user's information
+  yield axios.put(`/api/user/${action.payload.id}`, action.payload, config);
 }
-
-    // Send a PUT request to update the user's information
-    yield axios.put(`/api/user/${action.payload.id}`, action.payload, config);
-
 
 function* userSaga() {
   yield takeLatest("FETCH_USER", fetchUser);
-  yield takeLatest("UPDATE_USER", updateUser); 
+  yield takeLatest("UPDATE_USER", updateUser);
 }
 
 export default userSaga;

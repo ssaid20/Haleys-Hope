@@ -5,6 +5,7 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
+//function to format tate as (year/month/day: 2023/Nov/13)
 export const formatDate = (dateString) => {
   const date = new Date(dateString);
   const year = date.getFullYear();

@@ -8,7 +8,7 @@ import {
 import "./AddElementaryWist.css";
 
 //component to add a new elementary wist test
-const AddElementaryWist = () => {
+const AddSecondaryWist = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
@@ -108,7 +108,7 @@ const AddElementaryWist = () => {
     e.preventDefault();
     console.log("New WIST Entry:", newWist);
     dispatch({
-      type: "ADD_ELEMENTARY_WIST",
+      type: "ADD_SECONDARY_WIST",
       payload: newWist,
     });
 
@@ -342,4 +342,4 @@ const AddElementaryWist = () => {
   );
 };
 
-export default AddElementaryWist;
+export default AddSecondaryWist;

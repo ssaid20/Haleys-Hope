@@ -22,6 +22,21 @@ const Tests = () => {
   const handleElementaryWistClick = () => {
     history.push(`/addElementaryWist/${studentId.id}`);
   };
+  const handleSecondaryWistClick = () => {
+    history.push(`/addSecondaryWist/${studentId.id}`);
+  };
+  const handleGortClick = () => {
+    history.push(`/addGort/${studentId.id}`);
+  };
+  const handleElementaryCtoppClick = () => {
+    history.push(`/addElementaryCtopp/${studentId.id}`);
+  };
+  const handleSecondaryCtoppClick = () => {
+    history.push(`/addSecondaryCtopp/${studentId.id}`);
+  };
+  const handleKteaClick = () => {
+    history.push(`/addKtea/${studentId.id}`);
+  };
 
   const handleCheckboxChange = (event) => {
     setSelectedTests({
@@ -41,44 +56,14 @@ const Tests = () => {
       <div className="mt-5 grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-4">
         <div className="light-border background-light900_dark300 flex flex-wrap items-center justify-evenly gap-4 rounded-md border p-6 shadow-light-300 dark:shadow-dark-200">
           <div>
-            <button onClick={handleElementaryWistClick}>Elementary Wist</button>
-          </div>
-          <div className="checkbox-group">
-            <label>
-              <input
-                type="checkbox"
-                name="CTOPP2"
-                checked={selectedTests.CTOPP2}
-                onChange={handleCheckboxChange}
-              />
-              CTOPP-2
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="WIST"
-                checked={selectedTests.WIST}
-                onChange={handleCheckboxChange}
-              />
-              WIST
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="GORT5"
-                checked={selectedTests.GORT5}
-                onChange={handleCheckboxChange}
-              />
-              GORT-5
-            </label>
+            <button onClick={handleElementaryWistClick}>Elementary WIST</button>
+            <button onClick={handleSecondaryWistClick}>Secondary WIST</button>
+            <button onClick={handleGortClick}>Add GORT</button>
+            <button onClick={handleElementaryCtoppClick}>Under 7 CTOPP</button>
+            <button onClick={handleSecondaryCtoppClick}>Over 7 CTOPP</button>
+            <button onClick={handleKteaClick}>KTEA</button>
           </div>
         </div>
-        <button
-          className="paragraph-medium btn-secondary text-dark300_light900 min-h-[46px] min-w-[175px] px-4 py-3"
-          onClick={handleStartClick}
-        >
-          Start
-        </button>
       </div>
     </div>
   );

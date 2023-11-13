@@ -21,6 +21,7 @@ import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import StudentDetails from "../StudentDetails/StudentDetails";
 import AddElementaryWist from "../AddTests/AddElementaryWist";
+import AddSecondaryWist from "../AddTests/AddSecondaryWist";
 import "./App.css";
 
 function App() {
@@ -31,6 +32,11 @@ function App() {
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
   }, [dispatch]);
+
+  console.log(
+    "%cGreat Job Team!",
+    "color: green; font-style: italic; background-color: yellow; padding: 4px; border-radius: 5px; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 0px blue;"
+  );
 
   return (
     <Router>
@@ -60,12 +66,23 @@ function App() {
           >
             <UserPage />
           </ProtectedRoute>
-          <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
-            exact
-            path="/addElementaryWist/:id"
-          >
+          <ProtectedRoute exact path="/addElementaryWist/:id">
             <AddElementaryWist />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/addSecondaryWist/:id">
+            <AddSecondaryWist />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/addGort/:id">
+            {/* <AddGort /> */}
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/addElementaryCtopp/:id">
+            {/* <AddElementaryCtopp /> */}
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/addSecondaryCtopp/:id">
+            {/* <AddSecondaryCtopp /> */}
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/addKtea/:id">
+            {/* <AddKtea /> */}
           </ProtectedRoute>
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage

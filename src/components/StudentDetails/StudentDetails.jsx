@@ -14,13 +14,13 @@ function StudentDetails() {
   const dispatch = useDispatch();
   const student = useSelector((store) => store.studentReducer);
   console.log("student", student);
-  const { id } = useParams(); // Retrieve the student ID from the URL
+  const { studentId } = useParams(); // Retrieve the student ID from the URL
 
   useEffect(() => {
-    if (id) {
-      dispatch({ type: "FETCH_STUDENT", payload: id });
+    if (studentId) {
+      dispatch({ type: "FETCH_STUDENT", payload: studentId });
     }
-  }, [dispatch, id]);
+  }, [dispatch, studentId]);
 
   if (!student) {
     return <div>Loading...</div>;

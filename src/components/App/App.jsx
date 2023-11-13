@@ -23,6 +23,7 @@ import StudentDetails from "../StudentDetails/StudentDetails";
 import AddElementaryWist from "../AddTests/AddElementaryWist";
 import AddSecondaryWist from "../AddTests/AddSecondaryWist";
 import "./App.css";
+import AddKtea from "../AddTests/AddKtea";
 
 function App() {
   const dispatch = useDispatch();
@@ -82,7 +83,7 @@ function App() {
             {/* <AddSecondaryCtopp /> */}
           </ProtectedRoute>
           <ProtectedRoute exact path="/addKtea/:id">
-            {/* <AddKtea /> */}
+            <AddKtea />
           </ProtectedRoute>
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage

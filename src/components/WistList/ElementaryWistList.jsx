@@ -25,7 +25,7 @@ const ElementaryWistList = () => {
 
   //if there are no tests, display none available for now
   if (tests.length === 0) {
-    return <p>No tests available.</p>;
+    return <p>No WIST 7-11 tests available.</p>;
   }
 
   const handleTestClick = (test) => {

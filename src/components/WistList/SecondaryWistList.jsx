@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDate } from "../../lib/utils";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useParams } from "react-router-dom/";
 
 const SecondaryWistList = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const SecondaryWistList = () => {
 
   //if there are no tests, display none available for now
   if (tests.length === 0) {
-    return <p>No tests available.</p>;
+    return <p>No WIST 11-18 tests available.</p>;
   }
 
   const handleTestClick = (test) => {

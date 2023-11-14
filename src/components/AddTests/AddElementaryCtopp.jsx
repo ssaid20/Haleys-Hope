@@ -74,7 +74,6 @@ const AddElementaryCtopp = () => {
   //function to handle click of submit button
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(newCtopp);
     // Validate all inputs before submission
     const newErrors = {};
     if (!newCtopp.date) {
@@ -95,7 +94,6 @@ const AddElementaryCtopp = () => {
       return;
     }
 
-    console.log("New young ctopp Entry:", newCtopp);
     dispatch({
       type: "ADD_YOUNGER_CTOPP",
       payload: newCtopp,

@@ -14,14 +14,12 @@ function* fetchYoungerCtopp(action) {
 }
 // Saga for adding younger_ctopp data
 function* addYoungerCtopp(action) {
-  console.log("addYoungerCtopp action payload:", action.payload);
   try {
     yield call(axios.post, "/api/young_ctopp", action.payload);
     console.log(
       "POST request to /api/younger_ctopp successful",
       action.payload
     );
-    console.log("addCTOPP SAGA", action.payload);
     yield put({
       type: "FETCH_YOUNGER_CTOPP",
       payload: action.payload.student_id,
@@ -65,7 +63,6 @@ function* deleteYoungerCtopp(action) {
 
 // watcher saga
 function* youngerCtoppSaga() {
-  console.log("Watching for younger_ctopp saga actions");
   yield takeLatest("FETCH_YOUNGER_CTOPP", fetchYoungerCtopp);
   yield takeLatest("ADD_YOUNGER_CTOPP", addYoungerCtopp);
   yield takeLatest("UPDATE_YOUNGER_CTOPP", updateYoungerCtopp);

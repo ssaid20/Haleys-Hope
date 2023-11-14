@@ -18,7 +18,6 @@ router.get("/:student_id", (req, res) => {
 
 // POST route to add a new record for a specific student
 router.post("/", (req, res) => {
-  console.log("Received POST request for younger_ctopp with data:", req.body);
   //const newYCtopp = req.body.id;
   const newYCtopp = req.body;
   console.log("logging newYCtopp in router", newYCtopp);
@@ -56,7 +55,6 @@ router.post("/", (req, res) => {
     newYCtopp.rapid_symbolic_naming_composite,
     newYCtopp.rapid_non_symbolic_naming_composite,
   ];
-  console.log("Values for SQL query:", values);
   pool
     .query(queryText, values)
     .then(() => res.sendStatus(201))

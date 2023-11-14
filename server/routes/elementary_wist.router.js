@@ -4,7 +4,6 @@ const pool = require("../modules/pool");
 
 // GET route to fetch elementary wist tests for a specific student
 router.get("/:student_id", (req, res) => {
-  console.log("student ID in router.get:", req.params.student_id);
   const studentId = req.params.student_id;
   const queryText = 'SELECT * FROM "elementary_wist" WHERE "student_id" = $1';
   pool

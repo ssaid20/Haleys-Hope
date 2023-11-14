@@ -13,10 +13,8 @@ const ElementaryWistList = () => {
     (state) => state.elementaryWistReducer.isLoading
   );
   //const error = useSelector((state) => state.elementaryWist.error);
-  console.log("logging studenttttt", student);
   console.log(tests);
   useEffect(() => {
-    console.log("dispatching fetch_elementary_wist");
     //need to get student id and pass it in somehow in the dispatch, with a payload: studentId
     dispatch({ type: "FETCH_ELEMENTARY_WIST", payload: student.id });
   }, [dispatch]);

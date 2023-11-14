@@ -3,7 +3,6 @@ import axios from "axios";
 
 //saga for fetching data
 function* fetchElementaryWist(action) {
-  console.log("payload in elementaryWist saga:", action.payload);
   try {
     const response = yield call(
       axios.get,

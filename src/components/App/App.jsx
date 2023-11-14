@@ -23,6 +23,7 @@ import AddElementaryCtopp from "../AddTests/AddElementaryCtopp";
 import AddSecondaryCtopp from "../AddTests/AddSecondaryCtopp";
 import AddGort from "../AddTests/AddGort";
 import AddKtea from "../AddTests/AddKtea";
+import ElementaryWistResults from "../TestResults/ElementaryWistResults";
 import "./App.css";
 
 function App() {
@@ -70,9 +71,9 @@ function App() {
           <ProtectedRoute exact path="/addElementaryWist/:id">
             <AddElementaryWist />
           </ProtectedRoute>
-          {/* <ProtectedRoute exact path="/ElementaryWistResults/:id">
+          <ProtectedRoute exact path="/ElementaryWistResults/:id">
             <ElementaryWistResults />
-          </ProtectedRoute> */}
+          </ProtectedRoute>
           <ProtectedRoute exact path="/addSecondaryWist/:id">
             <AddSecondaryWist />
           </ProtectedRoute>

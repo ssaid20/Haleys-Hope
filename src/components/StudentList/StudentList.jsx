@@ -11,6 +11,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { calculateAge } from "../../lib/utils";
 
 const columns = [
   // { id: "id", label: "ID", minWidth: 100 }, // took id out student list
@@ -47,16 +48,16 @@ const StudentList = () => {
     setPage(newPage);
   };
   // function to calculate a students age using dob
-  function calculateAge(dob) {
-    const birthday = new Date(dob);
-    const today = new Date();
-    let age = today.getFullYear() - birthday.getFullYear();
-    const m = today.getMonth() - birthday.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthday.getDate())) {
-      age--;
-    }
-    return age;
-  }
+  // function calculateAge(dob) {
+  //   const birthday = new Date(dob);
+  //   const today = new Date();
+  //   let age = today.getFullYear() - birthday.getFullYear();
+  //   const m = today.getMonth() - birthday.getMonth();
+  //   if (m < 0 || (m === 0 && today.getDate() < birthday.getDate())) {
+  //     age--;
+  //   }
+  //   return age;
+  // }
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
@@ -65,7 +66,7 @@ const StudentList = () => {
   console.log("logging Students in list", students);
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 740 }}>
+      <TableContainer sx={{ maxHeight: 840 }}>
         <Table stickyHeader aria-label="student table">
           <TableHead>
             <TableRow>

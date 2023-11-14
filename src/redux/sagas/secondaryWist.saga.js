@@ -14,6 +14,21 @@ function* fetchSecondaryWist(action) {
   }
 }
 
+//saga for fetching a specific test data
+function* fetchSecondaryWistResult(action) {
+  console.log("Action.payload in fetch saga", action.payload);
+  try {
+    const response = yield call(
+      axios.get,
+      `/api/secondary_wist/secondaryWistResults/${action.payload}`
+    );
+
+    yield put({ type: "SET_SECONDARY_WIST_RESULTS", payload: response.data });
+  } catch (error) {
+    console.log("Error fetching secondary wist data", error);
+  }
+}
+
 //saga for adding data to wist
 function* addSecondaryWist(action) {
   try {
@@ -63,6 +78,7 @@ function* secondaryWistSaga() {
   yield takeLatest("ADD_SECONDARY_WIST", addSecondaryWist);
   yield takeLatest("UPDATE_SECONDARY_WIST", updateSecondaryWist);
   yield takeLatest("DELETE_SECONDARY_WIST", deleteSecondaryWist);
+  yield takeLatest("FETCH_SECONDARY_WIST_RESULT", fetchSecondaryWistResult);
 }
 
 export default secondaryWistSaga;

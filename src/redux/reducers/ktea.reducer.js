@@ -3,6 +3,8 @@ const initialState = {
     isLoading: false, // To track the loading state of requests
     error: null, // To store any errors that might occur during requests
     currentRecord: null, // Object to store details of the currently selected record
+    selectedTest: [],
+
   };
   
   // defining reducer with the initial state

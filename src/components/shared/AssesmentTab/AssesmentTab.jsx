@@ -1,8 +1,11 @@
 import React from 'react'
+import AssessmentResults from '../../AssessmentResults/AssessmentResults'
 
 const AssesmentTab = () => {
   return (
-    <div>AssesmentTab</div>
+    <div>AssesmentTab
+      <AssessmentResults />
+    </div>
   )
 }
 

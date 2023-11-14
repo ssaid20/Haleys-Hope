@@ -24,7 +24,7 @@ const KteaList = () => {
 
   //if there are no tests, display none available for now
   if (tests.length === 0) {
-    return <p>No KTEA tests available.</p>;
+    return <p>No KTEA-3 tests available.</p>;
   }
 
   const handleTestClick = (test) => {
@@ -36,7 +36,7 @@ const KteaList = () => {
       {tests.map((test) => (
         <div key={test.id} onClick={() => handleTestClick(test)}>
           <p>
-            KTEA Date: {formatDate(test.date)} (click for details)
+            KTEA-3 Date: {formatDate(test.date)} (click for details)
           </p>
         </div>
       ))}

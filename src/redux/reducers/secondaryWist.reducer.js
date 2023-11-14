@@ -4,6 +4,7 @@ const initialState = {
   error: null, // To store any errors that might occur during requests
   currentRecord: null, // Object to store details of the currently selected record
   selectedTest: [],
+
 };
 
 const secondaryWistReducer = (state = initialState, action) => {

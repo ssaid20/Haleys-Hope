@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { Button } from "../ui/button";
@@ -19,13 +19,65 @@ import {
 const StudentCard = () => {
   const dispatch = useDispatch();
   const student = useSelector((store) => store.studentReducer.Details);
-  const studentId = useParams();
+  // const studentId = useParams();
+  const { id: studentId } = useParams();
+  
 
   useEffect(() => {
     if (studentId) {
       dispatch({ type: "FETCH_STUDENT", payload: studentId });
     }
   }, [dispatch, studentId]);
+
+  // State to hold form data
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    grade: "",
+    school: "",
+    gender: "",
+    dob: "",
+    address: "",
+    county: "",
+    zip_code: "",
+    pretest_date: "",
+    pretest_passed: "",
+    on_site: "",
+  });
+
+  useEffect(() => {
+    if (student) {
+      setFormData({
+        first_name: student.first_name || "",
+        last_name: student.last_name || "",
+        grade: student.grade || "",
+        school: student.school || "",
+        gender: student.gender || "",
+        dob: student.dob ? student.dob.split("T")[0] : "",
+        address: student.address || "",
+        county: student.county || "",
+        zip_code: student.zip_code || "",
+        pretest_date: student.pretest_date
+          ? student.pretest_date.split("T")[0]
+          : "",
+        pretest_passed: student.pretest_passed || "",
+        on_site: student.on_site || "",
+      });
+    }
+  }, [student]);
+
+  const handleInputChange = (e) => {
+    console.log('Input changed:', e.target.id, e.target.value);
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
+
+  const handleSubmit = () => {
+    dispatch({
+      type: "UPDATE_STUDENT",
+      payload: { id: studentId, ...formData },
+    });
+  };
 
   if (!student) {
     return <div>Loading...</div>;
@@ -68,54 +120,95 @@ const StudentCard = () => {
             <div className="p-4">
               <div className="grid grid-cols-2 gap-4">
                 <Label htmlFor="firstName">First Name</Label>
-                <Input id="firstName" defaultValue={student.first_name} />
+                <Input
+                  id="first_name"
+                  value={formData.first_name}
+                  onChange={handleInputChange}
+                />
 
                 <Label htmlFor="lastName">Last Name</Label>
-                <Input id="lastName" defaultValue={student.last_name} />
+                <Input
+                  id="last_name"
+                  value={formData.last_name}
+                  onChange={handleInputChange}
+                />
 
                 <Label htmlFor="grade">Grade</Label>
-                <Input id="grade" type="number" defaultValue={student.grade} />
+                <Input
+                  id="grade"
+                  type="number"
+                  value={formData.grade}
+                  onChange={handleInputChange}
+                />
 
                 <Label htmlFor="school">School</Label>
-                <Input id="school" defaultValue={student.school} />
+                <Input
+                  id="school"
+                  value={formData.school}
+                  onChange={handleInputChange}
+                />
 
                 <Label htmlFor="gender">Gender</Label>
-                <Input id="gender" defaultValue={student.gender} />
+                <Input
+                  id="gender"
+                  value={formData.gender}
+                  onChange={handleInputChange}
+                />
 
                 <Label htmlFor="dob">Date of Birth</Label>
                 <Input
                   id="dob"
                   type="date"
-                  defaultValue={student.dob.split("T")[0]}
+                  value={formData.dob}
+                  onChange={handleInputChange}
                 />
 
                 <Label htmlFor="address">Address</Label>
-                <Input id="address" defaultValue={student.address} />
+                <Input
+                  id="address"
+                  value={formData.address}
+                  onChange={handleInputChange}
+                />
 
                 <Label htmlFor="county">County</Label>
-                <Input id="county" defaultValue={student.county} />
+                <Input
+                  id="county"
+                  value={formData.county}
+                  onChange={handleInputChange}
+                />
 
                 <Label htmlFor="zipCode">Zip Code</Label>
-                <Input id="zipCode" defaultValue={student.zip_code} />
+                <Input
+                  id="zip_code"
+                  type="number"
+                  value={formData.zip_code}
+                  onChange={handleInputChange}
+                />
 
                 <Label htmlFor="pretestDate">Pretest Date</Label>
                 <Input
-                  id="pretestDate"
+                  id="pretest_date"
                   type="date"
-                  defaultValue={student.pretest_date.split("T")[0]}
+                  value={formData.pretest_date}
+                  onChange={handleInputChange}
                 />
 
                 <Label htmlFor="pretestPassed">Pretest Passed</Label>
                 <select
-                  id="pretestPassed"
-                  defaultValue={student.pretest_passed}
+                  id="pretest_passed"
+                  value={formData.pretest_passed}
+                  onChange={handleInputChange}
                 >
                   <option value="true">Yes</option>
                   <option value="false">No</option>
                 </select>
 
                 <Label htmlFor="onSite">On Site</Label>
-                <select id="onSite" defaultValue={student.on_site}>
+                <select
+                  id="on_site"
+                  value={formData.on_site}
+                  onChange={handleInputChange}
+                >
                   <option value="true">Yes</option>
                   <option value="false">No</option>
                 </select>
@@ -123,7 +216,9 @@ const StudentCard = () => {
             </div>
             <SheetFooter>
               <SheetClose asChild>
-                <Button type="submit">Save Changes</Button>
+                <Button onClick={handleSubmit} type="submit">
+                  Save Changes
+                </Button>
               </SheetClose>
             </SheetFooter>
           </SheetContent>

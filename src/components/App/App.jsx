@@ -7,12 +7,9 @@ import {
 } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
-
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-
 import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
 import InfoPage from "../InfoPage/InfoPage";
@@ -73,21 +70,39 @@ function App() {
           <ProtectedRoute exact path="/addElementaryWist/:id">
             <AddElementaryWist />
           </ProtectedRoute>
+          {/* <ProtectedRoute exact path="/ElementaryWistResults/:id">
+            <ElementaryWistResults />
+          </ProtectedRoute> */}
           <ProtectedRoute exact path="/addSecondaryWist/:id">
             <AddSecondaryWist />
           </ProtectedRoute>
+          {/* <ProtectedRoute exact path="/SecondaryWistResults/:id">
+            <SecondaryWistResults />
+          </ProtectedRoute> */}
           <ProtectedRoute exact path="/addGort/:id">
             <AddGort />
           </ProtectedRoute>
+          {/* <ProtectedRoute exact path="/GortResults/:id">
+            <GortResults />
+          </ProtectedRoute> */}
           <ProtectedRoute exact path="/addElementaryCtopp/:id">
             <AddElementaryCtopp />
           </ProtectedRoute>
+          {/* <ProtectedRoute exact path="/ElementaryCtoppResults/:id">
+            <ElementaryCtoppResults />
+          </ProtectedRoute> */}
           <ProtectedRoute exact path="/addSecondaryCtopp/:id">
             <AddSecondaryCtopp />
           </ProtectedRoute>
+          {/* <ProtectedRoute exact path="/SecondaryCtoppResults/:id">
+            <SecondaryCtoppResults />
+          </ProtectedRoute> */}
           <ProtectedRoute exact path="/addKtea/:id">
             <AddKtea />
           </ProtectedRoute>
+          {/* <ProtectedRoute exact path="/KteaResults/:id">
+            <KteaResults />
+          </ProtectedRoute> */}
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact

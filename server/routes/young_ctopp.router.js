@@ -18,7 +18,11 @@ router.get("/:student_id", (req, res) => {
 
 // POST route to add a new record for a specific student
 router.post("/", (req, res) => {
+  console.log("Received POST request for younger_ctopp with data:", req.body);
+  //const newYCtopp = req.body.id;
   const newYCtopp = req.body;
+  console.log("logging newYCtopp in router", newYCtopp);
+  console.log("Request parameters:", req.params);
   // Check if student_id is provided
   if (!newYCtopp.student_id) {
     return res.status(400).send("Student ID is required");
@@ -51,7 +55,7 @@ router.post("/", (req, res) => {
     newYCtopp.phonological_memory_composite,
     newYCtopp.rapid_symbolic_naming_composite,
   ];
-
+  console.log("Values for SQL query:", values);
   pool
     .query(queryText, values)
     .then(() => res.sendStatus(201))

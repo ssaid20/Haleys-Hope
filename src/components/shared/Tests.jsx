@@ -1,72 +1,42 @@
-import React, { useState, useEffect } from "react";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import React from "react";
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const Tests = () => {
   const history = useHistory();
-
   const studentId = useParams();
 
-  const [selectedTests, setSelectedTests] = useState({
-    CTOPP2: false,
-    WIST: false,
-    GORT5: false,
-  });
-
-  useEffect(() => {
-    handleElementaryWistClick;
-  }, []);
-
-  const handleElementaryWistClick = () => {
-    history.push(`/addElementaryWist/${studentId.id}`);
-  };
-  const handleSecondaryWistClick = () => {
-    history.push(`/addSecondaryWist/${studentId.id}`);
-  };
-  const handleGortClick = () => {
-    history.push(`/addGort/${studentId.id}`);
-  };
-  const handleElementaryCtoppClick = () => {
-    history.push(`/addElementaryCtopp/${studentId.id}`);
-  };
-  const handleSecondaryCtoppClick = () => {
-    history.push(`/addSecondaryCtopp/${studentId.id}`);
-  };
-  const handleKteaClick = () => {
-    history.push(`/addKtea/${studentId.id}`);
+  const handleButtonClick = (path) => {
+    history.push(`/${path}/${studentId.id}`);
   };
 
-  const handleCheckboxChange = (event) => {
-    setSelectedTests({
-      ...selectedTests,
-      [event.target.name]: event.target.checked,
-    });
-  };
-
-  const handleStartClick = () => {
-    console.log("Selected Tests: ", selectedTests);
-    // Add logic for what happens when 'Start' is clicked
-  };
+  const testButtons = [
+    { text: "Elementary WIST", path: "addElementaryWist" },
+    { text: "Secondary WIST", path: "addSecondaryWist" },
+    { text: "GORT-5", path: "addGort" },
+    { text: "CTOPP-2 Under 7", path: "addElementaryCtopp" },
+    { text: "CTOPP-2 Over 7", path: "addSecondaryCtopp" },
+    { text: "KTEA", path: "addKtea" },
+  ];
 
   return (
-    <div className="mt-10">
+    <div className="background-light900_dark200 light-border rounded-2xl border p-8 shadow-md relative flex flex-col items-center">
       <h4 className="h3-semibold text-dark200_light900">Tests</h4>
-      <div className="mt-5 grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-4">
-        <div className="light-border background-light900_dark300 flex flex-wrap items-center justify-evenly gap-4 rounded-md border p-6 shadow-light-300 dark:shadow-dark-200">
-          <div>
-            <button onClick={handleElementaryWistClick}>Elementary WIST</button>
-            <button onClick={handleSecondaryWistClick}>Secondary WIST</button>
-            <button onClick={handleGortClick}>Add GORT</button>
-            <button onClick={handleElementaryCtoppClick}>Under 7 CTOPP</button>
-            <button onClick={handleSecondaryCtoppClick}>Over 7 CTOPP</button>
-            <button onClick={handleKteaClick}>KTEA</button>
-          </div>
-        </div>
+      <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-10">
+        {testButtons.map(({ text, path }, index) => (
+          <button
+            key={index}
+            onClick={() => handleButtonClick(path)}
+            className="col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
+          >
+            <img src="/assets/icons/exam.svg" alt="Exam Icon" className="w-4 h-4" />
+            <span>{text}</span>
+          </button>
+        ))}
       </div>
     </div>
   );
 };
 
 export default Tests;
+
+

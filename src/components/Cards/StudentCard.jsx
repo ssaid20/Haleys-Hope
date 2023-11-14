@@ -21,7 +21,6 @@ const StudentCard = () => {
   const student = useSelector((store) => store.studentReducer.Details);
   // const studentId = useParams();
   const { id: studentId } = useParams();
-  
 
   useEffect(() => {
     dispatch({ type: "FETCH_STUDENT", payload: studentId });
@@ -69,7 +68,7 @@ const StudentCard = () => {
   }, [student]);
 
   const handleInputChange = (e) => {
-    console.log('Input changed:', e.target.id, e.target.value);
+    console.log("Input changed:", e.target.id, e.target.value);
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
   };
@@ -86,14 +85,14 @@ const StudentCard = () => {
   }
 
   const sheetStyle = {
-    backgroundColor: "white", 
+    backgroundColor: "white",
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)", // to add some shadow
     maxHeight: "80vh", // Example: 80% of the viewport height
     overflowY: "auto", // Enables vertical scrolling
   };
 
   return (
-    <article className="background-light900_dark200 light-border rounded-2xl border p-8 shadow-lg relative flex flex-col items-center">
+    <article className="background-light900_dark200 light-border rounded-2xl border p-8 shadow-md relative flex flex-col items-center">
       <h2 className="h2-bold text-dark100_light900 text-center mb-4">{`${student.first_name} ${student.last_name}`}</h2>
 
       <div className="flex flex-col w-full md:flex-row items-start md:items-center justify-between">
@@ -109,9 +108,15 @@ const StudentCard = () => {
           <SheetTrigger asChild>
             <Button
               variant="outline"
-              className="absolute top-2 right-2 text-xs px-2 py-1"
+              className="absolute top-2 right-2 text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
             >
-              Edit Student
+              <img
+                src="/assets/icons/edit.svg"
+                alt="Edit Icon"
+                className="w-4 h-4"
+              />
+              <span>Edit Student</span>
+              
             </Button>
           </SheetTrigger>
           <SheetContent side="top" style={sheetStyle}>
@@ -268,7 +273,8 @@ const StudentCard = () => {
             State: {student.state}
           </p>
           <p className="body-regular text-dark500_light500">
-            Barton C Date: {new Date(student.barton_c_date).toLocaleDateString()}
+            Barton C Date:{" "}
+            {new Date(student.barton_c_date).toLocaleDateString()}
           </p>
           <p className="body-regular text-dark500_light500">
             Barton C: {student.barton_c ? "Foundations" : "Barton"}

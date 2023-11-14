@@ -25,11 +25,11 @@ router.get("/:studentId", async (req, res) => {
 module.exports = router;
 
 // GORT POST ROUTE
-router.post("/:studentId", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
-    const studentId = req.params.studentId; // TODO: may just be id from front end
     const {
       date,
+      student_id,
       examiner_id,
       sum_scaled_score,
       oral_reading_percentile_rank,
@@ -57,7 +57,7 @@ router.post("/:studentId", async (req, res) => {
             $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18
         );`;
     const values = [
-      studentId,
+      student_id,
       date,
       examiner_id,
       sum_scaled_score,

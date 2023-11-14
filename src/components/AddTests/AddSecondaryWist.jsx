@@ -7,11 +7,17 @@ import {
 
 import "./AddElementaryWist.css";
 
-//component to add a new elementary wist test
+//component to add a new secondary wist test
 const AddSecondaryWist = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
+
+  const [validationErrors, setValidationErrors] = useState({
+    //state for validation errors
+    date: "",
+    examiner_id: "",
+  });
 
   // const todayDate = new Date().toISOString().split("T")[0]; //function to get todays date to auto populate
 
@@ -100,13 +106,56 @@ const AddSecondaryWist = () => {
           (updatedValue.pseudo_words || 0) + (updatedValue.letter_sounds || 0);
       }
     }
+    setValidationErrors((prevErrors) => {
+      const newErrors = { ...prevErrors };
+
+      // Validate date
+      if (name === "date") {
+        if (!value) {
+          newErrors.date = "Date is required";
+        } else if (new Date(value) > new Date()) {
+          newErrors.date = "Date cannot be in the future";
+        } else {
+          newErrors.date = "";
+        }
+      }
+      //validate examiner id
+      if (name === "examiner_id") {
+        if (!value) {
+          newErrors.examiner_id = "Examiner is required";
+        } else {
+          newErrors.examiner_id = "";
+        }
+      }
+
+      return newErrors;
+    });
     setNewWist(updatedValue);
-  };
+  }; //end handle change
 
   //function to handle click of submit button
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("New WIST Entry:", newWist);
+
+    // Validate all inputs before submission
+    const newErrors = {};
+    if (!newWist.date) {
+      newErrors.date = "Date is required";
+    } else if (new Date(newWist.date) > new Date()) {
+      newErrors.date = "Date cannot be in the future";
+    }
+
+    if (!newWist.examiner_id) {
+      newErrors.examiner_id = "Examiner is required";
+    }
+
+    setValidationErrors(newErrors);
+
+    // Check if there are any errors
+    if (Object.keys(newErrors).length > 0) {
+      console.log("Validation failed");
+      return;
+    }
     dispatch({
       type: "ADD_SECONDARY_WIST",
       payload: newWist,
@@ -129,6 +178,9 @@ const AddSecondaryWist = () => {
             value={newWist.date}
             onChange={handleChange}
           />
+          {validationErrors.date && (
+            <div className="error">{validationErrors.date}</div>
+          )}
         </div>
         <div className="input-field">
           <label htmlFor="examiner">Examiner:</label>
@@ -139,6 +191,9 @@ const AddSecondaryWist = () => {
             value={newWist.examiner_id}
             onChange={handleChange}
           />
+          {validationErrors.examiner_id && (
+            <div className="error">{validationErrors.examiner_id}</div>
+          )}
         </div>
         <div className="input-field">
           <label htmlFor="read_regular_words">Read Regular Words:</label>

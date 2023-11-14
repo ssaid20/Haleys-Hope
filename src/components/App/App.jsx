@@ -22,6 +22,9 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 import StudentDetails from "../StudentDetails/StudentDetails";
 import AddElementaryWist from "../AddTests/AddElementaryWist";
 import AddSecondaryWist from "../AddTests/AddSecondaryWist";
+import AddElementaryCtopp from "../AddTests/AddElementaryCtopp";
+import AddSecondaryCtopp from "../AddTests/AddSecondaryCtopp";
+import AddGort from "../AddTests/AddGort";
 import AddKtea from "../AddTests/AddKtea";
 import "./App.css";
 
@@ -74,13 +77,13 @@ function App() {
             <AddSecondaryWist />
           </ProtectedRoute>
           <ProtectedRoute exact path="/addGort/:id">
-            {/* <AddGort /> */}
+            <AddGort />
           </ProtectedRoute>
           <ProtectedRoute exact path="/addElementaryCtopp/:id">
-            {/* <AddElementaryCtopp /> */}
+            <AddElementaryCtopp />
           </ProtectedRoute>
           <ProtectedRoute exact path="/addSecondaryCtopp/:id">
-            {/* <AddSecondaryCtopp /> */}
+            <AddSecondaryCtopp />
           </ProtectedRoute>
           <ProtectedRoute exact path="/addKtea/:id">
             <AddKtea />

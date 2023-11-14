@@ -1,35 +1,5 @@
-/* THIS IS AN EXAMPLE CSS OF HOW TO STYLE WITH THE KEY LAYOUT*/
-
-.input-field.student_id {
-  margin-bottom: 10px;
-  background-color: #f0f0f0;
-  padding: 5px;
-}
-
-.input-container.student_id-input {
-  margin-left: 20px;
-}
-
-.input-container.student_id-input input {
-  border: 1px solid blue;
-}
-
-.input-field.student_id label {
-  font-weight: bold;
-  color: blue;
-}
-
-.input-field.date {
-  margin-bottom: 10px;
-  background-color: #e0e0e0;
-  padding: 5px;
-}
-
-.input-container.date-input input {
-  border: 1px solid green;
-}
-
-.input-field.date label {
-  font-weight: bold;
-  color: green;
+.error {
+  color: red;
+  font-size: 18px;
+  margin-top: 5px;
 }

@@ -28,6 +28,12 @@ const gortReducer = (state = initialState, action) => {
           item.id === action.payload.id ? action.payload : item
         ),
       };
+      case "SET_GORT_RESULTS":
+        return {
+          ...state,
+          selectedTest: action.payload,
+          isLoading: false,
+        };
     // I don't think we will need delete
     //   case "DELETE_GORT":
     //     return {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDate } from "../../lib/utils";
 import { useParams } from "react-router-dom/";
+import { useHistory } from "react-router-dom/";
 
 const GortList = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const GortList = () => {
   const isLoading = useSelector(
     (state) => state.gortReducer.isLoading
   );
+  const history = useHistory();
 
   useEffect(() => {
     //need to get student id and pass it in somehow in the dispatch, with a payload: studentId
@@ -27,14 +29,14 @@ const GortList = () => {
     return <p>No GORT-5 tests available.</p>;
   }
 
-  const handleTestClick = (test) => {
-    setSelectedTest(test);
+  const moreDetails = (testId) => {
+    history.push(`/gortResults/${testId}`);
   };
 
   return (
     <div>
       {tests.map((test) => (
-        <div key={test.id} onClick={() => handleTestClick(test)}>
+        <div key={test.id} onClick={() => moreDetails(test.id)}>
           <p>
             GORT Date: {formatDate(test.date)} (click for details)
           </p>

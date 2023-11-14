@@ -15,7 +15,7 @@ function* fetchElementaryWist(action) {
 }
 //saga for fetching a specific test data
 function* fetchElementaryWistResult(action) {
-  console.log("Action.payload in fetch saga", action.payload);
+  console.log("Action.payload in fetch saga for elem wist", action.payload);
   try {
     const response = yield call(
       axios.get,

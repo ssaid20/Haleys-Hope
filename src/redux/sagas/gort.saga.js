@@ -12,7 +12,7 @@ function* fetchGort(action) {
 }
 // saga for getting specific GORT
 function* fetchGortResults(action) {
-  console.log("Action.payload in fetch saga", action.payload);
+  console.log("Action.payload in fetch saga FOR GORT", action.payload);
   try {
     const response = yield call(
       axios.get,

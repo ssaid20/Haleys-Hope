@@ -24,6 +24,7 @@ import AddSecondaryCtopp from "../AddTests/AddSecondaryCtopp";
 import AddGort from "../AddTests/AddGort";
 import AddKtea from "../AddTests/AddKtea";
 import ElementaryWistResults from "../TestResults/ElementaryWistResults";
+import GortResults from "../TestResults/GortResults";
 import "./App.css";
 
 function App() {
@@ -82,6 +83,9 @@ function App() {
           </ProtectedRoute> */}
           <ProtectedRoute exact path="/addGort/:id">
             <AddGort />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/gortResults/:id">
+            <ElementaryWistResults />
           </ProtectedRoute>
           {/* <ProtectedRoute exact path="/GortResults/:id">
             <GortResults />

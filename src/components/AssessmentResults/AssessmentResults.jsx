@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom/";
 const AssessmentResults = () => {
 
     // map through all of the tests and based on date add to a new object. then 
+    // pass each test.id to component to render that section of the assessment?
     return (
       <div>
         <p style={{ color: 'brown' }}>Hello Assessments

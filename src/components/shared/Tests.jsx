@@ -20,7 +20,7 @@ const Tests = () => {
 
   return (
     <div className="background-light900_dark200 light-border rounded-2xl border p-8 shadow-md relative flex flex-col items-center">
-      <h4 className="h3-semibold text-dark200_light900">Tests</h4>
+      <h4 className="h3-semibold text-dark200_light900">ADMINISTER TEST</h4>
       <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-10">
         {testButtons.map(({ text, path }, index) => (
           <button

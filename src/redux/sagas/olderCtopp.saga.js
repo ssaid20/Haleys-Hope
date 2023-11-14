@@ -4,10 +4,7 @@ import axios from "axios";
 // Saga for fetching older_ctopp data
 function* fetchOlderCtopp(action) {
   try {
-    const response = yield call(
-      axios.get,
-      `/api/older_ctopp/${action.payload}`
-    );
+    const response = yield call(axios.get, `/api/old_ctopp/${action.payload}`);
     yield put({ type: "SET_OLDER_CTOPP", payload: response.data });
   } catch (error) {
     console.log("Error fetching older_ctopp data", error);
@@ -17,7 +14,7 @@ function* fetchOlderCtopp(action) {
 // Saga for adding older_ctopp data
 function* addOlderCtopp(action) {
   try {
-    yield call(axios.post, "/api/older_ctopp", action.payload);
+    yield call(axios.post, "/api/old_ctopp", action.payload);
     yield put({
       type: "FETCH_OLDER_CTOPP",
       payload: action.payload.student_id,
@@ -32,7 +29,7 @@ function* updateOlderCtopp(action) {
   try {
     yield call(
       axios.put,
-      `/api/older_ctopp/${action.payload.student_id}/${action.payload.id}`,
+      `/api/old_ctopp/${action.payload.student_id}/${action.payload.id}`,
       action.payload
     );
     yield put({
@@ -49,14 +46,14 @@ function* deleteOlderCtopp(action) {
   try {
     yield call(
       axios.delete,
-      `/api/older_ctopp/${action.payload.student_id}/${action.payload.id}`
+      `/api/old_ctopp/${action.payload.student_id}/${action.payload.id}`
     );
     yield put({
       type: "FETCH_OLDER_CTOPP",
       payload: action.payload.student_id,
     });
   } catch (error) {
-    console.log("Error deleting older ctopp data", error);
+    "Error deleting older ctopp data", error;
   }
 }
 

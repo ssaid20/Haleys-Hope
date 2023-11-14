@@ -16,7 +16,6 @@ router.get("/:student_id", (req, res) => {
     });
 });
 
-// TODO: add student.id or however it is formatted
 // POST route to add a new record for a specific student
 router.post("/", (req, res) => {
   const newOCtopp = req.body;

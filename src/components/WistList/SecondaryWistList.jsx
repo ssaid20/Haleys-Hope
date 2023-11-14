@@ -12,10 +12,9 @@ const SecondaryWistList = () => {
   const isLoading = useSelector(
     (state) => state.secondaryWistReducer.isLoading
   );
-  console.log("logging studenttttt", student);
+
   console.log(tests);
   useEffect(() => {
-    console.log("dispatching fetch_secondary_wist");
     //need to get student id and pass it in somehow in the dispatch, with a payload: studentId
     dispatch({ type: "FETCH_SECONDARY_WIST", payload: student.id });
   }, [dispatch]);

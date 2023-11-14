@@ -156,8 +156,6 @@ const AddElementaryWist = () => {
       console.log("Validation failed");
       return;
     }
-
-    console.log("New WIST Entry:", newWist);
     dispatch({
       type: "ADD_ELEMENTARY_WIST",
       payload: newWist,

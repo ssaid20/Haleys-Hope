@@ -25,6 +25,7 @@ import AddSecondaryWist from "../AddTests/AddSecondaryWist";
 import AddElementaryCtopp from "../AddTests/AddElementaryCtopp";
 import AddSecondaryCtopp from "../AddTests/AddSecondaryCtopp";
 import AddGort from "../AddTests/AddGort";
+import AddKtea from "../AddTests/AddKtea";
 import "./App.css";
 
 function App() {
@@ -85,7 +86,7 @@ function App() {
             <AddSecondaryCtopp />
           </ProtectedRoute>
           <ProtectedRoute exact path="/addKtea/:id">
-            {/* <AddKtea /> */}
+            <AddKtea />
           </ProtectedRoute>
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage

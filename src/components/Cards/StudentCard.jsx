@@ -38,9 +38,11 @@ const StudentCard = () => {
     address: "",
     county: "",
     zip_code: "",
-    pretest_date: "",
-    pretest_passed: "",
+    state: "",
+    barton_c_date: "",
+    barton_c: "",
     on_site: "",
+    start_date: "",
   });
 
   useEffect(() => {
@@ -55,11 +57,13 @@ const StudentCard = () => {
         address: student.address || "",
         county: student.county || "",
         zip_code: student.zip_code || "",
-        pretest_date: student.pretest_date
-          ? student.pretest_date.split("T")[0]
+        state: student.state || "",
+        barton_c_date: student.barton_c_date
+          ? student.barton_c_date.split("T")[0]
           : "",
-        pretest_passed: student.pretest_passed || "",
+        barton_c: student.barton_c || "",
         on_site: student.on_site || "",
+        start_date: student.start_date ? student.start_date.split("T")[0] : "",
       });
     }
   }, [student]);
@@ -184,23 +188,29 @@ const StudentCard = () => {
                   value={formData.zip_code}
                   onChange={handleInputChange}
                 />
-
-                <Label htmlFor="pretestDate">Pretest Date</Label>
+                <Label htmlFor="state">State</Label>
                 <Input
-                  id="pretest_date"
-                  type="date"
-                  value={formData.pretest_date}
+                  id="state"
+                  value={formData.state}
                   onChange={handleInputChange}
                 />
 
-                <Label htmlFor="pretestPassed">Pretest Passed</Label>
+                <Label htmlFor="pretestDate">Barton C Date</Label>
+                <Input
+                  id="barton_c_date"
+                  type="date"
+                  value={formData.barton_c_date}
+                  onChange={handleInputChange}
+                />
+
+                <Label htmlFor="pretestPassed">Barton C</Label>
                 <select
-                  id="pretest_passed"
-                  value={formData.pretest_passed}
+                  id="barton_c"
+                  value={formData.barton_c}
                   onChange={handleInputChange}
                 >
-                  <option value="true">Yes</option>
-                  <option value="false">No</option>
+                  <option value="true">Foundations</option>
+                  <option value="false">Barton</option>
                 </select>
 
                 <Label htmlFor="onSite">On Site</Label>
@@ -212,6 +222,14 @@ const StudentCard = () => {
                   <option value="true">Yes</option>
                   <option value="false">No</option>
                 </select>
+
+                <Label htmlFor="startDate">Start Date</Label>
+                <Input
+                  id="start_date"
+                  type="date"
+                  value={formData.start_date}
+                  onChange={handleInputChange}
+                />
               </div>
             </div>
             <SheetFooter>
@@ -247,13 +265,19 @@ const StudentCard = () => {
             Zip Code: {student.zip_code}
           </p>
           <p className="body-regular text-dark500_light500">
-            Pretest Date: {new Date(student.pretest_date).toLocaleDateString()}
+            State: {student.state}
           </p>
           <p className="body-regular text-dark500_light500">
-            Pretest Passed: {student.pretest_passed ? "Yes" : "No"}
+            Barton C Date: {new Date(student.barton_c_date).toLocaleDateString()}
+          </p>
+          <p className="body-regular text-dark500_light500">
+            Barton C: {student.barton_c ? "Foundations" : "Barton"}
           </p>
           <p className="body-regular text-dark500_light500">
             On Site: {student.on_site ? "Yes" : "No"}
+          </p>
+          <p className="body-regular text-dark500_light500">
+            Start Date: {new Date(student.start_date).toLocaleDateString()}
           </p>
         </div>
       </div>

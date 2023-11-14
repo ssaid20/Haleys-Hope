@@ -46,6 +46,7 @@ const AddElementaryCtopp = () => {
     phonological_awareness_composite: null,
     phonological_memory_composite: null,
     rapid_symbolic_naming_composite: null,
+    rapid_non_symbolic_naming: null,
   });
   const handleGoBack = () => {
     history.push(`/students/${student.id}`);
@@ -263,8 +264,8 @@ const AddElementaryCtopp = () => {
           />
         </div>
         <div className="input-field">
-          <label htmlFor="phonological_awareness_composite">
-            Phonological Awareness Composite:
+          <label htmlFor="phonological_memory_composite">
+            Phonological Memory Composite:
           </label>
           <input
             type="number"
@@ -286,7 +287,18 @@ const AddElementaryCtopp = () => {
             onChange={handleChange}
           />
         </div>
-
+        <div className="input-field">
+          <label htmlFor="rapid_non_symbolic_naming_composite">
+            Rapid Non-Symbolic Naming Composite:
+          </label>
+          <input
+            type="number"
+            id="rapid_non_symbolic_naming_composite"
+            name="rapid_non_symbolic_naming_composite"
+            value={newCtopp.rapid_non_symbolic_naming_composite}
+            onChange={handleChange}
+          />
+        </div>
         <button type="submit">Submit</button>
       </form>
     </>

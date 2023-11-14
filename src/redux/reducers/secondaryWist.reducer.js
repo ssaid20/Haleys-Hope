@@ -1,5 +1,5 @@
 const initialState = {
-  list: [], // Array to store the list of elementary wist tests
+  list: [], // Array to store the list of secondary wist tests
   isLoading: false, // To track the loading state of requests
   error: null, // To store any errors that might occur during requests
   currentRecord: null, // Object to store details of the currently selected record
@@ -46,6 +46,12 @@ const secondaryWistReducer = (state = initialState, action) => {
       };
     default:
       return state;
+    case "SET_SECONDARY_WIST_RESULTS":
+      return {
+        ...state,
+        selectedTest: action.payload,
+        isLoading: false,
+      };
   }
 };
 

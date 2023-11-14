@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useParams } from "react-router-dom";
 
 //component to add a new KTEA test
 const AddKtea = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
+  console.log("student", student);
 
   // const todayDate = new Date().toISOString().split("T")[0]; //function to get todays date to auto populate
 
@@ -25,10 +23,14 @@ const AddKtea = () => {
     handleGoBack;
   });
 
-  const [newKtea, setKTEA] = useState({
+  const [newKtea, setKtea] = useState({
     student_id: student.id,
     date: "",
     examiner_id: "",
+    letter_and_word_recognition_scaled_score: "",
+    letter_and_word_recognition_percentile: "",
+    spelling_scaled_score: "",
+    spelling_percentile: "",
   });
   const handleGoBack = () => {
     history.push(`/students/${student.id}`);
@@ -48,7 +50,9 @@ const AddKtea = () => {
       // Convert to number if the field is numeric
       updatedValue[name] = value ? parseInt(value, 10) : 0;
     }
+    setKtea(updatedValue);
 
+  }
     //function to handle click of submit button
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -61,7 +65,8 @@ const AddKtea = () => {
       history.push(`/students/${student.id}`);
       //history.push back to student details
     };
-    console.log("hello world");
+
+ 
     return (
       <>
         <p>Hello World</p>
@@ -88,26 +93,57 @@ const AddKtea = () => {
             />
           </div>
           <div className="input-field">
-            <label htmlFor="read_regular_words">
+            <label htmlFor="letter_and_word_recognition_scaled_score">
               Letter and Word Recognition SS:
             </label>
             <input
               type="number"
-              id=""
-              name="read_regular_words"
-              value={newWist.read_regular_words}
+              id="letter_and_word_recognition_scaled_score"
+              name="letter_and_word_recognition_scaled_score"
+              value={newKtea.letter_and_word_recognition_scaled_score}
               onChange={handleChange}
             />
           </div>
           <div className="input-field">
-            <label htmlFor="read_irregular_words">
+            <label htmlFor="letter_and_word_recognition_percentile">
               Letter and Word Recognition %ile:
             </label>
+            <input
+              type="number"
+              id="letter_and_word_recognition_percentile"
+              name="letter_and_word_recognition_percentile"
+              value={newKtea.letter_and_word_recognition_percentile}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="input-field">
+            <label htmlFor="spelling_scaled_score">
+              Spelling Scaled Score:
+            </label>
+            <input
+              type="number"
+              id="spelling_scaled_score"
+              name="spelling_scaled_score"
+              value={newKtea.spelling_scaled_score}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="input-field">
+            <label htmlFor="spelling_percentile">
+              Spelling %ile:
+            </label>
+            <input
+              type="number"
+              id="spelling_percentile"
+              name="spelling_percentile"
+              value={newKtea.spelling_percentile}
+              onChange={handleChange}
+            />
           </div>
           <button type="submit">Submit</button>
         </form>
       </>
     );
   };
-};
+
 export default AddKtea;

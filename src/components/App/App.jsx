@@ -22,8 +22,8 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 import StudentDetails from "../StudentDetails/StudentDetails";
 import AddElementaryWist from "../AddTests/AddElementaryWist";
 import AddSecondaryWist from "../AddTests/AddSecondaryWist";
-import "./App.css";
 import AddKtea from "../AddTests/AddKtea";
+import "./App.css";
 
 function App() {
   const dispatch = useDispatch();

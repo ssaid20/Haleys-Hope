@@ -8,6 +8,7 @@ import gortSaga from "./gort.saga";
 import youngerCtoppSaga from "./youngerCtopp.saga";
 import olderCtoppSaga from "./olderCtopp.saga";
 import studentSaga from "./student.saga";
+import kteaSaga from "./ktea.saga";
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -27,5 +28,6 @@ export default function* rootSaga() {
     youngerCtoppSaga(),
     olderCtoppSaga(),
     studentSaga(),
+    kteaSaga(),
   ]);
 }

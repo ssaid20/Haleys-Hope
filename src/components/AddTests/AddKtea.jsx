@@ -27,8 +27,8 @@ const AddKtea = () => {
     student_id: student.id,
     date: "",
     examiner_id: "",
-    letter_and_word_recognition_scaled_score: "",
-    letter_and_word_recognition_percentile: "",
+    lwr_scaled_score: "",
+    lwr_percentile: "",
     spelling_scaled_score: "",
     spelling_percentile: "",
   });
@@ -69,7 +69,6 @@ const AddKtea = () => {
  
     return (
       <>
-        <p>Hello World</p>
         <button onClick={handleGoBack}>GO BACK</button>
         <form onSubmit={handleSubmit}>
           <div className="input-field">
@@ -93,31 +92,35 @@ const AddKtea = () => {
             />
           </div>
           <div className="input-field">
-            <label htmlFor="letter_and_word_recognition_scaled_score">
+            <label htmlFor="lwr_scaled_score">
               Letter and Word Recognition SS:
             </label>
             <input
               type="number"
-              id="letter_and_word_recognition_scaled_score"
-              name="letter_and_word_recognition_scaled_score"
-              value={newKtea.letter_and_word_recognition_scaled_score}
+              id="lwr_scaled_score"
+              name="lwr_scaled_score"
+              value={newKtea.lwr_scaled_score}
               onChange={handleChange}
             />
           </div>
           <div className="input-field">
-            <label htmlFor="letter_and_word_recognition_percentile">
+            <label 
+            // htmlFor="lwr_recognition_percentile"
+            >
               Letter and Word Recognition %ile:
             </label>
             <input
               type="number"
-              id="letter_and_word_recognition_percentile"
-              name="letter_and_word_recognition_percentile"
-              value={newKtea.letter_and_word_recognition_percentile}
+              id="lwr_percentile"
+              name="lwr_percentile"
+              value={newKtea.lwr_percentile}
               onChange={handleChange}
             />
           </div>
           <div className="input-field">
-            <label htmlFor="spelling_scaled_score">
+            <label 
+            htmlFor="spelling_scaled_score"
+            >
               Spelling Scaled Score:
             </label>
             <input

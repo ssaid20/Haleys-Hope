@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
+import {
+  TextField,
+  Button,
+  Grid,
+  FormControl,
+  FormLabel,
+  Paper,
+} from "@mui/material";
 
 //component to add a new KTEA test
 const AddKtea = () => {
@@ -51,102 +59,66 @@ const AddKtea = () => {
       updatedValue[name] = value ? parseInt(value, 10) : 0;
     }
     setKtea(updatedValue);
-
-  }
-    //function to handle click of submit button
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      console.log("New KTEA Entry:", newKtea);
-      dispatch({
-        type: "ADD_KTEA",
-        payload: newKtea,
-      });
-
-      history.push(`/students/${student.id}`);
-      //history.push back to student details
-    };
-
- 
-    return (
-      <>
-        <button onClick={handleGoBack}>GO BACK</button>
-        <form onSubmit={handleSubmit}>
-          <div className="input-field">
-            <label htmlFor="date">Date:</label>
-            <input
-              type="date"
-              id="date"
-              name="date"
-              value={newKtea.date}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="input-field">
-            <label htmlFor="examiner">Examiner:</label>
-            <input
-              type="number"
-              id="examiner_id"
-              name="examiner_id"
-              value={newKtea.examiner_id}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="input-field">
-            <label htmlFor="lwr_scaled_score">
-              Letter and Word Recognition SS:
-            </label>
-            <input
-              type="number"
-              id="lwr_scaled_score"
-              name="lwr_scaled_score"
-              value={newKtea.lwr_scaled_score}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="input-field">
-            <label 
-            // htmlFor="lwr_recognition_percentile"
-            >
-              Letter and Word Recognition %ile:
-            </label>
-            <input
-              type="number"
-              id="lwr_percentile"
-              name="lwr_percentile"
-              value={newKtea.lwr_percentile}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="input-field">
-            <label 
-            htmlFor="spelling_scaled_score"
-            >
-              Spelling Scaled Score:
-            </label>
-            <input
-              type="number"
-              id="spelling_scaled_score"
-              name="spelling_scaled_score"
-              value={newKtea.spelling_scaled_score}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="input-field">
-            <label htmlFor="spelling_percentile">
-              Spelling %ile:
-            </label>
-            <input
-              type="number"
-              id="spelling_percentile"
-              name="spelling_percentile"
-              value={newKtea.spelling_percentile}
-              onChange={handleChange}
-            />
-          </div>
-          <button type="submit">Submit</button>
-        </form>
-      </>
-    );
   };
+  //function to handle click of submit button
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("New KTEA Entry:", newKtea);
+    dispatch({
+      type: "ADD_KTEA",
+      payload: newKtea,
+    });
+
+    history.push(`/students/${student.id}`);
+    //history.push back to student details
+  };
+
+  return (
+    <>
+      <h1 className="text-3xl text-center mb-4 bg-primary-100">KTEA</h1>
+      <Button variant="outlined" onClick={handleGoBack} className="mb-4">
+        GO BACK
+      </Button>
+      <Paper elevation={3} className="p-8">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <Grid container spacing={3}>
+            {/* Dynamically generate Grid items for each field */}
+            {Object.keys(newKtea).map((key) => (
+              <Grid item xs={12} md={4} key={key}>
+                <FormControl fullWidth>
+                  <FormLabel>
+                    {key
+                      .split("_")
+                      .map(
+                        (word) => word.charAt(0).toUpperCase() + word.slice(1)
+                      )
+                      .join(" ")}
+                    :
+                  </FormLabel>
+                  <TextField
+                    type="number"
+                    id={key}
+                    name={key}
+                    value={newKtea[key]}
+                    onChange={handleChange}
+                    variant="outlined"
+                  />
+                </FormControl>
+              </Grid>
+            ))}
+          </Grid>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className="mt-4"
+          >
+            Submit
+          </Button>
+        </form>
+      </Paper>
+    </>
+  );
+};
 
 export default AddKtea;

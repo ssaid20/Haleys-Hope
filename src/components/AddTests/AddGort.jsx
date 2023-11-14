@@ -4,6 +4,7 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
+import { TextField, Button, Grid, FormControl, FormLabel, Paper } from "@mui/material";
 
 //component to add a new Gort test
 const AddGort = () => {
@@ -106,202 +107,52 @@ const AddGort = () => {
 
   return (
     <>
-      <button onClick={handleGoBack}>GO BACK</button>
-      <form onSubmit={handleSubmit}>
-        <div className="input-field">
-          <label htmlFor="date">Date:</label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            value={newGort.date}
-            onChange={handleChange}
-          />
-          {validationErrors.date && (
-            <div className="error">{validationErrors.date}</div>
-          )}
-        </div>
-        <div className="input-field">
-          <label htmlFor="examiner">Examiner:</label>
-          <input
-            type="number"
-            id="examiner_id"
-            name="examiner_id"
-            value={newGort.examiner_id}
-            onChange={handleChange}
-          />
-          {validationErrors.examiner_id && (
-            <div className="error">{validationErrors.examiner_id}</div>
-          )}
-        </div>
+      <h1 className="text-3xl text-center mb-4 bg-primary-100">GORT-5 </h1>
+      <Button variant="outlined" onClick={handleGoBack} className="mb-4">
+        GO BACK
+      </Button>
+      <Paper elevation={3} className="p-8">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <Grid container spacing={3}>
+            {/* Dynamically generate Grid items for each field */}
+            {Object.keys(newGort).map(key => (
+              <Grid item xs={12} md={4} key={key}>
+                <FormControl fullWidth>
+                  <FormLabel>
+                    {key
+                      .split("_")
+                      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                      .join(" ")}
+                    :
+                  </FormLabel>
+                  <TextField
+                    type="number"
+                    id={key}
+                    name={key}
+                    value={newGort[key]}
+                    onChange={handleChange}
+                    variant="outlined"
+                  />
+                  {validationErrors[key] && (
+                    <div className="text-red-500 text-xs italic">
+                      {validationErrors[key]}
+                    </div>
+                  )}
+                </FormControl>
+              </Grid>
+            ))}
 
-        <div className="input-field">
-          <label htmlFor="sum_scaled_score">Sum Scaled Score:</label>
-          <input
-            type="number"
-            id="sum_scaled_score"
-            name="sum_scaled_score"
-            value={newGort.sum_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="oral_reading_percentile_rank">
-            Oral Reading Percentile Rank:
-          </label>
-          <input
-            type="number"
-            id="oral_reading_percentile_rank"
-            name="oral_reading_percentile_rank"
-            value={newGort.oral_reading_percentile_rank}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="oral_reading_index">Oral Reading Index:</label>
-          <input
-            type="number"
-            id="oral_reading_index"
-            name="oral_reading_index"
-            value={newGort.oral_reading_index}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="rate_raw_total">Rate Raw Total:</label>
-          <input
-            type="number"
-            id="rate_raw_total"
-            name="rate_raw_total"
-            value={newGort.rate_raw_total}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="accuracy_raw_total">Accuracy Raw Total:</label>
-          <input
-            type="number"
-            id="accuracy_raw_total"
-            name="accuracy_raw_total"
-            value={newGort.accuracy_raw_total}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="fluency_raw_total">Fluency Raw Total:</label>
-          <input
-            type="number"
-            id="fluency_raw_total"
-            name="fluency_raw_total"
-            value={newGort.fluency_raw_total}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="rate_percentile_rank">Rate Percentile Rank:</label>
-          <input
-            type="number"
-            id="rate_percentile_rank"
-            name="rate_percentile_rank"
-            value={newGort.rate_percentile_rank}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="input-field">
-          <label htmlFor="accuracy_percentile_rank">
-            Accuracy Percentile Rank:
-          </label>
-          <input
-            type="number"
-            id="accuracy_percentile_rank"
-            name="accuracy_percentile_rank"
-            value={newGort.accuracy_percentile_rank}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="fluency_percentile_rank">
-            Fluency Percentile Rank:
-          </label>
-          <input
-            type="number"
-            id="fluency_percentile_rank"
-            name="fluency_percentile_rank"
-            value={newGort.fluency_percentile_rank}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="input-field">
-          <label htmlFor="comprehension_percentile_rank">
-            Comprehension Percentile Rank:
-          </label>
-          <input
-            type="number"
-            id="comprehension_percentile_rank"
-            name="comprehension_percentile_rank"
-            value={newGort.comprehension_percentile_rank}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="rate_scaled_score">Rate Scaled Score:</label>
-          <input
-            type="number"
-            id="rate_scaled_score"
-            name="rate_scaled_score"
-            value={newGort.rate_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="comprehension_raw_total">
-            Comprehension Raw Total:
-          </label>
-          <input
-            type="number"
-            id="comprehension_raw_total"
-            name="comprehension_raw_total"
-            value={newGort.comprehension_raw_total}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="accuracy_scaled_score">Accuracy Scaled Score:</label>
-          <input
-            type="number"
-            id="accuracy_scaled_score"
-            name="accuracy_scaled_score"
-            value={newGort.accuracy_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="fluency_scaled_score">Fluency Scaled Score:</label>
-          <input
-            type="number"
-            id="fluency_scaled_score"
-            name="fluency_scaled_score"
-            value={newGort.fluency_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="comprehension_scaled_score">
-            Comprehension Scaled Score:
-          </label>
-          <input
-            type="number"
-            id="comprehension_scaled_score"
-            name="comprehension_scaled_score"
-            value={newGort.comprehension_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-
-        <button type="submit">Submit</button>
-      </form>
+          </Grid>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className="mt-4"
+          >
+            Submit
+          </Button>
+        </form>
+      </Paper>
     </>
   );
 };

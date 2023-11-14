@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { formatDate } from "../../lib/utils"; 
+import { formatDate } from "../../lib/utils";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -11,19 +11,25 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { calculateAge } from "../../lib/utils";
 
 const columns = [
-  { id: "id", label: "ID", minWidth: 100 },
+  // { id: "id", label: "ID", minWidth: 100 }, // took id out student list
   { id: "picture", label: "Picture", minWidth: 170 },
   { id: "name", label: "Name", minWidth: 170 },
-  { id: "grade", label: "Grade", minWidth: 100 },
-  { id: "gender", label: "Gender", minWidth: 100 },
-  { id: "dob", label: "Date of Birth", minWidth: 130 },
-  { id: "school", label: "School", minWidth: 160 },
-  { id: "address", label: "Address", minWidth: 200 },
-  { id: "county", label: "County", minWidth: 150 },
-  { id: "zip_code", label: "Zip Code", minWidth: 120 },
-  { id: "on_site", label: "Status", minWidth: 120 },
+  { id: "age", label: "Age", minWidth: 80 },
+  { id: "grade", label: "Grade", minWidth: 80 },
+  { id: "city", label: "City", minWidth: 150 },
+  { id: "state", label: "State", minWidth: 150 },
+  { id: "start_date", label: "Start Date", minWidth: 130 },
+  // { id: "gender", label: "Gender", minWidth: 100 },
+
+  // { id: "dob", label: "Date of Birth", minWidth: 130 },
+  // { id: "school", label: "School", minWidth: 160 },
+  // { id: "address", label: "Address", minWidth: 200 },
+  // { id: "county", label: "County", minWidth: 150 },
+  // { id: "zip_code", label: "Zip Code", minWidth: 120 }, // may be able to grab city and state from here
+  // { id: "on_site", label: "Status", minWidth: 120 }, *** only need on more details ***
 ];
 
 const StudentList = () => {
@@ -41,14 +47,26 @@ const StudentList = () => {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+  // function to calculate a students age using dob
+  // function calculateAge(dob) {
+  //   const birthday = new Date(dob);
+  //   const today = new Date();
+  //   let age = today.getFullYear() - birthday.getFullYear();
+  //   const m = today.getMonth() - birthday.getMonth();
+  //   if (m < 0 || (m === 0 && today.getDate() < birthday.getDate())) {
+  //     age--;
+  //   }
+  //   return age;
+  // }
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  console.log("logging Students in list", students);
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: 840 }}>
         <Table stickyHeader aria-label="student table">
           <TableHead>
             <TableRow>
@@ -70,8 +88,11 @@ const StudentList = () => {
                 const formattedStudent = {
                   ...student,
                   name: `${student.first_name} ${student.last_name}`,
-                  on_site: student.on_site ? "On-Site" : "Virtual",
-                  dob: formatDate(student.dob), // Assuming formatDate is your date formatting function
+                  age: calculateAge(student.dob),
+                  city: student.address, // *** need to fix our address input then make function to pull out city and state ***
+                  //on_site: student.on_site ? "On-Site" : "Virtual", *** only need on more details ***
+                  // dob: formatDate(student.dob), // formatting date *** only need on more details ***
+                  start_date: formatDate(student.pretest_date), // *** using pretest date, do we need a start date column? ***
                   picture: (
                     <img
                       src={student.picture}

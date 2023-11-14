@@ -24,9 +24,7 @@ const StudentCard = () => {
   
 
   useEffect(() => {
-    if (studentId) {
-      dispatch({ type: "FETCH_STUDENT", payload: studentId });
-    }
+    dispatch({ type: "FETCH_STUDENT", payload: studentId });
   }, [dispatch, studentId]);
 
   // State to hold form data

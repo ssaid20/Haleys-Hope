@@ -3,7 +3,6 @@ import axios from "axios";
 
 //saga for fetching data
 function* fetchGort(action) {
-  console.log("payload in Gort saga:", action.payload);
   try {
     const response = yield call(axios.get, `/api/gort/${action.payload}`);
     yield put({ type: "SET_GORT", payload: response.data });

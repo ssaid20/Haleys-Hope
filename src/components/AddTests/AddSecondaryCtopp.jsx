@@ -5,8 +5,8 @@ import {
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 
-//component to add a new Gort test
-const AddGort = () => {
+//component to add a new Secondary ctopp test
+const AddSecondaryCtopp = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
@@ -29,25 +29,24 @@ const AddGort = () => {
     handleGoBack;
   });
 
-  const [newGort, setNewGort] = useState({
+  const [newCtopp, setNewCtopp] = useState({
     student_id: student.id,
     date: "",
     examiner_id: "",
-    sum_scaled_score: null,
-    oral_reading_percentile_rank: null,
-    oral_reading_index: null,
-    rate_raw_total: null,
-    accuracy_raw_total: null,
-    fluency_raw_total: null,
-    rate_percentile_rank: null,
-    accuracy_percentile_rank: null,
-    fluency_percentile_rank: null,
-    comprehension_percentile_rank: null,
-    comprehension_raw_total: null,
-    rate_scaled_score: null,
-    accuracy_scaled_score: null,
-    fluency_scaled_score: null,
-    comprehension_scaled_score: null,
+    elison_scaled_score: null,
+    blending_words_scaled_score: null,
+    phoneme_isolation_scaled_score: null,
+    memory_for_digits_scaled_score: null,
+    nonword_repetition_scaled_score: null,
+    rapid_digit_naming_scaled_score: null,
+    rapid_letter_naming_scaled_score: null,
+    deleteme: null,
+    blending_nonwords_scaled_score: null,
+    segmenting_nonwords_scaled_score: null,
+    phonological_awareness_composite: null,
+    phonological_memory_composite: null,
+    rapid_symbolic_naming_composite: null,
+    alt_phonological_awareness_composite: null,
   });
   const handleGoBack = () => {
     history.push(`/students/${student.id}`);
@@ -62,12 +61,12 @@ const AddGort = () => {
 
       return newErrors;
     });
-    // setNewGort((prevCtopp) => ({
+    // setNewCtopp((prevCtopp) => ({
     //   ...prevCtopp,
     //   [name]: value === "" ? null : Number(value),
     // }));
-    setNewGort((prevGort) => ({
-      ...prevGort,
+    setNewCtopp((prevCtopp) => ({
+      ...prevCtopp,
       [name]: value, // Use computed property name to update the state
     }));
   };
@@ -77,13 +76,13 @@ const AddGort = () => {
     e.preventDefault();
     // Validate all inputs before submission
     const newErrors = {};
-    if (!newGort.date) {
+    if (!newCtopp.date) {
       newErrors.date = "Date is required";
-    } else if (new Date(newGort.date) > new Date()) {
+    } else if (new Date(newCtopp.date) > new Date()) {
       newErrors.date = "Date cannot be in the future";
     }
 
-    if (!newGort.examiner_id) {
+    if (!newCtopp.examiner_id) {
       newErrors.examiner_id = "Examiner is required";
     }
 
@@ -96,8 +95,8 @@ const AddGort = () => {
     }
 
     dispatch({
-      type: "ADD_GORT",
-      payload: newGort,
+      type: "ADD_OLDER_CTOPP",
+      payload: newCtopp,
     });
 
     history.push(`/students/${student.id}`);
@@ -114,7 +113,7 @@ const AddGort = () => {
             type="date"
             id="date"
             name="date"
-            value={newGort.date}
+            value={newCtopp.date}
             onChange={handleChange}
           />
           {validationErrors.date && (
@@ -127,183 +126,180 @@ const AddGort = () => {
             type="number"
             id="examiner_id"
             name="examiner_id"
-            value={newGort.examiner_id}
+            value={newCtopp.examiner_id}
             onChange={handleChange}
           />
           {validationErrors.examiner_id && (
             <div className="error">{validationErrors.examiner_id}</div>
           )}
         </div>
-
+        <div>
+          <strong>Subtest</strong>
+        </div>
         <div className="input-field">
-          <label htmlFor="sum_scaled_score">Sum Scaled Score:</label>
+          <label htmlFor="elison_scaled_score">Elison Scaled Score:</label>
           <input
             type="number"
-            id="sum_scaled_score"
-            name="sum_scaled_score"
-            value={newGort.sum_scaled_score}
+            id="elison_scaled_score"
+            name="elison_scaled_score"
+            value={newCtopp.elison_scaled_score}
             onChange={handleChange}
           />
         </div>
         <div className="input-field">
-          <label htmlFor="oral_reading_percentile_rank">
-            Oral Reading Percentile Rank:
+          <label htmlFor="blending_words_scaled_score">
+            Blending Words Scaled Score:
           </label>
           <input
             type="number"
-            id="oral_reading_percentile_rank"
-            name="oral_reading_percentile_rank"
-            value={newGort.oral_reading_percentile_rank}
+            id="blending_words_scaled_score"
+            name="blending_words_scaled_score"
+            value={newCtopp.blending_words_scaled_score}
             onChange={handleChange}
           />
         </div>
         <div className="input-field">
-          <label htmlFor="oral_reading_index">Oral Reading Index:</label>
-          <input
-            type="number"
-            id="oral_reading_index"
-            name="oral_reading_index"
-            value={newGort.oral_reading_index}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="rate_raw_total">Rate Raw Total:</label>
-          <input
-            type="number"
-            id="rate_raw_total"
-            name="rate_raw_total"
-            value={newGort.rate_raw_total}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="accuracy_raw_total">Accuracy Raw Total:</label>
-          <input
-            type="number"
-            id="accuracy_raw_total"
-            name="accuracy_raw_total"
-            value={newGort.accuracy_raw_total}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="fluency_raw_total">Fluency Raw Total:</label>
-          <input
-            type="number"
-            id="fluency_raw_total"
-            name="fluency_raw_total"
-            value={newGort.fluency_raw_total}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="rate_percentile_rank">Rate Percentile Rank:</label>
-          <input
-            type="number"
-            id="rate_percentile_rank"
-            name="rate_percentile_rank"
-            value={newGort.rate_percentile_rank}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="input-field">
-          <label htmlFor="accuracy_percentile_rank">
-            Accuracy Percentile Rank:
+          <label htmlFor="phoneme_isolation_scaled_score">
+            Phoneme Isolation Scaled Score:
           </label>
           <input
             type="number"
-            id="accuracy_percentile_rank"
-            name="accuracy_percentile_rank"
-            value={newGort.accuracy_percentile_rank}
+            id="phoneme_isolation_scaled_score"
+            name="phoneme_isolation_scaled_score"
+            value={newCtopp.phoneme_isolation_scaled_score}
             onChange={handleChange}
           />
         </div>
         <div className="input-field">
-          <label htmlFor="fluency_percentile_rank">
-            Fluency Percentile Rank:
+          <label htmlFor="memory_for_digits_scaled_score">
+            Memory For Digits Scaled Score:
           </label>
           <input
             type="number"
-            id="fluency_percentile_rank"
-            name="fluency_percentile_rank"
-            value={newGort.fluency_percentile_rank}
+            id="memory_for_digits_scaled_score"
+            name="memory_for_digits_scaled_score"
+            value={newCtopp.memory_for_digits_scaled_score}
             onChange={handleChange}
           />
         </div>
-
         <div className="input-field">
-          <label htmlFor="comprehension_percentile_rank">
-            Comprehension Percentile Rank:
+          <label htmlFor="nonword_repetition_scaled_score">
+            Nonword Repetition Scaled Score:
           </label>
           <input
             type="number"
-            id="comprehension_percentile_rank"
-            name="comprehension_percentile_rank"
-            value={newGort.comprehension_percentile_rank}
+            id="nonword_repetition_scaled_score"
+            name="nonword_repetition_scaled_score"
+            value={newCtopp.nonword_repetition_scaled_score}
             onChange={handleChange}
           />
         </div>
         <div className="input-field">
-          <label htmlFor="rate_scaled_score">Rate Scaled Score:</label>
-          <input
-            type="number"
-            id="rate_scaled_score"
-            name="rate_scaled_score"
-            value={newGort.rate_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="comprehension_raw_total">
-            Comprehension Raw Total:
+          <label htmlFor="rapid_digit_naming_scaled_score">
+            Rapid Digit Naming Scaled Score:
           </label>
           <input
             type="number"
-            id="comprehension_raw_total"
-            name="comprehension_raw_total"
-            value={newGort.comprehension_raw_total}
+            id="rapid_digit_naming_scaled_score"
+            name="rapid_digit_naming_scaled_score"
+            value={newCtopp.rapid_digit_naming_scaled_score}
             onChange={handleChange}
           />
         </div>
         <div className="input-field">
-          <label htmlFor="accuracy_scaled_score">Accuracy Scaled Score:</label>
-          <input
-            type="number"
-            id="accuracy_scaled_score"
-            name="accuracy_scaled_score"
-            value={newGort.accuracy_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="fluency_scaled_score">Fluency Scaled Score:</label>
-          <input
-            type="number"
-            id="fluency_scaled_score"
-            name="fluency_scaled_score"
-            value={newGort.fluency_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="comprehension_scaled_score">
-            Comprehension Scaled Score:
+          <label htmlFor="rapid_letter_naming_scaled_score">
+            Rapid Letter Naming Scaled Score:
           </label>
           <input
             type="number"
-            id="comprehension_scaled_score"
-            name="comprehension_scaled_score"
-            value={newGort.comprehension_scaled_score}
+            id="rapid_letter_naming_scaled_score"
+            name="rapid_letter_naming_scaled_score"
+            value={newCtopp.rapid_letter_naming_scaled_score}
             onChange={handleChange}
           />
         </div>
-
+        <div>
+          <strong>Supplemental</strong>
+        </div>
+        <div className="input-field">
+          <label htmlFor="blending_nonwords_scaled_score">
+            Blending Nonwords Scaled Score:
+          </label>
+          <input
+            type="number"
+            id="blending_nonwords_scaled_score"
+            name="blending_nonwords_scaled_score"
+            value={newCtopp.blending_nonwords_scaled_score}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="input-field">
+          <label htmlFor="segmenting_nonwords_scaled_score">
+            Segmenting Nonwords Scaled Score:
+          </label>
+          <input
+            type="number"
+            id="segmenting_nonwords_scaled_score"
+            name="segmenting_nonwords_scaled_score"
+            value={newCtopp.segmenting_nonwords_scaled_score}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <strong>Composite</strong>
+        </div>
+        <div className="input-field">
+          <label htmlFor="phonological_awareness_composite">
+            Phonological Awareness Composite:
+          </label>
+          <input
+            type="number"
+            id="phonological_awareness_composite"
+            name="phonological_awareness_composite"
+            value={newCtopp.phonological_awareness_composite}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="input-field">
+          <label htmlFor="phonological_memory_composite">
+            Phonological Memory Composite:
+          </label>
+          <input
+            type="number"
+            id="phonological_memory_composite"
+            name="phonological_memory_composite"
+            value={newCtopp.phonological_memory_composite}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="input-field">
+          <label htmlFor="rapid_symbolic_naming_composite">
+            Rapid Symbolic Naming Composite:
+          </label>
+          <input
+            type="number"
+            id="rapid_symbolic_naming_composite"
+            name="rapid_symbolic_naming_composite"
+            value={newCtopp.rapid_symbolic_naming_composite}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="input-field">
+          <label htmlFor="alt_phonological_awareness_composite">
+            Alt Phonological Awareness:
+          </label>
+          <input
+            type="number"
+            id="alt_phonological_awareness_composite"
+            name="alt_phonological_awareness_composite"
+            value={newCtopp.alt_phonological_awareness_composite}
+            onChange={handleChange}
+          />
+        </div>
         <button type="submit">Submit</button>
       </form>
     </>
   );
 };
 
-export default AddGort;
+export default AddSecondaryCtopp;

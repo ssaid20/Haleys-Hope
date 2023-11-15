@@ -3,6 +3,7 @@ const initialState = {
   isLoading: false, // To track the loading state of requests
   error: null, // To store any errors that might occur during requests
   currentRecord: null, // Object to store details of the currently selected record
+  selectedTest: [],
 };
 
 // defining reducer with the initial state
@@ -31,6 +32,7 @@ const elementaryWistReducer = (state = initialState, action) => {
         ...state,
         list: [...state.list, action.payload],
       };
+
     case "UPDATE_ELEMENTARY_WIST":
       return {
         ...state,
@@ -45,6 +47,13 @@ const elementaryWistReducer = (state = initialState, action) => {
       };
     default:
       return state;
+
+    case "SET_ELEMENTARY_WIST_RESULTS":
+      return {
+        ...state,
+        selectedTest: action.payload,
+        isLoading: false,
+      };
   }
 };
 

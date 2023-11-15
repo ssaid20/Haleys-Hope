@@ -3,6 +3,8 @@ const initialState = {
   isLoading: false, // To track the loading state of requests
   error: null, // To store any errors that might occur during requests
   currentRecord: null, // Object to store details of the currently selected record
+  selectedTest: [],
+
 };
 
 // defining reducer with the initial state
@@ -26,6 +28,12 @@ const gortReducer = (state = initialState, action) => {
           item.id === action.payload.id ? action.payload : item
         ),
       };
+      case "SET_GORT_RESULTS":
+        return {
+          ...state,
+          selectedTest: action.payload,
+          isLoading: false,
+        };
     // I don't think we will need delete
     //   case "DELETE_GORT":
     //     return {

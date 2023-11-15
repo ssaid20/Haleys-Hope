@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool");
 
-// GET route to fetch elementary wist tests for a specific student
+// GET route to fetch secondary wist tests for a specific student
 // Tested and working in Postman
 router.get("/:student_id", (req, res) => {
   const studentId = req.params.student_id;
@@ -20,6 +20,24 @@ router.get("/:student_id", (req, res) => {
       res.sendStatus(500);
     });
 }); // end router.get
+
+//router to get a specific test
+router.get("/secondaryWistResults/:testId", (req, res) => {
+  const testId = req.params.testId;
+  const queryText = 'SELECT * FROM "secondary_wist" WHERE "id" = $1';
+  pool
+    .query(queryText, [testId])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.error(
+        "Error completing SELECT secondary_wist query for test id",
+        err
+      );
+      res.sendStatus(500);
+    });
+});
 
 // POST route to add a new record for a specific student
 // Tested and working in Postman

@@ -30,7 +30,7 @@ const YoungerCtoppResults = () => {
   }
   console.log("selectedtestyboi", selectedTest);
 
-  const goBack = () => history.push("/students/:id");
+  const goBack = () => history.push(`/students/${selectedTest.student_id}`);
 
   return (
     <div>

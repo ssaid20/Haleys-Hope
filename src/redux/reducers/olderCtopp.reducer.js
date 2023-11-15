@@ -4,7 +4,6 @@ const initialState = {
   error: null, // To store any errors that might occur during requests
   currentRecord: null, // Object to store details of the currently selected older ctopp record
   selectedTest: [],
-
 };
 
 // defining the olderCtoppReducer with the initial state
@@ -34,6 +33,13 @@ const olderCtoppReducer = (state = initialState, action) => {
       };
     default:
       return state;
+
+    case "SET_OLDER_CTOPP_RESULTS":
+      return {
+        ...state,
+        selectedTest: action.payload,
+        isLoading: false,
+      };
   }
 };
 

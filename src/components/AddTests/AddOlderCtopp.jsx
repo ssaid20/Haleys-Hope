@@ -40,7 +40,6 @@ const AddOlderCtopp = () => {
     nonword_repetition_scaled_score: null,
     rapid_digit_naming_scaled_score: null,
     rapid_letter_naming_scaled_score: null,
-    deleteme: null,
     blending_nonwords_scaled_score: null,
     segmenting_nonwords_scaled_score: null,
     phonological_awareness_composite: null,

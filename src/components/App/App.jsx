@@ -103,7 +103,7 @@ function App() {
           <ProtectedRoute exact path="/addKtea/:id">
             <AddKtea />
           </ProtectedRoute>
-          <ProtectedRoute exact path="/KteaResults/:id">
+          <ProtectedRoute exact path="/kteaResults/:id">
             <KteaResults />
           </ProtectedRoute>
           <ProtectedRoute

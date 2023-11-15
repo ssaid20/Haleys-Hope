@@ -13,7 +13,7 @@ function* fetchKtea(action) {
 }
 // saga for getting specific KTEA
 function* fetchKteaResults(action) {
-  console.log("Action.payload in fetch saga FOR KTEA", action.payload);
+  console.log("Action.payload in fetch saga FOR SPECIFIC KTEA", action.payload);
   try {
     const response = yield call(
       axios.get,

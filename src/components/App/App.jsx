@@ -27,6 +27,7 @@ import ElementaryWistResults from "../TestResults/ElementaryWistResults";
 import GortResults from "../TestResults/GortResults";
 import SecondaryWistResults from "../TestResults/SecondaryWistResults";
 import "./App.css";
+import KteaResults from "../TestResults/KteaResults";
 
 function App() {
   const dispatch = useDispatch();
@@ -88,9 +89,6 @@ function App() {
           <ProtectedRoute exact path="/gortResults/:id">
             <ElementaryWistResults />
           </ProtectedRoute>
-          {/* <ProtectedRoute exact path="/GortResults/:id">
-            <GortResults />
-          </ProtectedRoute> */}
           <ProtectedRoute exact path="/addElementaryCtopp/:id">
             <AddElementaryCtopp />
           </ProtectedRoute>
@@ -106,9 +104,9 @@ function App() {
           <ProtectedRoute exact path="/addKtea/:id">
             <AddKtea />
           </ProtectedRoute>
-          {/* <ProtectedRoute exact path="/KteaResults/:id">
+          <ProtectedRoute exact path="/kteaResults/:id">
             <KteaResults />
-          </ProtectedRoute> */}
+          </ProtectedRoute>
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact

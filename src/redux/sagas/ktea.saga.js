@@ -11,6 +11,19 @@ function* fetchKtea(action) {
     console.log("Error fetching KTEA data", error);
   }
 }
+// saga for getting specific KTEA
+function* fetchKteaResults(action) {
+  console.log("Action.payload in fetch saga FOR KTEA", action.payload);
+  try {
+    const response = yield call(
+      axios.get,
+      `/api/ktea/kteaResults/${action.payload}`
+    );
+    yield put({ type: "SET_KTEA_RESULTS", payload: response.data });
+  } catch (error) {
+    console.log("Error fetching KTEA data", error);
+  }
+}
 
 //saga for adding data to KTEA
 function* addKtea(action) {
@@ -67,6 +80,7 @@ function* kteaSaga() {
   yield takeLatest("ADD_KTEA", addKtea);
   yield takeLatest("UPDATE_KTEA", updateKtea);
   yield takeLatest("DELETE_KTEA", deleteKtea);
+  yield takeLatest("FETCH_KTEA_RESULTS", fetchKteaResults)
 }
 
 export default kteaSaga;

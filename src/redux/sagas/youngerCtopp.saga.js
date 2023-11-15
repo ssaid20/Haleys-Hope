@@ -1,5 +1,6 @@
-import { takeLatest, put, call } from "redux-saga/effects";
+import { takeLatest, put, call, take } from "redux-saga/effects";
 import axios from "axios";
+import { SpatialTrackingTwoTone } from "@mui/icons-material";
 
 function* fetchYoungerCtopp(action) {
   try {
@@ -12,6 +13,25 @@ function* fetchYoungerCtopp(action) {
     console.log("Error fetching younger_ctopp data", error);
   }
 }
+
+//saga for fetching a specific test data
+function* fetchYoungerCtoppResult(action) {
+  console.log("Action.payload in fetch saga", action.payload);
+  try {
+    const response = yield call(
+      axios.get,
+      `/api/young_ctopp/youngerCtoppResults/${action.payload}`
+    );
+    console.log(
+      "fetch younger ctopp result saga action.payload",
+      action.payload
+    );
+    yield put({ type: "SET_YOUNGER_CTOPP_RESULTS", payload: response.data });
+  } catch (error) {
+    console.log("Error fetching younger ctopp data", error);
+  }
+}
+
 // Saga for adding younger_ctopp data
 function* addYoungerCtopp(action) {
   try {
@@ -67,6 +87,7 @@ function* youngerCtoppSaga() {
   yield takeLatest("ADD_YOUNGER_CTOPP", addYoungerCtopp);
   yield takeLatest("UPDATE_YOUNGER_CTOPP", updateYoungerCtopp);
   yield takeLatest("DELETE_YOUNGER_CTOPP", deleteYoungerCtopp);
+  yield takeLatest("FETCH_YOUNGER_CTOPP_RESULTS", fetchYoungerCtoppResult);
 }
 
 export default youngerCtoppSaga;

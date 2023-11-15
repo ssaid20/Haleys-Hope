@@ -10,7 +10,19 @@ function* fetchGort(action) {
     console.log("Error fetching GORT data", error);
   }
 }
-
+// saga for getting specific GORT
+function* fetchGortResults(action) {
+  console.log("Action.payload in fetch saga FOR SPECIFIC GORT", action.payload);
+  try {
+    const response = yield call(
+      axios.get,
+      `/api/gort/gortResults/${action.payload}`
+    );
+    yield put({ type: "SET_GORT_RESULTS", payload: response.data });
+  } catch (error) {
+    console.log("Error fetching GORT data", error);
+  }
+}
 //saga for adding data to GORT
 function* addGort(action) {
   try {
@@ -60,6 +72,7 @@ function* gortSaga() {
   yield takeLatest("ADD_GORT", addGort);
   yield takeLatest("UPDATE_GORT", updateGort);
   yield takeLatest("DELETE_GORT", deleteGort);
+  yield takeLatest("FETCH_GORT_RESULTS", fetchGortResults)
 }
 
 export default gortSaga;

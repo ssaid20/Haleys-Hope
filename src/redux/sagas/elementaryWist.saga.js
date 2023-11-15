@@ -13,7 +13,20 @@ function* fetchElementaryWist(action) {
     console.log("Error fetching elementary wist data", error);
   }
 }
+//saga for fetching a specific test data
+function* fetchElementaryWistResult(action) {
+  console.log("Action.payload in fetch saga for elem wist", action.payload);
+  try {
+    const response = yield call(
+      axios.get,
+      `/api/elementary_wist/elementaryWistResults/${action.payload}`
+    );
 
+    yield put({ type: "SET_ELEMENTARY_WIST_RESULTS", payload: response.data });
+  } catch (error) {
+    console.log("Error fetching elementary wist data", error);
+  }
+}
 //saga for adding data to wist
 function* addElementaryWist(action) {
   try {
@@ -63,6 +76,7 @@ function* elementaryWistSaga() {
   yield takeLatest("ADD_ELEMENTARY_WIST", addElementaryWist);
   yield takeLatest("UPDATE_ELEMENTARY_WIST", updateElementaryWist);
   yield takeLatest("DELETE_ELEMENTARY_WIST", deleteElementaryWist);
+  yield takeLatest("FETCH_ELEMENTARY_WIST_RESULTS", fetchElementaryWistResult);
 }
 
 export default elementaryWistSaga;

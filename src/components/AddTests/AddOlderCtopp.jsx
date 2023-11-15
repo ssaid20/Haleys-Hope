@@ -7,14 +7,14 @@ import {
 import {
   TextField,
   Button,
+  Grid,
   FormControl,
   FormLabel,
   Paper,
-  Grid,
 } from "@mui/material";
 
-//component to add a new elementary ctopp test
-const AddElementaryCtopp = () => {
+//component to add a new Secondary ctopp test
+const AddOlderCtopp = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
@@ -43,18 +43,17 @@ const AddElementaryCtopp = () => {
     examiner_id: "",
     elison_scaled_score: null,
     blending_words_scaled_score: null,
-    sound_matching_scaled_score: null,
+    phoneme_isolation_scaled_score: null,
     memory_for_digits_scaled_score: null,
     nonword_repetition_scaled_score: null,
     rapid_digit_naming_scaled_score: null,
     rapid_letter_naming_scaled_score: null,
-    rapid_color_naming_scaled_score: null,
-    rapid_object_naming: null,
     blending_nonwords_scaled_score: null,
+    segmenting_nonwords_scaled_score: null,
     phonological_awareness_composite: null,
     phonological_memory_composite: null,
     rapid_symbolic_naming_composite: null,
-    rapid_non_symbolic_naming: null,
+    alt_phonological_awareness_composite: null,
   });
   const handleGoBack = () => {
     history.push(`/students/${student.id}`);
@@ -103,29 +102,26 @@ const AddElementaryCtopp = () => {
     }
 
     dispatch({
-      type: "ADD_YOUNGER_CTOPP",
+      type: "ADD_OLDER_CTOPP",
       payload: newCtopp,
     });
 
     history.push(`/students/${student.id}`);
     //history.push back to student details
   };
+
   return (
     <>
       <h1 className="text-3xl text-center mb-4 bg-primary-100">
-        CTOPP-2 Under 7
+        CTOPP-2 Over 7
       </h1>
-      <Button
-        variant="outlined"
-        onClick={handleGoBack}
-        className="mb-4 bg-primary-500"
-      >
+      <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         GO BACK
       </Button>
       <Paper elevation={3} className="p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           <Grid container spacing={3}>
-            {/* Individual Grid Items for Each Field */}
+            {/* Date Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <FormLabel>Date:</FormLabel>
@@ -136,15 +132,27 @@ const AddElementaryCtopp = () => {
                   value={newCtopp.date}
                   onChange={handleChange}
                   variant="outlined"
+                  error={!!validationErrors.date}
+                  helperText={validationErrors.date}
                 />
-                {validationErrors.date && (
-                  <div className="text-red-500 text-xs italic">
-                    {validationErrors.date}
-                  </div>
-                )}
+              </FormControl>
+            </Grid>
+            {/* Student ID Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Student ID:</FormLabel>
+                <TextField
+                  type="number"
+                  id="student_id"
+                  name="student_id"
+                  value={newCtopp.student_id}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
               </FormControl>
             </Grid>
 
+            {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <FormLabel>Examiner ID:</FormLabel>
@@ -155,20 +163,16 @@ const AddElementaryCtopp = () => {
                   value={newCtopp.examiner_id}
                   onChange={handleChange}
                   variant="outlined"
+                  error={!!validationErrors.examiner_id}
+                  helperText={validationErrors.examiner_id}
                 />
-                {validationErrors.examiner_id && (
-                  <div className="text-red-500 text-xs italic">
-                    {validationErrors.examiner_id}
-                  </div>
-                )}
               </FormControl>
             </Grid>
 
-            {/* Repeat for other fields in newCtopp */}
-            {/* Elison Scaled Score */}
+            {/* Elision Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Elison Scaled Score:</FormLabel>
+                <FormLabel>Elision Scaled Score:</FormLabel>
                 <TextField
                   type="number"
                   id="elison_scaled_score"
@@ -179,8 +183,7 @@ const AddElementaryCtopp = () => {
                 />
               </FormControl>
             </Grid>
-
-            {/* Blending Words Scaled Score */}
+            {/* Blending Words Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <FormLabel>Blending Words Scaled Score:</FormLabel>
@@ -194,26 +197,24 @@ const AddElementaryCtopp = () => {
                 />
               </FormControl>
             </Grid>
-
-            {/* Sound Matching Scaled Score */}
+            {/* Phoneme Isolation Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Sound Matching Scaled Score:</FormLabel>
+                <FormLabel>Phoneme Isolation Scaled Score:</FormLabel>
                 <TextField
                   type="number"
-                  id="sound_matching_scaled_score"
-                  name="sound_matching_scaled_score"
-                  value={newCtopp.sound_matching_scaled_score}
+                  id="phoneme_isolation_scaled_score"
+                  name="phoneme_isolation_scaled_score"
+                  value={newCtopp.phoneme_isolation_scaled_score}
                   onChange={handleChange}
                   variant="outlined"
                 />
               </FormControl>
             </Grid>
-
-            {/* Memory For Digits Scaled Score */}
+            {/* Memory for Digits Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Memory For Digits Scaled Score:</FormLabel>
+                <FormLabel>Memory for Digits Scaled Score:</FormLabel>
                 <TextField
                   type="number"
                   id="memory_for_digits_scaled_score"
@@ -224,8 +225,7 @@ const AddElementaryCtopp = () => {
                 />
               </FormControl>
             </Grid>
-
-            {/* Nonword Repetition Scaled Score */}
+            {/* Nonword Repetition Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <FormLabel>Nonword Repetition Scaled Score:</FormLabel>
@@ -239,8 +239,7 @@ const AddElementaryCtopp = () => {
                 />
               </FormControl>
             </Grid>
-
-            {/* Rapid Digit Naming Scaled Score */}
+            {/* Rapid Digit Naming Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <FormLabel>Rapid Digit Naming Scaled Score:</FormLabel>
@@ -254,8 +253,7 @@ const AddElementaryCtopp = () => {
                 />
               </FormControl>
             </Grid>
-
-            {/* Rapid Letter Naming Scaled Score */}
+            {/* Rapid Letter Naming Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <FormLabel>Rapid Letter Naming Scaled Score:</FormLabel>
@@ -269,38 +267,7 @@ const AddElementaryCtopp = () => {
                 />
               </FormControl>
             </Grid>
-
-            {/* Rapid Color Naming Scaled Score */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Rapid Color Naming Scaled Score:</FormLabel>
-                <TextField
-                  type="number"
-                  id="rapid_color_naming_scaled_score"
-                  name="rapid_color_naming_scaled_score"
-                  value={newCtopp.rapid_color_naming_scaled_score}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
-
-            {/* Rapid Object Naming */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Rapid Object Naming:</FormLabel>
-                <TextField
-                  type="number"
-                  id="rapid_object_naming"
-                  name="rapid_object_naming"
-                  value={newCtopp.rapid_object_naming}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
-
-            {/* Blending Nonwords Scaled Score */}
+            {/* Blending Nonwords Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <FormLabel>Blending Nonwords Scaled Score:</FormLabel>
@@ -314,8 +281,21 @@ const AddElementaryCtopp = () => {
                 />
               </FormControl>
             </Grid>
-
-            {/* Phonological Awareness Composite */}
+            {/* Segmenting Nonwords Scaled Score Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Segmenting Nonwords Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="segmenting_nonwords_scaled_score"
+                  name="segmenting_nonwords_scaled_score"
+                  value={newCtopp.segmenting_nonwords_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Phonological Awareness Composite Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <FormLabel>Phonological Awareness Composite:</FormLabel>
@@ -329,8 +309,7 @@ const AddElementaryCtopp = () => {
                 />
               </FormControl>
             </Grid>
-
-            {/* Phonological Memory Composite */}
+            {/* Phonological Memory Composite Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <FormLabel>Phonological Memory Composite:</FormLabel>
@@ -344,8 +323,7 @@ const AddElementaryCtopp = () => {
                 />
               </FormControl>
             </Grid>
-
-            {/* Rapid Symbolic Naming Composite */}
+            {/* Rapid Symbolic Naming Composite Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <FormLabel>Rapid Symbolic Naming Composite:</FormLabel>
@@ -359,16 +337,15 @@ const AddElementaryCtopp = () => {
                 />
               </FormControl>
             </Grid>
-
-            {/* Rapid Non Symbolic Naming */}
+            {/* Alt Phonological Awareness Composite Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Rapid Non Symbolic Naming:</FormLabel>
+                <FormLabel>Alt Phonological Awareness Composite:</FormLabel>
                 <TextField
                   type="number"
-                  id="rapid_non_symbolic_naming"
-                  name="rapid_non_symbolic_naming"
-                  value={newCtopp.rapid_non_symbolic_naming}
+                  id="alt_phonological_awareness_composite"
+                  name="alt_phonological_awareness_composite"
+                  value={newCtopp.alt_phonological_awareness_composite}
                   onChange={handleChange}
                   variant="outlined"
                 />
@@ -389,17 +366,4 @@ const AddElementaryCtopp = () => {
   );
 };
 
-export default AddElementaryCtopp;
-// newYCtopp.elison_scaled_score,
-// newYCtopp.blending_words_scaled_score,
-// newYCtopp.sound_matching_scaled_score,
-// newYCtopp.memory_for_digits_scaled_score,
-// newYCtopp.nonword_repetition_scaled_score,
-// newYCtopp.rapid_digit_naming_scaled_score,
-// newYCtopp.rapid_letter_naming_scaled_score,
-// newYCtopp.rapid_color_naming_scaled_score,
-// newYCtopp.rapid_object_naming,
-// newYCtopp.blending_nonwords_scaled_score,
-// newYCtopp.phonological_awareness_composite,
-// newYCtopp.phonological_memory_composite,
-// newYCtopp.rapid_symbolic_naming_composite,
+export default AddOlderCtopp;

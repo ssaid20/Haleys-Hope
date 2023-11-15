@@ -20,6 +20,24 @@ router.get("/:student_id", (req, res) => {
     });
 });
 
+//router to get a specific test
+router.get("/elementaryWistResults/:testId", (req, res) => {
+  const testId = req.params.testId;
+  const queryText = 'SELECT * FROM "elementary_wist" WHERE "id" = $1';
+  pool
+    .query(queryText, [testId])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.error(
+        "Error completing SELECT elementary_wist query for test id",
+        err
+      );
+      res.sendStatus(500);
+    });
+});
+
 // POST route to add a new record for a specific student
 //tested and working with Postman
 router.post("/", (req, res) => {

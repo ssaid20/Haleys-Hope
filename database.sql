@@ -24,25 +24,33 @@ CREATE TABLE
     "role_id" INTEGER REFERENCES "roles" ("id")
   );
 
+INSERT INTO roles (role) VALUES 
+('Deactivated'),
+('Academic Assessment Coordinator'),
+('Dyslexia Specialist'),
+('Literacy Coach Manager'),
+('Lead Performing Agent'),
+('Admin');
+
 CREATE TABLE
-  IF NOT EXISTS "students" (
-    "id" SERIAL PRIMARY KEY,
-    "first_name" VARCHAR(20) NOT NULL,
-    "last_name" VARCHAR(20) NOT NULL,
-    "is_active" BOOLEAN NOT NULL DEFAULT true,
-    "grade" INTEGER NOT NULL,
-    "gender" VARCHAR(1),
-    "dob" DATE NOT NULL,
-    "address" VARCHAR(100) NOT NULL,
-    "zip_code" INTEGER NOT NULL,
-    "county" VARCHAR(20),
-    "picture" VARCHAR(1000),
-    "school" VARCHAR(30),
-    "on_site" BOOLEAN NOT NULL DEFAULT true,
-    "pretest_passed" BOOLEAN,
-    "pretest_date" DATE,
-    "coach_id" INTEGER REFERENCES "coaches" ("id")
-  );
+ IF NOT EXISTS "students" (
+  "id" SERIAL PRIMARY KEY,
+  "first_name" VARCHAR(20) NOT NULL,
+  "last_name" VARCHAR(20) NOT NULL,
+  "is_active" BOOLEAN NOT NULL DEFAULT true,
+  "grade" INTEGER NOT NULL,
+  "gender" VARCHAR(1),
+  "dob" DATE NOT NULL,
+  "city" VARCHAR(20),
+  "state" VARCHAR(50),
+  "picture" VARCHAR(1000),
+  "school" VARCHAR(30),
+  "on_site" BOOLEAN NOT NULL DEFAULT true,
+  "barton_c" BOOLEAN,
+  "barton_c_date" DATE,
+  "coach_id" INTEGER REFERENCES "coaches" ("id")
+  "start_date" DATE NOT NULL,
+ );
 
 CREATE TABLE
   IF NOT EXISTS "student_comments" (
@@ -148,26 +156,25 @@ CREATE TABLE
     "sound_symbol_knowledge_standard_score" INTEGER
   );
 
-CREATE TABLE
-  IF NOT EXISTS "older_ctopp" (
-    "id" SERIAL PRIMARY KEY,
-    "student_id" INTEGER REFERENCES "students" ("id"),
-    "date" DATE NOT NULL,
-    "examiner_id" INTEGER REFERENCES "user" ("id"),
-    "elison_scaled_score" INTEGER,
-    "blending_words_scaled_score" INTEGER,
-    "phoneme_isolation_scaled_score" INTEGER,
-    "memory_for_digits_scaled_score" INTEGER,
-    "nonword_repetition_scaled_score" INTEGER,
-    "rapid_digit_naming_scaled_score" INTEGER,
-    "rapid_letter_naming_scaled_score" INTEGER,
-    "blending_nonwords_scaled_score" INTEGER,
-    "segmenting_nonwords_scaled_score" INTEGER,
-    "phonological_awareness_composite" INTEGER,
-    "phonological_memory_composite" INTEGER,
-    "rapid_symbolic_naming_composite" INTEGER,
-    "alt_phonological_awareness" INTEGER
-  );
+CREATE TABLE IF NOT EXISTS "older_ctopp" (
+  "id" SERIAL PRIMARY KEY,
+  "student_id" INTEGER REFERENCES "students" ("id"),
+  "date" DATE NOT NULL,
+  "examiner_id" INTEGER REFERENCES "user" ("id"),
+  "elison_scaled_score" INTEGER,
+  "blending_words_scaled_score" INTEGER,
+  "phoneme_isolation_scaled_score" INTEGER,
+  "memory_for_digits_scaled_score" INTEGER,
+  "nonword_repetition_scaled_score" INTEGER,
+  "rapid_digit_naming_scaled_score" INTEGER,
+  "rapid_letter_naming_scaled_score" INTEGER,
+  "blending_nonwords_scaled_score" INTEGER,
+  "segmenting_nonwords_scaled_score" INTEGER,
+  "phonological_awareness_composite" INTEGER,
+  "phonological_memory_composite" INTEGER,
+  "rapid_symbolic_naming_composite" INTEGER,
+  "alt_phonological_awareness_composite" INTEGER
+);
 
 CREATE TABLE
   IF NOT EXISTS "ktea" (

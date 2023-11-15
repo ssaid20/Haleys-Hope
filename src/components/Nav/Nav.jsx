@@ -1,44 +1,120 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import LogOutButton from "../LogOutButton/LogOutButton";
-import "./Nav.css";
 import { useSelector } from "react-redux";
+import { Menu, MenuItem } from "@mui/material";
+import { Button } from "../ui/button";
 
 function Nav() {
   const user = useSelector((store) => store.user);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
-    <div className="nav">
-      <Link to="/home">
-        <div className="nav-title"></div>
+    <div className="flex-between background-light900_dark200 w-full gap-5 p-6 shadow-light-300 dark:shadow-none sm:px-12 bg-primary-500">
+      <Link to="/home" className="flex items-center gap-1">
+        <img
+          src="/assets/images/site-logo.png"
+          width={180}
+          height={180}
+          alt="Haley's Hope Logo"
+        />
       </Link>
-      <div>
-        {/* If no user is logged in, show these links */}
+      <div className="flex gap-4">
         {!user.id && (
-          // If there's no user, show login/registration links
-          <Link className="navLink" to="/login">
+          <Link
+            className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
+            to="/login"
+          >
             Login / Register
           </Link>
         )}
 
-        {/* If a user is logged in, show these links */}
         {user.id && (
           <>
-            <Link className="navLink" to="/students">
+            <Link
+              className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
+              to="/students"
+            >
               Students
             </Link>
 
-            <Link className="navLink" to="/info">
+            <Link
+              className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
+              to="/info"
+            >
               Info Page
             </Link>
 
-            <LogOutButton className="navLink" />
+            {/* Adjust LogOutButton styling as needed */}
+            <LogOutButton className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg" />
           </>
         )}
 
-        <Link className="navLink" to="/about">
+        <Link
+          className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg"
+          to="/about"
+        >
           About
         </Link>
+        {user.role_id === 6 && (
+          <>
+            <Button
+              aria-controls="admin-menu"
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+              className="px-4 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg"
+              //className="bg-primary-100"
+            >
+              Admin
+            </Button>
+            <Menu
+              id="admin-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "admin-button",
+              }}
+              className="customMenu"
+            >
+              <MenuItem
+                onClick={handleClose}
+                component={Link}
+                to="/admin/manageUsers"
+                className="customMenuItem"
+              >
+                Manage Users
+              </MenuItem>
+
+              <MenuItem
+                onClick={handleClose}
+                component={Link}
+                to="/admin/addCoach"
+                className="customMenuItem"
+              >
+                Add Coach
+              </MenuItem>
+              {/* <MenuItem
+                onClick={handleClose}
+                component={Link}
+                to="/admin/link4"
+                className="customMenuItem"
+              >
+                Generate Report
+              </MenuItem> */}
+            </Menu>
+          </>
+        )}
       </div>
     </div>
   );

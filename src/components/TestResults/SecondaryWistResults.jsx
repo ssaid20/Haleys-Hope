@@ -37,6 +37,7 @@ const SecondaryWistResults = () => {
       {/* <MiniStudentCard /> */}
       <div>
         <div>
+          <button onClick={goBack}>Back to Tests List</button>
           <h2>Test Details:</h2>
           <p>Date: {formatDate(selectedTest.date)}</p>
           <p>Examiner ID: {selectedTest.examiner_id}</p>

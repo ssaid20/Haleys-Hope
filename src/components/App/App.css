@@ -5,7 +5,7 @@ body,
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;
 }
 
@@ -26,7 +26,7 @@ Container
 Button
 -------------------------------------------------------------------------------- */
 
-.btn {
+/* .btn {
   display: inline-block;
   padding: 10px 20px;
   border-color: #014041;
@@ -60,7 +60,7 @@ Button
 }
 
 /* This line makes the "Register" and "Login" buttons look like links */
-.btn_asLink {
+/* .btn_asLink {
   padding: 0;
   border-width: 0;
   border-bottom: 1px solid #444;
@@ -74,7 +74,7 @@ Button
   background-color: transparent;
   border-color: #008183;
   color: #008183;
-}
+} */
 
 /* --------------------------------------------------------------------------------
 Alert
@@ -109,4 +109,25 @@ Form Treatment
 input {
   margin: 5px;
   margin-bottom: 10px;
+}
+
+/* DONT DELETE ME THIS IS ADMIN DROPDOWN*/
+.customMenu {
+  border-radius: 8px;
+  min-width: 230px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+}
+
+.customMenuItem {
+  padding: 10px 20px;
+}
+
+.customMenuItem:not(:last-child) {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.customMenuItem:hover {
+  background-color: #ebe6e6;
+  color: #e57125;
 }

@@ -82,30 +82,109 @@ const AddKtea = () => {
       <Paper elevation={3} className="p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           <Grid container spacing={3}>
-            {/* Dynamically generate Grid items for each field */}
-            {Object.keys(newKtea).map((key) => (
-              <Grid item xs={12} md={4} key={key}>
-                <FormControl fullWidth>
-                  <FormLabel>
-                    {key
-                      .split("_")
-                      .map(
-                        (word) => word.charAt(0).toUpperCase() + word.slice(1)
-                      )
-                      .join(" ")}
-                    :
-                  </FormLabel>
-                  <TextField
-                    type="number"
-                    id={key}
-                    name={key}
-                    value={newKtea[key]}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
-            ))}
+            {/* Date Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Date:</FormLabel>
+                <TextField
+                  type="date"
+                  id="date"
+                  name="date"
+                  value={newKtea.date}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Student ID Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Student ID:</FormLabel>
+                <TextField
+                  type="number"
+                  id="student_id"
+                  name="student_id"
+                  value={newKtea.student_id}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+
+            {/* Examiner ID Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Examiner ID:</FormLabel>
+                <TextField
+                  type="number"
+                  id="examiner_id"
+                  name="examiner_id"
+                  value={newKtea.examiner_id}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+
+            {/* LWR Scaled Score */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Letter and Word Recognition Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="lwr_scaled_score"
+                  name="lwr_scaled_score"
+                  value={newKtea.lwr_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+
+            {/* LWR Percentile */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Letter and Word Recognition Percentile:</FormLabel>
+                <TextField
+                  type="number"
+                  id="lwr_percentile"
+                  name="lwr_percentile"
+                  value={newKtea.lwr_percentile}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+
+            {/* Spelling Scaled Score */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Spelling Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="spelling_scaled_score"
+                  name="spelling_scaled_score"
+                  value={newKtea.spelling_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+
+            {/* Spelling Percentile */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Spelling Percentile:</FormLabel>
+                <TextField
+                  type="number"
+                  id="spelling_percentile"
+                  name="spelling_percentile"
+                  value={newKtea.spelling_percentile}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
           </Grid>
           <Button
             type="submit"

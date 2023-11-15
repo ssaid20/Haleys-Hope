@@ -6,7 +6,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 
 //component to add a new Secondary ctopp test
-const AddSecondaryCtopp = () => {
+const AddOlderCtopp = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
@@ -302,4 +302,4 @@ const AddSecondaryCtopp = () => {
   );
 };
 
-export default AddSecondaryCtopp;
+export default AddOlderCtopp;

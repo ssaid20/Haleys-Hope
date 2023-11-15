@@ -28,11 +28,11 @@ const Tests = () => {
   const handleGortClick = () => {
     history.push(`/addGort/${studentId.id}`);
   };
-  const handleElementaryCtoppClick = () => {
-    history.push(`/addElementaryCtopp/${studentId.id}`);
+  const handleYoungerCtoppClick = () => {
+    history.push(`/addYoungerCtopp/${studentId.id}`);
   };
-  const handleSecondaryCtoppClick = () => {
-    history.push(`/addSecondaryCtopp/${studentId.id}`);
+  const handleOlderCtoppClick = () => {
+    history.push(`/addOlderCtopp/${studentId.id}`);
   };
   const handleKteaClick = () => {
     history.push(`/addKtea/${studentId.id}`);
@@ -59,8 +59,8 @@ const Tests = () => {
             <button onClick={handleElementaryWistClick}>Elementary WIST</button>
             <button onClick={handleSecondaryWistClick}>Secondary WIST</button>
             <button onClick={handleGortClick}>Add GORT</button>
-            <button onClick={handleElementaryCtoppClick}>Under 7 CTOPP</button>
-            <button onClick={handleSecondaryCtoppClick}>Over 7 CTOPP</button>
+            <button onClick={handleYoungerCtoppClick}>Under 7 CTOPP</button>
+            <button onClick={handleOlderCtoppClick}>Over 7 CTOPP</button>
             <button onClick={handleKteaClick}>KTEA</button>
           </div>
         </div>

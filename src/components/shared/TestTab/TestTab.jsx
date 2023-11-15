@@ -2,6 +2,7 @@ import React from "react";
 import ElementaryWistList from "../../WistList/ElementaryWistList";
 import SecondaryWistList from "../../WistList/SecondaryWistList";
 import KteaList from "../../KteaList/KteaList";
+import YoungerCtoppList from "../../CtoppLists/YoungerCtoppList";
 
 const TestTab = () => {
   return (
@@ -10,6 +11,7 @@ const TestTab = () => {
       <ElementaryWistList />
       <SecondaryWistList />
       <KteaList />
+      <YoungerCtoppList />
     </div>
   );
 };

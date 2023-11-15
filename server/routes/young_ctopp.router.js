@@ -16,11 +16,28 @@ router.get("/:student_id", (req, res) => {
     });
 });
 
+//router to get a specific test
+router.get("/youngerCtoppResults/:testId", (req, res) => {
+  const testId = req.params.testId;
+  const queryText = 'SELECT * FROM "younger_ctopp" WHERE "id" = $1';
+  pool
+    .query(queryText, [testId])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.error(
+        "Error completing SELECT younger_ctopp query for test id",
+        err
+      );
+      res.sendStatus(500);
+    });
+});
+
 // POST route to add a new record for a specific student
 router.post("/", (req, res) => {
   //const newYCtopp = req.body.id;
   const newYCtopp = req.body;
-  console.log("logging newYCtopp in router", newYCtopp);
   console.log("Request parameters:", req.params);
   // Check if student_id is provided
   if (!newYCtopp.student_id) {

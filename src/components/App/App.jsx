@@ -19,12 +19,13 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 import StudentDetails from "../StudentDetails/StudentDetails";
 import AddElementaryWist from "../AddTests/AddElementaryWist";
 import AddSecondaryWist from "../AddTests/AddSecondaryWist";
-import AddElementaryCtopp from "../AddTests/AddElementaryCtopp";
-import AddSecondaryCtopp from "../AddTests/AddSecondaryCtopp";
+import AddYoungerCtopp from "../AddTests/AddYoungerCtopp";
+import AddOlderCtopp from "../AddTests/AddOlderCtopp";
 import AddGort from "../AddTests/AddGort";
 import AddKtea from "../AddTests/AddKtea";
 import ElementaryWistResults from "../TestResults/ElementaryWistResults";
 import SecondaryWistResults from "../TestResults/SecondaryWistResults";
+import YoungerCtoppResults from "../TestResults/YoungerCtoppResults";
 import "./App.css";
 
 function App() {
@@ -87,17 +88,17 @@ function App() {
           {/* <ProtectedRoute exact path="/GortResults/:id">
             <GortResults />
           </ProtectedRoute> */}
-          <ProtectedRoute exact path="/addElementaryCtopp/:id">
-            <AddElementaryCtopp />
+          <ProtectedRoute exact path="/addYoungerCtopp/:id">
+            <AddYoungerCtopp />
           </ProtectedRoute>
-          {/* <ProtectedRoute exact path="/ElementaryCtoppResults/:id">
-            <ElementaryCtoppResults />
-          </ProtectedRoute> */}
-          <ProtectedRoute exact path="/addSecondaryCtopp/:id">
-            <AddSecondaryCtopp />
+          <ProtectedRoute exact path="/YoungerCtoppResults/:id">
+            <YoungerCtoppResults />
           </ProtectedRoute>
-          {/* <ProtectedRoute exact path="/SecondaryCtoppResults/:id">
-            <SecondaryCtoppResults />
+          <ProtectedRoute exact path="/addOlderCtopp/:id">
+            <AddOlderCtopp />
+          </ProtectedRoute>
+          {/* <ProtectedRoute exact path="/OlderCtoppResults/:id">
+            <OlderCtoppResults />
           </ProtectedRoute> */}
           <ProtectedRoute exact path="/addKtea/:id">
             <AddKtea />

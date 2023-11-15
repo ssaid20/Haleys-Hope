@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useParams } from "react-router-dom";
 
-//component to add a new elementary ctopp test
-const AddElementaryCtopp = () => {
+//component to add a new younger ctopp test
+const AddYoungerCtopp = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
@@ -303,7 +300,7 @@ const AddElementaryCtopp = () => {
   );
 };
 
-export default AddElementaryCtopp;
+export default AddYoungerCtopp;
 // newYCtopp.elison_scaled_score,
 // newYCtopp.blending_words_scaled_score,
 // newYCtopp.sound_matching_scaled_score,

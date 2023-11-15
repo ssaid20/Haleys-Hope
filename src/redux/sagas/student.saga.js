@@ -36,9 +36,11 @@ function* addStudent(action) {
 
 // Saga to update a student's information
 function* updateStudent(action) {
+  console.log('Update student payload:', action.payload);
   try {
     yield call(axios.put, `/api/students/${action.payload.id}`, action.payload);
     yield put({ type: "FETCH_STUDENTS" });
+    yield put({ type: "FETCH_STUDENT", payload: { id: action.payload.id } });
   } catch (error) {
     console.log("Error updating student", error);
 

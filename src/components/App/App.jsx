@@ -13,7 +13,6 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
 import InfoPage from "../InfoPage/InfoPage";
-import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import StudentDetails from "../StudentDetails/StudentDetails";
@@ -28,6 +27,7 @@ import GortResults from "../TestResults/GortResults";
 import SecondaryWistResults from "../TestResults/SecondaryWistResults";
 import YoungerCtoppResults from "../TestResults/YoungerCtoppResults";
 import OlderCtoppResults from "../TestResults/OlderCtoppResults";
+import ManageUsers from "../ManageUsers/ManageUsers";
 
 import "./App.css";
 import KteaResults from "../TestResults/KteaResults";
@@ -110,6 +110,9 @@ function App() {
           <ProtectedRoute exact path="/kteaResults/:id">
             <KteaResults />
           </ProtectedRoute>
+          <ProtectedRoute exact path="/admin/manageUsers">
+            <ManageUsers />
+          </ProtectedRoute>
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
@@ -151,8 +154,8 @@ function App() {
               // redirect them to the /user page
               <Redirect to="/user" />
             ) : (
-              // Otherwise, show the Landing page
-              <LandingPage />
+              // Otherwise, show the Login page
+              <LoginPage />
             )}
           </Route>
 

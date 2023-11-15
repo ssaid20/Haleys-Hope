@@ -92,7 +92,7 @@ const StudentList = () => {
                   city: student.address, // *** need to fix our address input then make function to pull out city and state ***
                   //on_site: student.on_site ? "On-Site" : "Virtual", *** only need on more details ***
                   // dob: formatDate(student.dob), // formatting date *** only need on more details ***
-                  start_date: formatDate(student.pretest_date), // *** using pretest date, do we need a start date column? ***
+                  start_date: formatDate(student.barton_c_date), // *** using pretest date, do we need a start date column? ***
                   picture: (
                     <img
                       src={student.picture}

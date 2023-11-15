@@ -24,9 +24,11 @@ import AddOlderCtopp from "../AddTests/AddOlderCtopp";
 import AddGort from "../AddTests/AddGort";
 import AddKtea from "../AddTests/AddKtea";
 import ElementaryWistResults from "../TestResults/ElementaryWistResults";
+import GortResults from "../TestResults/GortResults";
 import SecondaryWistResults from "../TestResults/SecondaryWistResults";
 import YoungerCtoppResults from "../TestResults/YoungerCtoppResults";
 import "./App.css";
+import KteaResults from "../TestResults/KteaResults";
 
 function App() {
   const dispatch = useDispatch();
@@ -85,17 +87,17 @@ function App() {
           <ProtectedRoute exact path="/addGort/:id">
             <AddGort />
           </ProtectedRoute>
-          {/* <ProtectedRoute exact path="/GortResults/:id">
+          <ProtectedRoute exact path="/GortResults/:id">
             <GortResults />
-          </ProtectedRoute> */}
+          </ProtectedRoute>
           <ProtectedRoute exact path="/addYoungerCtopp/:id">
             <AddYoungerCtopp />
           </ProtectedRoute>
-          <ProtectedRoute exact path="/YoungerCtoppResults/:id">
-            <YoungerCtoppResults />
-          </ProtectedRoute>
           <ProtectedRoute exact path="/addOlderCtopp/:id">
             <AddOlderCtopp />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/YoungerCtoppResults/:id">
+            <YoungerCtoppResults />
           </ProtectedRoute>
           {/* <ProtectedRoute exact path="/OlderCtoppResults/:id">
             <OlderCtoppResults />
@@ -103,9 +105,9 @@ function App() {
           <ProtectedRoute exact path="/addKtea/:id">
             <AddKtea />
           </ProtectedRoute>
-          {/* <ProtectedRoute exact path="/KteaResults/:id">
+          <ProtectedRoute exact path="/kteaResults/:id">
             <KteaResults />
-          </ProtectedRoute> */}
+          </ProtectedRoute>
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact

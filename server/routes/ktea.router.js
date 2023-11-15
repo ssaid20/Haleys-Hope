@@ -26,6 +26,24 @@ router.get("/:studentId", async (req, res) => {
   }
 });
 
+//router to get a specific test
+router.get("/kteaResults/:testId", (req, res) => {
+  const testId = req.params.testId;
+  const queryText = 'SELECT * FROM "ktea" WHERE "id" = $1';
+  pool
+    .query(queryText, [testId])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.error(
+        "Error completing SELECT KTEA query for test id",
+        err
+      );
+      res.sendStatus(500);
+    });
+});
+
 // POST route for KTEA
 router.post("/", async (req, res) => {
   console.log(req.params);

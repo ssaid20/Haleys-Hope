@@ -6,8 +6,8 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { TextField, Button, Grid, FormControl, FormLabel, Paper } from "@mui/material";
 
-//component to add a new Gort test
-const AddGort = () => {
+//component to add a new Secondary ctopp test
+const AddSecondaryCtopp = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
@@ -30,25 +30,24 @@ const AddGort = () => {
     handleGoBack;
   });
 
-  const [newGort, setNewGort] = useState({
+  const [newCtopp, setNewCtopp] = useState({
     student_id: student.id,
     date: "",
     examiner_id: "",
-    sum_scaled_score: null,
-    oral_reading_percentile_rank: null,
-    oral_reading_index: null,
-    rate_raw_total: null,
-    accuracy_raw_total: null,
-    fluency_raw_total: null,
-    rate_percentile_rank: null,
-    accuracy_percentile_rank: null,
-    fluency_percentile_rank: null,
-    comprehension_percentile_rank: null,
-    comprehension_raw_total: null,
-    rate_scaled_score: null,
-    accuracy_scaled_score: null,
-    fluency_scaled_score: null,
-    comprehension_scaled_score: null,
+    elison_scaled_score: null,
+    blending_words_scaled_score: null,
+    phoneme_isolation_scaled_score: null,
+    memory_for_digits_scaled_score: null,
+    nonword_repetition_scaled_score: null,
+    rapid_digit_naming_scaled_score: null,
+    rapid_letter_naming_scaled_score: null,
+    deleteme: null,
+    blending_nonwords_scaled_score: null,
+    segmenting_nonwords_scaled_score: null,
+    phonological_awareness_composite: null,
+    phonological_memory_composite: null,
+    rapid_symbolic_naming_composite: null,
+    alt_phonological_awareness_composite: null,
   });
   const handleGoBack = () => {
     history.push(`/students/${student.id}`);
@@ -63,12 +62,12 @@ const AddGort = () => {
 
       return newErrors;
     });
-    // setNewGort((prevCtopp) => ({
+    // setNewCtopp((prevCtopp) => ({
     //   ...prevCtopp,
     //   [name]: value === "" ? null : Number(value),
     // }));
-    setNewGort((prevGort) => ({
-      ...prevGort,
+    setNewCtopp((prevCtopp) => ({
+      ...prevCtopp,
       [name]: value, // Use computed property name to update the state
     }));
   };
@@ -78,13 +77,13 @@ const AddGort = () => {
     e.preventDefault();
     // Validate all inputs before submission
     const newErrors = {};
-    if (!newGort.date) {
+    if (!newCtopp.date) {
       newErrors.date = "Date is required";
-    } else if (new Date(newGort.date) > new Date()) {
+    } else if (new Date(newCtopp.date) > new Date()) {
       newErrors.date = "Date cannot be in the future";
     }
 
-    if (!newGort.examiner_id) {
+    if (!newCtopp.examiner_id) {
       newErrors.examiner_id = "Examiner is required";
     }
 
@@ -97,8 +96,8 @@ const AddGort = () => {
     }
 
     dispatch({
-      type: "ADD_GORT",
-      payload: newGort,
+      type: "ADD_OLDER_CTOPP",
+      payload: newCtopp,
     });
 
     history.push(`/students/${student.id}`);
@@ -107,7 +106,7 @@ const AddGort = () => {
 
   return (
     <>
-      <h1 className="text-3xl text-center mb-4 bg-primary-100">GORT-5 </h1>
+    <h1 className="text-3xl text-center mb-4 bg-primary-100">CTOPP-2 Over 7</h1>
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         GO BACK
       </Button>
@@ -115,13 +114,15 @@ const AddGort = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           <Grid container spacing={3}>
             {/* Dynamically generate Grid items for each field */}
-            {Object.keys(newGort).map(key => (
+            {Object.keys(newCtopp).map((key) => (
               <Grid item xs={12} md={4} key={key}>
                 <FormControl fullWidth>
                   <FormLabel>
                     {key
                       .split("_")
-                      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                      .map(
+                        (word) => word.charAt(0).toUpperCase() + word.slice(1)
+                      )
                       .join(" ")}
                     :
                   </FormLabel>
@@ -129,7 +130,7 @@ const AddGort = () => {
                     type="number"
                     id={key}
                     name={key}
-                    value={newGort[key]}
+                    value={newCtopp[key]}
                     onChange={handleChange}
                     variant="outlined"
                   />
@@ -141,7 +142,6 @@ const AddGort = () => {
                 </FormControl>
               </Grid>
             ))}
-
           </Grid>
           <Button
             type="submit"
@@ -157,4 +157,4 @@ const AddGort = () => {
   );
 };
 
-export default AddGort;
+export default AddSecondaryCtopp;

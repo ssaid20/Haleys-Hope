@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { Button } from "../ui/button";
@@ -19,11 +19,66 @@ import {
 const StudentCard = () => {
   const dispatch = useDispatch();
   const student = useSelector((store) => store.studentReducer.Details);
-  const studentId = useParams();
-  console.log("student and id in card", student, studentId);
+  // const studentId = useParams();
+  const { id: studentId } = useParams();
+
   useEffect(() => {
     dispatch({ type: "FETCH_STUDENT", payload: studentId });
   }, [dispatch, studentId]);
+
+  // State to hold form data
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    grade: "",
+    school: "",
+    gender: "",
+    dob: "",
+    address: "",
+    county: "",
+    zip_code: "",
+    state: "",
+    barton_c_date: "",
+    barton_c: "",
+    on_site: "",
+    start_date: "",
+  });
+
+  useEffect(() => {
+    if (student) {
+      setFormData({
+        first_name: student.first_name || "",
+        last_name: student.last_name || "",
+        grade: student.grade || "",
+        school: student.school || "",
+        gender: student.gender || "",
+        dob: student.dob ? student.dob.split("T")[0] : "",
+        address: student.address || "",
+        county: student.county || "",
+        zip_code: student.zip_code || "",
+        state: student.state || "",
+        barton_c_date: student.barton_c_date
+          ? student.barton_c_date.split("T")[0]
+          : "",
+        barton_c: student.barton_c || "",
+        on_site: student.on_site || "",
+        start_date: student.start_date ? student.start_date.split("T")[0] : "",
+      });
+    }
+  }, [student]);
+
+  const handleInputChange = (e) => {
+    console.log("Input changed:", e.target.id, e.target.value);
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
+
+  const handleSubmit = () => {
+    dispatch({
+      type: "UPDATE_STUDENT",
+      payload: { id: studentId, ...formData },
+    });
+  };
 
   if (!student) {
     return <div>Loading...</div>;
@@ -37,7 +92,7 @@ const StudentCard = () => {
   };
 
   return (
-    <article className="background-light900_dark200 light-border rounded-2xl border p-8 shadow-lg relative flex flex-col items-center">
+    <article className="background-light900_dark200 light-border rounded-2xl border p-8 shadow-md relative flex flex-col items-center">
       <h2 className="h2-bold text-dark100_light900 text-center mb-4">{`${student.first_name} ${student.last_name}`}</h2>
 
       <div className="flex flex-col w-full md:flex-row items-start md:items-center justify-between">
@@ -53,9 +108,15 @@ const StudentCard = () => {
           <SheetTrigger asChild>
             <Button
               variant="outline"
-              className="absolute top-2 right-2 text-xs px-2 py-1"
+              className="absolute top-2 right-2 text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
             >
-              Edit Student
+              <img
+                src="/assets/icons/edit.svg"
+                alt="Edit Icon"
+                className="w-4 h-4"
+              />
+              <span>Edit Student</span>
+              
             </Button>
           </SheetTrigger>
           <SheetContent side="top" style={sheetStyle}>
@@ -68,66 +129,119 @@ const StudentCard = () => {
             <div className="p-4">
               <div className="grid grid-cols-2 gap-4">
                 <Label htmlFor="firstName">First Name</Label>
-                <Input id="firstName" defaultValue={student.first_name} />
+                <Input
+                  id="first_name"
+                  value={formData.first_name}
+                  onChange={handleInputChange}
+                />
 
                 <Label htmlFor="lastName">Last Name</Label>
-                <Input id="lastName" defaultValue={student.last_name} />
+                <Input
+                  id="last_name"
+                  value={formData.last_name}
+                  onChange={handleInputChange}
+                />
 
                 <Label htmlFor="grade">Grade</Label>
-                <Input id="grade" type="number" defaultValue={student.grade} />
+                <Input
+                  id="grade"
+                  type="number"
+                  value={formData.grade}
+                  onChange={handleInputChange}
+                />
 
                 <Label htmlFor="school">School</Label>
-                <Input id="school" defaultValue={student.school} />
+                <Input
+                  id="school"
+                  value={formData.school}
+                  onChange={handleInputChange}
+                />
 
                 <Label htmlFor="gender">Gender</Label>
-                <Input id="gender" defaultValue={student.gender} />
+                <Input
+                  id="gender"
+                  value={formData.gender}
+                  onChange={handleInputChange}
+                />
 
                 <Label htmlFor="dob">Date of Birth</Label>
                 <Input
                   id="dob"
                   type="date"
-                  defaultValue={student.dob ? student.dob.split("T")[0] : 0}
+                  value={formData.dob}
+                  onChange={handleInputChange}
                 />
 
                 <Label htmlFor="address">Address</Label>
-                <Input id="address" defaultValue={student.address} />
-
-                <Label htmlFor="county">County</Label>
-                <Input id="county" defaultValue={student.county} />
-
-                <Label htmlFor="zipCode">Zip Code</Label>
-                <Input id="zipCode" defaultValue={student.zip_code} />
-
-                <Label htmlFor="pretestDate">Pretest Date</Label>
                 <Input
-                  id="pretestDate"
-                  type="date"
-                  defaultValue={
-                    student.pretest_date
-                      ? student.pretest_date.split("T")[0]
-                      : 0
-                  }
+                  id="address"
+                  value={formData.address}
+                  onChange={handleInputChange}
                 />
 
-                <Label htmlFor="pretestPassed">Pretest Passed</Label>
+                <Label htmlFor="county">County</Label>
+                <Input
+                  id="county"
+                  value={formData.county}
+                  onChange={handleInputChange}
+                />
+
+                <Label htmlFor="zipCode">Zip Code</Label>
+                <Input
+                  id="zip_code"
+                  type="number"
+                  value={formData.zip_code}
+                  onChange={handleInputChange}
+                />
+                <Label htmlFor="state">State</Label>
+                <Input
+                  id="state"
+                  value={formData.state}
+                  onChange={handleInputChange}
+                />
+
+                <Label htmlFor="pretestDate">Barton C Date</Label>
+                <Input
+                  id="barton_c_date"
+                  type="date"
+                  value={formData.barton_c_date}
+                  onChange={handleInputChange}
+                />
+
+                <Label htmlFor="pretestPassed">Barton C</Label>
                 <select
-                  id="pretestPassed"
-                  defaultValue={student.pretest_passed}
+                  id="barton_c"
+                  value={formData.barton_c}
+                  onChange={handleInputChange}
+                >
+                  <option value="true">Foundations</option>
+                  <option value="false">Barton</option>
+                </select>
+
+                <Label htmlFor="onSite">On Site</Label>
+                <select
+                  id="on_site"
+                  value={formData.on_site}
+                  onChange={handleInputChange}
                 >
                   <option value="true">Yes</option>
                   <option value="false">No</option>
                 </select>
 
-                <Label htmlFor="onSite">On Site</Label>
-                <select id="onSite" defaultValue={student.on_site}>
-                  <option value="true">Yes</option>
-                  <option value="false">No</option>
-                </select>
+                <Label htmlFor="startDate">Start Date</Label>
+                <Input
+                  id="start_date"
+                  type="date"
+                  value={formData.start_date}
+                  onChange={handleInputChange}
+                />
               </div>
             </div>
             <SheetFooter>
               <SheetClose asChild>
-                <Button type="submit">Save Changes</Button>
+                <Button onClick={handleSubmit} type="submit">
+                  Save Changes
+                </Button>
               </SheetClose>
             </SheetFooter>
           </SheetContent>
@@ -156,13 +270,20 @@ const StudentCard = () => {
             Zip Code: {student.zip_code}
           </p>
           <p className="body-regular text-dark500_light500">
-            Pretest Date: {new Date(student.pretest_date).toLocaleDateString()}
+            State: {student.state}
           </p>
           <p className="body-regular text-dark500_light500">
-            Pretest Passed: {student.pretest_passed ? "Yes" : "No"}
+            Barton C Date:{" "}
+            {new Date(student.barton_c_date).toLocaleDateString()}
+          </p>
+          <p className="body-regular text-dark500_light500">
+            Barton C: {student.barton_c ? "Foundations" : "Barton"}
           </p>
           <p className="body-regular text-dark500_light500">
             On Site: {student.on_site ? "Yes" : "No"}
+          </p>
+          <p className="body-regular text-dark500_light500">
+            Start Date: {new Date(student.start_date).toLocaleDateString()}
           </p>
         </div>
       </div>

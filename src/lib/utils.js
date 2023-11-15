@@ -54,3 +54,37 @@ export const getDescriptiveTerm = (score) => {
 // };
 
 //export default ScoreInterpreter;
+
+// function to calculate age using dob and display as example: 2023 Y 04 M 10 D
+export const calculateAge = (dob) => {
+  const birthday = new Date(dob);
+  const today = new Date();
+
+  // Calculate the difference in years
+  let years = today.getFullYear() - birthday.getFullYear();
+
+  // Calculate the difference in months
+  let months = today.getMonth() - birthday.getMonth();
+
+  // Calculate the difference in days
+  let days = today.getDate() - birthday.getDate();
+
+  // Adjust the years and months if necessary
+  if (months < 0 || (months === 0 && days < 0)) {
+    years--;
+    months += 12;
+  }
+
+  // Adjust the days if necessary
+  if (days < 0) {
+    months--;
+    // Create a date object for the last day of the previous month
+    let lastDayOfPrevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+    days += lastDayOfPrevMonth.getDate();
+  }
+
+  // Return the age in the desired format
+  return `${years}Y ${months < 10 ? "0" : ""}${months}M ${
+    days < 10 ? "0" : ""
+  }${days}D`;
+}; // end calculateAge

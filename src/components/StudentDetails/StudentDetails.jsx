@@ -30,51 +30,51 @@ function StudentDetails() {
 
   return (
     <>
-      <div className="flex flex-col-reverse items-start justify-between sm:flex-row">
-        <StudentCard />
-        {/* <div className="flex flex-col items-start gap-4 lg:flex-row">
-          <img
-            src={student.picture} //change it to student store
-            alt="Student picture"
-            width={140}
-            height={140}
-            className="rounded-full object-cover"
-          />
-          <div className="mt-3">
-            <h2 className="h2-bold text-dark100_light900">
-              {student.first_name}
-              {student.last_name}
-            </h2>
+      <div className="container mx-auto px-4 py-6">
+        <div className="flex flex-col lg:flex-row gap-6">
+          <div className="lg:flex-1 flex justify-center">
+            <div className=" flex-1 flex flex-col justify-center">
+              <StudentCard />
+            </div>
           </div>
-        </div> */}
+          <div className="lg:flex-1 flex justify-center">
+            <div className="flex-1 flex flex-col justify-center">
+              <Tests />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-10">
+          {/* Rest of the content like Tabs, Graphs, etc. */}
+          <Tabs defaultValue="test" className="flex-1">
+            <TabsList className="background-light800_dark400 min-h-[42px] p-1 rounded-t-lg">
+              {["test", "graph", "assesment"].map((tab) => (
+                <TabsTrigger
+                  key={tab}
+                  value={tab}
+                  className="tab h2-semibold hover:bg-primary-100 focus:bg-primary-100 px-4 py-2 rounded-lg transition duration-300 ease-in-out"
+                >
+                  {tab.toUpperCase()}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+            <TabsContent value="test">
+              <TestTab />
+            </TabsContent>
+            <TabsContent value="graph" className="flex w-full flex-col gap-6">
+              <GraphTab />
+            </TabsContent>
+            <TabsContent
+              value="assesment"
+              className="flex w-full flex-col gap-6"
+            >
+              <AssesmentTab />
+            </TabsContent>
+          </Tabs>
+        </div>
       </div>
 
-      <Tests />
-
-      <div className="mt-10 flex gap-10">
-        <Tabs defaultValue="top-posts" className="flex-1">
-          <TabsList className="background-light800_dark400 min-h-[42px] p-1">
-            <TabsTrigger value="test" className="tab">
-              TEST
-            </TabsTrigger>
-            <TabsTrigger value="graph" className="tab">
-              GRAPH
-            </TabsTrigger>
-            <TabsTrigger value="assesment" className="tab">
-              ASSESMENT
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="test">
-            <TestTab />
-          </TabsContent>
-          <TabsContent value="graph" className="flex w-full flex-col gap-6">
-            <GraphTab />
-          </TabsContent>
-          <TabsContent value="assesment" className="flex w-full flex-col gap-6">
-            <AssesmentTab />
-          </TabsContent>
-        </Tabs>
-      </div>
+      {/* <div className="mt-10 flex gap-10"></div> */}
     </>
   );
 }

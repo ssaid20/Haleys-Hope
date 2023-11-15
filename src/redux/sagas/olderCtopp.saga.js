@@ -11,6 +11,21 @@ function* fetchOlderCtopp(action) {
   }
 }
 
+//saga for fetching a specific test data
+function* fetchOlderCtoppResult(action) {
+  console.log("Action.payload in fetch saga", action.payload);
+  try {
+    const response = yield call(
+      axios.get,
+      `/api/old_ctopp/olderCtoppResults/${action.payload}`
+    );
+    console.log("fetch older ctopp result saga action.payload", action.payload);
+    yield put({ type: "SET_OLDER_CTOPP_RESULTS", payload: response.data });
+  } catch (error) {
+    console.log("Error fetching older ctopp data", error);
+  }
+}
+
 // Saga for adding older_ctopp data
 function* addOlderCtopp(action) {
   try {
@@ -62,6 +77,7 @@ function* olderCtoppSaga() {
   yield takeLatest("ADD_OLDER_CTOPP", addOlderCtopp);
   yield takeLatest("UPDATE_OLDER_CTOPP", updateOlderCtopp);
   yield takeLatest("DELETE_OLDER_CTOPP", deleteOlderCtopp);
+  yield takeLatest("FETCH_OLDER_CTOPP_RESULTS", fetchOlderCtoppResult);
 }
 
 export default olderCtoppSaga;

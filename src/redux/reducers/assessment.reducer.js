@@ -3,7 +3,9 @@ const initialState = {
   isLoading: false, // To track the loading state of requests
   error: null, // To store any errors that might occur during requests
   currentRecord: null, // Object to store details of the currently selected record
-  selectedTest: [],
+  youngerAssessment: [],
+  olderAssessment: [],
+
 };
 
 const assessmentReducer = (state = initialState, action) => {
@@ -11,14 +13,14 @@ const assessmentReducer = (state = initialState, action) => {
     case "SET_YOUNG_ASSESSMENT":
       return {
         ...state,
-        list: action.payload,
+        youngerAssessment: action.payload,
       };
   }
   switch (action.type) {
     case "SET_OLDER_ASSESSMENT":
       return {
         ...state,
-        list: action.payload,
+        olderAssessment: action.payload,
       };
   }
 };

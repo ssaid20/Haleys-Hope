@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require("../modules/pool");
 
 // GET request for the YOUNGER versions of the CTOPP and WIST with regular GORT
-router.get("/young/:studentId", (req, res) => {
+router.get("/younger/:studentId", (req, res) => {
   const studentId = req.params.studentId;
   const queryText = `
   SELECT

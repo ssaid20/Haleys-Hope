@@ -4,6 +4,7 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
+import { TextField, Button, Grid, FormControl, FormLabel, Paper } from "@mui/material";
 
 //component to add a new Secondary ctopp test
 const AddSecondaryCtopp = () => {
@@ -105,199 +106,53 @@ const AddSecondaryCtopp = () => {
 
   return (
     <>
-      <button onClick={handleGoBack}>GO BACK</button>
-      <form onSubmit={handleSubmit}>
-        <div className="input-field">
-          <label htmlFor="date">Date:</label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            value={newCtopp.date}
-            onChange={handleChange}
-          />
-          {validationErrors.date && (
-            <div className="error">{validationErrors.date}</div>
-          )}
-        </div>
-        <div className="input-field">
-          <label htmlFor="examiner">Examiner:</label>
-          <input
-            type="number"
-            id="examiner_id"
-            name="examiner_id"
-            value={newCtopp.examiner_id}
-            onChange={handleChange}
-          />
-          {validationErrors.examiner_id && (
-            <div className="error">{validationErrors.examiner_id}</div>
-          )}
-        </div>
-        <div>
-          <strong>Subtest</strong>
-        </div>
-        <div className="input-field">
-          <label htmlFor="elison_scaled_score">Elison Scaled Score:</label>
-          <input
-            type="number"
-            id="elison_scaled_score"
-            name="elison_scaled_score"
-            value={newCtopp.elison_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="blending_words_scaled_score">
-            Blending Words Scaled Score:
-          </label>
-          <input
-            type="number"
-            id="blending_words_scaled_score"
-            name="blending_words_scaled_score"
-            value={newCtopp.blending_words_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="phoneme_isolation_scaled_score">
-            Phoneme Isolation Scaled Score:
-          </label>
-          <input
-            type="number"
-            id="phoneme_isolation_scaled_score"
-            name="phoneme_isolation_scaled_score"
-            value={newCtopp.phoneme_isolation_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="memory_for_digits_scaled_score">
-            Memory For Digits Scaled Score:
-          </label>
-          <input
-            type="number"
-            id="memory_for_digits_scaled_score"
-            name="memory_for_digits_scaled_score"
-            value={newCtopp.memory_for_digits_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="nonword_repetition_scaled_score">
-            Nonword Repetition Scaled Score:
-          </label>
-          <input
-            type="number"
-            id="nonword_repetition_scaled_score"
-            name="nonword_repetition_scaled_score"
-            value={newCtopp.nonword_repetition_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="rapid_digit_naming_scaled_score">
-            Rapid Digit Naming Scaled Score:
-          </label>
-          <input
-            type="number"
-            id="rapid_digit_naming_scaled_score"
-            name="rapid_digit_naming_scaled_score"
-            value={newCtopp.rapid_digit_naming_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="rapid_letter_naming_scaled_score">
-            Rapid Letter Naming Scaled Score:
-          </label>
-          <input
-            type="number"
-            id="rapid_letter_naming_scaled_score"
-            name="rapid_letter_naming_scaled_score"
-            value={newCtopp.rapid_letter_naming_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <strong>Supplemental</strong>
-        </div>
-        <div className="input-field">
-          <label htmlFor="blending_nonwords_scaled_score">
-            Blending Nonwords Scaled Score:
-          </label>
-          <input
-            type="number"
-            id="blending_nonwords_scaled_score"
-            name="blending_nonwords_scaled_score"
-            value={newCtopp.blending_nonwords_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="segmenting_nonwords_scaled_score">
-            Segmenting Nonwords Scaled Score:
-          </label>
-          <input
-            type="number"
-            id="segmenting_nonwords_scaled_score"
-            name="segmenting_nonwords_scaled_score"
-            value={newCtopp.segmenting_nonwords_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <strong>Composite</strong>
-        </div>
-        <div className="input-field">
-          <label htmlFor="phonological_awareness_composite">
-            Phonological Awareness Composite:
-          </label>
-          <input
-            type="number"
-            id="phonological_awareness_composite"
-            name="phonological_awareness_composite"
-            value={newCtopp.phonological_awareness_composite}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="phonological_memory_composite">
-            Phonological Memory Composite:
-          </label>
-          <input
-            type="number"
-            id="phonological_memory_composite"
-            name="phonological_memory_composite"
-            value={newCtopp.phonological_memory_composite}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="rapid_symbolic_naming_composite">
-            Rapid Symbolic Naming Composite:
-          </label>
-          <input
-            type="number"
-            id="rapid_symbolic_naming_composite"
-            name="rapid_symbolic_naming_composite"
-            value={newCtopp.rapid_symbolic_naming_composite}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="alt_phonological_awareness_composite">
-            Alt Phonological Awareness:
-          </label>
-          <input
-            type="number"
-            id="alt_phonological_awareness_composite"
-            name="alt_phonological_awareness_composite"
-            value={newCtopp.alt_phonological_awareness_composite}
-            onChange={handleChange}
-          />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
+    <h1 className="text-3xl text-center mb-4 bg-primary-100">CTOPP-2 Over 7</h1>
+      <Button variant="outlined" onClick={handleGoBack} className="mb-4">
+        GO BACK
+      </Button>
+      <Paper elevation={3} className="p-8">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <Grid container spacing={3}>
+            {/* Dynamically generate Grid items for each field */}
+            {Object.keys(newCtopp).map((key) => (
+              <Grid item xs={12} md={4} key={key}>
+                <FormControl fullWidth>
+                  <FormLabel>
+                    {key
+                      .split("_")
+                      .map(
+                        (word) => word.charAt(0).toUpperCase() + word.slice(1)
+                      )
+                      .join(" ")}
+                    :
+                  </FormLabel>
+                  <TextField
+                    type="number"
+                    id={key}
+                    name={key}
+                    value={newCtopp[key]}
+                    onChange={handleChange}
+                    variant="outlined"
+                  />
+                  {validationErrors[key] && (
+                    <div className="text-red-500 text-xs italic">
+                      {validationErrors[key]}
+                    </div>
+                  )}
+                </FormControl>
+              </Grid>
+            ))}
+          </Grid>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className="mt-4"
+          >
+            Submit
+          </Button>
+        </form>
+      </Paper>
     </>
   );
 };

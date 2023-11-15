@@ -78,7 +78,7 @@ function* secondaryWistSaga() {
   yield takeLatest("ADD_SECONDARY_WIST", addSecondaryWist);
   yield takeLatest("UPDATE_SECONDARY_WIST", updateSecondaryWist);
   yield takeLatest("DELETE_SECONDARY_WIST", deleteSecondaryWist);
-  yield takeLatest("FETCH_SECONDARY_WIST_RESULT", fetchSecondaryWistResult);
+  yield takeLatest("FETCH_SECONDARY_WIST_RESULTS", fetchSecondaryWistResult);
 }
 
 export default secondaryWistSaga;

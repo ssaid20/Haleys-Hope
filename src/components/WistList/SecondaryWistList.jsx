@@ -30,7 +30,7 @@ const SecondaryWistList = () => {
   }
 
   const moreDetails = (testId) => {
-    history.push(`/ElementaryWistResults/${testId}`);
+    history.push(`/SecondaryWistResults/${testId}`);
   };
 
   return (

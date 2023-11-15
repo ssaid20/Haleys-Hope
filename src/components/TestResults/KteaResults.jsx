@@ -12,7 +12,7 @@ const KteaResults = () => {
   useEffect(() => {
     console.log("useEffect selected test, expect empty", selectedTest);
     dispatch({ type: "FETCH_KTEA_RESULTS", payload: testId.id });
-    console.log("KTEA TEST ID",testId);
+    console.log("KTEA TEST ID", testId);
   }, [dispatch]);
 
   const selectedTest = useSelector(
@@ -26,7 +26,7 @@ const KteaResults = () => {
   }
   console.log("selectedtestyboi", selectedTest);
 
-  const goBack = () => history.push("/students/:id");
+  const goBack = () => history.push(`/students/${selectedTest.student_id}`);
 
   return (
     <div>
@@ -37,13 +37,15 @@ const KteaResults = () => {
         <h2>Test Details:</h2>
         <p>Date: {formatDate(selectedTest.date)}</p>
         <p>Examiner ID: {selectedTest.examiner_id}</p>
-        <p>Letter and Word Recognition Scaled Score: {selectedTest.lwr_scaled_score}</p>
-        <p>Letter and Word Recognition Percentile: {selectedTest.lwr_percentile}</p>
+        <p>
+          Letter and Word Recognition Scaled Score:{" "}
+          {selectedTest.lwr_scaled_score}
+        </p>
+        <p>
+          Letter and Word Recognition Percentile: {selectedTest.lwr_percentile}
+        </p>
         <p>Spelling Scaled Score: {selectedTest.spelling_scaled_score}</p>
         <p>Spelling Percentile: {selectedTest.spelling_percentile}</p>
-
-
-     
       </div>
     </div>
   );

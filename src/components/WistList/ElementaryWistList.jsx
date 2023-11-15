@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDate } from "../../lib/utils";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const ElementaryWistList = () => {
   const dispatch = useDispatch();
   const tests = useSelector((state) => state.elementaryWistReducer.list);
+  const student = useParams();
   const [selectedTest, setSelectedTest] = useState(null);
   // const studentId = useSelector((state) => state.studentId);
   const isLoading = useSelector(
@@ -13,9 +15,8 @@ const ElementaryWistList = () => {
   //const error = useSelector((state) => state.elementaryWist.error);
   console.log(tests);
   useEffect(() => {
-    console.log("dispatching fetch_elementary_wist");
     //need to get student id and pass it in somehow in the dispatch, with a payload: studentId
-    dispatch({ type: "FETCH_ELEMENTARY_WIST", payload: 1 });
+    dispatch({ type: "FETCH_ELEMENTARY_WIST", payload: student.id });
   }, [dispatch]);
 
   //if loading tests, display a loading message
@@ -24,7 +25,7 @@ const ElementaryWistList = () => {
 
   //if there are no tests, display none available for now
   if (tests.length === 0) {
-    return <p>No tests available.</p>;
+    return <p>No WIST 7-11 tests available.</p>;
   }
 
   const handleTestClick = (test) => {
@@ -35,7 +36,7 @@ const ElementaryWistList = () => {
     <div>
       {tests.map((test) => (
         <div key={test.id} onClick={() => handleTestClick(test)}>
-          <p>Wist Date: {formatDate(test.date)} (click for details)</p>
+          <p>Wist Age 7-11 Date: {formatDate(test.date)} (click for details)</p>
         </div>
       ))}
 

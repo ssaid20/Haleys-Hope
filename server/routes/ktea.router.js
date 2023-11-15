@@ -4,6 +4,7 @@ const pool = require("../modules/pool");
 const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
+const { RequestQuoteTwoTone } = require("@mui/icons-material");
 
 // Routes for KTEA test
 
@@ -26,9 +27,10 @@ router.get("/:studentId", async (req, res) => {
 });
 
 // POST route for KTEA
-router.post("/:studentId", async (req, res) => {
+router.post("/", async (req, res) => {
+  console.log(req.params);
+  console.log(req.body);
   try {
-    const studentId = req.params.studentId; // TODO: may just be id from front end
     const {
       student_id,
       date,
@@ -43,7 +45,7 @@ router.post("/:studentId", async (req, res) => {
         ) VALUES (
             $1, $2, $3, $4, $5, $6, $7);`;
     const values = [
-      studentId,
+      student_id,
       date,
       examiner_id,
       lwr_scaled_score,

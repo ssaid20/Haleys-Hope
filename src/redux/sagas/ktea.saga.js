@@ -14,7 +14,9 @@ function* fetchKtea(action) {
 
 //saga for adding data to KTEA
 function* addKtea(action) {
+  console.log("ktea saga post action", action.payload);
   try {
+    console.log("ktea saga student id",action.payload.student_id);
     yield call(axios.post, "/api/ktea", action.payload);
     yield put({
       type: "FETCH_KTEA",
@@ -39,6 +41,10 @@ function* updateKtea(action) {
   } catch (error) {
     console.log("Error updating KTEA data", error);
   }
+  yield put({
+    type: "ADD_KTEA_ERROR",
+    payload: error,
+  });
 }
 // saga for deleting an individual KTEA test for a student. needs student id and test id
 function* deleteKtea(action) {

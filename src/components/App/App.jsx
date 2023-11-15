@@ -27,6 +27,8 @@ import ElementaryWistResults from "../TestResults/ElementaryWistResults";
 import GortResults from "../TestResults/GortResults";
 import SecondaryWistResults from "../TestResults/SecondaryWistResults";
 import YoungerCtoppResults from "../TestResults/YoungerCtoppResults";
+import OlderCtoppResults from "../TestResults/OlderCtoppResults";
+
 import "./App.css";
 import KteaResults from "../TestResults/KteaResults";
 
@@ -99,9 +101,9 @@ function App() {
           <ProtectedRoute exact path="/YoungerCtoppResults/:id">
             <YoungerCtoppResults />
           </ProtectedRoute>
-          {/* <ProtectedRoute exact path="/OlderCtoppResults/:id">
+          <ProtectedRoute exact path="/OlderCtoppResults/:id">
             <OlderCtoppResults />
-          </ProtectedRoute> */}
+          </ProtectedRoute>
           <ProtectedRoute exact path="/addKtea/:id">
             <AddKtea />
           </ProtectedRoute>

@@ -14,8 +14,9 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
-// GET route to fetch all users
-router.get("/", (req, res) => {
+// GET route to fetch all users who are not deactivated
+router.get("/allUsers", (req, res) => {
+  console.log("get all users router.js running");
   const queryText = 'SELECT * FROM "user" WHERE "role_id" > 1';
   pool
     .query(queryText)

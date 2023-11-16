@@ -38,8 +38,12 @@ function App() {
   const user = useSelector((store) => store.user);
 
   useEffect(() => {
+    dispatch({ type: "FETCH_ALL_USERS" });
+  }, []);
+
+  useEffect(() => {
     dispatch({ type: "FETCH_USER" });
-  }, [dispatch]);
+  }, []);
 
   console.log(
     "%cGreat Job Team!",

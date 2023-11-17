@@ -21,6 +21,8 @@ function StudentDetails() {
   useEffect(() => {
     if (studentId) {
       dispatch({ type: "FETCH_STUDENT", payload: studentId });
+      dispatch({ type: "FETCH_YOUNGER_ASSESSMENT", payload: studentId.id });
+      dispatch({ type: "FETCH_OLDER_ASSESSMENT", payload: studentId.id });
     }
   }, [dispatch, studentId]);
 

@@ -8,6 +8,7 @@ import studentReducer from "./student.reducer";
 import youngerCtoppReducer from "./youngerCtopp.reducer";
 import olderCtoppReducer from "./olderCtopp.reducer";
 import kteaReducer from "./ktea.reducer";
+import assessmentReducer from "./assessment.reducer";
 import allUsersReducer from "./allUsers.reducer";
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -25,6 +26,8 @@ const rootReducer = combineReducers({
   youngerCtoppReducer,
   olderCtoppReducer,
   kteaReducer,
+  assessmentReducer,
+
   allUsersReducer,
 });
 

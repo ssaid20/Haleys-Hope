@@ -26,13 +26,9 @@ function* fetchUser() {
 
 // Saga to fetch all users
 function* fetchAllUsers() {
-  console.log("fetch all users running");
   try {
-    console.log("hi");
     const response = yield call(axios.get, "/api/user/allUsers");
-    console.log("fetch all users saga response:", response);
     yield put({ type: "SET_ALL_USERS", payload: response.data });
-    console.log("fetch all users saga res.data", response.data);
   } catch (error) {
     console.log("Error fetching students", error);
   }

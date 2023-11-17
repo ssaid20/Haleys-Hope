@@ -16,8 +16,8 @@ const Tests = () => {
     { text: "Elementary WIST", path: "addElementaryWist" },
     { text: "Secondary WIST", path: "addSecondaryWist" },
     { text: "GORT-5", path: "addGort" },
-    { text: "CTOPP-2 Under 7", path: "addElementaryCtopp" },
-    { text: "CTOPP-2 Over 7", path: "addSecondaryCtopp" },
+    { text: "CTOPP-2 Under 7", path: "addYoungerCtopp" },
+    { text: "CTOPP-2 Over 7", path: "addOlderCtopp" },
     { text: "KTEA", path: "addKtea" },
   ];
 

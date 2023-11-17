@@ -54,6 +54,10 @@ const AddOlderCtopp = () => {
     phonological_memory_composite: null,
     rapid_symbolic_naming_composite: null,
     alt_phonological_awareness_composite: null,
+    phonological_awareness_percentile: null,
+    phonological_memory_percentile: null,
+    rapid_symbolic_naming_percentile: null,
+    alt_phonological_awareness_percentile: null,
   });
   const handleGoBack = () => {
     history.push(`/students/${student.id}`);
@@ -346,6 +350,62 @@ const AddOlderCtopp = () => {
                   id="alt_phonological_awareness_composite"
                   name="alt_phonological_awareness_composite"
                   value={newCtopp.alt_phonological_awareness_composite}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Phonological Awareness Percentile Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Phonological Awareness Percentile:</FormLabel>
+                <TextField
+                  type="number"
+                  id="phonological_awareness_percentile"
+                  name="phonological_awareness_percentile"
+                  value={newCtopp.phonological_awareness_percentile}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Phonological Memory Percentile Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Phonological Memory Percentile:</FormLabel>
+                <TextField
+                  type="number"
+                  id="phonological_memory_percentile"
+                  name="phonological_memory_percentile"
+                  value={newCtopp.phonological_memory_percentile}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rapid Symbolic Naming Percentile Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rapid Symbolic Naming Percentile:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rapid_symbolic_naming_percentile"
+                  name="rapid_symbolic_naming_percentile"
+                  value={newCtopp.rapid_symbolic_naming_percentile}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Alt Phonological Awareness Percentile Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Alt Phonological Awareness Percentile:</FormLabel>
+                <TextField
+                  type="number"
+                  id="alt_phonological_awareness_percentile"
+                  name="alt_phonological_awareness_percentile"
+                  value={newCtopp.alt_phonological_awareness_percentile}
                   onChange={handleChange}
                   variant="outlined"
                 />

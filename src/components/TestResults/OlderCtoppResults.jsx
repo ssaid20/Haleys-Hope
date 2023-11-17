@@ -89,6 +89,23 @@ const OlderCtoppResults = () => {
           Alt. Phonological Awareness Composite:{" "}
           {selectedTest.alt_phonological_awareness_composite}
         </p>
+
+        <p>
+          Phonological Awareness Percentile:{" "}
+          {selectedTest.phonological_awareness_percentile}
+        </p>
+        <p>
+          Phonological Memory Percentile:{" "}
+          {selectedTest.phonological_memory_percentile}
+        </p>
+        <p>
+          Rapid Symbolic Naming Percentile:{" "}
+          {selectedTest.rapid_symbolic_naming_percentile}
+        </p>
+        <p>
+          Alt. Phonological Awareness Percentile:{" "}
+          {selectedTest.alt_phonological_awareness_percentile}
+        </p>
       </div>
     </div>
   );

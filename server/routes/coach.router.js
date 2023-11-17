@@ -16,28 +16,40 @@ router.get("/", (req, res) => {
 });
 
 // GET route to fetch a specific coach by ID with all their details
-router.get("/:id", (req, res) => {
-  const coachId = req.params.id;
-  const queryText =
-    'SELECT * FROM "coaches" WHERE "id" = $1 AND "is_active" = TRUE';
+// router.get("/:id", (req, res) => {
+//   const coachId = req.params.id;
+//   const queryText =
+//     'SELECT * FROM "coaches" WHERE "id" = $1 AND "is_active" = TRUE';
+//   pool
+//     .query(queryText, [coachId])
+//     .then((result) => {
+//       if (result.rows.length === 0) {
+//         res.status(404).send("Coach not found");
+//       } else {
+//         res.send(result.rows[0]);
+//       }
+//     })
+//     .catch((err) => {
+//       console.error("Error in GET specific coach", err);
+//       res.sendStatus(500);
+//     });
+// });
+
+// GET route to fetch all users who are archived/deactivated
+router.get("/archivedCoaches", (req, res) => {
+  console.log("/archivedCoaches router.get");
+  const queryText = 'SELECT * FROM "coaches" WHERE "is_active" = false';
   pool
-    .query(queryText, [coachId])
-    .then((result) => {
-      if (result.rows.length === 0) {
-        res.status(404).send("Coach not found");
-      } else {
-        res.send(result.rows[0]);
-      }
-    })
+    .query(queryText)
+    .then((result) => res.send(result.rows))
     .catch((err) => {
-      console.error("Error in GET specific coach", err);
+      console.error("Error in GET all coaches", err);
       res.sendStatus(500);
     });
 });
 
 // POST route to add a new coach
 router.post("/", (req, res) => {
-  console.log("req.body in add coach router", req.body);
   const newCoach = req.body;
   const queryText = `INSERT INTO "coaches" (
     "first_name", "last_name"
@@ -57,9 +69,11 @@ router.post("/", (req, res) => {
 // PUT route to update a coach's information
 router.put("/:id", (req, res) => {
   const coachId = req.params.id;
+
   const updatedCoach = req.body;
+
   const queryText = `UPDATE "coaches" SET
-    "first_name" = $1, "last_name" = $2, "is_active" = $3,  WHERE "id" = $4`;
+    "first_name" = $1, "last_name" = $2, "is_active" = $3 WHERE "id" = $4`;
 
   const values = [
     updatedCoach.first_name,

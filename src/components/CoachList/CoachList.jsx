@@ -51,8 +51,7 @@ const CoachList = () => {
   useEffect(() => {
     dispatch({ type: "FETCH_COACHES" });
     dispatch({ type: "FETCH_ARCHIVED_COACHES" });
-    return () => console.log("blah blah blah");
-  }, []);
+  }, [dispatch]);
 
   //handles pagination
   const handleChangePage = (event, newPage) => {
@@ -62,8 +61,13 @@ const CoachList = () => {
   //updated input change with id being a number
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    // If the input is 'role_id', convert the value to a number
-    const updatedValue = id === "role_id" ? parseInt(value, 10) : value;
+    let updatedValue = value;
+
+    if (id === "is_active") {
+      // Convert the value to a boolean
+      updatedValue = value === "true"; // "true" for active, "false" for inactive
+    }
+
     setFormData({ ...formData, [id]: updatedValue });
   };
 
@@ -81,6 +85,7 @@ const CoachList = () => {
     setFormData({
       first_name: coach.first_name,
       last_name: coach.last_name,
+      is_active: coach.is_active,
     });
     setEditingCoachId(coach.id); // Set the editing coach's ID
   }; // end handleEditClick
@@ -91,7 +96,7 @@ const CoachList = () => {
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
-    role_id: "",
+    is_active: "",
   });
 
   const addCoach = () => {
@@ -118,6 +123,7 @@ const CoachList = () => {
       setFormData({
         first_name: coaches.first_name || "",
         last_name: coaches.last_name || "",
+        role_id: coaches.is_active || "",
       });
     }
   }, [coaches]);
@@ -150,6 +156,7 @@ const CoachList = () => {
                     ...coach,
                     first_name: `${coach.first_name}`,
                     last_name: `${coach.last_name}`,
+                    is_active: `${coach.is_active}`,
                   };
 
                   return (
@@ -216,6 +223,15 @@ const CoachList = () => {
                                   value={formData.last_name}
                                   onChange={handleInputChange}
                                 />
+                                <Label htmlFor="is active">Is Active?</Label>
+                                <select
+                                  id="is_active"
+                                  value={formData.is_active.toString()} // Convert boolean to string for the select value
+                                  onChange={handleInputChange}
+                                >
+                                  <option value="true">Active</option>
+                                  <option value="false">Inactive</option>
+                                </select>
                               </div>
                             </div>
                             <SheetFooter>

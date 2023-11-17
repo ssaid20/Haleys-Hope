@@ -3,18 +3,27 @@ import axios from "axios";
 
 // Saga to fetch all coaches
 function* fetchCoaches() {
-  console.log("*2* fetch coaches saga");
   try {
-    console.log("try in fetch coaches saga");
     const response = yield call(axios.get, "/api/coaches");
-    console.log("*3* fetch coach saga response", response);
+
     yield put({ type: "SET_COACHES", payload: response.data });
-    console.log("*4* set coaches saga response.data", response.data);
   } catch (error) {
     console.log("Error fetching coaches", error);
   }
 }
+// Saga to fetch archived coaches
+function* fetchArchivedCoaches() {
+  try {
+    console.log("fetchArchived Coaches saga running");
+    const response = yield call(axios.get, "/api/coaches/archivedCoaches");
+    yield put({ type: "SET_ARCHIVED_COACHES", payload: response.data });
+    // yield put({ type: "FETCH_ARCHIVED_COACHES", payload: response.data });
 
+    console.log("res.data after set archived coaches", response.data);
+  } catch (error) {
+    console.log("Error fetching archived coaches", error);
+  }
+}
 // Saga to fetch a specific coach
 function* fetchCoach(action) {
   try {
@@ -63,6 +72,7 @@ function* coachSaga() {
   yield takeLatest("ADD_COACH", addCoach);
   yield takeLatest("UPDATE_COACH", updateCoach);
   yield takeLatest("DELETE_COACH", deleteCoach);
+  yield takeLatest("FETCH_ARCHIVED_COACHES", fetchArchivedCoaches);
 }
 
 export default coachSaga;

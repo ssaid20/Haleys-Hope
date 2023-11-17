@@ -53,7 +53,6 @@ const ManageUsers = () => {
   useEffect(() => {
     dispatch({ type: "FETCH_ALL_USERS" });
     dispatch({ type: "FETCH_ARCHIVED_USERS" });
-    return () => console.log("blah blah blah");
   }, []);
 
   //handles pagination

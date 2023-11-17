@@ -4,6 +4,7 @@ const initialState = {
   currentCoach: null, // Details of the selected coach
   isLoading: false,
   error: null,
+  archivedCoaches: [],
 };
 
 const coachReducer = (state = initialState, action) => {
@@ -44,6 +45,11 @@ const coachReducer = (state = initialState, action) => {
         list: state.list.filter((coach) => coach.id !== action.payload.id),
         isLoading: false,
         error: null,
+      };
+    case "SET_ARCHIVED_COACHES":
+      return {
+        ...state,
+        archivedCoaches: action.payload,
       };
     default:
       return state;

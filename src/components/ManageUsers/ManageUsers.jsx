@@ -31,7 +31,6 @@ const sheetStyle = {
   overflowY: "auto", // Enables vertical scrolling
 };
 
-///*******  need to move edit button to each user and tie their id  */
 // Define the columns for the user table
 const columns = [
   { id: "username", label: "Username", minWidth: 170 },
@@ -39,28 +38,28 @@ const columns = [
   { id: "last_name", label: "Last Name", minWidth: 170 },
   { id: "role_id", label: "Role", minWidth: 100 },
 ];
-
+// function to see and manage all users
 const ManageUsers = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const users = useSelector((store) => store.allUsersReducer.users);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-
+  const [showArchivedUsers, setShowArchivedUsers] = useState(false);
+  const archivedUsers = useSelector(
+    (store) => store.allUsersReducer.archivedUsers
+  );
+  console.log("logging archived users", archivedUsers);
   useEffect(() => {
     dispatch({ type: "FETCH_ALL_USERS" });
+    dispatch({ type: "FETCH_ARCHIVED_USERS" });
     return () => console.log("blah blah blah");
   }, []);
 
+  //handles pagination
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
-  // const handleInputChange = (e) => {
-  //   console.log("Input changed:", e.target.id, e.target.value);
-  //   const { id, value } = e.target;
-  //   setFormData({ ...formData, [id]: value });
-  // };
 
   //updated input change with id being a number
   const handleInputChange = (e) => {
@@ -75,11 +74,6 @@ const ManageUsers = () => {
     setPage(0);
   };
 
-  // Function to close the Sheet and reset editing user
-  // const handleCloseSheet = () => {
-  //   setEditingUserId(null);
-  // };
-
   // New state to control the visibility of the Sheet
   const [editingUserId, setEditingUserId] = useState(null);
 
@@ -92,7 +86,7 @@ const ManageUsers = () => {
       role_id: user.role_id,
     });
     setEditingUserId(user.id); // Set the editing user's ID
-  };
+  }; // end handleEditClick
 
   console.log("logging Users in manage users", users);
 
@@ -111,6 +105,11 @@ const ManageUsers = () => {
       payload: { id: editingUserId, ...formData },
     });
     setEditingUserId(null); // Close the sheet after submitting
+  }; // end handleSubmit
+
+  // Function to toggle the display of archived users
+  const toggleArchivedUsers = () => {
+    setShowArchivedUsers(!showArchivedUsers);
   };
 
   useEffect(() => {
@@ -223,7 +222,7 @@ const ManageUsers = () => {
                                   onChange={handleInputChange}
                                 /> */}
 
-                                <Label htmlFor="pretestPassed">Role</Label>
+                                <Label htmlFor="role">Role</Label>
                                 <select
                                   id="role_id"
                                   value={formData.role_id}
@@ -241,19 +240,6 @@ const ManageUsers = () => {
                                     Lead Performing Agent
                                   </option>
                                   <option value="6">Admin</option>
-                                  {/* <option value="academic_assessment_coordinator">
-                                    Academic Assessment Coordinator
-                                  </option>
-                                  <option value="dyslexia_specialist">
-                                    Dyslexia Specialist
-                                  </option>
-                                  <option value="literacy_coach_manager">
-                                    Literacy Coach Manager
-                                  </option>
-                                  <option value="lead_performing_agent">
-                                    Literacy Performing Agent
-                                  </option>
-                                  <option value="admin">Admin</option> */}
                                 </select>
                               </div>
                             </div>
@@ -283,8 +269,72 @@ const ManageUsers = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
+      {/* this button opens up a table of archived users */}
+      <Button onClick={toggleArchivedUsers}>
+        {showArchivedUsers ? "Hide Archived Users" : "Show Archived Users"}
+      </Button>
+      {showArchivedUsers && (
+        <Paper sx={{ width: "100%", overflow: "hidden", marginTop: 2 }}>
+          <TableContainer sx={{ maxHeight: 440 }}>
+            <Table stickyHeader aria-label="archived user table">
+              <TableHead>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={column.id}
+                      align={column.align}
+                      style={{ minWidth: column.minWidth }}
+                    >
+                      {column.label}
+                    </TableCell>
+                  ))}
+                  <TableCell>Edit</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {archivedUsers.map((user) => {
+                  // Assuming similar structure for archived users
+                  const formattedUser = {
+                    ...user,
+                    first_name: `${user.first_name}`,
+                    last_name: `${user.last_name}`,
+                    role_id: `${user.role_id}`,
+                  };
+
+                  return (
+                    <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
+                      {columns.map((column) => {
+                        const value = formattedUser[column.id];
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            {value}
+                          </TableCell>
+                        );
+                      })}
+                      <TableCell>
+                        <Button
+                          onClick={() => handleEditClick(user)}
+                          variant="outline"
+                          className=" text-m px-5 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
+                        >
+                          <img
+                            src="/assets/icons/edit.svg"
+                            alt="Edit Icon"
+                            className="w-4 h-4"
+                          />
+                          <span>Edit User</span>
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
+      )}
     </div>
   );
-};
+}; // end manageUsers
 
 export default ManageUsers;

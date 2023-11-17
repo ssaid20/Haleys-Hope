@@ -13,6 +13,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         users: action.payload,
       };
+
     case "UPDATE_USER":
       console.log("update user reducer");
       return {

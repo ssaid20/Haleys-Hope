@@ -9,7 +9,6 @@ function RegisterForm() {
 
   const registerUser = (event) => {
     event.preventDefault();
-    history = useHistory();
 
     dispatch({
       type: "REGISTER",

@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+// import { useHistory } from "react-router-dom/";
 
 function RegisterForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
+  // history = useHistory();
 
   const registerUser = (event) => {
     event.preventDefault();
-    history = useHistory();
 
     dispatch({
       type: "REGISTER",

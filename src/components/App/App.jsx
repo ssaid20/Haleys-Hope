@@ -117,6 +117,7 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact path="/add-student">
             <StudentForm />
+          </ProtectedRoute>
           <ProtectedRoute exact path="/admin/manageUsers">
             <ManageUsers />
           </ProtectedRoute>

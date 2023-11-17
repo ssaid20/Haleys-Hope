@@ -48,8 +48,8 @@ CREATE TABLE
   "on_site" BOOLEAN NOT NULL DEFAULT true,
   "barton_c" BOOLEAN,
   "barton_c_date" DATE,
-  "coach_id" INTEGER REFERENCES "coaches" ("id")
-  "start_date" DATE NOT NULL,
+  "coach_id" INTEGER REFERENCES "coaches" ("id"),
+  "start_date" DATE NOT NULL
  );
 
 CREATE TABLE

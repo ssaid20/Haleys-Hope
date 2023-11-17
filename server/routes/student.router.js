@@ -60,7 +60,6 @@ router.post("/", (req, res) => {
     });
 });
 
-
 // PUT route to update a student's information
 router.put("/:id", (req, res) => {
   const studentId = req.params.id;

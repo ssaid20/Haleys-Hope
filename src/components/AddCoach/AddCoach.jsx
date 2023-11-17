@@ -40,8 +40,13 @@ const AddCoach = () => {
     history.push("/admin/coaches");
   };
 
+  const goBack = () => {
+    history.push("/admin/coaches");
+  };
+
   return (
     <Paper style={{ padding: "20px", marginTop: "20px" }}>
+      <button onClick={goBack}>Go Back</button>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>

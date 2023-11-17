@@ -99,10 +99,10 @@ function Nav() {
               <MenuItem
                 onClick={handleClose}
                 component={Link}
-                to="/admin/addCoach"
+                to="/admin/coaches"
                 className="customMenuItem"
               >
-                Add Coach
+                Coaches
               </MenuItem>
               {/* <MenuItem
                 onClick={handleClose}

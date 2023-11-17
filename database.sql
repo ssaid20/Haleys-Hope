@@ -4,12 +4,12 @@
 -- Otherwise you will have errors!
 --
 -- Database Name: student_tracker
-CREATE TABLE
-  IF NOT EXISTS "coaches" (
-    "id" SERIAL PRIMARY KEY,
-    "first_name" VARCHAR,
-    "last_name" VARCHAR
-  );
+CREATE TABLE IF NOT EXISTS "coaches" (
+  "id" SERIAL PRIMARY KEY,
+  "first_name" VARCHAR,
+  "last_name" VARCHAR,
+  "is_active" BOOLEAN NOT NULL DEFAULT true
+);
 
 CREATE TABLE
   IF NOT EXISTS "roles" ("id" SERIAL PRIMARY KEY, "role" VARCHAR(100));

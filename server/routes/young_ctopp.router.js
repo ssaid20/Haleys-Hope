@@ -50,8 +50,10 @@ router.post("/", (req, res) => {
         "rapid_digit_naming_scaled_score", "rapid_letter_naming_scaled_score", 
         "rapid_color_naming_scaled_score", "rapid_object_naming", 
         "blending_nonwords_scaled_score", "phonological_awareness_composite", 
-        "phonological_memory_composite", "rapid_symbolic_naming_composite", "rapid_non_symbolic_naming_composite"
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)`;
+        "phonological_memory_composite", "rapid_symbolic_naming_composite", "rapid_non_symbolic_naming_composite",
+        "phonological_awareness_percentile", 
+        "phonological_memory_percentile", "rapid_symbolic_naming_percentile", "rapid_non_symbolic_naming_percentile"
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21)`;
 
   const values = [
     newYCtopp.student_id,
@@ -71,6 +73,10 @@ router.post("/", (req, res) => {
     newYCtopp.phonological_memory_composite,
     newYCtopp.rapid_symbolic_naming_composite,
     newYCtopp.rapid_non_symbolic_naming_composite,
+    newYCtopp.phonological_awareness_percentile,
+    newYCtopp.phonological_memory_percentile,
+    newYCtopp.rapid_symbolic_naming_percentile,
+    newYCtopp.rapid_non_symbolic_naming_percentile,
   ];
   pool
     .query(queryText, values)

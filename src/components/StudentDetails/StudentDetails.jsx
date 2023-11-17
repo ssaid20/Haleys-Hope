@@ -5,11 +5,12 @@ import { Button } from "../ui/button";
 import Tests from "../shared/Tests";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import TestTab from "../shared/TestTab/TestTab";
-import AssesmentTab from "../shared/AssesmentTab/AssesmentTab";
+import AssessmentTab from "../shared/AssessmentTab/AssessmentTab";
 import GraphTab from "../shared/GraphTab/GraphTab";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import StudentCard from "../Cards/StudentCard";
+import NotesTab from "../shared/NotesTab/NotesTab";
 
 function StudentDetails() {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ function StudentDetails() {
           {/* Rest of the content like Tabs, Graphs, etc. */}
           <Tabs defaultValue="test" className="flex-1">
             <TabsList className="background-light800_dark400 min-h-[42px] p-1 rounded-t-lg">
-              {["test", "graph", "assesment"].map((tab) => (
+              {["test", "graph", "assessment", "notes"].map((tab) => (
                 <TabsTrigger
                   key={tab}
                   value={tab}
@@ -67,10 +68,13 @@ function StudentDetails() {
               <GraphTab />
             </TabsContent>
             <TabsContent
-              value="assesment"
+              value="assessment"
               className="flex w-full flex-col gap-6"
             >
-              <AssesmentTab />
+              <AssessmentTab />
+              <TabsContent value="notes" className="flex w-full flex-col gap-6">
+                <NotesTab />
+              </TabsContent>
             </TabsContent>
           </Tabs>
         </div>

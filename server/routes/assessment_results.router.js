@@ -25,7 +25,11 @@ router.get("/younger/:studentId", (req, res) => {
   ctopp.phonological_awareness_composite,
   ctopp.phonological_memory_composite,
   ctopp.rapid_symbolic_naming_composite,
-  ctopp.rapid_non_symbolic_naming_composite
+  ctopp.rapid_non_symbolic_naming_composite,
+  ctopp.phonological_awareness_percentile,
+    ctopp.phonological_memory_percentile,
+    ctopp.rapid_symbolic_naming_percentile,
+    ctopp.alt_phonological_awareness_percentile
 FROM
   students s
 JOIN gort ON s.id = gort.student_id
@@ -47,8 +51,8 @@ WHERE
 
 // GET request for OLDER versions of CTOPP and WIST with regular GORT
 router.get("/older/:studentId", (req, res) => {
-    const studentId = req.params.studentId;
-    const queryText = `
+  const studentId = req.params.studentId;
+  const queryText = `
     SELECT
     s.id as student_id,
     s.first_name,
@@ -67,7 +71,12 @@ router.get("/older/:studentId", (req, res) => {
     ctopp.phonological_awareness_composite,
     ctopp.phonological_memory_composite,
     ctopp.rapid_symbolic_naming_composite,
-    ctopp.alt_phonological_awareness
+    ctopp.alt_phonological_awareness_composite,
+    ctopp.phonological_awareness_percentile,
+    ctopp.phonological_memory_percentile,
+    ctopp.rapid_symbolic_naming_percentile,
+    ctopp.alt_phonological_awareness_percentile
+
   FROM
     students s
   JOIN gort ON s.id = gort.student_id
@@ -76,17 +85,15 @@ router.get("/older/:studentId", (req, res) => {
   WHERE
     s.id = $1
   `;
-    pool
-      .query(queryText, [studentId])
-      .then((result) => {
-        res.send(result.rows);
-      })
-      .catch((err) => {
-        console.error("Error in GET for ASSESSMENT", err);
-        res.sendStatus(500);
-      });
-  });
-
-
+  pool
+    .query(queryText, [studentId])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.error("Error in GET for ASSESSMENT", err);
+      res.sendStatus(500);
+    });
+});
 
 module.exports = router;

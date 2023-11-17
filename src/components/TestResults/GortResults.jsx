@@ -46,10 +46,10 @@ const GortResults = () => {
         <p>Rate Raw Total: {selectedTest.rate_raw_total}</p>
         <p>Accuracy Raw Total: {selectedTest.accuracy_raw_total}</p>
         <p>Fluency Raw Total: {selectedTest.fluency_raw_total}</p>
-        <p>Comprehenssion Raw Total: {selectedTest.comprehension_raw_total}</p>
+        <p>Comprehension Raw Total: {selectedTest.comprehension_raw_total}</p>
         <p>Rate Percentile Rank: {selectedTest.rate_percentile_rank}</p>
         <p>
-          Accuracy Percentile Rank: {selectedTest.acccuracy_percentile_rank}
+          Accuracy Percentile Rank: {selectedTest.accuracy_percentile_rank}
         </p>
         <p>Fluency Percentile Rank: {selectedTest.fluency_percentile_rank}</p>
         <p>

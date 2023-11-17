@@ -49,8 +49,8 @@ const history = useHistory()
             <h2>Test Details:</h2>
             <p>Date: {formatDate(selectedTest.date)}</p>
             <p>Examiner ID: {selectedTest.examiner_id}</p>
-            <p>Letter and Word Recognititon Scaled Score: {selectedTest.lwc_scaled_score}</p>
-            <p>Letter and Word Recognititon Percentile: {selectedTest.lwc_percentile}</p>
+            <p>Letter and Word Recognition Scaled Score: {selectedTest.lwc_scaled_score}</p>
+            <p>Letter and Word Recognition Percentile: {selectedTest.lwc_percentile}</p>
             <p>Spelling Scaled Score: {selectedTest.spelling_scaled_score}</p>
             <p>Spelling Percentile: {selectedTest.spelling_percentile}</p>
 

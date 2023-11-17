@@ -1,5 +1,5 @@
 import axios from "axios";
-import { put, takeLatest } from "redux-saga/effects";
+import { put, call, take, takeLatest } from "redux-saga/effects";
 
 // worker Saga: will be fired on "FETCH_USER" actions
 function* fetchUser() {
@@ -24,24 +24,49 @@ function* fetchUser() {
   }
 }
 
+// Saga to fetch all users
+function* fetchAllUsers() {
+  try {
+    const response = yield call(axios.get, "/api/user/allUsers");
+    yield put({ type: "SET_ALL_USERS", payload: response.data });
+  } catch (error) {
+    console.log("Error fetching all users in saga", error);
+  }
+}
+
+// Saga to fetch all users
+function* fetchArchivedUsers() {
+  try {
+    const response = yield call(axios.get, "/api/user/archivedUsers");
+    yield put({ type: "SET_ARCHIVED_USERS", payload: response.data });
+  } catch (error) {
+    console.log("Error fetching archived users", error);
+  }
+}
+
 function* updateUser(action) {
   try {
     const config = {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     };
-    yield put({ type: "FETCH_USER" });
+    // Send a PUT request to update the user's information
+    const response = yield axios.put(
+      `/api/user/${action.payload.id}`,
+      action.payload,
+      config
+    );
+    yield put({ type: "FETCH_ALL_USERS", payload: response.data });
   } catch (error) {
     console.log("User update request failed", error);
   }
-
-  // Send a PUT request to update the user's information
-  yield axios.put(`/api/user/${action.payload.id}`, action.payload, config);
 }
 
 function* userSaga() {
   yield takeLatest("FETCH_USER", fetchUser);
+  yield takeLatest("FETCH_ALL_USERS", fetchAllUsers);
   yield takeLatest("UPDATE_USER", updateUser);
+  yield takeLatest("FETCH_ARCHIVED_USERS", fetchArchivedUsers);
 }
 
 export default userSaga;

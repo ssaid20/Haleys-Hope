@@ -2,7 +2,7 @@ const initialState = {
   currentUser: {}, // The logged-in user
   users: [], // List of all users (for admin purposes)
 };
-const userReducer = (state = {}, action) => {
+const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_USER":
       return action.payload;
@@ -13,13 +13,18 @@ const userReducer = (state = {}, action) => {
         ...state,
         users: action.payload,
       };
+
     case "UPDATE_USER":
+      console.log("update user reducer");
       return {
         ...state,
-        users: state.users.map((user) =>
-          user.id === action.payload.id ? action.payload : user
-        ),
+        users: action.payload,
       };
+
+    // return {
+    //   ...state,
+    //   users: updatedUsers,
+    //};
     default:
       return state;
   }

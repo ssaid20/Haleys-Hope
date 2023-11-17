@@ -14,9 +14,22 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
-// GET route to fetch all users
-router.get("/", (req, res) => {
+// GET route to fetch all users who are not deactivated
+router.get("/allUsers", (req, res) => {
   const queryText = 'SELECT * FROM "user" WHERE "role_id" > 1';
+  pool
+    .query(queryText)
+    .then((result) => res.send(result.rows))
+    .catch((err) => {
+      console.error("Error in GET all users", err);
+      res.sendStatus(500);
+    });
+});
+
+// GET route to fetch all users who are archived/deactivated
+router.get("/archivedUsers", (req, res) => {
+  console.log("get all users router.js running");
+  const queryText = 'SELECT * FROM "user" WHERE "role_id" < 2';
   pool
     .query(queryText)
     .then((result) => res.send(result.rows))
@@ -63,7 +76,7 @@ router.post("/logout", (req, res) => {
 router.put("/:userId", rejectUnauthenticated, async (req, res) => {
   const userId = req.params.userId;
   const { first_name, last_name, role_id } = req.body;
-
+  console.log("Update user", req.body);
   const queryText = `
       UPDATE "user"
       SET first_name = $2, last_name = $3, role_id = $4

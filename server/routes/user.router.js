@@ -16,8 +16,20 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 
 // GET route to fetch all users who are not deactivated
 router.get("/allUsers", (req, res) => {
-  console.log("get all users router.js running");
   const queryText = 'SELECT * FROM "user" WHERE "role_id" > 1';
+  pool
+    .query(queryText)
+    .then((result) => res.send(result.rows))
+    .catch((err) => {
+      console.error("Error in GET all users", err);
+      res.sendStatus(500);
+    });
+});
+
+// GET route to fetch all users who are archived/deactivated
+router.get("/archivedUsers", (req, res) => {
+  console.log("get all users router.js running");
+  const queryText = 'SELECT * FROM "user" WHERE "role_id" < 2';
   pool
     .query(queryText)
     .then((result) => res.send(result.rows))

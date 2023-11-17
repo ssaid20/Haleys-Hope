@@ -30,12 +30,21 @@ function* fetchAllUsers() {
     const response = yield call(axios.get, "/api/user/allUsers");
     yield put({ type: "SET_ALL_USERS", payload: response.data });
   } catch (error) {
-    console.log("Error fetching students", error);
+    console.log("Error fetching all users in saga", error);
+  }
+}
+
+// Saga to fetch all users
+function* fetchArchivedUsers() {
+  try {
+    const response = yield call(axios.get, "/api/user/archivedUsers");
+    yield put({ type: "SET_ARCHIVED_USERS", payload: response.data });
+  } catch (error) {
+    console.log("Error fetching archived users", error);
   }
 }
 
 function* updateUser(action) {
-  console.log("updateuser saga");
   try {
     const config = {
       headers: { "Content-Type": "application/json" },
@@ -57,6 +66,7 @@ function* userSaga() {
   yield takeLatest("FETCH_USER", fetchUser);
   yield takeLatest("FETCH_ALL_USERS", fetchAllUsers);
   yield takeLatest("UPDATE_USER", updateUser);
+  yield takeLatest("FETCH_ARCHIVED_USERS", fetchArchivedUsers);
 }
 
 export default userSaga;

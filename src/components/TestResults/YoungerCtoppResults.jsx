@@ -93,6 +93,23 @@ const YoungerCtoppResults = () => {
           Rapid Non-Symbolic Naming Composite:{" "}
           {selectedTest.rapid_non_symbolic_naming_composite}
         </p>
+
+        <p>
+          Phonological Awareness Percentile:{" "}
+          {selectedTest.phonological_awareness_percentile}
+        </p>
+        <p>
+          Phonological Memory Percentile:{" "}
+          {selectedTest.phonological_memory_percentile}
+        </p>
+        <p>
+          Rapid Symbolic Naming Percentile:{" "}
+          {selectedTest.rapid_symbolic_naming_percentile}
+        </p>
+        <p>
+          Rapid Non-Symbolic Naming Percentile:{" "}
+          {selectedTest.rapid_non_symbolic_naming_percentile}
+        </p>
       </div>
     </div>
   );

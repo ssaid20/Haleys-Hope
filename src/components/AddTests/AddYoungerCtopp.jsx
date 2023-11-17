@@ -44,6 +44,10 @@ const AddYoungerCtopp = () => {
     phonological_memory_composite: null,
     rapid_symbolic_naming_composite: null,
     rapid_non_symbolic_naming: null,
+    phonological_awareness_percentile: null,
+    phonological_memory_percentile: null,
+    rapid_symbolic_naming_percentile: null,
+    rapid_non_symbolic_naming_percentile: null,
   });
   const handleGoBack = () => {
     history.push(`/students/${student.id}`);
@@ -294,6 +298,56 @@ const AddYoungerCtopp = () => {
             onChange={handleChange}
           />
         </div>
+
+        <div className="input-field">
+          <label htmlFor="phonological_awareness_percentile">
+            Phonological Awareness Percentile:
+          </label>
+          <input
+            type="number"
+            id="phonological_awareness_percentile"
+            name="phonological_awareness_percentile"
+            value={newCtopp.phonological_awareness_percentile}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="input-field">
+          <label htmlFor="phonological_memory_percentile">
+            Phonological Memory percentile:
+          </label>
+          <input
+            type="number"
+            id="phonological_memory_percentile"
+            name="phonological_memory_percentile"
+            value={newCtopp.phonological_memory_percentile}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="input-field">
+          <label htmlFor="rapid_symbolic_naming_percentile">
+            Rapid Symbolic Naming percentile:
+          </label>
+          <input
+            type="number"
+            id="rapid_symbolic_naming_percentile"
+            name="rapid_symbolic_naming_percentile"
+            value={newCtopp.rapid_symbolic_naming_percentile}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="input-field">
+          <label htmlFor="rapid_non_symbolic_naming_percentile">
+            Rapid Non-Symbolic Naming percentile:
+          </label>
+          <input
+            type="number"
+            id="rapid_non_symbolic_naming_percentile"
+            name="rapid_non_symbolic_naming_percentile"
+            value={newCtopp.rapid_non_symbolic_naming_percentile}
+            onChange={handleChange}
+          />
+        </div>
+
         <button type="submit">Submit</button>
       </form>
     </>
@@ -301,16 +355,3 @@ const AddYoungerCtopp = () => {
 };
 
 export default AddYoungerCtopp;
-// newYCtopp.elison_scaled_score,
-// newYCtopp.blending_words_scaled_score,
-// newYCtopp.sound_matching_scaled_score,
-// newYCtopp.memory_for_digits_scaled_score,
-// newYCtopp.nonword_repetition_scaled_score,
-// newYCtopp.rapid_digit_naming_scaled_score,
-// newYCtopp.rapid_letter_naming_scaled_score,
-// newYCtopp.rapid_color_naming_scaled_score,
-// newYCtopp.rapid_object_naming,
-// newYCtopp.blending_nonwords_scaled_score,
-// newYCtopp.phonological_awareness_composite,
-// newYCtopp.phonological_memory_composite,
-// newYCtopp.rapid_symbolic_naming_composite,

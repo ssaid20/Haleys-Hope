@@ -54,7 +54,7 @@ const GortList = () => {
             <p>Oral Reading Percentile: {selectedTest.oral_reading_percentile}</p>
             <p>Oral Reading Index: {selectedTest.oral_reading_index}</p>
             <p>Rate Raw Total: {selectedTest.rate_raw_total}</p>
-            <p>Accuracy Raw Total: {selectedTest.accuracy_raw_totl}</p>
+            <p>Accuracy Raw Total: {selectedTest.accuracy_raw_total}</p>
             <p>Fluency Raw Total: {selectedTest.fluency_raw_total}</p>
             <p>Comprehension Raw Total: {selectedTest.comprehension_raw_total}</p>
             <p>Rate Percentile Rank: {selectedTest.rate_percentile_rank}</p>

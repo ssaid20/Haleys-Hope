@@ -1,12 +1,12 @@
 import React from 'react'
 import AssessmentResults from '../../AssessmentResults/AssessmentResults'
 
-const AssesmentTab = () => {
+const AssessmentTab = () => {
   return (
-    <div>AssesmentTab
+    <div>AssessmentTab
       <AssessmentResults />
     </div>
   )
 }
 
-export default AssesmentTab
+export default AssessmentTab

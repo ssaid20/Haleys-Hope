@@ -129,11 +129,11 @@ CREATE TABLE
     "rapid_object_naming" INTEGER,
     "blending_nonwords_scaled_score" INTEGER,
     "phonological_awareness_composite" INTEGER,
-    "phonological_awareness_percenile" INTEGER,
+    "phonological_awareness_percentile" INTEGER,
     "phonological_memory_composite" INTEGER,
     "phonological_memory_percentile" INTEGER,
     "rapid_symbolic_naming_composite" INTEGER,
-    "rapid_symbolic_naming_percentle" INTEGER,
+    "rapid_symbolic_naming_percentile" INTEGER,
     "rapid_non_symbolic_naming_composite" INTEGER,
     "rapid_non_symbolic_naming_percentile" INTEGER
   );
@@ -180,7 +180,7 @@ CREATE TABLE
     "blending_nonwords_scaled_score" INTEGER,
     "segmenting_nonwords_scaled_score" INTEGER,
     "phonological_awareness_composite" INTEGER,
-    "phonological_awareness_percecenile" INTEGER,
+    "phonological_awareness_percentile" INTEGER,
     "phonological_memory_composite" INTEGER,
     "phonological_memory_percentile" INTEGER,
     "rapid_symbolic_naming_composite" INTEGER,
@@ -200,6 +200,28 @@ CREATE TABLE
     "spelling_scaled_score" INTEGER,
     "spelling_percentile" INTEGER
   );
+  
+-- Insert test coach records for the students
+INSERT INTO
+  "coaches" ("first_name", "last_name", "is_active")
+VALUES
+  ('Coach1', 'Lastname1', true),
+  ('Coach2', 'Lastname2', true),
+  ('Coach3', 'Lastname3', true),
+  ('Coach4', 'Lastname4', true),
+  ('Coach5', 'Lastname5', true),
+  ('Coach6', 'Lastname6', true),
+  ('Coach7', 'Lastname7', true),
+  ('Coach8', 'Lastname8', true),
+  ('Coach9', 'Lastname9', true),
+  ('Coach10', 'Lastname10', true),
+  ('Coach11', 'Lastname11', true),
+  ('Coach12', 'Lastname12', true),
+  ('Coach13', 'Lastname13', true),
+  ('Coach14', 'Lastname14', true),
+  ('Coach15', 'Lastname15', true),
+  ('Coach16', 'Lastname16', true);
+  
 
 INSERT INTO
   "students" (
@@ -476,23 +498,73 @@ VALUES
     '2023-04-01'
   );
 
--- Insert test coach records for the students
-INSERT INTO
-  "coaches" ("first_name", "last_name", "is_active")
+  
+-- User ID 1
+INSERT INTO "younger_ctopp" ("student_id", "date", "examiner_id", "elison_scaled_score", "blending_words_scaled_score", "sound_matching_scaled_score", "memory_for_digits_scaled_score", "nonword_repetition_scaled_score", "rapid_digit_naming_scaled_score", "rapid_letter_naming_scaled_score", "rapid_color_naming_scaled_score", "rapid_object_naming", "blending_nonwords_scaled_score", "phonological_awareness_composite", "phonological_awareness_percentile", "phonological_memory_composite", "phonological_memory_percentile", "rapid_symbolic_naming_composite", "rapid_symbolic_naming_percentile", "rapid_non_symbolic_naming_composite", "rapid_non_symbolic_naming_percentile")
 VALUES
-  ('Coach1', 'Lastname1', true),
-  ('Coach2', 'Lastname2', true),
-  ('Coach3', 'Lastname3', true),
-  ('Coach4', 'Lastname4', true),
-  ('Coach5', 'Lastname5', true),
-  ('Coach6', 'Lastname6', true),
-  ('Coach7', 'Lastname7', true),
-  ('Coach8', 'Lastname8', true),
-  ('Coach9', 'Lastname9', true),
-  ('Coach10', 'Lastname10', true),
-  ('Coach11', 'Lastname11', true),
-  ('Coach12', 'Lastname12', true),
-  ('Coach13', 'Lastname13', true),
-  ('Coach14', 'Lastname14', true),
-  ('Coach15', 'Lastname15', true),
-  ('Coach16', 'Lastname16', true);
+  (1, '2022-01-10', 1, 80, 75, 90, 85, 95, 70, 85, 90, 100, 80, 90, 75, 85, 70, 95, 80, 90, 70),
+  (1, '2022-02-15', 1, 85, 70, 88, 80, 96, 68, 87, 92, 98, 78, 88, 72, 82, 68, 94, 82, 88, 68),
+  (1, '2022-03-20', 1, 78, 68, 86, 82, 94, 72, 84, 88, 96, 74, 86, 70, 80, 72, 92, 78, 86, 72);
+
+-- User ID 2
+INSERT INTO "younger_ctopp" ("student_id", "date", "examiner_id", "elison_scaled_score", "blending_words_scaled_score", "sound_matching_scaled_score", "memory_for_digits_scaled_score", "nonword_repetition_scaled_score", "rapid_digit_naming_scaled_score", "rapid_letter_naming_scaled_score", "rapid_color_naming_scaled_score", "rapid_object_naming", "blending_nonwords_scaled_score", "phonological_awareness_composite", "phonological_awareness_percentile", "phonological_memory_composite", "phonological_memory_percentile", "rapid_symbolic_naming_composite", "rapid_symbolic_naming_percentile", "rapid_non_symbolic_naming_composite", "rapid_non_symbolic_naming_percentile")
+VALUES
+  (2, '2022-01-10', 2, 82, 78, 92, 88, 97, 73, 88, 86, 98, 83, 92, 78, 87, 73, 96, 82, 92, 73),
+  (2, '2022-02-15', 2, 88, 72, 90, 86, 98, 70, 86, 90, 96, 80, 90, 74, 84, 70, 94, 88, 90, 70),
+  (2, '2022-03-20', 2, 80, 70, 88, 84, 96, 76, 82, 84, 94, 76, 88, 72, 82, 76, 92, 80, 88, 76);
+
+-- User ID 1
+INSERT INTO "gort" ("student_id", "date", "examiner_id", "sum_scaled_score", "oral_reading_percentile_rank", "oral_reading_index", "rate_raw_total", "accuracy_raw_total", "fluency_raw_total", "comprehension_raw_total", "rate_percentile_rank", "accuracy_percentile_rank", "fluency_percentile_rank", "comprehension_percentile_rank", "rate_scaled_score", "accuracy_scaled_score", "fluency_scaled_score", "comprehension_scaled_score")
+VALUES
+  (1, '2022-01-10', 1, 190, 85, 95, 45, 50, 55, 40, 80, 85, 90, 75, 85, 90, 95, 80),
+  (1, '2022-02-15', 1, 195, 88, 96, 47, 52, 57, 42, 84, 88, 92, 78, 88, 92, 96, 84),
+  (1, '2022-03-20', 1, 200, 90, 98, 50, 55, 60, 45, 88, 90, 94, 80, 90, 94, 98, 88);
+
+-- User ID 2
+INSERT INTO "gort" ("student_id", "date", "examiner_id", "sum_scaled_score", "oral_reading_percentile_rank", "oral_reading_index", "rate_raw_total", "accuracy_raw_total", "fluency_raw_total", "comprehension_raw_total", "rate_percentile_rank", "accuracy_percentile_rank", "fluency_percentile_rank", "comprehension_percentile_rank", "rate_scaled_score", "accuracy_scaled_score", "fluency_scaled_score", "comprehension_scaled_score")
+VALUES
+  (2, '2022-01-10', 2, 185, 82, 92, 43, 48, 53, 38, 78, 82, 88, 73, 82, 88, 92, 78),
+  (2, '2022-02-15', 2, 190, 84, 94, 45, 50, 55, 40, 82, 84, 90, 75, 84, 90, 94, 82),
+  (2, '2022-03-20', 2, 195, 86, 96, 47, 52, 57, 42, 84, 86, 92, 78, 86, 92, 96, 84);
+
+-- Student ID 1
+INSERT INTO "older_ctopp" ("student_id", "date", "examiner_id", "elison_scaled_score", "blending_words_scaled_score", "phoneme_isolation_scaled_score", "memory_for_digits_scaled_score", "nonword_repetition_scaled_score", "rapid_digit_naming_scaled_score", "rapid_letter_naming_scaled_score", "blending_nonwords_scaled_score", "segmenting_nonwords_scaled_score", "phonological_awareness_composite", "phonological_awareness_percentile", "phonological_memory_composite", "phonological_memory_percentile", "rapid_symbolic_naming_composite", "rapid_symbolic_naming_percentile", "alt_phonological_awareness_composite", "alt_phonological_awareness_percentile")
+VALUES
+  (1, '2022-01-10', 1, 85, 78, 90, 86, 94, 70, 80, 75, 85, 88, 90, 75, 85, 90, 70, 85, 88),
+  (1, '2022-02-15', 1, 88, 80, 92, 88, 96, 72, 82, 78, 88, 90, 92, 78, 88, 92, 72, 88, 90),
+  (1, '2022-03-20', 1, 80, 72, 88, 84, 94, 74, 80, 70, 80, 86, 88, 70, 80, 86, 74, 80, 86);
+  -- Student ID 1
+INSERT INTO "secondary_wist" ("student_id", "date", "examiner_id", "read_regular_words", "read_irregular_words", "word_identification", "word_identification_percentile", "word_identification_standard_score", "spell_regular_words", "spell_irregular_words", "spelling", "spelling_percentile", "spelling_standard_score", "fundamental_literacy", "fundamental_literacy_percentile", "fundamental_literacy_standard_score", "pseudo_words", "letter_sounds", "sound_symbol_knowledge", "sound_symbol_knowledge_percentile", "sound_symbol_knowledge_standard_score")
+VALUES
+  (1, '2022-01-10', 1, 85, 78, 90, 85, 88, 70, 80, 75, 85, 88, 90, 75, 85, 90, 70, 85, 88, 90),
+  (1, '2022-02-15', 1, 88, 80, 92, 88, 90, 72, 82, 78, 88, 90, 92, 78, 88, 92, 72, 88, 90, 92),
+  (1, '2022-03-20', 1, 80, 72, 88, 84, 86, 74, 80, 70, 80, 86, 88, 70, 80, 86, 74, 80, 86, 88);
+  -- Student ID 1
+INSERT INTO "ktea" ("student_id", "date", "examiner_id", "lwr_scaled_score", "lwr_percentile", "spelling_scaled_score", "spelling_percentile")
+VALUES
+  (1, '2022-01-10', 1, 85, 78, 90, 85),
+  (1, '2022-02-15', 1, 88, 80, 92, 88),
+  (1, '2022-03-20', 1, 80, 72, 88, 84);
+
+
+-- Student ID 2
+INSERT INTO "older_ctopp" ("student_id", "date", "examiner_id", "elison_scaled_score", "blending_words_scaled_score", "phoneme_isolation_scaled_score", "memory_for_digits_scaled_score", "nonword_repetition_scaled_score", "rapid_digit_naming_scaled_score", "rapid_letter_naming_scaled_score", "blending_nonwords_scaled_score", "segmenting_nonwords_scaled_score", "phonological_awareness_composite", "phonological_awareness_percentile", "phonological_memory_composite", "phonological_memory_percentile", "rapid_symbolic_naming_composite", "rapid_symbolic_naming_percentile", "alt_phonological_awareness_composite", "alt_phonological_awareness_percentile")
+VALUES
+  (2, '2022-01-10', 2, 82, 75, 88, 84, 92, 68, 78, 72, 82, 85, 88, 72, 82, 88, 68, 82, 85),
+  (2, '2022-02-15', 2, 85, 78, 90, 86, 94, 70, 80, 75, 85, 88, 90, 75, 85, 90, 70, 85, 88),
+  (2, '2022-03-20', 2, 78, 72, 86, 82, 90, 74, 78, 68, 78, 84, 86, 68, 78, 86, 74, 78, 84);
+
+
+-- Student ID 1
+INSERT INTO "elementary_wist" ("student_id", "date", "examiner_id", "read_regular_words", "read_irregular_words", "word_identification", "word_identification_percentile", "word_identification_standard_score", "spell_regular_words", "spell_irregular_words", "spelling", "spelling_percentile", "spelling_standard_score", "fundamental_literacy", "fundamental_literacy_percentile", "fundamental_literacy_standard_score", "pseudo_words", "letter_sounds", "sound_symbol_knowledge", "sound_symbol_knowledge_percentile", "sound_symbol_knowledge_standard_score")
+VALUES
+  (1, '2022-01-10', 1, 85, 78, 90, 85, 88, 70, 80, 75, 85, 88, 90, 75, 85, 90, 70, 85, 88, 90),
+  (1, '2022-02-15', 1, 88, 80, 92, 88, 90, 72, 82, 78, 88, 90, 92, 78, 88, 92, 72, 88, 90, 92),
+  (1, '2022-03-20', 1, 80, 72, 88, 84, 86, 74, 80, 70, 80, 86, 88, 70, 80, 86, 74, 80, 86, 88);
+  -- Student ID 2
+INSERT INTO "elementary_wist" ("student_id", "date", "examiner_id", "read_regular_words", "read_irregular_words", "word_identification", "word_identification_percentile", "word_identification_standard_score", "spell_regular_words", "spell_irregular_words", "spelling", "spelling_percentile", "spelling_standard_score", "fundamental_literacy", "fundamental_literacy_percentile", "fundamental_literacy_standard_score", "pseudo_words", "letter_sounds", "sound_symbol_knowledge", "sound_symbol_knowledge_percentile", "sound_symbol_knowledge_standard_score")
+VALUES
+  (2, '2022-01-10', 2, 82, 75, 88, 85, 88, 68, 78, 72, 82, 85, 88, 72, 82, 88, 68, 82, 85, 88),
+  (2, '2022-02-15', 2, 85, 78, 90, 86, 90, 70, 80, 75, 85, 88, 90, 75, 85, 90, 70, 85, 88, 90),
+  (2, '2022-03-20', 2, 78, 72, 86, 82, 88, 74, 78, 68, 78, 84, 86, 68, 78, 86, 74, 78, 84, 86);
+

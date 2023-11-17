@@ -41,14 +41,25 @@ router.post("/", (req, res) => {
     INSERT INTO "students" (
       "first_name", "last_name", "grade", "gender", "dob", 
       "city", "picture", "school", "on_site", 
-      "barton_c", "barton_c_date", "state", "start_date"
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+      "barton_c", "barton_c_date", "state", "start_date", "is_active"
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13 $14)
   `;
 
   const values = [
-    newStudent.first_name, newStudent.last_name, newStudent.grade, newStudent.gender, 
-    newStudent.dob, newStudent.city, newStudent.picture, 
-    newStudent.school, newStudent.on_site, newStudent.barton_c, newStudent.barton_c_date, newStudent.state, newStudent.start_date
+    newStudent.first_name,
+    newStudent.last_name,
+    newStudent.grade,
+    newStudent.gender,
+    newStudent.dob,
+    newStudent.city,
+    newStudent.picture,
+    newStudent.school,
+    newStudent.on_site,
+    newStudent.barton_c,
+    newStudent.barton_c_date,
+    newStudent.state,
+    newStudent.start_date,
+    newStudent.is_active,
   ];
 
   pool
@@ -67,13 +78,23 @@ router.put("/:id", (req, res) => {
   const queryText = `UPDATE "students" SET
     "first_name" = $1, "last_name" = $2, "grade" = $3, "gender" = $4, "dob" = $5, 
     "city" = $6, "school" = $7, "on_site" = $8, 
-    "barton_c" = $9, "barton_c_date" = $10, "state" = $11, "start_date" = $12 WHERE "id" = $13`;
+    "barton_c" = $9, "barton_c_date" = $10, "state" = $11, "start_date" = $12, "is_active" = $13 WHERE "id" = $14`;
 
   const values = [
-    updatedStudent.first_name, updatedStudent.last_name, updatedStudent.grade, updatedStudent.gender, 
-    updatedStudent.dob, updatedStudent.city, updatedStudent.school, updatedStudent.on_site, 
-    updatedStudent.barton_c, updatedStudent.barton_c_date, updatedStudent.state, updatedStudent.start_date,
-    studentId
+    updatedStudent.first_name,
+    updatedStudent.last_name,
+    updatedStudent.grade,
+    updatedStudent.gender,
+    updatedStudent.dob,
+    updatedStudent.city,
+    updatedStudent.school,
+    updatedStudent.on_site,
+    updatedStudent.barton_c,
+    updatedStudent.barton_c_date,
+    updatedStudent.state,
+    updatedStudent.start_date,
+    updatedStudent.is_active,
+    studentId,
   ];
 
   pool

@@ -48,8 +48,12 @@ router.post("/", (req, res) => {
       "rapid_digit_naming_scaled_score", "rapid_letter_naming_scaled_score", 
       "blending_nonwords_scaled_score", "segmenting_nonwords_scaled_score", 
       "phonological_awareness_composite", "phonological_memory_composite", 
-      "rapid_symbolic_naming_composite", "alt_phonological_awareness_composite"
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)`;
+      "rapid_symbolic_naming_composite", "alt_phonological_awareness_composite", 
+
+
+      "phonological_awareness_percentile", "phonological_memory_percentile", 
+      "rapid_symbolic_naming_percentile", "alt_phonological_awareness_percentile"
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)`;
 
   const values = [
     newOCtopp.student_id,
@@ -68,6 +72,10 @@ router.post("/", (req, res) => {
     newOCtopp.phonological_memory_composite,
     newOCtopp.rapid_symbolic_naming_composite,
     newOCtopp.alt_phonological_awareness_composite,
+    newOCtopp.phonological_awareness_percentile,
+    newOCtopp.phonological_memory_percentile,
+    newOCtopp.rapid_symbolic_naming_percentile,
+    newOCtopp.alt_phonological_awareness_percentile,
   ];
 
   pool

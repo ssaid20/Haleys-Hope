@@ -28,6 +28,8 @@ import SecondaryWistResults from "../TestResults/SecondaryWistResults";
 import YoungerCtoppResults from "../TestResults/YoungerCtoppResults";
 import OlderCtoppResults from "../TestResults/OlderCtoppResults";
 import ManageUsers from "../ManageUsers/ManageUsers";
+import CoachList from "../CoachList/CoachList";
+import AddCoach from "../AddCoach/AddCoach";
 
 import "./App.css";
 import KteaResults from "../TestResults/KteaResults";
@@ -116,6 +118,12 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact path="/admin/manageUsers">
             <ManageUsers />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/admin/coaches">
+            <CoachList />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/admin/addCoach">
+            <AddCoach />
           </ProtectedRoute>
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage

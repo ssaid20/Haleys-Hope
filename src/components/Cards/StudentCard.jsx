@@ -34,18 +34,17 @@ const StudentCard = () => {
     school: "",
     gender: "",
     dob: "",
-    address: "",
-    county: "",
-    zip_code: "",
+    city: "",
     state: "",
     barton_c_date: "",
-    barton_c: "",
-    on_site: "",
+    barton_c: true,
+    on_site: true,
     start_date: "",
   });
 
   useEffect(() => {
     if (student) {
+      console.log("Incoming student data:", student);
       setFormData({
         first_name: student.first_name || "",
         last_name: student.last_name || "",
@@ -53,19 +52,21 @@ const StudentCard = () => {
         school: student.school || "",
         gender: student.gender || "",
         dob: student.dob ? student.dob.split("T")[0] : "",
-        address: student.address || "",
-        county: student.county || "",
-        zip_code: student.zip_code || "",
+        city: student.city || "",
         state: student.state || "",
         barton_c_date: student.barton_c_date
           ? student.barton_c_date.split("T")[0]
           : "",
-        barton_c: student.barton_c || "",
-        on_site: student.on_site || "",
+        barton_c: student.barton_c || true,
+        on_site: student.on_site || true,
         start_date: student.start_date ? student.start_date.split("T")[0] : "",
       });
+      console.log("Updated formData state:", formData);
     }
   }, [student]);
+  // useEffect(() => {
+  //   console.log("Updated formData state:", formData);
+  // }, [formData]);
 
   const handleInputChange = (e) => {
     console.log("Input changed:", e.target.id, e.target.value);
@@ -86,7 +87,7 @@ const StudentCard = () => {
 
   const sheetStyle = {
     backgroundColor: "white",
-    boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)", // to add some shadow
+    boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
     maxHeight: "80vh", // Example: 80% of the viewport height
     overflowY: "auto", // Enables vertical scrolling
   };
@@ -171,27 +172,14 @@ const StudentCard = () => {
                   onChange={handleInputChange}
                 />
 
-                <Label htmlFor="address">Address</Label>
+                <Label htmlFor="city">City</Label>
                 <Input
-                  id="address"
-                  value={formData.address}
+                  id="city"
+                  value={formData.city}
                   onChange={handleInputChange}
                 />
 
-                <Label htmlFor="county">County</Label>
-                <Input
-                  id="county"
-                  value={formData.county}
-                  onChange={handleInputChange}
-                />
-
-                <Label htmlFor="zipCode">Zip Code</Label>
-                <Input
-                  id="zip_code"
-                  type="number"
-                  value={formData.zip_code}
-                  onChange={handleInputChange}
-                />
+              
                 <Label htmlFor="state">State</Label>
                 <Input
                   id="state"
@@ -199,7 +187,7 @@ const StudentCard = () => {
                   onChange={handleInputChange}
                 />
 
-                <Label htmlFor="pretestDate">Barton C Date</Label>
+                <Label htmlFor="bartonDate">Barton C Date</Label>
                 <Input
                   id="barton_c_date"
                   type="date"
@@ -207,7 +195,7 @@ const StudentCard = () => {
                   onChange={handleInputChange}
                 />
 
-                <Label htmlFor="pretestPassed">Barton C</Label>
+                <Label htmlFor="bartonC">Barton C</Label>
                 <select
                   id="barton_c"
                   value={formData.barton_c}
@@ -238,7 +226,7 @@ const StudentCard = () => {
             </div>
             <SheetFooter>
               <SheetClose asChild>
-                <Button onClick={handleSubmit} type="submit">
+                <Button onClick={handleSubmit} type="submit" className="bg-primary-500 text-white">
                   Save Changes
                 </Button>
               </SheetClose>
@@ -260,13 +248,7 @@ const StudentCard = () => {
             Date of Birth: {new Date(student.dob).toLocaleDateString()}
           </p>
           <p className="body-regular text-dark500_light500">
-            Address: {student.address}
-          </p>
-          <p className="body-regular text-dark500_light500">
-            County: {student.county}
-          </p>
-          <p className="body-regular text-dark500_light500">
-            Zip Code: {student.zip_code}
+            City: {student.city}
           </p>
           <p className="body-regular text-dark500_light500">
             State: {student.state}

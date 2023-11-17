@@ -33,6 +33,7 @@ import AddCoach from "../AddCoach/AddCoach";
 
 import "./App.css";
 import KteaResults from "../TestResults/KteaResults";
+import StudentForm from "../Forms/StudentForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -115,6 +116,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact path="/kteaResults/:id">
             <KteaResults />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/add-student">
+            <StudentForm />
           </ProtectedRoute>
           <ProtectedRoute exact path="/admin/manageUsers">
             <ManageUsers />

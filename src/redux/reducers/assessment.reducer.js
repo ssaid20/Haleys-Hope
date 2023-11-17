@@ -5,7 +5,6 @@ const initialState = {
   currentRecord: null, // Object to store details of the currently selected record
   youngerAssessment: [],
   olderAssessment: [],
-
 };
 
 const assessmentReducer = (state = initialState, action) => {
@@ -15,6 +14,7 @@ const assessmentReducer = (state = initialState, action) => {
         ...state,
         youngerAssessment: action.payload,
       };
+      
   }
   switch (action.type) {
     case "SET_OLDER_ASSESSMENT":
@@ -22,6 +22,8 @@ const assessmentReducer = (state = initialState, action) => {
         ...state,
         olderAssessment: action.payload,
       };
+    default:
+      return state;
   }
 };
 

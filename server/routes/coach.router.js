@@ -37,8 +37,9 @@ router.get("/:id", (req, res) => {
 
 // POST route to add a new coach
 router.post("/", (req, res) => {
+  console.log("req.body in add coach router", req.body);
   const newCoach = req.body;
-  const queryText = `INSERT INTO "coach" (
+  const queryText = `INSERT INTO "coaches" (
     "first_name", "last_name"
   ) VALUES ($1, $2)`;
 
@@ -79,7 +80,7 @@ router.put("/:id", (req, res) => {
 // DELETE (soft delete) route to archive a coach
 router.delete("/:id", (req, res) => {
   const coachId = req.params.id;
-  const queryText = `UPDATE "coach" SET "is_active" = FALSE WHERE "id" = $1`;
+  const queryText = `UPDATE "coaches" SET "is_active" = FALSE WHERE "id" = $1`;
 
   pool
     .query(queryText, [coachId])

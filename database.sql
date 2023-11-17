@@ -526,3 +526,45 @@ VALUES
   (2, '2022-01-10', 2, 185, 82, 92, 43, 48, 53, 38, 78, 82, 88, 73, 82, 88, 92, 78),
   (2, '2022-02-15', 2, 190, 84, 94, 45, 50, 55, 40, 82, 84, 90, 75, 84, 90, 94, 82),
   (2, '2022-03-20', 2, 195, 86, 96, 47, 52, 57, 42, 84, 86, 92, 78, 86, 92, 96, 84);
+
+-- Student ID 1
+INSERT INTO "older_ctopp" ("student_id", "date", "examiner_id", "elison_scaled_score", "blending_words_scaled_score", "phoneme_isolation_scaled_score", "memory_for_digits_scaled_score", "nonword_repetition_scaled_score", "rapid_digit_naming_scaled_score", "rapid_letter_naming_scaled_score", "blending_nonwords_scaled_score", "segmenting_nonwords_scaled_score", "phonological_awareness_composite", "phonological_awareness_percentile", "phonological_memory_composite", "phonological_memory_percentile", "rapid_symbolic_naming_composite", "rapid_symbolic_naming_percentile", "alt_phonological_awareness_composite", "alt_phonological_awareness_percentile")
+VALUES
+  (1, '2022-01-10', 1, 85, 78, 90, 86, 94, 70, 80, 75, 85, 88, 90, 75, 85, 90, 70, 85, 88),
+  (1, '2022-02-15', 1, 88, 80, 92, 88, 96, 72, 82, 78, 88, 90, 92, 78, 88, 92, 72, 88, 90),
+  (1, '2022-03-20', 1, 80, 72, 88, 84, 94, 74, 80, 70, 80, 86, 88, 70, 80, 86, 74, 80, 86);
+  -- Student ID 1
+INSERT INTO "secondary_wist" ("student_id", "date", "examiner_id", "read_regular_words", "read_irregular_words", "word_identification", "word_identification_percentile", "word_identification_standard_score", "spell_regular_words", "spell_irregular_words", "spelling", "spelling_percentile", "spelling_standard_score", "fundamental_literacy", "fundamental_literacy_percentile", "fundamental_literacy_standard_score", "pseudo_words", "letter_sounds", "sound_symbol_knowledge", "sound_symbol_knowledge_percentile", "sound_symbol_knowledge_standard_score")
+VALUES
+  (1, '2022-01-10', 1, 85, 78, 90, 85, 88, 70, 80, 75, 85, 88, 90, 75, 85, 90, 70, 85, 88, 90),
+  (1, '2022-02-15', 1, 88, 80, 92, 88, 90, 72, 82, 78, 88, 90, 92, 78, 88, 92, 72, 88, 90, 92),
+  (1, '2022-03-20', 1, 80, 72, 88, 84, 86, 74, 80, 70, 80, 86, 88, 70, 80, 86, 74, 80, 86, 88);
+  -- Student ID 1
+INSERT INTO "ktea" ("student_id", "date", "examiner_id", "lwr_scaled_score", "lwr_percentile", "spelling_scaled_score", "spelling_percentile")
+VALUES
+  (1, '2022-01-10', 1, 85, 78, 90, 85),
+  (1, '2022-02-15', 1, 88, 80, 92, 88),
+  (1, '2022-03-20', 1, 80, 72, 88, 84);
+
+
+-- Student ID 2
+INSERT INTO "older_ctopp" ("student_id", "date", "examiner_id", "elison_scaled_score", "blending_words_scaled_score", "phoneme_isolation_scaled_score", "memory_for_digits_scaled_score", "nonword_repetition_scaled_score", "rapid_digit_naming_scaled_score", "rapid_letter_naming_scaled_score", "blending_nonwords_scaled_score", "segmenting_nonwords_scaled_score", "phonological_awareness_composite", "phonological_awareness_percentile", "phonological_memory_composite", "phonological_memory_percentile", "rapid_symbolic_naming_composite", "rapid_symbolic_naming_percentile", "alt_phonological_awareness_composite", "alt_phonological_awareness_percentile")
+VALUES
+  (2, '2022-01-10', 2, 82, 75, 88, 84, 92, 68, 78, 72, 82, 85, 88, 72, 82, 88, 68, 82, 85),
+  (2, '2022-02-15', 2, 85, 78, 90, 86, 94, 70, 80, 75, 85, 88, 90, 75, 85, 90, 70, 85, 88),
+  (2, '2022-03-20', 2, 78, 72, 86, 82, 90, 74, 78, 68, 78, 84, 86, 68, 78, 86, 74, 78, 84);
+
+
+-- Student ID 1
+INSERT INTO "elementary_wist" ("student_id", "date", "examiner_id", "read_regular_words", "read_irregular_words", "word_identification", "word_identification_percentile", "word_identification_standard_score", "spell_regular_words", "spell_irregular_words", "spelling", "spelling_percentile", "spelling_standard_score", "fundamental_literacy", "fundamental_literacy_percentile", "fundamental_literacy_standard_score", "pseudo_words", "letter_sounds", "sound_symbol_knowledge", "sound_symbol_knowledge_percentile", "sound_symbol_knowledge_standard_score")
+VALUES
+  (1, '2022-01-10', 1, 85, 78, 90, 85, 88, 70, 80, 75, 85, 88, 90, 75, 85, 90, 70, 85, 88, 90),
+  (1, '2022-02-15', 1, 88, 80, 92, 88, 90, 72, 82, 78, 88, 90, 92, 78, 88, 92, 72, 88, 90, 92),
+  (1, '2022-03-20', 1, 80, 72, 88, 84, 86, 74, 80, 70, 80, 86, 88, 70, 80, 86, 74, 80, 86, 88);
+  -- Student ID 2
+INSERT INTO "elementary_wist" ("student_id", "date", "examiner_id", "read_regular_words", "read_irregular_words", "word_identification", "word_identification_percentile", "word_identification_standard_score", "spell_regular_words", "spell_irregular_words", "spelling", "spelling_percentile", "spelling_standard_score", "fundamental_literacy", "fundamental_literacy_percentile", "fundamental_literacy_standard_score", "pseudo_words", "letter_sounds", "sound_symbol_knowledge", "sound_symbol_knowledge_percentile", "sound_symbol_knowledge_standard_score")
+VALUES
+  (2, '2022-01-10', 2, 82, 75, 88, 85, 88, 68, 78, 72, 82, 85, 88, 72, 82, 88, 68, 82, 85, 88),
+  (2, '2022-02-15', 2, 85, 78, 90, 86, 90, 70, 80, 75, 85, 88, 90, 75, 85, 90, 70, 85, 88, 90),
+  (2, '2022-03-20', 2, 78, 72, 86, 82, 88, 74, 78, 68, 78, 84, 86, 68, 78, 86, 74, 78, 84, 86);
+

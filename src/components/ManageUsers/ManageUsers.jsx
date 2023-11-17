@@ -56,10 +56,18 @@ const ManageUsers = () => {
     setPage(newPage);
   };
 
+  // const handleInputChange = (e) => {
+  //   console.log("Input changed:", e.target.id, e.target.value);
+  //   const { id, value } = e.target;
+  //   setFormData({ ...formData, [id]: value });
+  // };
+
+  //updated input change with id being a number
   const handleInputChange = (e) => {
-    console.log("Input changed:", e.target.id, e.target.value);
     const { id, value } = e.target;
-    setFormData({ ...formData, [id]: value });
+    // If the input is 'role_id', convert the value to a number
+    const updatedValue = id === "role_id" ? parseInt(value, 10) : value;
+    setFormData({ ...formData, [id]: updatedValue });
   };
 
   const handleChangeRowsPerPage = (event) => {
@@ -68,15 +76,16 @@ const ManageUsers = () => {
   };
 
   // Function to close the Sheet and reset editing user
-  const handleCloseSheet = () => {
-    setEditingUserId(null);
-  };
+  // const handleCloseSheet = () => {
+  //   setEditingUserId(null);
+  // };
 
   // New state to control the visibility of the Sheet
   const [editingUserId, setEditingUserId] = useState(null);
 
   // Modified handleEditClick function
   const handleEditClick = (user) => {
+    console.log("Edit clicked for user:", user.id);
     setFormData({
       first_name: user.first_name,
       last_name: user.last_name,
@@ -94,11 +103,14 @@ const ManageUsers = () => {
     role_id: "",
   });
 
+  // Adjusted handleSubmit function
   const handleSubmit = () => {
+    console.log("Submitting for user:", editingUserId);
     dispatch({
       type: "UPDATE_USER",
-      payload: { id: userId, ...formData },
+      payload: { id: editingUserId, ...formData },
     });
+    setEditingUserId(null); // Close the sheet after submitting
   };
 
   useEffect(() => {
@@ -113,9 +125,6 @@ const ManageUsers = () => {
 
   return (
     <div>
-      <div>
-        <h1>hello world</h1>
-      </div>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer sx={{ maxHeight: 840 }}>
           <Table stickyHeader aria-label="user table">
@@ -167,9 +176,22 @@ const ManageUsers = () => {
                           <span>Edit User</span>
                         </Button>
                       </TableCell>
-                      {editingUserId === user.id && (
+                      {/* {editingUserId === user.id && (
                         <Sheet isOpen={editingUserId === user.id}>
-                          <SheetTrigger asChild></SheetTrigger>
+                          <SheetTrigger asChild></SheetTrigger> */}
+                      {console.log(
+                        "Sheet should open:",
+                        Boolean(editingUserId)
+                      )}{" "}
+                      {editingUserId && (
+                        <Sheet
+                          open={Boolean(editingUserId)}
+                          onOpenChange={setEditingUserId}
+                        >
+                          <SheetContent
+                            side="top"
+                            style={sheetStyle}
+                          ></SheetContent>
                           <SheetContent side="top" style={sheetStyle}>
                             <SheetHeader>
                               <SheetTitle>Edit User</SheetTitle>
@@ -193,13 +215,13 @@ const ManageUsers = () => {
                                   onChange={handleInputChange}
                                 />
 
-                                <Label htmlFor="Role">Role</Label>
+                                {/* <Label htmlFor="Role">Role</Label>
                                 <Input
                                   id="grade"
                                   type="number"
                                   value={formData.role_id}
                                   onChange={handleInputChange}
-                                />
+                                /> */}
 
                                 <Label htmlFor="pretestPassed">Role</Label>
                                 <select
@@ -207,7 +229,19 @@ const ManageUsers = () => {
                                   value={formData.role_id}
                                   onChange={handleInputChange}
                                 >
-                                  <option value="academic_assessment_coordinator">
+                                  <option value="1">Deactivated</option>
+                                  <option value="2">
+                                    Academic Assessment Coordinator
+                                  </option>
+                                  <option value="3">Dyslexia Specialist</option>
+                                  <option value="4">
+                                    Literacy Coach Manager
+                                  </option>
+                                  <option value="5">
+                                    Lead Performing Agent
+                                  </option>
+                                  <option value="6">Admin</option>
+                                  {/* <option value="academic_assessment_coordinator">
                                     Academic Assessment Coordinator
                                   </option>
                                   <option value="dyslexia_specialist">
@@ -219,7 +253,7 @@ const ManageUsers = () => {
                                   <option value="lead_performing_agent">
                                     Literacy Performing Agent
                                   </option>
-                                  <option value="admin">Admin</option>
+                                  <option value="admin">Admin</option> */}
                                 </select>
                               </div>
                             </div>

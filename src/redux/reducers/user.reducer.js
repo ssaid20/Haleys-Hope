@@ -14,12 +14,16 @@ const userReducer = (state = initialState, action) => {
         users: action.payload,
       };
     case "UPDATE_USER":
+      console.log("update user reducer");
       return {
         ...state,
-        users: state.users.map((user) =>
-          user.id === action.payload.id ? action.payload : user
-        ),
+        users: action.payload,
       };
+
+    // return {
+    //   ...state,
+    //   users: updatedUsers,
+    //};
     default:
       return state;
   }

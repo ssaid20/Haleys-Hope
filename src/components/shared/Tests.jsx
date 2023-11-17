@@ -1,5 +1,8 @@
 import React from "react";
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 
 const Tests = () => {
   const history = useHistory();
@@ -28,7 +31,11 @@ const Tests = () => {
             onClick={() => handleButtonClick(path)}
             className="col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
           >
-            <img src="/assets/icons/exam.svg" alt="Exam Icon" className="w-4 h-4" />
+            <img
+              src="/assets/icons/exam.svg"
+              alt="Exam Icon"
+              className="w-4 h-4"
+            />
             <span>{text}</span>
           </button>
         ))}
@@ -38,5 +45,3 @@ const Tests = () => {
 };
 
 export default Tests;
-
-

@@ -14,6 +14,31 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
+// GET route to fetch all users who are not deactivated
+router.get("/allUsers", (req, res) => {
+  const queryText = 'SELECT * FROM "user" WHERE "role_id" > 1';
+  pool
+    .query(queryText)
+    .then((result) => res.send(result.rows))
+    .catch((err) => {
+      console.error("Error in GET all users", err);
+      res.sendStatus(500);
+    });
+});
+
+// GET route to fetch all users who are archived/deactivated
+router.get("/archivedUsers", (req, res) => {
+  console.log("get all users router.js running");
+  const queryText = 'SELECT * FROM "user" WHERE "role_id" < 2';
+  pool
+    .query(queryText)
+    .then((result) => res.send(result.rows))
+    .catch((err) => {
+      console.error("Error in GET all users", err);
+      res.sendStatus(500);
+    });
+});
+
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
@@ -50,29 +75,16 @@ router.post("/logout", (req, res) => {
 // PUT route to update user information via ADMIN
 router.put("/:userId", rejectUnauthenticated, async (req, res) => {
   const userId = req.params.userId;
-  const {
-    first_name,
-    last_name,
-    academic_assessment_coordinator,
-    admin,
-    literary_coach,
-  } = req.body;
-
+  const { first_name, last_name, role_id } = req.body;
+  console.log("Update user", req.body);
   const queryText = `
       UPDATE "user"
-      SET first_name = $2, last_name = $3, academic_assessment_coordinator = $4, admin = $5, literary_coach = $6
+      SET first_name = $2, last_name = $3, role_id = $4
       WHERE id = $1
   `;
 
   try {
-    await pool.query(queryText, [
-      userId,
-      first_name,
-      last_name,
-      academic_assessment_coordinator,
-      admin,
-      literary_coach,
-    ]);
+    await pool.query(queryText, [userId, first_name, last_name, role_id]);
     res.sendStatus(200);
   } catch (err) {
     console.log("Error in updating user information:", err);

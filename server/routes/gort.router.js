@@ -24,6 +24,24 @@ router.get("/:studentId", async (req, res) => {
 });
 module.exports = router;
 
+//router to get a specific test for gort
+router.get("/gortResults/:testId", (req, res) => {
+  const testId = req.params.testId;
+  const queryText = 'SELECT * FROM "gort" WHERE "id" = $1';
+  pool
+    .query(queryText, [testId])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.error(
+        "Error completing SELECT GORT query for test id",
+        err
+      );
+      res.sendStatus(500);
+    });
+});
+
 // GORT POST ROUTE
 router.post("/", async (req, res) => {
   try {

@@ -3,6 +3,7 @@ const initialState = {
   isLoading: false, // To track the loading state of requests
   error: null, // To store any errors that might occur during requests
   currentRecord: null, // Object to store details of the currently selected ctopp record
+  selectedTest: [],
 };
 
 // defining the ctoppReducer with the initial state
@@ -33,6 +34,13 @@ const youngerCtoppReducer = (state = initialState, action) => {
       };
     default:
       return state;
+
+    case "SET_YOUNGER_CTOPP_RESULTS":
+      return {
+        ...state,
+        selectedTest: action.payload,
+        isLoading: false,
+      };
   }
 };
 

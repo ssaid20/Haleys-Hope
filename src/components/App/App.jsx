@@ -19,11 +19,19 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 import StudentDetails from "../StudentDetails/StudentDetails";
 import AddElementaryWist from "../AddTests/AddElementaryWist";
 import AddSecondaryWist from "../AddTests/AddSecondaryWist";
-import AddElementaryCtopp from "../AddTests/AddElementaryCtopp";
-import AddSecondaryCtopp from "../AddTests/AddSecondaryCtopp";
+import AddYoungerCtopp from "../AddTests/AddYoungerCtopp";
+import AddOlderCtopp from "../AddTests/AddOlderCtopp";
 import AddGort from "../AddTests/AddGort";
 import AddKtea from "../AddTests/AddKtea";
+import ElementaryWistResults from "../TestResults/ElementaryWistResults";
+import GortResults from "../TestResults/GortResults";
+import SecondaryWistResults from "../TestResults/SecondaryWistResults";
+import YoungerCtoppResults from "../TestResults/YoungerCtoppResults";
+import OlderCtoppResults from "../TestResults/OlderCtoppResults";
+
 import "./App.css";
+import KteaResults from "../TestResults/KteaResults";
+import StudentForm from "../Forms/StudentForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -70,39 +78,42 @@ function App() {
           <ProtectedRoute exact path="/addElementaryWist/:id">
             <AddElementaryWist />
           </ProtectedRoute>
-          {/* <ProtectedRoute exact path="/ElementaryWistResults/:id">
+          <ProtectedRoute exact path="/ElementaryWistResults/:id">
             <ElementaryWistResults />
-          </ProtectedRoute> */}
+          </ProtectedRoute>
           <ProtectedRoute exact path="/addSecondaryWist/:id">
             <AddSecondaryWist />
           </ProtectedRoute>
-          {/* <ProtectedRoute exact path="/SecondaryWistResults/:id">
+          <ProtectedRoute exact path="/SecondaryWistResults/:id">
             <SecondaryWistResults />
-          </ProtectedRoute> */}
+          </ProtectedRoute>
           <ProtectedRoute exact path="/addGort/:id">
             <AddGort />
           </ProtectedRoute>
-          {/* <ProtectedRoute exact path="/GortResults/:id">
+          <ProtectedRoute exact path="/GortResults/:id">
             <GortResults />
-          </ProtectedRoute> */}
-          <ProtectedRoute exact path="/addElementaryCtopp/:id">
-            <AddElementaryCtopp />
           </ProtectedRoute>
-          {/* <ProtectedRoute exact path="/ElementaryCtoppResults/:id">
-            <ElementaryCtoppResults />
-          </ProtectedRoute> */}
-          <ProtectedRoute exact path="/addSecondaryCtopp/:id">
-            <AddSecondaryCtopp />
+          <ProtectedRoute exact path="/addYoungerCtopp/:id">
+            <AddYoungerCtopp />
           </ProtectedRoute>
-          {/* <ProtectedRoute exact path="/SecondaryCtoppResults/:id">
-            <SecondaryCtoppResults />
-          </ProtectedRoute> */}
+          <ProtectedRoute exact path="/addOlderCtopp/:id">
+            <AddOlderCtopp />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/YoungerCtoppResults/:id">
+            <YoungerCtoppResults />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/OlderCtoppResults/:id">
+            <OlderCtoppResults />
+          </ProtectedRoute>
           <ProtectedRoute exact path="/addKtea/:id">
             <AddKtea />
           </ProtectedRoute>
-          {/* <ProtectedRoute exact path="/KteaResults/:id">
+          <ProtectedRoute exact path="/kteaResults/:id">
             <KteaResults />
-          </ProtectedRoute> */}
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/add-student">
+            <StudentForm />
+          </ProtectedRoute>
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact

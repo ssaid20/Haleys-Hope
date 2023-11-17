@@ -29,7 +29,7 @@ router.get("/younger/:studentId", (req, res) => {
   ctopp.phonological_awareness_percentile,
     ctopp.phonological_memory_percentile,
     ctopp.rapid_symbolic_naming_percentile,
-    ctopp.alt_phonological_awareness_percentile
+    ctopp.rapid_non_symbolic_naming_percentile
 FROM
   students s
 JOIN gort ON s.id = gort.student_id

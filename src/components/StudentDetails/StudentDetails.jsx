@@ -60,8 +60,6 @@ function StudentDetails() {
                   {tab.toUpperCase()}
                 </TabsTrigger>
               ))}
-              alt_phonological_awareness_percentile
-              alt_phonological_awareness_percentile
             </TabsList>
             <TabsContent value="test">
               <TestTab />

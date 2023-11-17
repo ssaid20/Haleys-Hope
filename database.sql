@@ -129,11 +129,11 @@ CREATE TABLE
     "rapid_object_naming" INTEGER,
     "blending_nonwords_scaled_score" INTEGER,
     "phonological_awareness_composite" INTEGER,
-    "phonological_awareness_percenile" INTEGER,
+    "phonological_awareness_percentile" INTEGER,
     "phonological_memory_composite" INTEGER,
     "phonological_memory_percentile" INTEGER,
     "rapid_symbolic_naming_composite" INTEGER,
-    "rapid_symbolic_naming_percentle" INTEGER,
+    "rapid_symbolic_naming_percentile" INTEGER,
     "rapid_non_symbolic_naming_composite" INTEGER,
     "rapid_non_symbolic_naming_percentile" INTEGER
   );
@@ -180,7 +180,7 @@ CREATE TABLE
     "blending_nonwords_scaled_score" INTEGER,
     "segmenting_nonwords_scaled_score" INTEGER,
     "phonological_awareness_composite" INTEGER,
-    "phonological_awareness_percecenile" INTEGER,
+    "phonological_awareness_percentile" INTEGER,
     "phonological_memory_composite" INTEGER,
     "phonological_memory_percentile" INTEGER,
     "rapid_symbolic_naming_composite" INTEGER,

@@ -40,6 +40,7 @@ const StudentCard = () => {
     barton_c: true,
     on_site: true,
     start_date: "",
+    is_active: "",
   });
 
   useEffect(() => {
@@ -60,6 +61,7 @@ const StudentCard = () => {
         barton_c: student.barton_c || true,
         on_site: student.on_site || true,
         start_date: student.start_date ? student.start_date.split("T")[0] : "",
+        is_active: student.is_active || true,
       });
       console.log("Updated formData state:", formData);
     }
@@ -179,7 +181,6 @@ const StudentCard = () => {
                   onChange={handleInputChange}
                 />
 
-              
                 <Label htmlFor="state">State</Label>
                 <Input
                   id="state"
@@ -222,11 +223,25 @@ const StudentCard = () => {
                   value={formData.start_date}
                   onChange={handleInputChange}
                 />
+
+                <Label htmlFor="is active">Current or Archive</Label>
+                <select
+                  id="is_active"
+                  value={formData.is_active}
+                  onChange={handleInputChange}
+                >
+                  <option value="true">Current</option>
+                  <option value="false">Archive</option>
+                </select>
               </div>
             </div>
             <SheetFooter>
               <SheetClose asChild>
-                <Button onClick={handleSubmit} type="submit" className="bg-primary-500 text-white">
+                <Button
+                  onClick={handleSubmit}
+                  type="submit"
+                  className="bg-primary-500 text-white"
+                >
                   Save Changes
                 </Button>
               </SheetClose>

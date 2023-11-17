@@ -41,8 +41,8 @@ router.post("/", (req, res) => {
     INSERT INTO "students" (
       "first_name", "last_name", "grade", "gender", "dob", 
       "city", "picture", "school", "on_site", 
-      "barton_c", "barton_c_date", "state", "start_date"
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+      "barton_c", "barton_c_date", "state", "start_date", "is_active"
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13 $14)
   `;
 
   const values = [
@@ -59,6 +59,7 @@ router.post("/", (req, res) => {
     newStudent.barton_c_date,
     newStudent.state,
     newStudent.start_date,
+    newStudent.is_active,
   ];
 
   pool
@@ -77,7 +78,7 @@ router.put("/:id", (req, res) => {
   const queryText = `UPDATE "students" SET
     "first_name" = $1, "last_name" = $2, "grade" = $3, "gender" = $4, "dob" = $5, 
     "city" = $6, "school" = $7, "on_site" = $8, 
-    "barton_c" = $9, "barton_c_date" = $10, "state" = $11, "start_date" = $12 WHERE "id" = $13`;
+    "barton_c" = $9, "barton_c_date" = $10, "state" = $11, "start_date" = $12, "is_active" = $13 WHERE "id" = $14`;
 
   const values = [
     updatedStudent.first_name,
@@ -92,6 +93,7 @@ router.put("/:id", (req, res) => {
     updatedStudent.barton_c_date,
     updatedStudent.state,
     updatedStudent.start_date,
+    updatedStudent.is_active,
     studentId,
   ];
 

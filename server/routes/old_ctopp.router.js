@@ -72,7 +72,6 @@ router.post("/", (req, res) => {
     newOCtopp.phonological_memory_composite,
     newOCtopp.rapid_symbolic_naming_composite,
     newOCtopp.alt_phonological_awareness_composite,
-
     newOCtopp.phonological_awareness_percentile,
     newOCtopp.phonological_memory_percentile,
     newOCtopp.rapid_symbolic_naming_percentile,

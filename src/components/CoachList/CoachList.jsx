@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { formatDate } from "../../lib/utils"; // Assuming you have a similar utility for users
+import { formatDate } from "../../lib/utils"; // Assuming you have a similar utility for coaches
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -31,29 +31,27 @@ const sheetStyle = {
   overflowY: "auto", // Enables vertical scrolling
 };
 
-// Define the columns for the user table
+// Define the columns for the coach table
 const columns = [
-  { id: "username", label: "Username", minWidth: 170 },
   { id: "first_name", label: "First Name", minWidth: 170 },
   { id: "last_name", label: "Last Name", minWidth: 170 },
-  { id: "role_id", label: "Role", minWidth: 100 },
 ];
-// function to see and manage all users
-const ManageUsers = () => {
+// function to see and manage all coaches
+const CoachList = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const users = useSelector((store) => store.allUsersReducer.users);
+  const coaches = useSelector((store) => store.coachReducer.list);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [showArchivedUsers, setShowArchivedUsers] = useState(false);
-  const archivedUsers = useSelector(
-    (store) => store.allUsersReducer.archivedUsers
+  const [showArchivedCoaches, setShowArchivedCoaches] = useState(false);
+  const archivedCoaches = useSelector(
+    (store) => store.coachReducer.archivedCoaches
   );
-  console.log("logging archived users", archivedUsers);
+  console.log("logging archived coaches", archivedCoaches);
   useEffect(() => {
-    dispatch({ type: "FETCH_ALL_USERS" });
-    dispatch({ type: "FETCH_ARCHIVED_USERS" });
-  }, []);
+    dispatch({ type: "FETCH_COACHES" });
+    dispatch({ type: "FETCH_ARCHIVED_COACHES" });
+  }, [dispatch]);
 
   //handles pagination
   const handleChangePage = (event, newPage) => {
@@ -63,8 +61,13 @@ const ManageUsers = () => {
   //updated input change with id being a number
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    // If the input is 'role_id', convert the value to a number
-    const updatedValue = id === "role_id" ? parseInt(value, 10) : value;
+    let updatedValue = value;
+
+    if (id === "is_active") {
+      // Convert the value to a boolean
+      updatedValue = value === "true"; // "true" for active, "false" for inactive
+    }
+
     setFormData({ ...formData, [id]: updatedValue });
   };
 
@@ -74,58 +77,64 @@ const ManageUsers = () => {
   };
 
   // New state to control the visibility of the Sheet
-  const [editingUserId, setEditingUserId] = useState(null);
+  const [editingCoachId, setEditingCoachId] = useState(null);
 
   // Modified handleEditClick function
-  const handleEditClick = (user) => {
-    console.log("Edit clicked for user:", user.id);
+  const handleEditClick = (coach) => {
+    console.log("Edit clicked for coach:", coach.id);
     setFormData({
-      first_name: user.first_name,
-      last_name: user.last_name,
-      role_id: user.role_id,
+      first_name: coach.first_name,
+      last_name: coach.last_name,
+      is_active: coach.is_active,
     });
-    setEditingUserId(user.id); // Set the editing user's ID
+    setEditingCoachId(coach.id); // Set the editing coach's ID
   }; // end handleEditClick
 
-  console.log("logging Users in manage users", users);
+  console.log("logging Coaches in coach list", coaches);
 
   // State to hold form data
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
-    role_id: "",
+    is_active: "",
   });
+
+  const addCoach = () => {
+    history.push("./addCoach");
+  };
 
   // Adjusted handleSubmit function
   const handleSubmit = () => {
-    console.log("Submitting for user:", editingUserId);
+    console.log("Submitting for coach:", editingCoachId);
     dispatch({
-      type: "UPDATE_USER",
-      payload: { id: editingUserId, ...formData },
+      type: "UPDATE_COACH",
+      payload: { id: editingCoachId, ...formData },
     });
-    setEditingUserId(null); // Close the sheet after submitting
+    setEditingCoachId(null); // Close the sheet after submitting
   }; // end handleSubmit
 
-  // Function to toggle the display of archived users
-  const toggleArchivedUsers = () => {
-    setShowArchivedUsers(!showArchivedUsers);
+  // Function to toggle the display of archived coaches
+  const toggleArchivedCoaches = () => {
+    setShowArchivedCoaches(!showArchivedCoaches);
   };
 
   useEffect(() => {
-    if (users) {
+    if (coaches) {
       setFormData({
-        first_name: users.first_name || "",
-        last_name: users.last_name || "",
-        role_id: users.role_id || "",
+        first_name: coaches.first_name || "",
+        last_name: coaches.last_name || "",
+        role_id: coaches.is_active || "",
       });
     }
-  }, [users]);
+  }, [coaches]);
 
   return (
     <div>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
+        <button onClick={addCoach}>Add A Coach</button>
+        <h1>Coaches</h1>
         <TableContainer sx={{ maxHeight: 840 }}>
-          <Table stickyHeader aria-label="user table">
+          <Table stickyHeader aria-label="coach table">
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
@@ -140,20 +149,25 @@ const ManageUsers = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users
+              {coaches
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((user) => {
-                  const formattedUser = {
-                    ...user,
-                    first_name: `${user.first_name}`,
-                    last_name: `${user.last_name}`,
-                    role_id: `${user.role_id}`,
+                .map((coach) => {
+                  const formattedCoach = {
+                    ...coach,
+                    first_name: `${coach.first_name}`,
+                    last_name: `${coach.last_name}`,
+                    is_active: `${coach.is_active}`,
                   };
 
                   return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={coach.id}
+                    >
                       {columns.map((column) => {
-                        const value = formattedUser[column.id];
+                        const value = formattedCoach[column.id];
                         return (
                           <TableCell key={column.id} align={column.align}>
                             {value}
@@ -162,7 +176,7 @@ const ManageUsers = () => {
                       })}
                       <TableCell>
                         <Button
-                          onClick={() => handleEditClick(user)}
+                          onClick={() => handleEditClick(coach)}
                           variant="outline"
                           className=" text-m px-5 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
                         >
@@ -171,20 +185,17 @@ const ManageUsers = () => {
                             alt="Edit Icon"
                             className="w-4 h-4"
                           />
-                          <span>Edit User</span>
+                          <span>Edit Coach</span>
                         </Button>
                       </TableCell>
-                      {/* {editingUserId === user.id && (
-                        <Sheet isOpen={editingUserId === user.id}>
-                          <SheetTrigger asChild></SheetTrigger> */}
                       {console.log(
                         "Sheet should open:",
-                        Boolean(editingUserId)
+                        Boolean(editingCoachId)
                       )}{" "}
-                      {editingUserId && (
+                      {editingCoachId && (
                         <Sheet
-                          open={Boolean(editingUserId)}
-                          onOpenChange={setEditingUserId}
+                          open={Boolean(editingCoachId)}
+                          onOpenChange={setEditingCoachId}
                         >
                           <SheetContent
                             side="top"
@@ -192,9 +203,9 @@ const ManageUsers = () => {
                           ></SheetContent>
                           <SheetContent side="top" style={sheetStyle}>
                             <SheetHeader>
-                              <SheetTitle>Edit User</SheetTitle>
+                              <SheetTitle>Edit Coach</SheetTitle>
                               <SheetDescription>
-                                Make changes to the user's profile here.
+                                Make changes to the coach's profile here.
                               </SheetDescription>
                             </SheetHeader>
                             <div className="p-4">
@@ -212,33 +223,14 @@ const ManageUsers = () => {
                                   value={formData.last_name}
                                   onChange={handleInputChange}
                                 />
-
-                                {/* <Label htmlFor="Role">Role</Label>
-                                <Input
-                                  id="grade"
-                                  type="number"
-                                  value={formData.role_id}
-                                  onChange={handleInputChange}
-                                /> */}
-
-                                <Label htmlFor="role">Role</Label>
+                                <Label htmlFor="is active">Is Active?</Label>
                                 <select
-                                  id="role_id"
-                                  value={formData.role_id}
+                                  id="is_active"
+                                  value={formData.is_active.toString()} // Convert boolean to string for the select value
                                   onChange={handleInputChange}
                                 >
-                                  <option value="1">Deactivated</option>
-                                  <option value="2">
-                                    Academic Assessment Coordinator
-                                  </option>
-                                  <option value="3">Dyslexia Specialist</option>
-                                  <option value="4">
-                                    Literacy Coach Manager
-                                  </option>
-                                  <option value="5">
-                                    Lead Performing Agent
-                                  </option>
-                                  <option value="6">Admin</option>
+                                  <option value="true">Active</option>
+                                  <option value="false">Inactive</option>
                                 </select>
                               </div>
                             </div>
@@ -261,21 +253,23 @@ const ManageUsers = () => {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={users.length}
+          count={coaches.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      {/* this button opens up a table of archived users */}
-      <Button onClick={toggleArchivedUsers}>
-        {showArchivedUsers ? "Hide Archived Users" : "Show Archived Users"}
+      {/* this button opens up a table of archived coaches */}
+      <Button onClick={toggleArchivedCoaches}>
+        {showArchivedCoaches
+          ? "Hide Archived Coaches"
+          : "Show Archived Coaches"}
       </Button>
-      {showArchivedUsers && (
+      {showArchivedCoaches && (
         <Paper sx={{ width: "100%", overflow: "hidden", marginTop: 2 }}>
           <TableContainer sx={{ maxHeight: 440 }}>
-            <Table stickyHeader aria-label="archived user table">
+            <Table stickyHeader aria-label="archived coaches table">
               <TableHead>
                 <TableRow>
                   {columns.map((column) => (
@@ -291,19 +285,22 @@ const ManageUsers = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {archivedUsers.map((user) => {
-                  // Assuming similar structure for archived users
-                  const formattedUser = {
-                    ...user,
-                    first_name: `${user.first_name}`,
-                    last_name: `${user.last_name}`,
-                    role_id: `${user.role_id}`,
+                {archivedCoaches.map((coach) => {
+                  const formattedCoach = {
+                    ...coach,
+                    first_name: `${coach.first_name}`,
+                    last_name: `${coach.last_name}`,
                   };
 
                   return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={coach.id}
+                    >
                       {columns.map((column) => {
-                        const value = formattedUser[column.id];
+                        const value = formattedCoach[column.id];
                         return (
                           <TableCell key={column.id} align={column.align}>
                             {value}
@@ -312,7 +309,7 @@ const ManageUsers = () => {
                       })}
                       <TableCell>
                         <Button
-                          onClick={() => handleEditClick(user)}
+                          onClick={() => handleEditClick(coach)}
                           variant="outline"
                           className=" text-m px-5 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
                         >
@@ -321,7 +318,7 @@ const ManageUsers = () => {
                             alt="Edit Icon"
                             className="w-4 h-4"
                           />
-                          <span>Edit User</span>
+                          <span>Edit Coach</span>
                         </Button>
                       </TableCell>
                     </TableRow>
@@ -334,6 +331,6 @@ const ManageUsers = () => {
       )}
     </div>
   );
-}; // end manageUsers
+}; // end CoachList
 
-export default ManageUsers;
+export default CoachList;

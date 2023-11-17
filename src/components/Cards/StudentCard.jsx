@@ -116,7 +116,6 @@ const StudentCard = () => {
                 className="w-4 h-4"
               />
               <span>Edit Student</span>
-              
             </Button>
           </SheetTrigger>
           <SheetContent side="top" style={sheetStyle}>

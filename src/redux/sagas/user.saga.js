@@ -26,31 +26,31 @@ function* fetchUser() {
 
 // Saga to fetch all users
 function* fetchAllUsers() {
-  console.log("fetch all users running");
   try {
-    console.log("hi");
     const response = yield call(axios.get, "/api/user/allUsers");
-    console.log("fetch all users saga response:", response);
     yield put({ type: "SET_ALL_USERS", payload: response.data });
-    console.log("fetch all users saga res.data", response.data);
   } catch (error) {
     console.log("Error fetching students", error);
   }
 }
 
 function* updateUser(action) {
+  console.log("updateuser saga");
   try {
     const config = {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     };
-    yield put({ type: "FETCH_USER" });
+    // Send a PUT request to update the user's information
+    const response = yield axios.put(
+      `/api/user/${action.payload.id}`,
+      action.payload,
+      config
+    );
+    yield put({ type: "FETCH_ALL_USERS", payload: response.data });
   } catch (error) {
     console.log("User update request failed", error);
   }
-
-  // Send a PUT request to update the user's information
-  yield axios.put(`/api/user/${action.payload.id}`, action.payload, config);
 }
 
 function* userSaga() {

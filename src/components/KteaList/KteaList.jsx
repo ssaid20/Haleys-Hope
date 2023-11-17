@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDate } from "../../lib/utils";
-import { useParams } from "react-router-dom/";
+import { useParams, useHistory } from "react-router-dom/";
 
 const KteaList = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const KteaList = () => {
   const isLoading = useSelector(
     (state) => state.kteaReducer.isLoading
   );
-
+const history = useHistory()
   useEffect(() => {
     //need to get student id and pass it in somehow in the dispatch, with a payload: studentId
     dispatch({ type: "FETCH_KTEA", payload: student.id });
@@ -27,14 +27,15 @@ const KteaList = () => {
     return <p>No KTEA-3 tests available.</p>;
   }
 
-  const handleTestClick = (test) => {
-    setSelectedTest(test);
+  const moreDetails = (testId) => {
+    history.push(`/kteaResults/${testId}`);
   };
+
 
   return (
     <div>
       {tests.map((test) => (
-        <div key={test.id} onClick={() => handleTestClick(test)}>
+        <div key={test.id} onClick={() => moreDetails(test.id)}>
           <p>
             KTEA-3 Date: {formatDate(test.date)} (click for details)
           </p>

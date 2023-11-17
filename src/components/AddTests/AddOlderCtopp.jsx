@@ -13,8 +13,8 @@ import {
   Paper,
 } from "@mui/material";
 
-//component to add a new Gort test
-const AddGort = () => {
+//component to add a new Secondary ctopp test
+const AddOlderCtopp = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
@@ -37,25 +37,23 @@ const AddGort = () => {
     handleGoBack;
   });
 
-  const [newGort, setNewGort] = useState({
+  const [newCtopp, setNewCtopp] = useState({
     student_id: student.id,
     date: "",
     examiner_id: "",
-    sum_scaled_score: null,
-    oral_reading_percentile_rank: null,
-    oral_reading_index: null,
-    rate_raw_total: null,
-    accuracy_raw_total: null,
-    fluency_raw_total: null,
-    rate_percentile_rank: null,
-    accuracy_percentile_rank: null,
-    fluency_percentile_rank: null,
-    comprehension_percentile_rank: null,
-    comprehension_raw_total: null,
-    rate_scaled_score: null,
-    accuracy_scaled_score: null,
-    fluency_scaled_score: null,
-    comprehension_scaled_score: null,
+    elison_scaled_score: null,
+    blending_words_scaled_score: null,
+    phoneme_isolation_scaled_score: null,
+    memory_for_digits_scaled_score: null,
+    nonword_repetition_scaled_score: null,
+    rapid_digit_naming_scaled_score: null,
+    rapid_letter_naming_scaled_score: null,
+    blending_nonwords_scaled_score: null,
+    segmenting_nonwords_scaled_score: null,
+    phonological_awareness_composite: null,
+    phonological_memory_composite: null,
+    rapid_symbolic_naming_composite: null,
+    alt_phonological_awareness_composite: null,
   });
   const handleGoBack = () => {
     history.push(`/students/${student.id}`);
@@ -70,12 +68,12 @@ const AddGort = () => {
 
       return newErrors;
     });
-    // setNewGort((prevCtopp) => ({
+    // setNewCtopp((prevCtopp) => ({
     //   ...prevCtopp,
     //   [name]: value === "" ? null : Number(value),
     // }));
-    setNewGort((prevGort) => ({
-      ...prevGort,
+    setNewCtopp((prevCtopp) => ({
+      ...prevCtopp,
       [name]: value, // Use computed property name to update the state
     }));
   };
@@ -85,13 +83,13 @@ const AddGort = () => {
     e.preventDefault();
     // Validate all inputs before submission
     const newErrors = {};
-    if (!newGort.date) {
+    if (!newCtopp.date) {
       newErrors.date = "Date is required";
-    } else if (new Date(newGort.date) > new Date()) {
+    } else if (new Date(newCtopp.date) > new Date()) {
       newErrors.date = "Date cannot be in the future";
     }
 
-    if (!newGort.examiner_id) {
+    if (!newCtopp.examiner_id) {
       newErrors.examiner_id = "Examiner is required";
     }
 
@@ -104,8 +102,8 @@ const AddGort = () => {
     }
 
     dispatch({
-      type: "ADD_GORT",
-      payload: newGort,
+      type: "ADD_OLDER_CTOPP",
+      payload: newCtopp,
     });
 
     history.push(`/students/${student.id}`);
@@ -114,7 +112,9 @@ const AddGort = () => {
 
   return (
     <>
-      <h1 className="text-3xl text-center mb-4 bg-primary-100">GORT-5 </h1>
+      <h1 className="text-3xl text-center mb-4 bg-primary-100">
+        CTOPP-2 Over 7
+      </h1>
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         GO BACK
       </Button>
@@ -129,15 +129,12 @@ const AddGort = () => {
                   type="date"
                   id="date"
                   name="date"
-                  value={newGort.date}
+                  value={newCtopp.date}
                   onChange={handleChange}
                   variant="outlined"
+                  error={!!validationErrors.date}
+                  helperText={validationErrors.date}
                 />
-                {validationErrors.date && (
-                  <div className="text-red-500 text-xs italic">
-                    {validationErrors.date}
-                  </div>
-                )}
               </FormControl>
             </Grid>
             {/* Student ID Field */}
@@ -148,15 +145,10 @@ const AddGort = () => {
                   type="number"
                   id="student_id"
                   name="student_id"
-                  value={newGort.student_id}
+                  value={newCtopp.student_id}
                   onChange={handleChange}
                   variant="outlined"
                 />
-                {validationErrors.student_id && (
-                  <div className="text-red-500 text-xs italic">
-                    {validationErrors.student_id}
-                  </div>
-                )}
               </FormControl>
             </Grid>
 
@@ -168,237 +160,192 @@ const AddGort = () => {
                   type="number"
                   id="examiner_id"
                   name="examiner_id"
-                  value={newGort.examiner_id}
+                  value={newCtopp.examiner_id}
                   onChange={handleChange}
                   variant="outlined"
-                />
-                {validationErrors.examiner_id && (
-                  <div className="text-red-500 text-xs italic">
-                    {validationErrors.examiner_id}
-                  </div>
-                )}
-              </FormControl>
-            </Grid>
-
-            {/* Sum Scaled Score */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Sum Scaled Score:</FormLabel>
-                <TextField
-                  type="number"
-                  id="sum_scaled_score"
-                  name="sum_scaled_score"
-                  value={newGort.sum_scaled_score}
-                  onChange={handleChange}
-                  variant="outlined"
+                  error={!!validationErrors.examiner_id}
+                  helperText={validationErrors.examiner_id}
                 />
               </FormControl>
             </Grid>
 
-            {/* Oral Reading Percentile Rank */}
+            {/* Elision Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Oral Reading Percentile Rank:</FormLabel>
+                <FormLabel>Elision Scaled Score:</FormLabel>
                 <TextField
                   type="number"
-                  id="oral_reading_percentile_rank"
-                  name="oral_reading_percentile_rank"
-                  value={newGort.oral_reading_percentile_rank}
+                  id="elison_scaled_score"
+                  name="elison_scaled_score"
+                  value={newCtopp.elison_scaled_score}
                   onChange={handleChange}
                   variant="outlined"
                 />
               </FormControl>
             </Grid>
-
-            {/* Oral Reading Index */}
+            {/* Blending Words Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Oral Reading Index:</FormLabel>
+                <FormLabel>Blending Words Scaled Score:</FormLabel>
                 <TextField
                   type="number"
-                  id="oral_reading_index"
-                  name="oral_reading_index"
-                  value={newGort.oral_reading_index}
+                  id="blending_words_scaled_score"
+                  name="blending_words_scaled_score"
+                  value={newCtopp.blending_words_scaled_score}
                   onChange={handleChange}
                   variant="outlined"
                 />
               </FormControl>
             </Grid>
-
-            {/* Rate Raw Total */}
+            {/* Phoneme Isolation Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Rate Raw Total:</FormLabel>
+                <FormLabel>Phoneme Isolation Scaled Score:</FormLabel>
                 <TextField
                   type="number"
-                  id="rate_raw_total"
-                  name="rate_raw_total"
-                  value={newGort.rate_raw_total}
+                  id="phoneme_isolation_scaled_score"
+                  name="phoneme_isolation_scaled_score"
+                  value={newCtopp.phoneme_isolation_scaled_score}
                   onChange={handleChange}
                   variant="outlined"
                 />
               </FormControl>
             </Grid>
-
-            {/* Accuracy Raw Total */}
+            {/* Memory for Digits Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Accuracy Raw Total:</FormLabel>
+                <FormLabel>Memory for Digits Scaled Score:</FormLabel>
                 <TextField
                   type="number"
-                  id="accuracy_raw_total"
-                  name="accuracy_raw_total"
-                  value={newGort.accuracy_raw_total}
+                  id="memory_for_digits_scaled_score"
+                  name="memory_for_digits_scaled_score"
+                  value={newCtopp.memory_for_digits_scaled_score}
                   onChange={handleChange}
                   variant="outlined"
                 />
               </FormControl>
             </Grid>
-
-            {/* Fluency Raw Total */}
+            {/* Nonword Repetition Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Fluency Raw Total:</FormLabel>
+                <FormLabel>Nonword Repetition Scaled Score:</FormLabel>
                 <TextField
                   type="number"
-                  id="fluency_raw_total"
-                  name="fluency_raw_total"
-                  value={newGort.fluency_raw_total}
+                  id="nonword_repetition_scaled_score"
+                  name="nonword_repetition_scaled_score"
+                  value={newCtopp.nonword_repetition_scaled_score}
                   onChange={handleChange}
                   variant="outlined"
                 />
               </FormControl>
             </Grid>
-
-            {/* Rate Percentile Rank */}
+            {/* Rapid Digit Naming Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Rate Percentile Rank:</FormLabel>
+                <FormLabel>Rapid Digit Naming Scaled Score:</FormLabel>
                 <TextField
                   type="number"
-                  id="rate_percentile_rank"
-                  name="rate_percentile_rank"
-                  value={newGort.rate_percentile_rank}
+                  id="rapid_digit_naming_scaled_score"
+                  name="rapid_digit_naming_scaled_score"
+                  value={newCtopp.rapid_digit_naming_scaled_score}
                   onChange={handleChange}
                   variant="outlined"
                 />
               </FormControl>
             </Grid>
-
-            {/* Accuracy Percentile Rank */}
+            {/* Rapid Letter Naming Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Accuracy Percentile Rank:</FormLabel>
+                <FormLabel>Rapid Letter Naming Scaled Score:</FormLabel>
                 <TextField
                   type="number"
-                  id="accuracy_percentile_rank"
-                  name="accuracy_percentile_rank"
-                  value={newGort.accuracy_percentile_rank}
+                  id="rapid_letter_naming_scaled_score"
+                  name="rapid_letter_naming_scaled_score"
+                  value={newCtopp.rapid_letter_naming_scaled_score}
                   onChange={handleChange}
                   variant="outlined"
                 />
               </FormControl>
             </Grid>
-
-            {/* Fluency Percentile Rank */}
+            {/* Blending Nonwords Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Fluency Percentile Rank:</FormLabel>
+                <FormLabel>Blending Nonwords Scaled Score:</FormLabel>
                 <TextField
                   type="number"
-                  id="fluency_percentile_rank"
-                  name="fluency_percentile_rank"
-                  value={newGort.fluency_percentile_rank}
+                  id="blending_nonwords_scaled_score"
+                  name="blending_nonwords_scaled_score"
+                  value={newCtopp.blending_nonwords_scaled_score}
                   onChange={handleChange}
                   variant="outlined"
                 />
               </FormControl>
             </Grid>
-
-            {/* Comprehension Percentile Rank */}
+            {/* Segmenting Nonwords Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Comprehension Percentile Rank:</FormLabel>
+                <FormLabel>Segmenting Nonwords Scaled Score:</FormLabel>
                 <TextField
                   type="number"
-                  id="comprehension_percentile_rank"
-                  name="comprehension_percentile_rank"
-                  value={newGort.comprehension_percentile_rank}
+                  id="segmenting_nonwords_scaled_score"
+                  name="segmenting_nonwords_scaled_score"
+                  value={newCtopp.segmenting_nonwords_scaled_score}
                   onChange={handleChange}
                   variant="outlined"
                 />
               </FormControl>
             </Grid>
-
-            {/* Comprehension Raw Total */}
+            {/* Phonological Awareness Composite Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Comprehension Raw Total:</FormLabel>
+                <FormLabel>Phonological Awareness Composite:</FormLabel>
                 <TextField
                   type="number"
-                  id="comprehension_raw_total"
-                  name="comprehension_raw_total"
-                  value={newGort.comprehension_raw_total}
+                  id="phonological_awareness_composite"
+                  name="phonological_awareness_composite"
+                  value={newCtopp.phonological_awareness_composite}
                   onChange={handleChange}
                   variant="outlined"
                 />
               </FormControl>
             </Grid>
-
-            {/* Rate Scaled Score */}
+            {/* Phonological Memory Composite Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Rate Scaled Score:</FormLabel>
+                <FormLabel>Phonological Memory Composite:</FormLabel>
                 <TextField
                   type="number"
-                  id="rate_scaled_score"
-                  name="rate_scaled_score"
-                  value={newGort.rate_scaled_score}
+                  id="phonological_memory_composite"
+                  name="phonological_memory_composite"
+                  value={newCtopp.phonological_memory_composite}
                   onChange={handleChange}
                   variant="outlined"
                 />
               </FormControl>
             </Grid>
-
-            {/* Accuracy Scaled Score */}
+            {/* Rapid Symbolic Naming Composite Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Accuracy Scaled Score:</FormLabel>
+                <FormLabel>Rapid Symbolic Naming Composite:</FormLabel>
                 <TextField
                   type="number"
-                  id="accuracy_scaled_score"
-                  name="accuracy_scaled_score"
-                  value={newGort.accuracy_scaled_score}
+                  id="rapid_symbolic_naming_composite"
+                  name="rapid_symbolic_naming_composite"
+                  value={newCtopp.rapid_symbolic_naming_composite}
                   onChange={handleChange}
                   variant="outlined"
                 />
               </FormControl>
             </Grid>
-
-            {/* Fluency Scaled Score */}
+            {/* Alt Phonological Awareness Composite Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Fluency Scaled Score:</FormLabel>
+                <FormLabel>Alt Phonological Awareness Composite:</FormLabel>
                 <TextField
                   type="number"
-                  id="fluency_scaled_score"
-                  name="fluency_scaled_score"
-                  value={newGort.fluency_scaled_score}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
-
-            {/* Comprehension Scaled Score */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Comprehension Scaled Score:</FormLabel>
-                <TextField
-                  type="number"
-                  id="comprehension_scaled_score"
-                  name="comprehension_scaled_score"
-                  value={newGort.comprehension_scaled_score}
+                  id="alt_phonological_awareness_composite"
+                  name="alt_phonological_awareness_composite"
+                  value={newCtopp.alt_phonological_awareness_composite}
                   onChange={handleChange}
                   variant="outlined"
                 />
@@ -419,4 +366,4 @@ const AddGort = () => {
   );
 };
 
-export default AddGort;
+export default AddOlderCtopp;

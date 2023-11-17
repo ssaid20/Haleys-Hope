@@ -16,6 +16,24 @@ router.get("/:student_id", (req, res) => {
     });
 });
 
+//router to get a specific test
+router.get("/olderCtoppResults/:testId", (req, res) => {
+  const testId = req.params.testId;
+  const queryText = 'SELECT * FROM "older_ctopp" WHERE "id" = $1';
+  pool
+    .query(queryText, [testId])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.error(
+        "Error completing SELECT older_ctopp query for test id",
+        err
+      );
+      res.sendStatus(500);
+    });
+});
+
 // POST route to add a new record for a specific student
 router.post("/", (req, res) => {
   const newOCtopp = req.body;

@@ -12,13 +12,12 @@ function* fetchGort(action) {
 }
 // saga for getting specific GORT
 function* fetchGortResults(action) {
-  console.log("Action.payload in fetch saga FOR GORT", action.payload);
+  console.log("Action.payload in fetch saga FOR SPECIFIC GORT", action.payload);
   try {
     const response = yield call(
       axios.get,
       `/api/gort/gortResults/${action.payload}`
     );
-
     yield put({ type: "SET_GORT_RESULTS", payload: response.data });
   } catch (error) {
     console.log("Error fetching GORT data", error);

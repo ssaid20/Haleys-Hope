@@ -4,6 +4,7 @@ const pool = require("../modules/pool"); // Adjust the path as needed
 
 // GET route to fetch all coaches with all their information
 router.get("/", (req, res) => {
+  console.log("router.get all coaches");
   const queryText = 'SELECT * FROM "coaches" WHERE "is_active" = TRUE';
   pool
     .query(queryText)

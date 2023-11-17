@@ -28,7 +28,6 @@ router.get("/allUsers", (req, res) => {
 
 // GET route to fetch all users who are archived/deactivated
 router.get("/archivedUsers", (req, res) => {
-  console.log("get all users router.js running");
   const queryText = 'SELECT * FROM "user" WHERE "role_id" < 2';
   pool
     .query(queryText)

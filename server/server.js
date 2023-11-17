@@ -40,7 +40,7 @@ app.use("/api/young_ctopp", young_ctoppRouter);
 app.use("/api/old_ctopp", old_ctoppRouter);
 app.use("/api/students", studentRouter);
 app.use("/api/assessment", assessmentRouter);
-app.use("api/coaches", coachRouter);
+app.use("/api/coaches", coachRouter);
 
 // Serve static files
 app.use(express.static("build"));

@@ -3,9 +3,13 @@ import axios from "axios";
 
 // Saga to fetch all coaches
 function* fetchCoaches() {
+  console.log("*2* fetch coaches saga");
   try {
+    console.log("try in fetch coaches saga");
     const response = yield call(axios.get, "/api/coaches");
+    console.log("*3* fetch coach saga response", response);
     yield put({ type: "SET_COACHES", payload: response.data });
+    console.log("*4* set coaches saga response.data", response.data);
   } catch (error) {
     console.log("Error fetching coaches", error);
   }

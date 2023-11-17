@@ -1,19 +1,56 @@
 import React from "react";
-import LogOutButton from "../LogOutButton/LogOutButton";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import StudentList from "../StudentList/StudentList";
+import Searchbar from "../shared/Searchbar";
+import { Button } from "../ui/button";
+
 function UserPage() {
   const user = useSelector((store) => store.user);
-  console.log(user);
+
   return (
-    <div className="container">
-      <h2>Welcome, {user.username}!</h2>
-      <p>Your ID is: {user.id}</p>
-      <LogOutButton className="btn" />
-      <StudentList />
-    </div>
+    <>
+      <div className="container mx-auto p-4">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="h1-bold text-dark100_light900 text-xl md:text-2xl">
+            All Students
+          </h1>
+          <Link to="/add-student">
+            <Button className="bg-primary-100 min-h-[46px] px-4 py-3 !text-light-900">
+              Add New Student
+            </Button>
+          </Link>
+        </div>
+
+        <div className="mb-8">
+          <Searchbar
+            route="/"
+            iconPosition="left"
+            imgSrc="/assets/icons/search.svg"
+            placeholder="Search for Student"
+            otherClasses="w-full"
+          />
+        </div>
+
+        <div className="flex justify-between gap-5 mb-6 max-sm:flex-col sm:items-center">
+          {/* Add Filters here if needed */}
+        </div>
+
+        <StudentList />
+      </div>
+    </>
   );
 }
 
-// this allows us to use <App /> in index.js
 export default UserPage;
+
+
+
+
+
+
+
+
+{/* <h2>Welcome, {user.username}!</h2>
+      <p>Your ID is: {user.id}</p>
+      <LogOutButton className="btn" /> */}

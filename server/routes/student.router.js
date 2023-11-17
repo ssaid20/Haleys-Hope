@@ -37,27 +37,28 @@ router.get("/:id", (req, res) => {
 // POST route to add a new student
 router.post("/", (req, res) => {
   const newStudent = req.body;
-  const queryText = `INSERT INTO "students" (
-    "first_name", "last_name", "is_active", "grade", "gender", "dob", 
-    "address", "zip_code", "county", "picture", "school", "on_site", 
-    "pretest_passed", "pretest_date"
-  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`;
+  const queryText = `
+    INSERT INTO "students" (
+      "first_name", "last_name", "grade", "gender", "dob", 
+      "city", "picture", "school", "on_site", 
+      "barton_c", "barton_c_date", "state", "start_date"
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+  `;
 
   const values = [
     newStudent.first_name,
     newStudent.last_name,
-    newStudent.is_active,
     newStudent.grade,
     newStudent.gender,
     newStudent.dob,
-    newStudent.address,
-    newStudent.zip_code,
-    newStudent.county,
+    newStudent.city,
     newStudent.picture,
     newStudent.school,
     newStudent.on_site,
-    newStudent.pretest_passed,
-    newStudent.pretest_date,
+    newStudent.barton_c,
+    newStudent.barton_c_date,
+    newStudent.state,
+    newStudent.start_date,
   ];
 
   pool
@@ -75,8 +76,8 @@ router.put("/:id", (req, res) => {
   const updatedStudent = req.body;
   const queryText = `UPDATE "students" SET
     "first_name" = $1, "last_name" = $2, "grade" = $3, "gender" = $4, "dob" = $5, 
-    "address" = $6, "zip_code" = $7, "county" = $8, "school" = $9, "on_site" = $10, 
-    "pretest_passed" = $11, "pretest_date" = $12 WHERE "id" = $13`;
+    "city" = $6, "school" = $7, "on_site" = $8, 
+    "barton_c" = $9, "barton_c_date" = $10, "state" = $11, "start_date" = $12 WHERE "id" = $13`;
 
   const values = [
     updatedStudent.first_name,
@@ -84,13 +85,13 @@ router.put("/:id", (req, res) => {
     updatedStudent.grade,
     updatedStudent.gender,
     updatedStudent.dob,
-    updatedStudent.address,
-    updatedStudent.zip_code,
-    updatedStudent.county,
+    updatedStudent.city,
     updatedStudent.school,
     updatedStudent.on_site,
-    updatedStudent.pretest_passed,
-    updatedStudent.pretest_date,
+    updatedStudent.barton_c,
+    updatedStudent.barton_c_date,
+    updatedStudent.state,
+    updatedStudent.start_date,
     studentId,
   ];
 

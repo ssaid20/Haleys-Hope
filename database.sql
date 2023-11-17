@@ -4,12 +4,14 @@
 -- Otherwise you will have errors!
 --
 -- Database Name: student_tracker
-CREATE TABLE IF NOT EXISTS "coaches" (
-  "id" SERIAL PRIMARY KEY,
-  "first_name" VARCHAR,
-  "last_name" VARCHAR,
-  "is_active" BOOLEAN NOT NULL DEFAULT true
-);
+-- coaches need is_active
+CREATE TABLE
+  IF NOT EXISTS "coaches" (
+    "id" SERIAL PRIMARY KEY,
+    "first_name" VARCHAR,
+    "last_name" VARCHAR,
+    "is_active" BOOLEAN NOT NULL DEFAULT true
+  );
 
 CREATE TABLE
   IF NOT EXISTS "roles" ("id" SERIAL PRIMARY KEY, "role" VARCHAR(100));
@@ -24,33 +26,35 @@ CREATE TABLE
     "role_id" INTEGER REFERENCES "roles" ("id")
   );
 
-INSERT INTO roles (role) VALUES 
-('Deactivated'),
-('Academic Assessment Coordinator'),
-('Dyslexia Specialist'),
-('Literacy Coach Manager'),
-('Lead Performing Agent'),
-('Admin');
+INSERT INTO
+  roles (role)
+VALUES
+  ('Deactivated'),
+  ('Academic Assessment Coordinator'),
+  ('Dyslexia Specialist'),
+  ('Literacy Coach Manager'),
+  ('Lead Performing Agent'),
+  ('Admin');
 
 CREATE TABLE
- IF NOT EXISTS "students" (
-  "id" SERIAL PRIMARY KEY,
-  "first_name" VARCHAR(20) NOT NULL,
-  "last_name" VARCHAR(20) NOT NULL,
-  "is_active" BOOLEAN NOT NULL DEFAULT true,
-  "grade" INTEGER NOT NULL,
-  "gender" VARCHAR(1),
-  "dob" DATE NOT NULL,
-  "city" VARCHAR(20),
-  "state" VARCHAR(50),
-  "picture" VARCHAR(1000),
-  "school" VARCHAR(30),
-  "on_site" BOOLEAN NOT NULL DEFAULT true,
-  "barton_c" BOOLEAN,
-  "barton_c_date" DATE,
-  "coach_id" INTEGER REFERENCES "coaches" ("id"),
-  "start_date" DATE NOT NULL
- );
+  IF NOT EXISTS "students" (
+    "id" SERIAL PRIMARY KEY,
+    "first_name" VARCHAR(20) NOT NULL,
+    "last_name" VARCHAR(20) NOT NULL,
+    "is_active" BOOLEAN NOT NULL DEFAULT true,
+    "grade" INTEGER NOT NULL,
+    "gender" VARCHAR(1),
+    "dob" DATE NOT NULL,
+    "city" VARCHAR(20),
+    "state" VARCHAR(50),
+    "picture" VARCHAR(1000),
+    "school" VARCHAR(30),
+    "on_site" BOOLEAN NOT NULL DEFAULT true,
+    "barton_c" BOOLEAN,
+    "barton_c_date" DATE,
+    "coach_id" INTEGER REFERENCES "coaches" ("id"),
+    "start_date" DATE NOT NULL
+  );
 
 CREATE TABLE
   IF NOT EXISTS "student_comments" (
@@ -125,9 +129,13 @@ CREATE TABLE
     "rapid_object_naming" INTEGER,
     "blending_nonwords_scaled_score" INTEGER,
     "phonological_awareness_composite" INTEGER,
+    "phonological_awareness_percenile" INTEGER,
     "phonological_memory_composite" INTEGER,
+    "phonological_memory_percentile" INTEGER,
     "rapid_symbolic_naming_composite" INTEGER,
-    "rapid_non_symbolic_naming_composite" INTEGER
+    "rapid_symbolic_naming_percentle" INTEGER,
+    "rapid_non_symbolic_naming_composite" INTEGER,
+    "rapid_non_symbolic_naming_percentile" INTEGER
   );
 
 CREATE TABLE
@@ -156,25 +164,30 @@ CREATE TABLE
     "sound_symbol_knowledge_standard_score" INTEGER
   );
 
-CREATE TABLE IF NOT EXISTS "older_ctopp" (
-  "id" SERIAL PRIMARY KEY,
-  "student_id" INTEGER REFERENCES "students" ("id"),
-  "date" DATE NOT NULL,
-  "examiner_id" INTEGER REFERENCES "user" ("id"),
-  "elison_scaled_score" INTEGER,
-  "blending_words_scaled_score" INTEGER,
-  "phoneme_isolation_scaled_score" INTEGER,
-  "memory_for_digits_scaled_score" INTEGER,
-  "nonword_repetition_scaled_score" INTEGER,
-  "rapid_digit_naming_scaled_score" INTEGER,
-  "rapid_letter_naming_scaled_score" INTEGER,
-  "blending_nonwords_scaled_score" INTEGER,
-  "segmenting_nonwords_scaled_score" INTEGER,
-  "phonological_awareness_composite" INTEGER,
-  "phonological_memory_composite" INTEGER,
-  "rapid_symbolic_naming_composite" INTEGER,
-  "alt_phonological_awareness_composite" INTEGER
-);
+CREATE TABLE
+  IF NOT EXISTS "older_ctopp" (
+    "id" SERIAL PRIMARY KEY,
+    "student_id" INTEGER REFERENCES "students" ("id"),
+    "date" DATE NOT NULL,
+    "examiner_id" INTEGER REFERENCES "user" ("id"),
+    "elison_scaled_score" INTEGER,
+    "blending_words_scaled_score" INTEGER,
+    "phoneme_isolation_scaled_score" INTEGER,
+    "memory_for_digits_scaled_score" INTEGER,
+    "nonword_repetition_scaled_score" INTEGER,
+    "rapid_digit_naming_scaled_score" INTEGER,
+    "rapid_letter_naming_scaled_score" INTEGER,
+    "blending_nonwords_scaled_score" INTEGER,
+    "segmenting_nonwords_scaled_score" INTEGER,
+    "phonological_awareness_composite" INTEGER,
+    "phonological_awareness_percecenile" INTEGER,
+    "phonological_memory_composite" INTEGER,
+    "phonological_memory_percentile" INTEGER,
+    "rapid_symbolic_naming_composite" INTEGER,
+    "rapid_symbolic_naming_percentile" INTEGER,
+    "alt_phonological_awareness_composite" INTEGER,
+    "alt_phonological_awareness_percentile" INTEGER
+  );
 
 CREATE TABLE
   IF NOT EXISTS "ktea" (
@@ -188,22 +201,298 @@ CREATE TABLE
     "spelling_percentile" INTEGER
   );
 
--- TEST STUDENTS:
-INSERT INTO "students" ("first_name", "last_name", "is_active", "grade", "gender", "dob", "city", "state", "school", "on_site", "barton_c", "barton_c_date", "coach_id", "start_date")
+INSERT INTO
+  "students" (
+    "first_name",
+    "last_name",
+    "is_active",
+    "grade",
+    "gender",
+    "dob",
+    "city",
+    "state",
+    "school",
+    "on_site",
+    "barton_c",
+    "barton_c_date",
+    "coach_id",
+    "start_date"
+  )
 VALUES
-  ('John', 'Doe', true, 10, 'M', DATE '2005-05-15', 'New York', 'NY', 'High School 1', true, true, '2022-01-15', 1, '2022-01-01'),
-  ('Jane', 'Smith', true, 11, 'F', DATE '2004-08-21', 'Los Angeles', 'CA', 'High School 2', true, false, NULL, 2, '2022-02-01'),
-  ('Mike', 'Johnson', true, 9, 'M', DATE '2006-03-10', 'Chicago', 'IL', 'High School 3', false, true, '2022-03-15', 3, '2022-03-01'),
-  ('Emily', 'Brown', true, 12, 'F', DATE '2003-11-30', 'Houston', 'TX', 'High School 4', true, false, NULL, 4, '2022-04-01'),
-  ('David', 'Lee', true, 10, 'M', DATE '2005-07-18', 'San Francisco', 'CA', 'High School 5', true, true, '2022-05-15', 5, '2022-05-01'),
-  ('Sarah', 'Taylor', true, 11, 'F', DATE '2004-09-25', 'Boston', 'MA', 'High School 6', false, false, NULL, 6, '2022-06-01'),
-  ('Michael', 'Davis', true, 9, 'M', DATE '2006-02-05', 'Miami', 'FL', 'High School 7', true, true, '2022-07-15', 7, '2022-07-01'),
-  ('Olivia', 'Wilson', true, 12, 'F', DATE '2003-10-12', 'Dallas', 'TX', 'High School 8', false, false, NULL, 8, '2022-08-01'),
-  ('James', 'Anderson', true, 10, 'M', DATE '2005-06-20', 'Philadelphia', 'PA', 'High School 9', true, true, '2022-09-15', 9, '2022-09-01'),
-  ('Emma', 'Martinez', true, 11, 'F', DATE '2004-07-14', 'Phoenix', 'AZ', 'High School 10', false, true, '2022-10-15', 10, '2022-10-01'),
-  ('William', 'Garcia', true, 9, 'M', DATE '2006-01-08', 'Seattle', 'WA', 'High School 11', true, false, NULL, 11, '2022-11-01'),
-  ('Ava', 'Hernandez', true, 12, 'F', DATE '2003-09-03', 'Denver', 'CO', 'High School 12', false, true, '2022-12-15', 12, '2022-12-01'),
-  ('Liam', 'Lopez', true, 10, 'M', DATE '2005-04-09', 'Atlanta', 'GA', 'High School 13', true, false, NULL, 13, '2023-01-01'),
-  ('Mia', 'Ramirez', true, 11, 'F', DATE '2004-12-17', 'Detroit', 'MI', 'High School 14', false, true, '2023-02-15', 14, '2023-02-01'),
-  ('Benjamin', 'Turner', true, 9, 'M', DATE '2006-08-05', 'Minneapolis', 'MN', 'High School 15', true, true, '2023-03-15', 15, '2023-03-01'),
-  ('Sophia', 'Adams', true, 12, 'F', DATE '2003-07-27', 'Portland', 'OR', 'High School 16', false, false, NULL, 16, '2023-04-01');
+  (
+    'John',
+    'Doe',
+    true,
+    10,
+    'M',
+    DATE '2005-05-15',
+    'New York',
+    'NY',
+    'High School 1',
+    true,
+    true,
+    '2022-01-15',
+    1,
+    '2022-01-01'
+  ),
+  (
+    'Jane',
+    'Smith',
+    true,
+    11,
+    'F',
+    DATE '2004-08-21',
+    'Los Angeles',
+    'CA',
+    'High School 2',
+    true,
+    false,
+    NULL,
+    2,
+    '2022-02-01'
+  ),
+  (
+    'Mike',
+    'Johnson',
+    true,
+    9,
+    'M',
+    DATE '2006-03-10',
+    'Chicago',
+    'IL',
+    'High School 3',
+    false,
+    true,
+    '2022-03-15',
+    3,
+    '2022-03-01'
+  ),
+  (
+    'Emily',
+    'Brown',
+    true,
+    12,
+    'F',
+    DATE '2003-11-30',
+    'Houston',
+    'TX',
+    'High School 4',
+    true,
+    false,
+    NULL,
+    4,
+    '2022-04-01'
+  ),
+  (
+    'David',
+    'Lee',
+    true,
+    10,
+    'M',
+    DATE '2005-07-18',
+    'San Francisco',
+    'CA',
+    'High School 5',
+    true,
+    true,
+    '2022-05-15',
+    5,
+    '2022-05-01'
+  ),
+  (
+    'Sarah',
+    'Taylor',
+    true,
+    11,
+    'F',
+    DATE '2004-09-25',
+    'Boston',
+    'MA',
+    'High School 6',
+    false,
+    false,
+    NULL,
+    6,
+    '2022-06-01'
+  ),
+  (
+    'Michael',
+    'Davis',
+    true,
+    9,
+    'M',
+    DATE '2006-02-05',
+    'Miami',
+    'FL',
+    'High School 7',
+    true,
+    true,
+    '2022-07-15',
+    7,
+    '2022-07-01'
+  ),
+  (
+    'Olivia',
+    'Wilson',
+    true,
+    12,
+    'F',
+    DATE '2003-10-12',
+    'Dallas',
+    'TX',
+    'High School 8',
+    false,
+    false,
+    NULL,
+    8,
+    '2022-08-01'
+  ),
+  (
+    'James',
+    'Anderson',
+    true,
+    10,
+    'M',
+    DATE '2005-06-20',
+    'Philadelphia',
+    'PA',
+    'High School 9',
+    true,
+    true,
+    '2022-09-15',
+    9,
+    '2022-09-01'
+  ),
+  (
+    'Emma',
+    'Martinez',
+    true,
+    11,
+    'F',
+    DATE '2004-07-14',
+    'Phoenix',
+    'AZ',
+    'High School 10',
+    false,
+    true,
+    '2022-10-15',
+    10,
+    '2022-10-01'
+  ),
+  (
+    'William',
+    'Garcia',
+    true,
+    9,
+    'M',
+    DATE '2006-01-08',
+    'Seattle',
+    'WA',
+    'High School 11',
+    true,
+    false,
+    NULL,
+    11,
+    '2022-11-01'
+  ),
+  (
+    'Ava',
+    'Hernandez',
+    true,
+    12,
+    'F',
+    DATE '2003-09-03',
+    'Denver',
+    'CO',
+    'High School 12',
+    false,
+    true,
+    '2022-12-15',
+    12,
+    '2022-12-01'
+  ),
+  (
+    'Liam',
+    'Lopez',
+    true,
+    10,
+    'M',
+    DATE '2005-04-09',
+    'Atlanta',
+    'GA',
+    'High School 13',
+    true,
+    false,
+    NULL,
+    13,
+    '2023-01-01'
+  ),
+  (
+    'Mia',
+    'Ramirez',
+    true,
+    11,
+    'F',
+    DATE '2004-12-17',
+    'Detroit',
+    'MI',
+    'High School 14',
+    false,
+    true,
+    '2023-02-15',
+    14,
+    '2023-02-01'
+  ),
+  (
+    'Benjamin',
+    'Turner',
+    true,
+    9,
+    'M',
+    DATE '2006-08-05',
+    'Minneapolis',
+    'MN',
+    'High School 15',
+    true,
+    true,
+    '2023-03-15',
+    15,
+    '2023-03-01'
+  ),
+  (
+    'Sophia',
+    'Adams',
+    true,
+    12,
+    'F',
+    DATE '2003-07-27',
+    'Portland',
+    'OR',
+    'High School 16',
+    false,
+    false,
+    NULL,
+    16,
+    '2023-04-01'
+  );
+
+-- Insert test coach records for the students
+INSERT INTO
+  "coaches" ("first_name", "last_name", "is_active")
+VALUES
+  ('Coach1', 'Lastname1', true),
+  ('Coach2', 'Lastname2', true),
+  ('Coach3', 'Lastname3', true),
+  ('Coach4', 'Lastname4', true),
+  ('Coach5', 'Lastname5', true),
+  ('Coach6', 'Lastname6', true),
+  ('Coach7', 'Lastname7', true),
+  ('Coach8', 'Lastname8', true),
+  ('Coach9', 'Lastname9', true),
+  ('Coach10', 'Lastname10', true),
+  ('Coach11', 'Lastname11', true),
+  ('Coach12', 'Lastname12', true),
+  ('Coach13', 'Lastname13', true),
+  ('Coach14', 'Lastname14', true),
+  ('Coach15', 'Lastname15', true),
+  ('Coach16', 'Lastname16', true);

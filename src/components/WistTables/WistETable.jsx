@@ -56,7 +56,7 @@ const WistETable = () => {
             <td>21-23</td>
             <td>24-25</td>
             <td>&gt;25</td>
-          </tr>{" "}
+          </tr>
           <tr>
             <td>&lt;25</td>
             <td>25-26</td>
@@ -65,7 +65,7 @@ const WistETable = () => {
             <td>32-33</td>
             <td>34-36</td>
             <td>&gt;36</td>
-          </tr>{" "}
+          </tr>
           <tr>
             <td>&lt;68</td>
             <td>68-69</td>

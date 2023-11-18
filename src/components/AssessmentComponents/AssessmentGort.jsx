@@ -4,16 +4,18 @@ import { formatDate } from "../../lib/utils";
 import { useParams } from "react-router-dom/";
 
 const AssessmentGort = () => {
-  const {date} = useParams();
+  const { date } = useParams();
   console.log("assessment date", date);
   const assessments = useSelector(
-    (store) => store.assessmentReducer.olderAssessment);
-    const selectedTest = assessments.find(
-      (assessment) => assessment.date === date );
-      console.log("selected test is:", selectedTest, assessments);
+    (store) => store.assessmentReducer.olderAssessment
+  );
+  const selectedTest = assessments.find(
+    (assessment) => assessment.date === date
+  );
+  console.log("selected test is:", selectedTest, assessments);
 
   return (
-    <div style={{ border: "1px solid black" }} >
+    <div style={{ border: "1px solid black" }}>
       <p style={{ color: "brown" }}> GORT-5</p>
       <div //this div is card for GORT
       >
@@ -32,26 +34,25 @@ const AssessmentGort = () => {
               <td>{selectedTest.rate_scaled_score}</td>
             </tr>
             <tr>
-            <td>Reading Accuracy: </td>
-            <td>{selectedTest.accuracy_percentile_rank}</td>
-            <td>{selectedTest.accuracy_scaled_score}</td>
+              <td>Reading Accuracy: </td>
+              <td>{selectedTest.accuracy_percentile_rank}</td>
+              <td>{selectedTest.accuracy_scaled_score}</td>
             </tr>
             <tr>
-            <td>Reading Fluency: </td>
-            <td>{selectedTest.fluency_percentile_rank}</td>
-            <td>{selectedTest.fluency_scaled_score}</td>
+              <td>Reading Fluency: </td>
+              <td>{selectedTest.fluency_percentile_rank}</td>
+              <td>{selectedTest.fluency_scaled_score}</td>
             </tr>
             <tr>
-            <td>Reading Comprehension: </td>
-            <td>{selectedTest.comprehension_percentile_rank}</td>
-            <td>{selectedTest.comprehension_scaled_score}</td>
+              <td>Reading Comprehension: </td>
+              <td>{selectedTest.comprehension_percentile_rank}</td>
+              <td>{selectedTest.comprehension_scaled_score}</td>
             </tr>
             <tr>
-            <td>Oral Reading Index : </td>
-            <td>{selectedTest.oral_reading_percentile_rank}</td>
-            <td>{selectedTest.oral_reading_index}</td>
+              <td>Oral Reading Index : </td>
+              <td>{selectedTest.oral_reading_percentile_rank}</td>
+              <td>{selectedTest.oral_reading_index}</td>
             </tr>
-            
           </tbody>
         </table>
       </div>

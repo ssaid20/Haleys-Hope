@@ -7,9 +7,14 @@ import AssessmentCtoppE from "./AssessmentCtoppE";
 import AssessmentCtoppS from "./AssessmentCtoppS";
 import AssessmentWistE from "./AssessmentWistE";
 import AssessmentWistS from "./AssessmentWistS";
-// TODO: CHANGE ROUTE FOR GET TO DO EACH TEST SEPARATELY TO 
+// TODO: CHANGE ROUTE FOR GET TO DO EACH TEST SEPARATELY TO
 // MAKE SURE IF ONE DOES NOT EXIST, IT WILL STILL WORK
-
+/*  
+ WILL NEED TO CHANGE THE SAGAS AND REDUCERS AS WELL AS GET REQUESTS
+ TO GET EACH TEST SEPARATELY (IF THEY EXIST) AND SAVE IN STORE. THAT WAY 
+ CONDITIONALLY RENDERING EACH OF THESE COMPONENTS WILL BE EASIER AND THE CTOPP AND WIST
+ TESTS CAN BE DIFFERENTIATED UNLIKE NOW.
+ */
 const AssessmentContainer = () => {
   return (
     <div>
@@ -18,8 +23,6 @@ const AssessmentContainer = () => {
       <AssessmentWistS />
       <AssessmentCtoppE />
       <AssessmentCtoppS />
-
-      {/* TODO: ADD NEW COMPONENTS FOR TESTS AND THEY WILL HAVE ACCESS TO ALL OF THE TEST INFO */}
     </div>
   );
 };

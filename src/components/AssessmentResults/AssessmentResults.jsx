@@ -18,8 +18,8 @@ const AssessmentResults = () => {
     console.log("theStudentId ISSSS", studentId.id);
   }, []);
 
-  const moreDetails = (testId) => {
-history.push(`/AssessmentResults/${testId}`);
+  const moreDetails = (test) => {
+history.push(`/AssessmentResults/${test.date}`);
 };
   // map through all of the tests and based on date add to a new object. then 
   // pass each test.id to component to render that section of the assessment?
@@ -30,14 +30,14 @@ history.push(`/AssessmentResults/${testId}`);
 
     <div>
       {olderAssessment.map((test) => (
-        <div key={test.id} onClick={() => moreDetails(test.id)}>
+        <div key={test.date} onClick={() => moreDetails(test)}>
           <p>Assessment Date: {formatDate(test.date)} (click for details)</p>
         </div>
       ))}
     </div>
     <div>
       {youngerAssessment.map((test) => (
-        <div key={test.id} onClick={() => moreDetails(test.id)}>
+        <div key={test.date} onClick={() => moreDetails(test)}>
           <p>Assessment: {formatDate(test.date)} (click for details)</p>
         </div>
       ))}

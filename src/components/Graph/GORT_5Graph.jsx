@@ -2,21 +2,23 @@ import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
-const OlderCtoppGraph = ({ testData }) => {
-  console.log("testData", testData); // Log to verify the data structure
+const GORT_5Graph = ({ testData }) => {
+  console.log("GORTDATA", testData); // Log to verify the data structure
   const [options, setOptions] = useState({
     chart: {
       type: "column",
     },
     title: {
-      text: "CTOPP OVER-7 Test Comparisons",
+      text: "Gray Oral Reading Test -5 (GORT-5) Comparisons",
       align: "left",
     },
     xAxis: {
       categories: [
-        "Phonological Awareness",
-        "Phonological Memory",
-        "Rapid Symbolic Naming",
+        "Reading Rate",
+        "Reading Accuracy",
+        "Reading Fluency",
+        "Reading Comprehension",
+        "Oral Reading Index",
       ],
     },
     yAxis: {
@@ -41,9 +43,11 @@ const OlderCtoppGraph = ({ testData }) => {
         type: "column",
         name: `Test ${index + 1}`,
         data: [
-          test.phonological_awareness_percentile, // Corrected property name
-          test.phonological_memory_percentile, // Corrected property name
-          test.rapid_symbolic_naming_percentile, // Corrected property name
+          test.rate_percentile_rank, 
+          test.accuracy_percentile_rank,
+          test.fluency_percentile_rank,
+          test.comprehension_percentile_rank,
+          test.oral_reading_percentile_rank,
         ],
       }));
 
@@ -55,6 +59,7 @@ const OlderCtoppGraph = ({ testData }) => {
 
       const averageSeries = {
         type: "line",
+        step: 'center',
         name: "Average",
         data: averages,
         marker: {
@@ -78,4 +83,4 @@ const OlderCtoppGraph = ({ testData }) => {
   );
 };
 
-export default OlderCtoppGraph;
+export default GORT_5Graph;

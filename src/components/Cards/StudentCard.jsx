@@ -19,11 +19,22 @@ import {
 const StudentCard = () => {
   const dispatch = useDispatch();
   const student = useSelector((store) => store.studentReducer.Details);
+  const coach = useSelector((store) => store.coachReducer.list);
+  console.log("Student card coach reducer:", coach);
   // const studentId = useParams();
   const { id: studentId } = useParams();
+  console.log(coach);
+  //find the coach that matches a students coach id
+  const studentCoachId = Number(student.coach_id);
+
+  //looping and finding a coach for the student
+  const matchingCoach = coach.find((c) => c.id === student.coach_id);
+  //combining first name and last name
+  const coachName = matchingCoach?.first_name + " " + matchingCoach?.last_name;
 
   useEffect(() => {
     dispatch({ type: "FETCH_STUDENT", payload: studentId });
+    dispatch({ type: "FETCH_COACHES", payload: studentId });
   }, [dispatch, studentId]);
 
   // State to hold form data
@@ -41,6 +52,7 @@ const StudentCard = () => {
     on_site: true,
     start_date: "",
     is_active: "",
+    coach_id: "",
   });
 
   useEffect(() => {
@@ -233,6 +245,18 @@ const StudentCard = () => {
                   <option value="true">Current</option>
                   <option value="false">Archive</option>
                 </select>
+                <Label htmlFor="coach">Coach</Label>
+                <select
+                  id="coach_id"
+                  value={formData.coach_id}
+                  onChange={handleInputChange}
+                >
+                  {coach.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.first_name} {c.last_name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <SheetFooter>
@@ -274,6 +298,13 @@ const StudentCard = () => {
           </p>
           <p className="body-regular text-dark500_light500">
             Barton C: {student.barton_c ? "Foundations" : "Barton"}
+          </p>
+          {/* <p className="body-regular text-dark500_light500">
+            Coach: {student.coach_id}
+          </p> */}
+          <p className="body-regular text-dark500_light500">
+            Coach: <br></br>
+            {coachName}
           </p>
           <p className="body-regular text-dark500_light500">
             On Site: {student.on_site ? "Yes" : "No"}

@@ -18,6 +18,7 @@ const old_ctoppRouter = require("./routes/old_ctopp.router");
 const studentRouter = require("./routes/student.router");
 const assessmentRouter = require("./routes/assessment_results.router");
 const coachRouter = require("./routes/coach.router");
+const commentsRouter = require("./routes/comments.router");
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -41,6 +42,7 @@ app.use("/api/old_ctopp", old_ctoppRouter);
 app.use("/api/students", studentRouter);
 app.use("/api/assessment", assessmentRouter);
 app.use("/api/coaches", coachRouter);
+app.use("/api/comments", commentsRouter);
 
 // Serve static files
 app.use(express.static("build"));

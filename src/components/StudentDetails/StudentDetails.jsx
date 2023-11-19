@@ -72,9 +72,9 @@ function StudentDetails() {
               className="flex w-full flex-col gap-6"
             >
               <AssessmentTab />
-              <TabsContent value="notes" className="flex w-full flex-col gap-6">
-                <NotesTab />
-              </TabsContent>
+            </TabsContent>
+            <TabsContent value="notes" className="flex w-full flex-col gap-6">
+              <NotesTab />
             </TabsContent>
           </Tabs>
         </div>

@@ -22,6 +22,15 @@ const CommentsTab = () => {
     }).then((result) => {
       if (result.value) {
         dispatch({ type: "DELETE_COMMENT", payload: commentId });
+
+        // Display success message
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Deleted successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     });
   };
@@ -52,6 +61,15 @@ const CommentsTab = () => {
       type: "ADD_COMMENT",
       payload: { student_id: studentId, comments: newComment },
     });
+
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Comment added",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+
     setNewComment("");
   };
 
@@ -64,6 +82,15 @@ const CommentsTab = () => {
         comments: editedComment,
       },
     });
+
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Edit saved",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+
     setEditingCommentId(null);
     setEditedComment("");
   };

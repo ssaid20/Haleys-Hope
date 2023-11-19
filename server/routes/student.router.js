@@ -78,7 +78,7 @@ router.put("/:id", (req, res) => {
   const queryText = `UPDATE "students" SET
     "first_name" = $1, "last_name" = $2, "grade" = $3, "gender" = $4, "dob" = $5, 
     "city" = $6, "school" = $7, "on_site" = $8, 
-    "barton_c" = $9, "barton_c_date" = $10, "state" = $11, "start_date" = $12, "is_active" = $13 WHERE "id" = $14`;
+    "barton_c" = $9, "barton_c_date" = $10, "state" = $11, "start_date" = $12, "is_active" = $13, "coach_id" = $14 WHERE "id" = $15`;
 
   const values = [
     updatedStudent.first_name,
@@ -94,6 +94,7 @@ router.put("/:id", (req, res) => {
     updatedStudent.state,
     updatedStudent.start_date,
     updatedStudent.is_active,
+    updatedStudent.coach_id,
     studentId,
   ];
 

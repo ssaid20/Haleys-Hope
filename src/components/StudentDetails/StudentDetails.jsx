@@ -10,7 +10,7 @@ import GraphTab from "../shared/GraphTab/GraphTab";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import StudentCard from "../Cards/StudentCard";
-import NotesTab from "../shared/NotesTab/NotesTab";
+import CommentsTab from "../shared/CommentsTab/CommentsTab";
 
 function StudentDetails() {
   const dispatch = useDispatch();
@@ -74,7 +74,7 @@ function StudentDetails() {
               <AssessmentTab />
             </TabsContent>
             <TabsContent value="notes" className="flex w-full flex-col gap-6">
-              <NotesTab />
+              <CommentsTab />
             </TabsContent>
           </Tabs>
         </div>

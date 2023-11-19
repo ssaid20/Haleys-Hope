@@ -100,39 +100,70 @@ const CommentsTab = () => {
   // if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <>
-      <div>Notes</div>
-      {comments.map((comment) => (
-        <div key={comment.id}>
-          {editingCommentId === comment.id ? (
-            // Edit mode for the selected comment
-            <div>
-              <input
-                value={editedComment}
-                onChange={(e) => setEditedComment(e.target.value)}
-              />
-              <button onClick={() => handleEditSave(comment.id)}>Save</button>
-              <button onClick={() => setEditingCommentId(null)}>Cancel</button>
-            </div>
-          ) : (
-            // Display mode for comments
-            <div>
-              {comment.comments}
-              <button onClick={() => handleEditStart(comment)}>Edit</button>
-              <button onClick={() => confirmDelete(comment.id)}>Delete</button>
-            </div>
-          )}
-        </div>
-      ))}
+    <div className="container mx-auto p-4">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-4">Notes</h2>
       <div>
-        <input
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          placeholder="Enter a note"
-        />
-        <button onClick={handleAddComment}>Add Note</button>
+        {comments.map((comment) => (
+          <div key={comment.id} className="bg-white p-4 rounded-lg shadow mb-3">
+            {editingCommentId === comment.id ? (
+              <div className="flex items-center">
+                <input
+                  type="text"
+                  className="form-input mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                  value={editedComment}
+                  onChange={(e) => setEditedComment(e.target.value)}
+                />
+                <button
+                  className="ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  onClick={() => handleEditSave(comment.id)}
+                >
+                  Save
+                </button>
+                <button
+                  className="ml-2 px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
+                  onClick={() => setEditingCommentId(null)}
+                >
+                  Cancel
+                </button>
+              </div>
+            ) : (
+              <div className="flex flex-col space-y-2">
+                <p className="text-gray-700 break-words">{comment.comments}</p>
+                <div className="flex space-x-2">
+                  <button
+                    className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 mr-2"
+                    onClick={() => handleEditStart(comment)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                    onClick={() => confirmDelete(comment.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+        <div className="mt-4">
+          <textarea
+            className="form-textarea mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+            placeholder="Enter a note"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            rows="4" // Adjust the number of rows as needed
+          ></textarea>
+          <button
+            className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            onClick={handleAddComment}
+          >
+            Add Note
+          </button>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

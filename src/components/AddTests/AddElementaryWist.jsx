@@ -24,7 +24,7 @@ const AddElementaryWist = () => {
   const history = useHistory();
   const student = useParams();
   const users = useSelector((store) => store.allUsersReducer.users);
-  console.log("logging USERS in wist", users);
+
   const [validationErrors, setValidationErrors] = useState({
     //state for validation errors
     date: "",
@@ -230,22 +230,6 @@ const AddElementaryWist = () => {
 
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
-              {/* <FormControl fullWidth>
-                <FormLabel>Examiner ID:</FormLabel>
-                <TextField
-                  type="number"
-                  id="examiner_id"
-                  name="examiner_id"
-                  value={newWist.examiner_id}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-                {validationErrors.examiner_id && (
-                  <div className="text-red-500 text-xs italic">
-                    {validationErrors.examiner_id}
-                  </div>
-                )}
-              </FormControl> */}
               <FormControl fullWidth>
                 <InputLabel>Examiner</InputLabel>
                 <Select

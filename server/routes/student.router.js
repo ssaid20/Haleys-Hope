@@ -29,7 +29,9 @@ router.get("/:id", (req, res) => {
       }
     })
     .catch((err) => {
-      console.error("Error in GET specific student", err);
+      // console.error("Error in GET specific student", err);
+      //commented out for now,
+      //this error shows up every time we move to student details page
       res.sendStatus(500);
     });
 });

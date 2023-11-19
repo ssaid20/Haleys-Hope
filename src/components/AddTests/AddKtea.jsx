@@ -8,6 +8,9 @@ import {
   FormControl,
   FormLabel,
   Paper,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 
 //component to add a new KTEA test
@@ -15,7 +18,9 @@ const AddKtea = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
-  console.log("student", student);
+  const users = useSelector((store) => store.allUsersReducer.users);
+
+  const [selectedExaminerId, setSelectedExaminerId] = useState("");
 
   // const todayDate = new Date().toISOString().split("T")[0]; //function to get todays date to auto populate
 
@@ -40,6 +45,16 @@ const AddKtea = () => {
     spelling_scaled_score: "",
     spelling_percentile: "",
   });
+
+  const handleExaminerChange = (event) => {
+    const examinerId = event.target.value;
+    setSelectedExaminerId(examinerId);
+    setKtea((prevKtea) => ({
+      ...prevKtea,
+      examiner_id: examinerId,
+    }));
+  };
+
   const handleGoBack = () => {
     history.push(`/students/${student.id}`);
   };
@@ -64,9 +79,16 @@ const AddKtea = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("New KTEA Entry:", newKtea);
+
+    // Ensure the examiner_id is updated
+    const submissionData = {
+      ...newKtea,
+      examiner_id: selectedExaminerId,
+    };
+
     dispatch({
       type: "ADD_KTEA",
-      payload: newKtea,
+      payload: submissionData,
     });
 
     history.push(`/students/${student.id}`);
@@ -96,33 +118,22 @@ const AddKtea = () => {
                 />
               </FormControl>
             </Grid>
-            {/* Student ID Field */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Student ID:</FormLabel>
-                <TextField
-                  type="number"
-                  id="student_id"
-                  name="student_id"
-                  value={newKtea.student_id}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
 
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Examiner ID:</FormLabel>
-                <TextField
-                  type="number"
-                  id="examiner_id"
-                  name="examiner_id"
-                  value={newKtea.examiner_id}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
+                <InputLabel>Examiner</InputLabel>
+                <Select
+                  value={selectedExaminerId}
+                  label="Examiner"
+                  onChange={handleExaminerChange}
+                >
+                  {users.map((user) => (
+                    <MenuItem key={user.id} value={user.id}>
+                      {user.first_name} {user.last_name}
+                    </MenuItem>
+                  ))}
+                </Select>
               </FormControl>
             </Grid>
 

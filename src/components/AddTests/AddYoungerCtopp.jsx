@@ -1,12 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
+import {
+  TextField,
+  Button,
+  Grid,
+  FormControl,
+  FormLabel,
+  Paper,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 
 //component to add a new younger ctopp test
 const AddYoungerCtopp = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
+  const users = useSelector((store) => store.allUsersReducer.users);
+
+  const [selectedExaminerId, setSelectedExaminerId] = useState("");
 
   const [validationErrors, setValidationErrors] = useState({
     //state for validation errors
@@ -43,12 +57,21 @@ const AddYoungerCtopp = () => {
     phonological_awareness_composite: null,
     phonological_memory_composite: null,
     rapid_symbolic_naming_composite: null,
-    rapid_non_symbolic_naming: null,
+    rapid_non_symbolic_naming_composite: null,
     phonological_awareness_percentile: null,
     phonological_memory_percentile: null,
     rapid_symbolic_naming_percentile: null,
     rapid_non_symbolic_naming_percentile: null,
   });
+
+  const handleExaminerChange = (event) => {
+    const examinerId = event.target.value;
+    setSelectedExaminerId(examinerId);
+    setNewCtopp((prevCtopp) => ({
+      ...prevCtopp,
+      examiner_id: examinerId,
+    }));
+  };
   const handleGoBack = () => {
     history.push(`/students/${student.id}`);
   };
@@ -62,10 +85,7 @@ const AddYoungerCtopp = () => {
 
       return newErrors;
     });
-    // setNewCtopp((prevCtopp) => ({
-    //   ...prevCtopp,
-    //   [name]: value === "" ? null : Number(value),
-    // }));
+
     setNewCtopp((prevCtopp) => ({
       ...prevCtopp,
       [name]: value, // Use computed property name to update the state
@@ -95,9 +115,15 @@ const AddYoungerCtopp = () => {
       return;
     }
 
+    // Ensure the examiner_id is updated
+    const submissionData = {
+      ...newCtopp,
+      examiner_id: selectedExaminerId,
+    };
+
     dispatch({
       type: "ADD_YOUNGER_CTOPP",
-      payload: newCtopp,
+      payload: submissionData,
     });
 
     history.push(`/students/${student.id}`);
@@ -106,250 +132,313 @@ const AddYoungerCtopp = () => {
 
   return (
     <>
-      <button onClick={handleGoBack}>GO BACK</button>
-      <form onSubmit={handleSubmit}>
-        <div className="input-field">
-          <label htmlFor="date">Date:</label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            value={newCtopp.date}
-            onChange={handleChange}
-          />
-          {validationErrors.date && (
-            <div className="error">{validationErrors.date}</div>
-          )}
-        </div>
-        <div className="input-field">
-          <label htmlFor="examiner">Examiner:</label>
-          <input
-            type="number"
-            id="examiner_id"
-            name="examiner_id"
-            value={newCtopp.examiner_id}
-            onChange={handleChange}
-          />
-          {validationErrors.examiner_id && (
-            <div className="error">{validationErrors.examiner_id}</div>
-          )}
-        </div>
-        <div className="input-field">
-          <label htmlFor="elison_scaled_score">Elison Scaled Score:</label>
-          <input
-            type="number"
-            id="elison_scaled_score"
-            name="elison_scaled_score"
-            value={newCtopp.elison_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="blending_words_scaled_score">
-            Blending Words Scaled Score:
-          </label>
-          <input
-            type="number"
-            id="blending_words_scaled_score"
-            name="blending_words_scaled_score"
-            value={newCtopp.blending_words_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="sound_matching_scaled_score">
-            Sound Matching Scaled Score:
-          </label>
-          <input
-            type="number"
-            id="sound_matching_scaled_score"
-            name="sound_matching_scaled_score"
-            value={newCtopp.sound_matching_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="memory_for_digits_scaled_score">
-            Memory For Digits Scaled Score:
-          </label>
-          <input
-            type="number"
-            id="memory_for_digits_scaled_score"
-            name="memory_for_digits_scaled_score"
-            value={newCtopp.memory_for_digits_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="nonword_repetition_scaled_score">
-            Nonword Repetition Scaled Score:
-          </label>
-          <input
-            type="number"
-            id="nonword_repetition_scaled_score"
-            name="nonword_repetition_scaled_score"
-            value={newCtopp.nonword_repetition_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="rapid_digit_naming_scaled_score">
-            Rapid Digit Naming Scaled Score:
-          </label>
-          <input
-            type="number"
-            id="rapid_digit_naming_scaled_score"
-            name="rapid_digit_naming_scaled_score"
-            value={newCtopp.rapid_digit_naming_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="rapid_letter_naming_scaled_score">
-            Rapid Letter Naming Scaled Score:
-          </label>
-          <input
-            type="number"
-            id="rapid_letter_naming_scaled_score"
-            name="rapid_letter_naming_scaled_score"
-            value={newCtopp.rapid_letter_naming_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="rapid_color_naming_scaled_score">
-            Rapid Color Naming Scaled Score:
-          </label>
-          <input
-            type="number"
-            id="rapid_color_naming_scaled_score"
-            name="rapid_color_naming_scaled_score"
-            value={newCtopp.rapid_color_naming_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="rapid_object_naming">Rapid Object Naming:</label>
-          <input
-            type="number"
-            id="rapid_object_naming"
-            name="rapid_object_naming"
-            value={newCtopp.rapid_object_naming}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="blending_nonwords_scaled_score">
-            Blending Nonwords Scaled Score:
-          </label>
-          <input
-            type="number"
-            id="blending_nonwords_scaled_score"
-            name="blending_nonwords_scaled_score"
-            value={newCtopp.blending_nonwords_scaled_score}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="phonological_awareness_composite">
-            Phonological Awareness Composite:
-          </label>
-          <input
-            type="number"
-            id="phonological_awareness_composite"
-            name="phonological_awareness_composite"
-            value={newCtopp.phonological_awareness_composite}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="phonological_memory_composite">
-            Phonological Memory Composite:
-          </label>
-          <input
-            type="number"
-            id="phonological_memory_composite"
-            name="phonological_memory_composite"
-            value={newCtopp.phonological_memory_composite}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="rapid_symbolic_naming_composite">
-            Rapid Symbolic Naming Composite:
-          </label>
-          <input
-            type="number"
-            id="rapid_symbolic_naming_composite"
-            name="rapid_symbolic_naming_composite"
-            value={newCtopp.rapid_symbolic_naming_composite}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="rapid_non_symbolic_naming_composite">
-            Rapid Non-Symbolic Naming Composite:
-          </label>
-          <input
-            type="number"
-            id="rapid_non_symbolic_naming_composite"
-            name="rapid_non_symbolic_naming_composite"
-            value={newCtopp.rapid_non_symbolic_naming_composite}
-            onChange={handleChange}
-          />
-        </div>
+      <h1 className="text-3xl text-center mb-4 bg-primary-100">
+        CTOPP-2 Under 7
+      </h1>
+      <Button variant="outlined" onClick={handleGoBack} className="mb-4">
+        GO BACK
+      </Button>
+      <Paper elevation={3} className="p-8">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <Grid container spacing={3}>
+            {/* Date Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Date:</FormLabel>
+                <TextField
+                  type="date"
+                  id="date"
+                  name="date"
+                  value={newCtopp.date}
+                  onChange={handleChange}
+                  variant="outlined"
+                  error={!!validationErrors.date}
+                  helperText={validationErrors.date}
+                />
+              </FormControl>
+            </Grid>
 
-        <div className="input-field">
-          <label htmlFor="phonological_awareness_percentile">
-            Phonological Awareness Percentile:
-          </label>
-          <input
-            type="number"
-            id="phonological_awareness_percentile"
-            name="phonological_awareness_percentile"
-            value={newCtopp.phonological_awareness_percentile}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="phonological_memory_percentile">
-            Phonological Memory percentile:
-          </label>
-          <input
-            type="number"
-            id="phonological_memory_percentile"
-            name="phonological_memory_percentile"
-            value={newCtopp.phonological_memory_percentile}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="rapid_symbolic_naming_percentile">
-            Rapid Symbolic Naming percentile:
-          </label>
-          <input
-            type="number"
-            id="rapid_symbolic_naming_percentile"
-            name="rapid_symbolic_naming_percentile"
-            value={newCtopp.rapid_symbolic_naming_percentile}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="rapid_non_symbolic_naming_percentile">
-            Rapid Non-Symbolic Naming percentile:
-          </label>
-          <input
-            type="number"
-            id="rapid_non_symbolic_naming_percentile"
-            name="rapid_non_symbolic_naming_percentile"
-            value={newCtopp.rapid_non_symbolic_naming_percentile}
-            onChange={handleChange}
-          />
-        </div>
+            {/* Examiner ID Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <InputLabel>Examiner</InputLabel>
+                <Select
+                  value={selectedExaminerId}
+                  label="Examiner"
+                  onChange={handleExaminerChange}
+                >
+                  {users.map((user) => (
+                    <MenuItem key={user.id} value={user.id}>
+                      {user.first_name} {user.last_name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
 
-        <button type="submit">Submit</button>
-      </form>
+            {/* Elision Scaled Score Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Elision Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="elison_scaled_score"
+                  name="elison_scaled_score"
+                  value={newCtopp.elison_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Blending Words Scaled Score Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Blending Words Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="blending_words_scaled_score"
+                  name="blending_words_scaled_score"
+                  value={newCtopp.blending_words_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Sound Mathing Scaled Score */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Sound Matching Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="sound_matching_scaled_score"
+                  name="sound_matching_scaled_score"
+                  value={newCtopp.sound_matching_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Memory for Digits Scaled Score Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Memory for Digits Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="memory_for_digits_scaled_score"
+                  name="memory_for_digits_scaled_score"
+                  value={newCtopp.memory_for_digits_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Nonword Repetition Scaled Score Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Nonword Repetition Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="nonword_repetition_scaled_score"
+                  name="nonword_repetition_scaled_score"
+                  value={newCtopp.nonword_repetition_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rapid Digit Naming Scaled Score Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rapid Digit Naming Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rapid_digit_naming_scaled_score"
+                  name="rapid_digit_naming_scaled_score"
+                  value={newCtopp.rapid_digit_naming_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rapid Letter Naming Scaled Score Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rapid Letter Naming Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rapid_letter_naming_scaled_score"
+                  name="rapid_letter_naming_scaled_score"
+                  value={newCtopp.rapid_letter_naming_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rapid Color Naming Scaled Score*/}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rapid Color Naming Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rapid_color_naming_scaled_score"
+                  name="rapid_color_naming_scaled_score"
+                  value={newCtopp.rapid_color_naming_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rapid Object Naming */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rapid Object Naming:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rapid_object_naming"
+                  name="rapid_object_naming"
+                  value={newCtopp.rapid_object_naming}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Blending Non-Words Scaled Score*/}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Blending Non-Words Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="blending_nonwords_scaled_score"
+                  name="blending_nonwords_scaled_score"
+                  value={newCtopp.blending_nonwords_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Phonological Awareness Composite Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Phonological Awareness Composite:</FormLabel>
+                <TextField
+                  type="number"
+                  id="phonological_awareness_composite"
+                  name="phonological_awareness_composite"
+                  value={newCtopp.phonological_awareness_composite}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Phonological Memory Composite Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Phonological Memory Composite:</FormLabel>
+                <TextField
+                  type="number"
+                  id="phonological_memory_composite"
+                  name="phonological_memory_composite"
+                  value={newCtopp.phonological_memory_composite}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rapid Symbolic Naming Composite Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rapid Symbolic Naming Composite:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rapid_symbolic_naming_composite"
+                  name="rapid_symbolic_naming_composite"
+                  value={newCtopp.rapid_symbolic_naming_composite}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rapid Non-symbolic Naming Composite */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rapid Non-Symbolic Naming Composite:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rapid_non_symbolic_naming_composite"
+                  name="rapid_non_symbolic_naming_composite"
+                  value={newCtopp.rapid_non_symbolic_naming_composite}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Phonological Awareness Percentile Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Phonological Awareness Percentile:</FormLabel>
+                <TextField
+                  type="number"
+                  id="phonological_awareness_percentile"
+                  name="phonological_awareness_percentile"
+                  value={newCtopp.phonological_awareness_percentile}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Phonological Memory Percentile Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Phonological Memory Percentile:</FormLabel>
+                <TextField
+                  type="number"
+                  id="phonological_memory_percentile"
+                  name="phonological_memory_percentile"
+                  value={newCtopp.phonological_memory_percentile}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rapid Symbolic Naming Percentile Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rapid Symbolic Naming Percentile:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rapid_symbolic_naming_percentile"
+                  name="rapid_symbolic_naming_percentile"
+                  value={newCtopp.rapid_symbolic_naming_percentile}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rapid Non-Symbolic Naming Percentile */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rapid Non-Symbolic Naming Percentile:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rapid_non_symbolic_naming_percentile"
+                  name="rapid_non_symbolic_naming_percentile"
+                  value={newCtopp.rapid_non_symbolic_naming_percentile}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className="mt-4"
+          >
+            Submit
+          </Button>
+        </form>
+      </Paper>
     </>
   );
 };

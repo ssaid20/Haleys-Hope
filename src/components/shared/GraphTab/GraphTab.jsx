@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const GraphTab = () => {
-  return (
-    <div>GraphTab</div>
-  )
-}
+  return <div>Graph Tab</div>;
+};
 
-export default GraphTab
+export default GraphTab;

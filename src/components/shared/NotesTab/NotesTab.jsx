@@ -1,11 +1,12 @@
 import React from "react";
 
 const NotesTab = () => {
+  console.log("NOTES TAB?!?!?!?!");
   return (
-    <div>
-      Notes
-      <div>Notes for student</div>
-    </div>
+    <>
+      <div>Notes</div>
+      <button>Add Notes</button>
+    </>
   );
 };
 

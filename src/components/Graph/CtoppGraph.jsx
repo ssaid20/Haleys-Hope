@@ -2,18 +2,22 @@ import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
-
-const CtoppGraph = ({ testData }) => {
+const OlderCtoppGraph = ({ testData }) => {
+  console.log("testData", testData); // Log to verify the data structure
   const [options, setOptions] = useState({
     chart: {
       type: "column",
     },
     title: {
-      text: "CTOPP Test Comparisons",
+      text: "CTOPP OVER-7 Test Comparisons",
       align: "left",
     },
     xAxis: {
-      categories: ["Phonological Awareness", "Phonological Memory", "Rapid Symbolic Naming"],
+      categories: [
+        "Phonological Awareness",
+        "Phonological Memory",
+        "Rapid Symbolic Naming",
+      ],
     },
     yAxis: {
       title: {
@@ -23,24 +27,46 @@ const CtoppGraph = ({ testData }) => {
     tooltip: {
       valueSuffix: " percentile",
     },
+    plotOptions: {
+      series: {
+        borderRadius: "25%",
+      },
+    },
     series: [],
   });
 
   useEffect(() => {
-    if (testData) {
-        console.log("Test Data",testData);
+    if (testData && testData.length > 0) {
       const seriesData = testData.map((test, index) => ({
+        type: "column",
         name: `Test ${index + 1}`,
         data: [
-          test.phonological_awareness_composite,
-          test.phonological_memory_composite,
-          test.rapid_symbolic_naming_composite,
+          test.phonological_awareness_percentile, // Corrected property name
+          test.phonological_memory_percentile, // Corrected property name
+          test.rapid_symbolic_naming_percentile, // Corrected property name
         ],
       }));
 
+      const averages = seriesData[0].data.map(
+        (_, i) =>
+          seriesData.reduce((acc, test) => acc + test.data[i], 0) /
+          seriesData.length
+      );
+
+      const averageSeries = {
+        type: "line",
+        name: "Average",
+        data: averages,
+        marker: {
+          lineWidth: 2,
+          lineColor: Highcharts.getOptions().colors[3],
+          fillColor: "white",
+        },
+      };
+
       setOptions((prevOptions) => ({
         ...prevOptions,
-        series: seriesData,
+        series: [...seriesData, averageSeries],
       }));
     }
   }, [testData]);
@@ -52,4 +78,4 @@ const CtoppGraph = ({ testData }) => {
   );
 };
 
-export default CtoppGraph;
+export default OlderCtoppGraph;

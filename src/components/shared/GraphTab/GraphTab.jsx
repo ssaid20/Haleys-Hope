@@ -1,5 +1,5 @@
 import React from "react";
-import CtoppGraph from "../../Graph/CtoppGraph";
+import OlderCtoppGraph from "../../Graph/CtoppGraph";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
@@ -15,14 +15,14 @@ const GraphTab = () => {
 
   // Transform data for Highcharts
   const transformedData = ctoppTests.map((test) => ({
-    phonological_awareness_percecenile: test.phonological_awareness_percecenile,
+    phonological_awareness_percentile: test.phonological_awareness_percentile,
     phonological_memory_percentile: test.phonological_memory_percentile,
     rapid_symbolic_naming_percentile: test.rapid_symbolic_naming_percentile,
   }));
 
   return (
     <div>
-      <CtoppGraph testData={transformedData} />
+      <OlderCtoppGraph testData={transformedData} />
     </div>
   );
 };

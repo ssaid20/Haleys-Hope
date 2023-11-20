@@ -10,7 +10,7 @@ const { RequestQuoteTwoTone } = require("@mui/icons-material");
 
 //TODO reject unauth
 // GET route to fetch all KTEA items for a specific student
-router.get("/:studentId", async (req, res) => {
+router.get("/:studentId", rejectUnauthenticated, async (req, res) => {
   try {
     const studentId = req.params.studentId;
 
@@ -27,7 +27,7 @@ router.get("/:studentId", async (req, res) => {
 });
 
 //router to get a specific test
-router.get("/kteaResults/:testId", (req, res) => {
+router.get("/kteaResults/:testId", rejectUnauthenticated, (req, res) => {
   const testId = req.params.testId;
   const queryText = 'SELECT * FROM "ktea" WHERE "id" = $1';
   pool
@@ -42,7 +42,7 @@ router.get("/kteaResults/:testId", (req, res) => {
 });
 
 // POST route for KTEA
-router.post("/", async (req, res) => {
+router.post("/", rejectUnauthenticated, async (req, res) => {
   try {
     const {
       student_id,
@@ -75,7 +75,7 @@ router.post("/", async (req, res) => {
   }
 });
 // PUT route for KTEA
-router.put("/:student_id/:id", (req, res) => {
+router.put("/:student_id/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id;
   const testId = req.params.id;
 

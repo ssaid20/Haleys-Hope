@@ -4,7 +4,8 @@ const pool = require("../modules/pool");
 
 // GET route to fetch all comments
 router.get("/", (req, res) => {
-  const queryText = 'SELECT * FROM "student_comments"';
+  const queryText = 'SELECT * FROM "student_comments ORDER BY "date" DESC"';
+  //const queryText = 'SELECT id, student_id, comments, name, date FROM "student_comments"';
   pool
     .query(queryText)
     .then((result) => res.send(result.rows))
@@ -17,6 +18,7 @@ router.get("/", (req, res) => {
 // GET route to fetch a specific comment by studentId
 router.get("/:id", (req, res) => {
   const studentId = req.params.id;
+  console.log("reqqq.paarraaaammmas", req.params);
   const queryText = 'SELECT * FROM "student_comments" WHERE "student_id" = $1';
   pool
     .query(queryText, [studentId])
@@ -37,10 +39,15 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
   const newComment = req.body;
   const queryText = `
-    INSERT INTO "student_comments" ("student_id", "comments") 
-    VALUES ($1, $2)
+    INSERT INTO "student_comments" ("student_id", "comments", "name", "date") 
+    VALUES ($1, $2, $3, $4)
   `;
-  const values = [newComment.student_id, newComment.comments];
+  const values = [
+    newComment.student_id,
+    newComment.comments,
+    newComment.name,
+    newComment.date,
+  ];
 
   pool
     .query(queryText, values)
@@ -55,13 +62,23 @@ router.post("/", (req, res) => {
 router.put("/:studentId/:commentId", (req, res) => {
   const studentId = req.params.studentId;
   const commentId = req.params.commentId;
-  const updatedComment = req.body.comments;
+  console.log("req.params", req.params);
+  const updatedComment = req.body;
+  console.log("commentId:", commentId);
+  console.log("studentId:", studentId);
+  console.log("updated comment req.body:", req.body);
 
   const queryText = `
-      UPDATE "student_comments" SET "comments" = $1
-      WHERE "id" = $2 AND "student_id" = $3
+      UPDATE "student_comments" SET "comments" = $1, "name" = $2, "date" = $3
+      WHERE "id" = $4 AND "student_id" = $5
     `;
-  const values = [updatedComment, commentId, studentId];
+  const values = [
+    updatedComment.comments,
+    updatedComment.name,
+    updatedComment.date,
+    commentId,
+    studentId,
+  ];
 
   pool
     .query(queryText, values)

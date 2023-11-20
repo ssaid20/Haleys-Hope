@@ -1,45 +1,14 @@
+import React from "react";
 import { Input } from "../ui/input";
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import Fuse from "fuse.js";
-
-const Searchbar = ({ iconPosition, imgSrc, placeholder, otherClasses }) => {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const students = useSelector((store) => store.studentReducer.list);
-  const [query, setQuery] = useState(" ");
-  const fuse = new Fuse(students, {
-    keys: ["id", "first_name", "last_name",],
-    includeScore: true,
-    threshold: 0.3, // Adjust this threshold (0.0 to 1.0) for strictness
-    minMatchCharLength: 2, // Adjust the minimum character length for a match
-  });
-  const results = fuse.search(query);
-  console.log("Fuse results", results);
-  const searchResult = results.map((result) => result.item);
-
+const Searchbar = ({ query, setQuery, iconPosition, imgSrc, placeholder, otherClasses }) => {
   function handleOnSearch(value) {
-    console.log("value",value); // Add this line for debugging
     setQuery(value);
   }
 
-  function clearInput() {
-    setQuery(" ");
-  }
-
   return (
-    <div
-      className={`background-light800_darkgradient flex min-h-[56px] grow items-center gap-4 rounded-[10px] px-4 ${otherClasses}`}
-    >
+    <div className={`background-light800_darkgradient flex min-h-[56px] grow items-center gap-4 rounded-[10px] px-4 ${otherClasses}`}>
       {iconPosition === "left" && (
-        <img
-          src={imgSrc}
-          alt="search icon"
-          width={24}
-          height={24}
-          className="cursor-pointer"
-        />
+        <img src={imgSrc} alt="search icon" width={24} height={24} className="cursor-pointer" />
       )}
 
       <Input
@@ -51,16 +20,11 @@ const Searchbar = ({ iconPosition, imgSrc, placeholder, otherClasses }) => {
       />
 
       {iconPosition === "right" && (
-        <img
-          src={imgSrc}
-          alt="search icon"
-          width={24}
-          height={24}
-          className="cursor-pointer"
-        />
+        <img src={imgSrc} alt="search icon" width={24} height={24} className="cursor-pointer" />
       )}
     </div>
   );
 };
 
 export default Searchbar;
+

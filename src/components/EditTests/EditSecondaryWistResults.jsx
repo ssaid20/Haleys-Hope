@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { formatDate } from "../../lib/utils";
+import { formatDate, formatDate2 } from "../../lib/utils";
 import {
   TextField,
   Button,
@@ -208,7 +208,7 @@ const EditSecondaryWistResults = () => {
         Test on: {formatDate(selectedTest.date)}{" "}
       </h1> */}
       <h1 className="text-3xl text-center mb-4">
-        Edit Secondary WIST from: {formatDate(selectedTest.date)}
+        Edit Secondary WIST from: {formatDate2(selectedTest.date)}
       </h1>
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         Go Back

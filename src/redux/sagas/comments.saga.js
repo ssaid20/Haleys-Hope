@@ -4,6 +4,7 @@ import axios from "axios";
 function* fetchCommentsSaga(action) {
   try {
     const studentId = action.payload; // Get the student ID from the action payload
+    console.log(studentId);
     const response = yield call(axios.get, `/api/comments/${studentId}`);
     yield put({ type: "FETCH_COMMENTS_SUCCESS", payload: response.data });
   } catch (error) {
@@ -24,14 +25,17 @@ function* addCommentSaga(action) {
 
 function* updateCommentSaga(action) {
   try {
-    const { studentId, commentId, comments } = action.payload;
+    const { student_id, comment_id, comments, name, date } = action.payload;
+    console.log("update saga action.payload", action.payload);
+
     const response = yield call(
       axios.put,
-      `/api/comments/${studentId}/${commentId}`,
-      { comments }
+      `/api/comments/${student_id}/${comment_id}`,
+      { comments, name, date }
     );
+
     yield put({ type: "UPDATE_COMMENT_SUCCESS", payload: response.data });
-    yield put({ type: "FETCH_COMMENTS", payload: action.payload.studentId });
+    yield put({ type: "FETCH_COMMENTS", payload: action.payload.student_id });
   } catch (error) {
     yield put({ type: "UPDATE_COMMENT_FAILURE", payload: error });
   }

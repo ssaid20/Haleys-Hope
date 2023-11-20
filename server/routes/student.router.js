@@ -85,12 +85,13 @@ router.get("/archived-student/:id", (req, res) => {
 router.post("/", parser.single("picture"), (req, res) => {
   const newStudent = req.body;
   const pictureUrl = req.file ? req.file.path : null;
+  console.log("post add studeent req.body", newStudent);
   const queryText = `
     INSERT INTO "students" (
       "first_name", "last_name", "grade", "gender", "dob", 
       "city", "picture", "school", "on_site", 
       "barton_c", "barton_c_date", "state", "start_date", "is_active"
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13 $14)
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
   `;
 
   const values = [
@@ -100,8 +101,8 @@ router.post("/", parser.single("picture"), (req, res) => {
     newStudent.gender,
     newStudent.dob,
     newStudent.city,
-    // newStudent.picture,
-    pictureUrl,
+    newStudent.picture,
+    // pictureUrl,
     newStudent.school,
     newStudent.on_site,
     newStudent.barton_c,
@@ -128,8 +129,8 @@ router.put("/:id", parser.single("picture"), (req, res) => {
   const pictureUrl = req.file ? req.file.path : updatedStudent.picture;
   const queryText = `UPDATE "students" SET
     "first_name" = $1, "last_name" = $2, "grade" = $3, "gender" = $4, "dob" = $5, 
-    "city" = $6,"picture" = $7, "school" = $8, "on_site" = $9, 
-    "barton_c" = $10, "barton_c_date" = $11, "state" = $12, "start_date" = $13, "is_active" = $14, "coach_id" = $15 WHERE "id" = $16`;
+    "city" = $6, "school" = $7, "on_site" = $8, 
+    "barton_c" = $9, "barton_c_date" = $10, "state" = $11, "start_date" = $12, "is_active" = $13, "coach_id" = $14 WHERE "id" = $15`;
 
   const values = [
     updatedStudent.first_name,
@@ -138,7 +139,7 @@ router.put("/:id", parser.single("picture"), (req, res) => {
     updatedStudent.gender,
     updatedStudent.dob,
     updatedStudent.city,
-    updatedStudent.picture,
+    // updatedStudent.picture,
     // pictureUrl,
     updatedStudent.school,
     updatedStudent.on_site,

@@ -13,7 +13,6 @@ const OlderCtoppResults = () => {
   const history = useHistory();
 
   useEffect(() => {
-    console.log("useEffect selected test, expect empty", selectedTest);
     dispatch({ type: "FETCH_OLDER_CTOPP_RESULTS", payload: testId.id });
   }, [dispatch]);
 
@@ -21,12 +20,9 @@ const OlderCtoppResults = () => {
     (store) => store.olderCtoppReducer.selectedTest[0]
   );
 
-  console.log("##########", selectedTest);
-
   if (!selectedTest || Object.keys(selectedTest).length === 0) {
     return <h1>Loading...</h1>;
   }
-  console.log("selectedtestyboi", selectedTest);
 
   const goBack = () => history.push(`/students/${selectedTest.student_id}`);
 
@@ -106,6 +102,13 @@ const OlderCtoppResults = () => {
           Alt. Phonological Awareness Percentile:{" "}
           {selectedTest.alt_phonological_awareness_percentile}
         </p>
+        <button
+          onClick={() =>
+            history.push(`/EditOlderCtoppResults/${selectedTest.id}`)
+          }
+        >
+          Edit Test
+        </button>
       </div>
     </div>
   );

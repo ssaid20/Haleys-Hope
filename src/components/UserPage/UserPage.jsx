@@ -22,19 +22,9 @@ function UserPage() {
           </Link>
         </div>
 
-        <div className="mb-8">
-          <Searchbar
-            route="/"
-            iconPosition="left"
-            imgSrc="/assets/icons/search.svg"
-            placeholder="Search for Student"
-            otherClasses="w-full"
-          />
-        </div>
-
-        <div className="flex justify-between gap-5 mb-6 max-sm:flex-col sm:items-center">
-          {/* Add Filters here if needed */}
-        </div>
+        {/* <div className="flex justify-between gap-5 mb-6 max-sm:flex-col sm:items-center">
+          Add Filters here 
+        </div> */}
 
         <StudentList />
       </div>

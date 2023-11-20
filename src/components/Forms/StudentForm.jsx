@@ -33,6 +33,7 @@ const StudentForm = () => {
     barton_c: false,
     barton_c_date: "",
     coach_id: "",
+    is_active: true,
   });
   const handleGoBack = () => {
     history.push(`/students`);
@@ -67,6 +68,7 @@ const StudentForm = () => {
       barton_c: null,
       barton_c_date: "",
       coach_id: "",
+      is_active: true,
     });
     history.push(`/students`);
     //history.push back to student details

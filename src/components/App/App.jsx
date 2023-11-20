@@ -39,6 +39,7 @@ import EditElementaryWistResults from "../EditTests/EditElementaryWistResults";
 import EditSecondaryWistResults from "../EditTests/EditSecondaryWistResults";
 import EditYoungerCtoppResults from "../EditTests/EditYoungerCtoppResults";
 import EditOlderCtoppResults from "../EditTests/EditOlderCtoppResults";
+import EditGortResults from "../EditTests/EditGortResults";
 
 function App() {
   const dispatch = useDispatch();
@@ -109,6 +110,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact path="/GortResults/:id">
             <GortResults />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/EditGortResults/:id">
+            <EditGortResults />
           </ProtectedRoute>
           <ProtectedRoute exact path="/addYoungerCtopp/:id">
             <AddYoungerCtopp />

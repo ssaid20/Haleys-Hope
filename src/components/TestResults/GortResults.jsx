@@ -48,9 +48,7 @@ const GortResults = () => {
         <p>Fluency Raw Total: {selectedTest.fluency_raw_total}</p>
         <p>Comprehension Raw Total: {selectedTest.comprehension_raw_total}</p>
         <p>Rate Percentile Rank: {selectedTest.rate_percentile_rank}</p>
-        <p>
-          Accuracy Percentile Rank: {selectedTest.accuracy_percentile_rank}
-        </p>
+        <p>Accuracy Percentile Rank: {selectedTest.accuracy_percentile_rank}</p>
         <p>Fluency Percentile Rank: {selectedTest.fluency_percentile_rank}</p>
         <p>
           Comprehension Percentile Rank:{" "}
@@ -62,6 +60,11 @@ const GortResults = () => {
         <p>
           Comprehension Scaled Score: {selectedTest.comprehension_scaled_score}
         </p>
+        <button
+          onClick={() => history.push(`/EditGortResults/${selectedTest.id}`)}
+        >
+          Edit Test
+        </button>
       </div>
     </div>
   );

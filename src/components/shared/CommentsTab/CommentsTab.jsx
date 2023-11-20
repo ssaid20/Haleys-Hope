@@ -124,7 +124,7 @@ const CommentsTab = () => {
             <p>
               {comment.name} - {new Date(comment.date).toLocaleDateString()}
             </p>
-            <p>{comment.comments}</p>
+            {/* <p>{comment.comments}</p> */}
             {editingCommentId === comment.id ? (
               <div className="flex items-center">
                 <input

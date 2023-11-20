@@ -14,6 +14,18 @@ export const formatDate = (dateString) => {
 
   return `${year}/${month}/${day}`;
 };
+// formats date as mm/dd/yyyy
+export const formatDate2 = (dateString) => {
+  const date = new Date(dateString);
+  let month = "" + (date.getMonth() + 1), // Months are zero indexed
+    day = "" + date.getDate(),
+    year = date.getFullYear();
+
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return [month, day, year].join("/");
+};
 
 // Define the score ranges and descriptive terms
 const scoreRanges = [

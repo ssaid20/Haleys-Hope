@@ -16,10 +16,11 @@ const Searchbar = ({ iconPosition, imgSrc, placeholder, otherClasses }) => {
     minMatchCharLength: 2, // Adjust the minimum character length for a match
   });
   const results = fuse.search(query);
+  console.log("Fuse results", results);
   const searchResult = results.map((result) => result.item);
 
   function handleOnSearch(value) {
-    console.log(value); // Add this line for debugging
+    console.log("value",value); // Add this line for debugging
     setQuery(value);
   }
 

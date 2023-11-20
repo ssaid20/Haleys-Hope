@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   TextField,
   Button,
@@ -11,6 +11,9 @@ import {
   FormControlLabel,
   Radio,
   Checkbox,
+  InputLabel,
+  Select as MuiSelect,
+  MenuItem,
 } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import CloudifyUploadForm from "../Cloudinary/CloudinaryUploadForm";
@@ -18,6 +21,11 @@ import CloudifyUploadForm from "../Cloudinary/CloudinaryUploadForm";
 const StudentForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const coach = useSelector((store) => store.coachReducer.list);
+  console.log(coach);
+  useEffect(() => {
+    dispatch({ type: "FETCH_COACHES" });
+  }, []);
 
   const [studentData, setStudentData] = useState({
     first_name: "",
@@ -262,15 +270,23 @@ const StudentForm = () => {
 
             {/* Coach ID Field */}
             <Grid item xs={12} md={6}>
-              <TextField
-                label="Coach ID"
-                variant="outlined"
-                fullWidth
-                name="coach_id"
-                type="number"
-                value={studentData.coach_id}
-                onChange={handleChange}
-              />
+              <FormControl fullWidth variant="outlined">
+                <InputLabel id="coach-select-label">Coach</InputLabel>
+                <MuiSelect
+                  labelId="coach-select-label"
+                  id="coach_id"
+                  name="coach_id"
+                  value={studentData.coach_id}
+                  onChange={handleChange}
+                  label="Coach"
+                >
+                  {coach.map((c) => (
+                    <MenuItem key={c.id} value={c.id}>
+                      {c.first_name} {c.last_name}
+                    </MenuItem>
+                  ))}
+                </MuiSelect>
+              </FormControl>
             </Grid>
           </Grid>
           <Button

@@ -90,8 +90,8 @@ router.post("/", parser.single("picture"), (req, res) => {
     INSERT INTO "students" (
       "first_name", "last_name", "grade", "gender", "dob", 
       "city", "picture", "school", "on_site", 
-      "barton_c", "barton_c_date", "state", "start_date", "is_active"
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+      "barton_c", "barton_c_date", "state", "start_date", "is_active", "coach_id"
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
   `;
 
   const values = [
@@ -110,6 +110,7 @@ router.post("/", parser.single("picture"), (req, res) => {
     newStudent.state,
     newStudent.start_date,
     newStudent.is_active,
+    newStudent.coach_id,
   ];
 
   pool

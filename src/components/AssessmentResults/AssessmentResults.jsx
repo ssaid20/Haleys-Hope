@@ -20,7 +20,17 @@ const AssessmentResults = () => {
   useEffect(() => {
     console.log("theStudentId ISSSS", studentId.id);
   }, []);
+  /*  NEW CODE TO FIX ASSESSMENTS!!!!!
+  const allGort = useSelector((store) => store.assessmentReducer.assessments); 
+  figure out where they are all located in store!!!
+  const allCtoppY = useSelector((store) => store.assessmentReducer.assessments);
+  const allCtoppO = useSelector((store) => store.assessmentReducer.assessments);
+  const allWistE = useSelector((store) => store.assessmentReducer.assessments);
+  const allWistS = useSelector((store) => store.assessmentReducer.assessments);
 
+
+
+  */
   const moreDetails = (test) => {
     history.push(`/AssessmentResults/${test.date}`);
   };

@@ -16,6 +16,7 @@ import TextField from "@mui/material/TextField";
 import Fuse from "fuse.js";
 import ArchivedStudentList from "../ArchivedStudentList/ArchivedStudentList";
 import Button from "@mui/material/Button";
+import Searchbar from "../shared/Searchbar";
 
 const columns = [
   // { id: "id", label: "ID", minWidth: 100 }, // took id out student list
@@ -42,16 +43,14 @@ const StudentList = () => {
   const students = useSelector((store) => store.studentReducer.list);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [query, setQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const processedSearchResults = searchResults.map((result) => result.item);
+  console.log("logging searchResults", processedSearchResults);
   useEffect(() => {
     dispatch({ type: "FETCH_STUDENTS" });
   }, [dispatch]);
-  const fuse = new Fuse(students, {
-    keys: ['first_name', 'last_name', 'city', 'state'],
-    includeScore: true,
-    threshold: 0.3,
-  });
-  const searchResults = query ? fuse.search(query).map(result => result.item) : students;
+
   // Handlers for pagination
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -63,8 +62,32 @@ const StudentList = () => {
   };
 
   useEffect(() => {
+    // Step 1: Preprocess the students data
+    const modifiedStudents = students.map((student) => ({
+      ...student,
+      full_name: `${student.first_name} ${student.last_name}`, // Combine first and last name
+    }));
+
+    // Step 2: Setup Fuse.js with the new 'full_name' field
+    const fuse = new Fuse(modifiedStudents, {
+      keys: ["full_name", "grade"],
+      threshold: 0.1,
+    });
+
+    if (!searchQuery) {
+      setSearchResults([]);
+    } else {
+      const results = fuse.search(searchQuery);
+      setSearchResults(results);
+    }
+  }, [searchQuery, students]);
+
+  const handleSearchInputChange = (value) => {
+    setSearchQuery(value);
     setPage(0); // Reset to the first page when the query changes
-  }, [query]);
+  };
+
+  const displayedStudents = searchQuery ? processedSearchResults : students;
 
   const [showArchived, setShowArchived] = useState(false); //state to show archived students
   // function to toggle archived viewable or not
@@ -75,95 +98,101 @@ const StudentList = () => {
     }
   };
 
-  console.log("logging Students in list", students);
+  console.log("DISPLAY Students in list", displayedStudents);
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
-     {/* <TextField
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        label="Search Students"
-        variant="outlined"
-        fullWidth
-        style={{ marginBottom: '20px' }}
-      /> */}
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleToggleArchived}
-        style={{ margin: "10px" }}
-      >
-        {showArchived ? "View Active Students" : "View Archived Students"}
-      </Button>
-      <TableContainer sx={{ maxHeight: 840 }}>
-        <Table stickyHeader aria-label="student table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {students
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((student) => {
-                const formattedStudent = {
-                  ...student,
-                  name: `${student.first_name} ${student.last_name}`,
-                  age: calculateAge(student.dob),
-                  city: student.city, // *** need to fix our address input then make function to pull out city and state ***
-                  //on_site: student.on_site ? "On-Site" : "Virtual", *** only need on more details ***
-                  // dob: formatDate(student.dob), // formatting date *** only need on more details ***
-                  start_date: formatDate(student.barton_c_date), // *** using pretest date, do we need a start date column? ***
-                  picture: (
-                    <img
-                      src={student.picture}
-                      alt={`${student.first_name} ${student.last_name}`}
-                      style={{ width: "50px", height: "50px" }}
-                    />
-                  ),
-                };
+    <>
+      <div className="mb-8">
+        <Searchbar
+          query={searchQuery}
+          setQuery={handleSearchInputChange} // Updated to use the revised function
+          iconPosition="left"
+          imgSrc="/assets/icons/search.svg"
+          placeholder="Search Students"
+          otherClasses="w-full"
+        />
+      </div>
 
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={student.id}
-                    onClick={() => history.push(`/students/${student.id}`)}
-                    style={{ cursor: "pointer" }}
+      <Paper sx={{ width: "100%", overflow: "hidden" }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleToggleArchived}
+          style={{ margin: "10px" }}
+        >
+          {showArchived ? "View Active Students" : "View Archived Students"}
+        </Button>
+
+        <TableContainer sx={{ maxHeight: 840 }}>
+          <Table stickyHeader aria-label="student table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
                   >
-                    {columns.map((column) => {
-                      const value = formattedStudent[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={searchResults.length} // Use searchResults.length for correct pagination
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-      {showArchived ? <ArchivedStudentList /> : null}
-    </Paper>
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {displayedStudents
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((student) => {
+                  const formattedStudent = {
+                    ...student,
+                    name: `${student.first_name} ${student.last_name}`,
+                    age: calculateAge(student.dob),
+                    city: student.city, // *** need to fix our address input then make function to pull out city and state ***
+                    //on_site: student.on_site ? "On-Site" : "Virtual", *** only need on more details ***
+                    // dob: formatDate(student.dob), // formatting date *** only need on more details ***
+                    start_date: formatDate(student.barton_c_date), // *** using pretest date, do we need a start date column? ***
+                    picture: (
+                      <img
+                        src={student.picture}
+                        alt={`${student.first_name} ${student.last_name}`}
+                        style={{ width: "50px", height: "50px" }}
+                      />
+                    ),
+                  };
+
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={student.id}
+                      onClick={() => history.push(`/students/${student.id}`)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {columns.map((column) => {
+                        const value = formattedStudent[column.id];
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            {value}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={students.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+        {showArchived ? <ArchivedStudentList /> : null}
+      </Paper>
+    </>
   );
 };
 

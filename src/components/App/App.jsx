@@ -41,6 +41,7 @@ import EditYoungerCtoppResults from "../EditTests/EditYoungerCtoppResults";
 import EditOlderCtoppResults from "../EditTests/EditOlderCtoppResults";
 import EditGortResults from "../EditTests/EditGortResults";
 import EditKteaResults from "../EditTests/EditKteaResults";
+import ArchivedStudentList from "../ArchivedStudentList/ArchivedStudentList";
 
 function App() {
   const dispatch = useDispatch();
@@ -156,6 +157,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact path="/AssessmentResults/:date">
             <AssessmentContainer />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/ArchivedStudents/:date">
+            <ArchivedStudentList />
           </ProtectedRoute>
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage

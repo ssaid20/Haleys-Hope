@@ -8,19 +8,19 @@ const Searchbar = ({ iconPosition, imgSrc, placeholder, otherClasses }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const students = useSelector((store) => store.studentReducer.list);
-  const [query, setQuery] = useState(" ");
+  const [query, setQuery] = useState("");
   const fuse = new Fuse(students, {
     keys: ["id", "first_name", "last_name",],
     includeScore: true,
-    threshold: 0.3, // Adjust this threshold (0.0 to 1.0) for strictness
-    minMatchCharLength: 2, // Adjust the minimum character length for a match
+    threshold: 0.3, 
+    minMatchCharLength: 2, 
   });
   const results = fuse.search(query);
   console.log("Fuse results", results);
   const searchResult = results.map((result) => result.item);
 
   function handleOnSearch(value) {
-    console.log("value",value); // Add this line for debugging
+    console.log("value",value); 
     setQuery(value);
   }
 

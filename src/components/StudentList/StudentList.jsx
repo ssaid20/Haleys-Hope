@@ -44,6 +44,7 @@ const StudentList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const processedSearchResults = searchResults.map((result) => result.item);
+  console.log("logging searchResults", processedSearchResults);
   useEffect(() => {
     dispatch({ type: "FETCH_STUDENTS" });
   }, [dispatch]);
@@ -59,9 +60,16 @@ const StudentList = () => {
   };
 
   useEffect(() => {
-    const fuse = new Fuse(students, {
-      keys: ["first_name", "last_name", "id"],
-      threshold: 0.3,
+    // Step 1: Preprocess the students data
+    const modifiedStudents = students.map((student) => ({
+      ...student,
+      full_name: `${student.first_name} ${student.last_name}`, // Combine first and last name
+    }));
+
+    // Step 2: Setup Fuse.js with the new 'full_name' field
+    const fuse = new Fuse(modifiedStudents, {
+      keys: ["full_name", "grade"],
+      threshold: 0.1,
     });
 
     if (!searchQuery) {
@@ -77,18 +85,22 @@ const StudentList = () => {
     setPage(0); // Reset to the first page when the query changes
   };
 
-  const displayedStudents = searchQuery ? searchResults : students;
-  console.log("logging Students in list", students);
+  const displayedStudents = searchQuery ? processedSearchResults : students;
+  console.log("DISPLAY Students in list", displayedStudents);
   return (
     <>
-      <Paper sx={{ width: "100%", overflow: "hidden" }}>
+      <div className="mb-8">
         <Searchbar
           query={searchQuery}
           setQuery={handleSearchInputChange} // Updated to use the revised function
           iconPosition="left"
-          imgSrc="assets/search.svg"
+          imgSrc="/assets/icons/search.svg"
           placeholder="Search Students"
+          otherClasses="w-full"
         />
+      </div>
+
+      <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer sx={{ maxHeight: 840 }}>
           <Table stickyHeader aria-label="student table">
             <TableHead>

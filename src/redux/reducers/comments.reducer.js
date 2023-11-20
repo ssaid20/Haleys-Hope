@@ -12,10 +12,12 @@ function commentsReducer(state = initialState, action) {
       return { ...state, loading: false, comments: action.payload };
     case "FETCH_COMMENTS_FAILURE":
       return { ...state, loading: false, error: action.payload };
-    // Handle other actions (ADD, UPDATE, DELETE) similarly
+
     case "ADD_COMMENT":
+      console.log("add comment comments reducer");
       return { ...state, loading: true };
     case "ADD_COMMENT_SUCCESS":
+      console.log("action.payload in commentsReducer", action.payload);
       return {
         ...state,
         loading: false,

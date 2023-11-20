@@ -55,11 +55,23 @@ const CommentsTab = () => {
     setEditedComment(comment.comments);
   };
 
+  const usersFirstName = useSelector((store) => store.user.first_name);
+  const usersLastName = useSelector((store) => store.user.last_name);
+  const usersName = usersFirstName + " " + usersLastName;
+  console.log("logging the usersName", usersName);
+  //const currentDate = new Date().toISOString().split("T")[0];
+  const date = new Date().toISOString();
+
   const handleAddComment = () => {
     if (!newComment.trim()) return; // prevent adding empty comments
     dispatch({
       type: "ADD_COMMENT",
-      payload: { student_id: studentId, comments: newComment },
+      payload: {
+        student_id: studentId,
+        comments: newComment,
+        name: usersName,
+        date: new Date().toISOString(),
+      },
     });
 
     Swal.fire({
@@ -77,9 +89,11 @@ const CommentsTab = () => {
     dispatch({
       type: "UPDATE_COMMENT",
       payload: {
-        studentId: studentId,
-        commentId: commentId,
+        student_id: studentId,
+        comment_id: editingCommentId,
         comments: editedComment,
+        name: usersName,
+        date: new Date().toISOString(),
       },
     });
 
@@ -103,8 +117,14 @@ const CommentsTab = () => {
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">Notes</h2>
       <div>
+        {/* {comments.map((comment) => (
+          <div key={comment.id} className="bg-white p-4 rounded-lg shadow mb-3"> */}
         {comments.map((comment) => (
-          <div key={comment.id} className="bg-white p-4 rounded-lg shadow mb-3">
+          <div key={comment.id}>
+            <p>
+              {comment.name} - {new Date(comment.date).toLocaleDateString()}
+            </p>
+            <p>{comment.comments}</p>
             {editingCommentId === comment.id ? (
               <div className="flex items-center">
                 <input
@@ -153,7 +173,7 @@ const CommentsTab = () => {
             placeholder="Enter a note"
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
-            rows="4" // Adjust the number of rows as needed
+            rows="4"
           ></textarea>
           <button
             className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"

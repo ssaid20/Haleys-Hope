@@ -39,7 +39,7 @@ const StudentForm = () => {
     school: "",
     on_site: true,
     barton_c: false,
-    barton_c_date: "",
+    barton_c_date: null,
     coach_id: "",
     is_active: true,
   });
@@ -74,7 +74,7 @@ const StudentForm = () => {
       school: "",
       on_site: null,
       barton_c: null,
-      barton_c_date: "",
+      barton_c_date: null,
       coach_id: "",
       is_active: true,
     });
@@ -240,20 +240,21 @@ const StudentForm = () => {
                 label="On-site"
               />
             </Grid>
-
-            {/* Barton C Date Field */}
-            <Grid item xs={12} md={6}>
-              <TextField
-                label="Barton C Date"
-                variant="outlined"
-                fullWidth
-                name="barton_c_date"
-                type="date"
-                InputLabelProps={{ shrink: true }}
-                value={studentData.barton_c_date}
-                onChange={handleChange}
-              />
-            </Grid>
+            {/* Barton C Date Field - Conditionally Rendered */}
+            {studentData.barton_c && (
+              <Grid item xs={12} md={6}>
+                <TextField
+                  label="Barton C Date"
+                  variant="outlined"
+                  fullWidth
+                  name="barton_c_date"
+                  type="date"
+                  InputLabelProps={{ shrink: true }}
+                  value={studentData.barton_c_date}
+                  onChange={handleChange}
+                />
+              </Grid>
+            )}
             {/* Barton C Date Field */}
             <Grid item xs={12} md={6}>
               <TextField

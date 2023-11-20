@@ -106,7 +106,7 @@ router.post("/", parser.single("picture"), (req, res) => {
     newStudent.school,
     newStudent.on_site,
     newStudent.barton_c,
-    newStudent.barton_c_date,
+    newStudent.barton_c_date === "" ? null : newStudent.barton_c_date,
     newStudent.state,
     newStudent.start_date,
     newStudent.is_active,

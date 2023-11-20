@@ -67,7 +67,13 @@ const StudentCard = () => {
     setValidationErrors(errors);
     return isValid;
   };
+  //if date not entered for barton c, displaying this
+  const isDateValid = (dateString) => {
+    if (!dateString) return false;
 
+    const date = new Date(dateString);
+    return date.getFullYear() >= 1980;
+  };
   //looping and finding a coach for the student
   const matchingCoach = coach.find((c) => c.id === student.coach_id);
   //combining first name and last name
@@ -88,7 +94,7 @@ const StudentCard = () => {
     dob: "",
     city: "",
     state: "",
-    barton_c_date: "",
+    barton_c_date: null,
     barton_c: true,
     on_site: true,
     start_date: "",
@@ -377,9 +383,7 @@ const StudentCard = () => {
           <p className="body-regular text-dark500_light500">
             Barton C: {student.barton_c ? "Foundations" : "Barton"}
           </p>
-          {/* <p className="body-regular text-dark500_light500">
-            Coach: {student.coach_id}
-          </p> */}
+
           <p className="body-regular text-dark500_light500">
             Coach: <br></br>
             {coachName}
@@ -388,7 +392,10 @@ const StudentCard = () => {
             On Site: {student.on_site ? "Yes" : "No"}
           </p>
           <p className="body-regular text-dark500_light500">
-            Start Date: {new Date(student.start_date).toLocaleDateString()}
+            Barton C Date:{" "}
+            {isDateValid(student.barton_c_date)
+              ? new Date(student.barton_c_date).toLocaleDateString()
+              : "No date entered or test not given"}
           </p>
         </div>
       </div>

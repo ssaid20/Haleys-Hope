@@ -36,18 +36,13 @@ router.get("/kteaResults/:testId", (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      console.error(
-        "Error completing SELECT KTEA query for test id",
-        err
-      );
+      console.error("Error completing SELECT KTEA query for test id", err);
       res.sendStatus(500);
     });
 });
 
 // POST route for KTEA
 router.post("/", async (req, res) => {
-  console.log(req.params);
-  console.log(req.body);
   try {
     const {
       student_id,
@@ -80,41 +75,77 @@ router.post("/", async (req, res) => {
   }
 });
 // PUT route for KTEA
-router.put("/:studentId", async (req, res) => {
-  try {
-    const studentId = req.params.studentId; // TODO: may just be id from front end
-    const {
-      date,
-      examiner_id,
-      lwr_scaled_score,
-      lwr_percentile,
-      spelling_scaled_score,
-      spelling_percentile,
-    } = req.body;
-    const query = `UPDATE ktea SET
-      date = $2,
-      examiner_id = $3,
-      lwr_scaled_score = $4,
-      lwr_percentile = $5,
-      spelling_scaled_score = $6,
-      spelling_percentile = $7
-      WHERE student_id = $1;`;
-    const values = [
-      studentId,
-      date,
-      examiner_id,
-      lwr_scaled_score,
-      lwr_percentile,
-      spelling_scaled_score,
-      spelling_percentile,
-    ];
-    await pool.query(query, values);
+router.put("/:student_id/:id", (req, res) => {
+  const studentId = req.params.student_id;
+  const testId = req.params.id;
 
-    res.status(200).send("KTEA record updated successfully");
-  } catch (error) {
-    console.error("Error updating KTEA record:", error);
-    res.status(500).send("Internal Server Error");
+  const updatedKtea = req.body;
+
+  // Constructing the query dynamically based on the fields provided in the body
+  let querySet = [];
+  for (let key in updatedKtea) {
+    if (
+      updatedKtea.hasOwnProperty(key) &&
+      key !== "student_id" &&
+      key !== "id"
+    ) {
+      querySet.push(`"${key}" = '${updatedKtea[key]}'`);
+    }
   }
-});
+  if (querySet.length === 0) {
+    return res.status(400).send("No update fields provided");
+  }
+
+  const queryText = `UPDATE "ktea" SET ${querySet.join(
+    ", "
+  )} WHERE "student_id" = $1 AND "id" = $2`;
+
+  pool
+    .query(queryText, [studentId, testId])
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.error("Error completing UPDATE ktea query", err);
+      res.sendStatus(500);
+    });
+}); // end router.put
+// router.put("/:student_id/:id", async (req, res) => {
+//   try {
+//     const studentId = req.params.student_id; // TODO: may just be id from front end
+//     const testId = req.params.id;
+//     const {
+//       date,
+//       examiner_id,
+//       lwr_scaled_score,
+//       lwr_percentile,
+//       spelling_scaled_score,
+//       spelling_percentile,
+//     } = req.body;
+//     const query = `UPDATE ktea SET
+//       date = $2,
+//       examiner_id = $3,
+//       lwr_scaled_score = $4,
+//       lwr_percentile = $5,
+//       spelling_scaled_score = $6,
+//       spelling_percentile = $7
+//       WHERE student_id = $1;`;
+//     const values = [
+//       studentId,
+//       date,
+//       examiner_id,
+//       lwr_scaled_score,
+//       lwr_percentile,
+//       spelling_scaled_score,
+//       spelling_percentile,
+//     ];
+//     await pool.query(query, values);
+
+//     res.status(200).send("KTEA record updated successfully");
+//   } catch (error) {
+//     console.error("Error updating KTEA record:", error);
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
 
 module.exports = router;

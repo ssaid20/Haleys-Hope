@@ -1,19 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool");
-const multer = require('multer');
-const cloudinary = require('cloudinary').v2;
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
-          
-cloudinary.config({ 
-  cloud_name: 'dkpzxau0g', 
-  api_key: '186839942639844', 
-  api_secret: 'D0nFz2SMjJgdjlTcC5VGOmdvev0' 
+const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+
+cloudinary.config({
+  cloud_name: "dkpzxau0g",
+  api_key: "186839942639844",
+  api_secret: "D0nFz2SMjJgdjlTcC5VGOmdvev0",
 });
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  folder: 'student_pictures',
-  allowedFormats: ['jpg', 'png'],
+  folder: "student_pictures",
+  allowedFormats: ["jpg", "png"],
 });
 const parser = multer({ storage: storage });
 // GET route to fetch all students with all their information
@@ -27,12 +27,43 @@ router.get("/", (req, res) => {
       res.sendStatus(500);
     });
 });
+// GET route to fetch all  archived students with all their information
+router.get("/archived-students", (req, res) => {
+  const queryText = 'SELECT * FROM "students" WHERE "is_active" = FALSE';
+  pool
+    .query(queryText)
+    .then((result) => res.send(result.rows))
+    .catch((err) => {
+      console.error("Error in GET all archived students", err);
+      res.sendStatus(500);
+    });
+});
 
 // GET route to fetch a specific student by ID with all their details
 router.get("/:id", (req, res) => {
   const studentId = req.params.id;
+  const queryText = 'SELECT * FROM "students" WHERE "id" = $1';
+  pool
+    .query(queryText, [studentId])
+    .then((result) => {
+      if (result.rows.length === 0) {
+        res.status(404).send("Student not found");
+      } else {
+        res.send(result.rows[0]);
+      }
+    })
+    .catch((err) => {
+      // console.error("Error in GET specific student", err);
+      //commented out for now,
+      //this error shows up every time we move to student details page
+      res.sendStatus(500);
+    });
+});
+// GET route to fetch a specific archived student by ID with all their details
+router.get("/archived-student/:id", (req, res) => {
+  const studentId = req.params.id;
   const queryText =
-    'SELECT * FROM "students" WHERE "id" = $1 AND "is_active" = TRUE';
+    'SELECT * FROM "students" WHERE "id" = $1 AND "is_active" = FALSE';
   pool
     .query(queryText, [studentId])
     .then((result) => {
@@ -51,7 +82,7 @@ router.get("/:id", (req, res) => {
 });
 
 // POST route to add a new student
-router.post("/", parser.single('picture'), (req, res) => {
+router.post("/", parser.single("picture"), (req, res) => {
   const newStudent = req.body;
   const pictureUrl = req.file ? req.file.path : null;
   const queryText = `
@@ -90,14 +121,15 @@ router.post("/", parser.single('picture'), (req, res) => {
 });
 
 // PUT route to update a student's information
-router.put("/:id", parser.single('picture'), (req, res) => {
+router.put("/:id", parser.single("picture"), (req, res) => {
   const studentId = req.params.id;
   const updatedStudent = req.body;
+  console.log(req.body);
   const pictureUrl = req.file ? req.file.path : updatedStudent.picture;
   const queryText = `UPDATE "students" SET
     "first_name" = $1, "last_name" = $2, "grade" = $3, "gender" = $4, "dob" = $5, 
-    "city" = $6, "school" = $7, "on_site" = $8, 
-    "barton_c" = $9, "barton_c_date" = $10, "state" = $11, "start_date" = $12, "is_active" = $13, "coach_id" = $14 WHERE "id" = $15`;
+    "city" = $6,"picture" = $7, "school" = $8, "on_site" = $9, 
+    "barton_c" = $10, "barton_c_date" = $11, "state" = $12, "start_date" = $13, "is_active" = $14, "coach_id" = $15 WHERE "id" = $16`;
 
   const values = [
     updatedStudent.first_name,
@@ -106,7 +138,8 @@ router.put("/:id", parser.single('picture'), (req, res) => {
     updatedStudent.gender,
     updatedStudent.dob,
     updatedStudent.city,
-    pictureUrl,
+    updatedStudent.picture,
+    // pictureUrl,
     updatedStudent.school,
     updatedStudent.on_site,
     updatedStudent.barton_c,

@@ -38,7 +38,6 @@ router.get("/youngerCtoppResults/:testId", (req, res) => {
 router.post("/", (req, res) => {
   //const newYCtopp = req.body.id;
   const newYCtopp = req.body;
-  console.log("Request parameters:", req.params);
   // Check if student_id is provided
   if (!newYCtopp.student_id) {
     return res.status(400).send("Student ID is required");

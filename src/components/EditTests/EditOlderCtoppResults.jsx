@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
+import { formatDate } from "../../lib/utils";
 import {
   TextField,
   Button,
@@ -13,14 +14,15 @@ import {
   MenuItem,
 } from "@mui/material";
 
-//component to add a new younger ctopp test
-const AddYoungerCtopp = () => {
+const EditOlderCtoppResults = () => {
+  const testId = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-  const student = useParams();
+  const selectedTest = useSelector(
+    (store) => store.olderCtoppReducer.selectedTest[0]
+  );
   const users = useSelector((store) => store.allUsersReducer.users);
-
-  const [selectedExaminerId, setSelectedExaminerId] = useState("");
+  const student = useSelector((store) => store.user);
 
   const [validationErrors, setValidationErrors] = useState({
     //state for validation errors
@@ -29,41 +31,42 @@ const AddYoungerCtopp = () => {
   });
 
   useEffect(() => {
-    if (student) {
-      dispatch({ type: "FETCH_STUDENT", payload: student });
+    dispatch({ type: "FETCH_OLDER_CTOPP_RESULTS", payload: testId.id });
+  }, [dispatch]);
+  useEffect(() => {
+    if (selectedTest) {
+      //   setNewCtopp(selectedTest);
+      // }if (selectedTest) {
+      setNewCtopp({
+        ...selectedTest,
+        date: formatDate(selectedTest.date), // Assuming formatDate converts the date to the required format
+      });
+      setSelectedExaminerId(selectedTest.examiner_id.toString());
     }
-  });
-  useEffect(() => {
-    dispatch({ type: "FETCH_USERS" });
-  });
-  useEffect(() => {
-    handleGoBack;
-  });
-
+  }, [selectedTest]);
   const [newCtopp, setNewCtopp] = useState({
     student_id: student.id,
     date: "",
     examiner_id: "",
     elison_scaled_score: null,
     blending_words_scaled_score: null,
-    sound_matching_scaled_score: null,
+    phoneme_isolation_scaled_score: null,
     memory_for_digits_scaled_score: null,
     nonword_repetition_scaled_score: null,
     rapid_digit_naming_scaled_score: null,
     rapid_letter_naming_scaled_score: null,
-    rapid_color_naming_scaled_score: null,
-    rapid_object_naming: null,
     blending_nonwords_scaled_score: null,
+    segmenting_nonwords_scaled_score: null,
     phonological_awareness_composite: null,
     phonological_memory_composite: null,
     rapid_symbolic_naming_composite: null,
-    rapid_non_symbolic_naming_composite: null,
+    alt_phonological_awareness_composite: null,
     phonological_awareness_percentile: null,
     phonological_memory_percentile: null,
     rapid_symbolic_naming_percentile: null,
-    rapid_non_symbolic_naming_percentile: null,
+    alt_phonological_awareness_percentile: null,
   });
-
+  const [selectedExaminerId, setSelectedExaminerId] = useState("");
   const handleExaminerChange = (event) => {
     const examinerId = event.target.value;
     setSelectedExaminerId(examinerId);
@@ -72,27 +75,51 @@ const AddYoungerCtopp = () => {
       examiner_id: examinerId,
     }));
   };
-  const handleGoBack = () => {
-    history.push(`/students/${student.id}`);
-  };
 
-  //function to handle inputs changing
+  if (!selectedTest || Object.keys(selectedTest).length === 0) {
+    return <h1>Loading...</h1>;
+  }
+
   const handleChange = (e) => {
-    const { name, value } = e.target; // Destructure the name and value from the event target
+    const { name, value } = e.target;
+    let updatedValue = { ...newCtopp };
+    // Handle date field separately
+    if (name === "date") {
+      updatedValue[name] = value;
+    } else {
+      // Convert to number if the field is numeric
+      updatedValue[name] = value ? parseInt(value, 10) : 0;
 
+      // Convert to number if the field is numeric
+      updatedValue[name] = value ? parseInt(value, 10) : 0;
+    }
     setValidationErrors((prevErrors) => {
       const newErrors = { ...prevErrors };
 
+      // Validate date
+      if (name === "date") {
+        if (!value) {
+          newErrors.date = "Date is required";
+        } else if (new Date(value) > new Date()) {
+          newErrors.date = "Date cannot be in the future";
+        } else {
+          newErrors.date = "";
+        }
+      }
+      //validate examiner id
+      if (name === "examiner_id") {
+        if (!value) {
+          newErrors.examiner_id = "Examiner is required";
+        } else {
+          newErrors.examiner_id = "";
+        }
+      }
+
       return newErrors;
     });
+    setNewCtopp(updatedValue);
+  }; //end handle change
 
-    setNewCtopp((prevCtopp) => ({
-      ...prevCtopp,
-      [name]: value, // Use computed property name to update the state
-    }));
-  };
-
-  //function to handle click of submit button
   const handleSubmit = (e) => {
     e.preventDefault();
     // Validate all inputs before submission
@@ -115,28 +142,41 @@ const AddYoungerCtopp = () => {
       return;
     }
 
-    // Ensure the examiner_id is updated
     const submissionData = {
       ...newCtopp,
       examiner_id: selectedExaminerId,
     };
-
+    console.log(
+      "update ctopp edit page, sub data, testId",
+      submissionData,
+      testId.id
+    );
     dispatch({
-      type: "ADD_YOUNGER_CTOPP",
-      payload: submissionData,
+      type: "UPDATE_OLDER_CTOPP",
+      payload: { ...submissionData, id: testId.id },
     });
 
-    history.push(`/students/${student.id}`);
-    //history.push back to student details
+    history.push(`/students/${selectedTest.student_id}`);
   };
+
+  const handleGoBack = () => {
+    history.goBack();
+  };
+
+  if (!selectedTest) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <>
-      <h1 className="text-3xl text-center mb-4 bg-primary-100">
-        CTOPP-2 Under 7
+      {/* <h1 className="text-2xl text-center mb-4">
+        Test on: {formatDate(selectedTest.date)}{" "}
+      </h1> */}
+      <h1 className="text-3xl text-center mb-4">
+        Edit Older CTOPP from: {formatDate(selectedTest.date)}
       </h1>
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
-        GO BACK
+        Go Back
       </Button>
       <Paper elevation={3} className="p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -152,12 +192,9 @@ const AddYoungerCtopp = () => {
                   value={newCtopp.date}
                   onChange={handleChange}
                   variant="outlined"
-                  error={!!validationErrors.date}
-                  helperText={validationErrors.date}
                 />
               </FormControl>
             </Grid>
-
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -175,7 +212,6 @@ const AddYoungerCtopp = () => {
                 </Select>
               </FormControl>
             </Grid>
-
             {/* Elision Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -204,21 +240,20 @@ const AddYoungerCtopp = () => {
                 />
               </FormControl>
             </Grid>
-            {/* Sound Matching Scaled Score */}
+            {/* Phoneme Isolation Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Sound Matching Scaled Score:</FormLabel>
+                <FormLabel>Phoneme Isolation Scaled Score:</FormLabel>
                 <TextField
                   type="number"
-                  id="sound_matching_scaled_score"
-                  name="sound_matching_scaled_score"
-                  value={newCtopp.sound_matching_scaled_score}
+                  id="phoneme_isolation_scaled_score"
+                  name="phoneme_isolation_scaled_score"
+                  value={newCtopp.phoneme_isolation_scaled_score}
                   onChange={handleChange}
                   variant="outlined"
                 />
               </FormControl>
             </Grid>
-
             {/* Memory for Digits Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -275,43 +310,29 @@ const AddYoungerCtopp = () => {
                 />
               </FormControl>
             </Grid>
-            {/* Rapid Color Naming Scaled Score*/}
+            {/* Blending Nonwords Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Rapid Color Naming Scaled Score:</FormLabel>
-                <TextField
-                  type="number"
-                  id="rapid_color_naming_scaled_score"
-                  name="rapid_color_naming_scaled_score"
-                  value={newCtopp.rapid_color_naming_scaled_score}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
-            {/* Rapid Object Naming */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Rapid Object Naming:</FormLabel>
-                <TextField
-                  type="number"
-                  id="rapid_object_naming"
-                  name="rapid_object_naming"
-                  value={newCtopp.rapid_object_naming}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
-            {/* Blending Non-Words Scaled Score*/}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Blending Non-Words Scaled Score:</FormLabel>
+                <FormLabel>Blending Nonwords Scaled Score:</FormLabel>
                 <TextField
                   type="number"
                   id="blending_nonwords_scaled_score"
                   name="blending_nonwords_scaled_score"
                   value={newCtopp.blending_nonwords_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Segmenting Nonwords Scaled Score Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Segmenting Nonwords Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="segmenting_nonwords_scaled_score"
+                  name="segmenting_nonwords_scaled_score"
+                  value={newCtopp.segmenting_nonwords_scaled_score}
                   onChange={handleChange}
                   variant="outlined"
                 />
@@ -359,15 +380,15 @@ const AddYoungerCtopp = () => {
                 />
               </FormControl>
             </Grid>
-            {/* Rapid Non-symbolic Naming Composite */}
+            {/* Alt Phonological Awareness Composite Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Rapid Non-Symbolic Naming Composite:</FormLabel>
+                <FormLabel>Alt Phonological Awareness Composite:</FormLabel>
                 <TextField
                   type="number"
-                  id="rapid_non_symbolic_naming_composite"
-                  name="rapid_non_symbolic_naming_composite"
-                  value={newCtopp.rapid_non_symbolic_naming_composite}
+                  id="alt_phonological_awareness_composite"
+                  name="alt_phonological_awareness_composite"
+                  value={newCtopp.alt_phonological_awareness_composite}
                   onChange={handleChange}
                   variant="outlined"
                 />
@@ -415,33 +436,35 @@ const AddYoungerCtopp = () => {
                 />
               </FormControl>
             </Grid>
-            {/* Rapid Non-Symbolic Naming Percentile */}
+            {/* Alt Phonological Awareness Percentile Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Rapid Non-Symbolic Naming Percentile:</FormLabel>
+                <FormLabel>Alt Phonological Awareness Percentile:</FormLabel>
                 <TextField
                   type="number"
-                  id="rapid_non_symbolic_naming_percentile"
-                  name="rapid_non_symbolic_naming_percentile"
-                  value={newCtopp.rapid_non_symbolic_naming_percentile}
+                  id="alt_phonological_awareness_percentile"
+                  name="alt_phonological_awareness_percentile"
+                  value={newCtopp.alt_phonological_awareness_percentile}
                   onChange={handleChange}
                   variant="outlined"
                 />
               </FormControl>
             </Grid>
           </Grid>
+
           <Button
             type="submit"
             variant="contained"
             color="primary"
             className="mt-4"
           >
-            Submit
+            Save Changes
           </Button>
+          <Button onClick={handleGoBack}>Go Back</Button>
         </form>
       </Paper>
     </>
   );
 };
 
-export default AddYoungerCtopp;
+export default EditOlderCtoppResults;

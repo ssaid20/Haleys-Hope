@@ -84,7 +84,6 @@ const AddElementaryWist = () => {
     history.push(`/students/${student.id}`);
   };
 
-  console.log("new WIST", newWist);
   //function to handle inputs changing
   const handleChange = (e) => {
     const { name, value } = e.target;

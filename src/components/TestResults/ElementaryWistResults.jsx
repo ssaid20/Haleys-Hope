@@ -10,7 +10,6 @@ const ElementaryWistResults = () => {
   const history = useHistory();
 
   useEffect(() => {
-    console.log("useEffect selected test, expect empty", selectedTest);
     dispatch({ type: "FETCH_ELEMENTARY_WIST_RESULTS", payload: testId.id });
   }, [dispatch]);
 
@@ -18,12 +17,9 @@ const ElementaryWistResults = () => {
     (store) => store.elementaryWistReducer.selectedTest[0]
   );
 
-  console.log("##########", selectedTest);
-
   if (!selectedTest || Object.keys(selectedTest).length === 0) {
     return <h1>Loading...</h1>;
   }
-  console.log("selectedtestyboi", selectedTest);
 
   const goBack = () => history.push(`/students/${selectedTest.student_id}`);
 
@@ -73,6 +69,13 @@ const ElementaryWistResults = () => {
           Word Identification Standard Score:{" "}
           {selectedTest.word_identification_standard_score}
         </p>
+        <button
+          onClick={() =>
+            history.push(`/EditElementaryWistResults/${selectedTest.id}`)
+          }
+        >
+          Edit Test
+        </button>
       </div>
     </div>
   );

@@ -15,15 +15,12 @@ const SecondaryWistResults = () => {
   const history = useHistory();
 
   useEffect(() => {
-    console.log("useEffect selected test, expect empty", selectedTest);
     dispatch({ type: "FETCH_SECONDARY_WIST_RESULTS", payload: testId.id });
   }, [dispatch]);
 
   const selectedTest = useSelector(
     (store) => store.secondaryWistReducer.selectedTest[0]
   );
-
-  console.log("##########", selectedTest);
 
   if (!selectedTest || Object.keys(selectedTest).length === 0) {
     return <h1>Loading...</h1>;
@@ -78,6 +75,13 @@ const SecondaryWistResults = () => {
             Word Identification Standard Score:{" "}
             {selectedTest.word_identification_standard_score}
           </p>
+          <button
+            onClick={() =>
+              history.push(`/EditSecondaryWistResults/${selectedTest.id}`)
+            }
+          >
+            Edit Test
+          </button>
         </div>
       </div>
     </div>

@@ -110,6 +110,13 @@ const YoungerCtoppResults = () => {
           Rapid Non-Symbolic Naming Percentile:{" "}
           {selectedTest.rapid_non_symbolic_naming_percentile}
         </p>
+        <button
+          onClick={() =>
+            history.push(`/EditYoungerCtoppResults/${selectedTest.id}`)
+          }
+        >
+          Edit Test
+        </button>
       </div>
     </div>
   );

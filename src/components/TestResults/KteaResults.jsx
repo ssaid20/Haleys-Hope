@@ -46,6 +46,11 @@ const KteaResults = () => {
         </p>
         <p>Spelling Scaled Score: {selectedTest.spelling_scaled_score}</p>
         <p>Spelling Percentile: {selectedTest.spelling_percentile}</p>
+        <button
+          onClick={() => history.push(`/EditKteaResults/${selectedTest.id}`)}
+        >
+          Edit Test
+        </button>
       </div>
     </div>
   );

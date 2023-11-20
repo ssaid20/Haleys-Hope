@@ -60,8 +60,11 @@ CREATE TABLE
   IF NOT EXISTS "student_comments" (
     "id" SERIAL PRIMARY KEY,
     "student_id" INTEGER REFERENCES "students" ("id"),
-    "comments" VARCHAR(1000)
+    "comments" VARCHAR(1000),
+    "name" VARCHAR(200),
+    "date" DATE
   );
+
 
 CREATE TABLE
   IF NOT EXISTS "gort" (

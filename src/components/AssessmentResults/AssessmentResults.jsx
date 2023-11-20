@@ -21,15 +21,11 @@ const AssessmentResults = () => {
     console.log("theStudentId ISSSS", studentId.id);
   }, []);
   // NEW CODE TO FIX ASSESSMENTS!!!!!
-  const allGort = useSelector((store) => store.gortReducer.list); 
+  const allGort = useSelector((store) => store.gortReducer.list);
   const allCtoppY = useSelector((store) => store.youngerCtoppReducer.list);
   const allCtoppO = useSelector((store) => store.olderCtoppReducer.list);
   const allWistE = useSelector((store) => store.elementaryWistReducer.list);
   const allWistS = useSelector((store) => store.secondaryWistReducer.list);
-
-
-
-
 
   const moreDetails = (test) => {
     history.push(`/AssessmentResults/${test.date}`);
@@ -38,7 +34,13 @@ const AssessmentResults = () => {
   const groupedAssessments = {};
 
   // Combine assessments from Gort and Wist
-  const allAssessments = [...allGort, ...allWistE, ... allWistS, ...allCtoppO, allCtoppY];
+  const allAssessments = [
+    ...allGort,
+    ...allWistE,
+    ...allWistS,
+    ...allCtoppO,
+    ...allCtoppY,
+  ];
 
   // Group assessments by date
   allAssessments.forEach((assessment) => {
@@ -61,12 +63,16 @@ const AssessmentResults = () => {
       <div>
         {Object.keys(groupedAssessments).map((dateKey) => (
           <div key={dateKey}>
-            <p>Assessment Date: {dateKey} (click for details)</p>
-            {groupedAssessments[dateKey].map((test) => (
-              <div key={test.date} onClick={() => moreDetails(test)}>
-                <p>{/* Render assessment details here */}</p>
-              </div>
-            ))}
+            {groupedAssessments[dateKey].length > 0 && (
+              <>
+                <p>Assessment Date: {dateKey} (click for details)</p>
+                {groupedAssessments[dateKey].map((test) => (
+                  <div key={test.date} onClick={() => moreDetails(test)}>
+                    <p>{/* Render assessment details here */}</p>
+                  </div>
+                ))}
+              </>
+            )}
           </div>
         ))}
       </div>
@@ -85,7 +91,6 @@ const AssessmentResults = () => {
           </div>
         ))}
       </div> */}
-
     </div>
   );
 };

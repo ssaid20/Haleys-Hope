@@ -45,9 +45,10 @@ function* addSecondaryWist(action) {
 function* updateSecondaryWist(action) {
   try {
     yield call(
-      axios.put,
-      `/api/secondary_wist/${action.payload.student_id}/${action.payload.id}`,
-      action.payload
+      axios.put(
+        `/api/secondary_wist/${action.payload.student_id}/${action.payload.id}`,
+        action.payload
+      )
     );
     yield put({
       type: "FETCH_SECONDARY_WIST",

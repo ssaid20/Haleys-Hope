@@ -4,6 +4,7 @@ const initialState = {
   currentStudent: null, // Details of the selected student
   isLoading: false,
   error: null,
+  archivedList: [], //list of all archived students
 };
 
 const studentReducer = (state = initialState, action) => {
@@ -22,6 +23,14 @@ const studentReducer = (state = initialState, action) => {
         isLoading: false,
         error: null,
       };
+    case "SET_ARCHIVED_STUDENTS":
+      return {
+        ...state,
+        archivedList: action.payload,
+        isLoading: false,
+        error: null,
+      };
+
     case "ADD_STUDENT":
       return {
         ...state,

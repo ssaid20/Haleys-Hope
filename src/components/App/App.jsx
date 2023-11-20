@@ -30,11 +30,13 @@ import OlderCtoppResults from "../TestResults/OlderCtoppResults";
 import ManageUsers from "../ManageUsers/ManageUsers";
 import CoachList from "../CoachList/CoachList";
 import AddCoach from "../AddCoach/AddCoach";
-import AssessmentContainer from "../AssessmentComponents/AssessmentContainer"
+import AssessmentContainer from "../AssessmentComponents/AssessmentContainer";
 
 import "./App.css";
 import KteaResults from "../TestResults/KteaResults";
 import StudentForm from "../Forms/StudentForm";
+import EditElementaryWistResults from "../EditTests/EditElementaryWistResults";
+import EditSecondaryWistResults from "../EditTests/EditSecondaryWistResults";
 
 function App() {
   const dispatch = useDispatch();
@@ -88,11 +90,17 @@ function App() {
           <ProtectedRoute exact path="/ElementaryWistResults/:id">
             <ElementaryWistResults />
           </ProtectedRoute>
+          <ProtectedRoute exact path="/EditElementaryWistResults/:id">
+            <EditElementaryWistResults />
+          </ProtectedRoute>
           <ProtectedRoute exact path="/addSecondaryWist/:id">
             <AddSecondaryWist />
           </ProtectedRoute>
           <ProtectedRoute exact path="/SecondaryWistResults/:id">
             <SecondaryWistResults />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/EditSecondaryWistResults/:id">
+            <EditSecondaryWistResults />
           </ProtectedRoute>
           <ProtectedRoute exact path="/addGort/:id">
             <AddGort />

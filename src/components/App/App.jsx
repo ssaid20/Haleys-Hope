@@ -37,6 +37,10 @@ import KteaResults from "../TestResults/KteaResults";
 import StudentForm from "../Forms/StudentForm";
 import EditElementaryWistResults from "../EditTests/EditElementaryWistResults";
 import EditSecondaryWistResults from "../EditTests/EditSecondaryWistResults";
+import EditYoungerCtoppResults from "../EditTests/EditYoungerCtoppResults";
+import EditOlderCtoppResults from "../EditTests/EditOlderCtoppResults";
+import EditGortResults from "../EditTests/EditGortResults";
+import EditKteaResults from "../EditTests/EditKteaResults";
 
 function App() {
   const dispatch = useDispatch();
@@ -108,8 +112,14 @@ function App() {
           <ProtectedRoute exact path="/GortResults/:id">
             <GortResults />
           </ProtectedRoute>
+          <ProtectedRoute exact path="/EditGortResults/:id">
+            <EditGortResults />
+          </ProtectedRoute>
           <ProtectedRoute exact path="/addYoungerCtopp/:id">
             <AddYoungerCtopp />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/EditYoungerCtoppResults/:id">
+            <EditYoungerCtoppResults />
           </ProtectedRoute>
           <ProtectedRoute exact path="/addOlderCtopp/:id">
             <AddOlderCtopp />
@@ -120,11 +130,17 @@ function App() {
           <ProtectedRoute exact path="/OlderCtoppResults/:id">
             <OlderCtoppResults />
           </ProtectedRoute>
+          <ProtectedRoute exact path="/EditOlderCtoppResults/:id">
+            <EditOlderCtoppResults />
+          </ProtectedRoute>
           <ProtectedRoute exact path="/addKtea/:id">
             <AddKtea />
           </ProtectedRoute>
           <ProtectedRoute exact path="/kteaResults/:id">
             <KteaResults />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/EditKteaResults/:id">
+            <EditKteaResults />
           </ProtectedRoute>
           <ProtectedRoute exact path="/add-student">
             <StudentForm />

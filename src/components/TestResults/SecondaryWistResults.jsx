@@ -77,7 +77,7 @@ const SecondaryWistResults = () => {
           </p>
           <button
             onClick={() =>
-              history.push(`/EditElementaryWistResults/${selectedTest.id}`)
+              history.push(`/EditSecondaryWistResults/${selectedTest.id}`)
             }
           >
             Edit Test

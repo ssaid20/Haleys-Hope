@@ -75,7 +75,6 @@ router.post("/logout", (req, res) => {
 router.put("/:userId", rejectUnauthenticated, async (req, res) => {
   const userId = req.params.userId;
   const { first_name, last_name, role_id } = req.body;
-  console.log("Update user", req.body);
   const queryText = `
       UPDATE "user"
       SET first_name = $2, last_name = $3, role_id = $4

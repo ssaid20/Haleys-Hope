@@ -12,6 +12,8 @@ import TableRow from "@mui/material/TableRow";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { calculateAge } from "../../lib/utils";
+import TextField from "@mui/material/TextField";
+import Fuse from "fuse.js";
 import ArchivedStudentList from "../ArchivedStudentList/ArchivedStudentList";
 import Button from "@mui/material/Button";
 
@@ -40,11 +42,16 @@ const StudentList = () => {
   const students = useSelector((store) => store.studentReducer.list);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-
+  const [query, setQuery] = useState('');
   useEffect(() => {
     dispatch({ type: "FETCH_STUDENTS" });
   }, [dispatch]);
-
+  const fuse = new Fuse(students, {
+    keys: ['first_name', 'last_name', 'city', 'state'],
+    includeScore: true,
+    threshold: 0.3,
+  });
+  const searchResults = query ? fuse.search(query).map(result => result.item) : students;
   // Handlers for pagination
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -54,6 +61,10 @@ const StudentList = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  useEffect(() => {
+    setPage(0); // Reset to the first page when the query changes
+  }, [query]);
 
   const [showArchived, setShowArchived] = useState(false); //state to show archived students
   // function to toggle archived viewable or not
@@ -67,6 +78,14 @@ const StudentList = () => {
   console.log("logging Students in list", students);
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
+     {/* <TextField
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        label="Search Students"
+        variant="outlined"
+        fullWidth
+        style={{ marginBottom: '20px' }}
+      /> */}
       <Button
         variant="contained"
         color="primary"
@@ -137,7 +156,7 @@ const StudentList = () => {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={students.length}
+        count={searchResults.length} // Use searchResults.length for correct pagination
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

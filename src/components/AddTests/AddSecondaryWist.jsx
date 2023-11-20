@@ -23,7 +23,6 @@ const AddSecondaryWist = () => {
   const history = useHistory();
   const student = useParams();
   const users = useSelector((store) => store.allUsersReducer.users);
-  console.log("logging USERS in wist", users);
   const [validationErrors, setValidationErrors] = useState({
     //state for validation errors
     date: "",

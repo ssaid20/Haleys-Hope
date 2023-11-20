@@ -43,6 +43,7 @@ function* addSecondaryWist(action) {
 }
 // saga for updating wist need student id as well as test id
 function* updateSecondaryWist(action) {
+  console.log("update secondary wist saga run");
   try {
     yield call(
       axios.put(
@@ -50,10 +51,20 @@ function* updateSecondaryWist(action) {
         action.payload
       )
     );
+    console.log(
+      "secondary wist action.payload.student_id/action.payload.id:",
+      action.payload.student_id,
+      action.payload.id
+    );
+
     yield put({
       type: "FETCH_SECONDARY_WIST",
       payload: action.payload.student_id,
     });
+    console.log(
+      "secondaryWist action.payload.student_id",
+      action.payload.student_id
+    );
   } catch (error) {
     console.log("Error updating secondary wist data", error);
   }

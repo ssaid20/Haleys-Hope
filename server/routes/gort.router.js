@@ -34,10 +34,7 @@ router.get("/gortResults/:testId", (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      console.error(
-        "Error completing SELECT GORT query for test id",
-        err
-      );
+      console.error("Error completing SELECT GORT query for test id", err);
       res.sendStatus(500);
     });
 });
@@ -104,79 +101,114 @@ router.post("/", async (req, res) => {
 });
 
 // GORT PUT ROUTE
-router.put("/:studentId", async (req, res) => {
-  try {
-    const studentId = req.params.studentId;
-    const {
-      date,
-      examiner_id,
-      sum_scaled_score,
-      oral_reading_percentile_rank,
-      oral_reading_index,
-      rate_raw_total,
-      accuracy_raw_total,
-      fluency_raw_total,
-      comprehension_raw_total,
-      rate_percentile_rank,
-      accuracy_percentile_rank,
-      fluency_percentile_rank,
-      comprehension_percentile_rank,
-      rate_scaled_score,
-      accuracy_scaled_score,
-      fluency_scaled_score,
-      comprehension_scaled_score,
-    } = req.body;
+router.put("/:student_id/:id", (req, res) => {
+  const studentId = req.params.student_id;
+  const testId = req.params.id;
 
-    const query = `
-            UPDATE gort SET
-                date = $2,
-                examiner_id = $3,
-                sum_scaled_score = $4,
-                oral_reading_percentile_rank = $5,
-                oral_reading_index = $6,
-                rate_raw_total = $7,
-                accuracy_raw_total = $8,
-                fluency_raw_total = $9,
-                comprehension_raw_total = $10,
-                rate_percentile_rank = $11,
-                accuracy_percentile_rank = $12,
-                fluency_percentile_rank = $13,
-                comprehension_percentile_rank = $14,
-                rate_scaled_score = $15,
-                accuracy_scaled_score = $16,
-                fluency_scaled_score = $17,
-                comprehension_scaled_score = $18
-            WHERE student_id = $1`;
+  const updatedGort = req.body;
 
-    const values = [
-      studentId,
-      date,
-      examiner_id,
-      sum_scaled_score,
-      oral_reading_percentile_rank,
-      oral_reading_index,
-      rate_raw_total,
-      accuracy_raw_total,
-      fluency_raw_total,
-      comprehension_raw_total,
-      rate_percentile_rank,
-      accuracy_percentile_rank,
-      fluency_percentile_rank,
-      comprehension_percentile_rank,
-      rate_scaled_score,
-      accuracy_scaled_score,
-      fluency_scaled_score,
-      comprehension_scaled_score,
-    ];
-
-    await pool.query(query, values);
-
-    res.status(200).send("GORT record updated successfully");
-  } catch (error) {
-    console.error("Error updating GORT record:", error);
-    res.status(500).send("Internal Server Error");
+  // Constructing the query dynamically based on the fields provided in the body
+  let querySet = [];
+  for (let key in updatedGort) {
+    if (
+      updatedGort.hasOwnProperty(key) &&
+      key !== "student_id" &&
+      key !== "id"
+    ) {
+      querySet.push(`"${key}" = '${updatedGort[key]}'`);
+    }
   }
-});
+  if (querySet.length === 0) {
+    return res.status(400).send("No update fields provided");
+  }
+
+  const queryText = `UPDATE "gort" SET ${querySet.join(
+    ", "
+  )} WHERE "student_id" = $1 AND "id" = $2`;
+
+  pool
+    .query(queryText, [studentId, testId])
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.error("Error completing UPDATE gort query", err);
+      res.sendStatus(500);
+    });
+}); // end router.put
+// router.put("/:studentId/:id", async (req, res) => {
+//   try {
+//     const studentId = req.params.studentId;
+//     const {
+//       date,
+//       examiner_id,
+//       sum_scaled_score,
+//       oral_reading_percentile_rank,
+//       oral_reading_index,
+//       rate_raw_total,
+//       accuracy_raw_total,
+//       fluency_raw_total,
+//       comprehension_raw_total,
+//       rate_percentile_rank,
+//       accuracy_percentile_rank,
+//       fluency_percentile_rank,
+//       comprehension_percentile_rank,
+//       rate_scaled_score,
+//       accuracy_scaled_score,
+//       fluency_scaled_score,
+//       comprehension_scaled_score,
+//     } = req.body;
+
+//     const query = `
+//             UPDATE gort SET
+//                 date = $2,
+//                 examiner_id = $3,
+//                 sum_scaled_score = $4,
+//                 oral_reading_percentile_rank = $5,
+//                 oral_reading_index = $6,
+//                 rate_raw_total = $7,
+//                 accuracy_raw_total = $8,
+//                 fluency_raw_total = $9,
+//                 comprehension_raw_total = $10,
+//                 rate_percentile_rank = $11,
+//                 accuracy_percentile_rank = $12,
+//                 fluency_percentile_rank = $13,
+//                 comprehension_percentile_rank = $14,
+//                 rate_scaled_score = $15,
+//                 accuracy_scaled_score = $16,
+//                 fluency_scaled_score = $17,
+//                 comprehension_scaled_score = $18
+//             WHERE student_id = $1`;
+
+//     const values = [
+//       studentId,
+//       date,
+//       examiner_id,
+//       sum_scaled_score,
+//       oral_reading_percentile_rank,
+//       oral_reading_index,
+//       rate_raw_total,
+//       accuracy_raw_total,
+//       fluency_raw_total,
+//       comprehension_raw_total,
+//       rate_percentile_rank,
+//       accuracy_percentile_rank,
+//       fluency_percentile_rank,
+//       comprehension_percentile_rank,
+//       rate_scaled_score,
+//       accuracy_scaled_score,
+//       fluency_scaled_score,
+//       comprehension_scaled_score,
+//     ];
+
+//     await pool.query(query, values);
+
+//     res.status(200).send("GORT record updated successfully");
+//   } catch (error) {
+//     console.error("Error updating GORT record:", error);
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
 // DELETE route to remove a specific record for a given student
 router.delete("/:student_id/:id", (req, res) => {
   const studentId = req.params.student_id; // Identifier for the specific student

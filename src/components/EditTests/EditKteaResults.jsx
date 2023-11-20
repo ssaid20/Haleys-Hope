@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
+import { formatDate } from "../../lib/utils";
 import {
   TextField,
   Button,
@@ -13,30 +14,35 @@ import {
   MenuItem,
 } from "@mui/material";
 
-//component to add a new KTEA test
-const AddKtea = () => {
+const EditKteaResults = () => {
+  const testId = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-  const student = useParams();
+  const selectedTest = useSelector(
+    (store) => store.kteaReducer.selectedTest[0]
+  );
   const users = useSelector((store) => store.allUsersReducer.users);
+  const student = useSelector((store) => store.user);
 
-  const [selectedExaminerId, setSelectedExaminerId] = useState("");
-
-  // const todayDate = new Date().toISOString().split("T")[0]; //function to get todays date to auto populate
+  const [validationErrors, setValidationErrors] = useState({
+    //state for validation errors
+    date: "",
+    examiner_id: "",
+  });
 
   useEffect(() => {
-    if (student) {
-      dispatch({ type: "FETCH_STUDENT", payload: student });
+    dispatch({ type: "FETCH_KTEA_RESULTS", payload: testId.id });
+  }, [dispatch]);
+  useEffect(() => {
+    if (selectedTest) {
+      setNewKtea({
+        ...selectedTest,
+        date: formatDate(selectedTest.date), // Assuming formatDate converts the date to the required format
+      });
+      setSelectedExaminerId(selectedTest.examiner_id.toString());
     }
-  });
-  useEffect(() => {
-    dispatch({ type: "FETCH_USERS" });
-  });
-  useEffect(() => {
-    handleGoBack;
-  });
-
-  const [newKtea, setKtea] = useState({
+  }, [selectedTest]);
+  const [newKtea, setNewKtea] = useState({
     student_id: student.id,
     date: "",
     examiner_id: "",
@@ -45,21 +51,20 @@ const AddKtea = () => {
     spelling_scaled_score: "",
     spelling_percentile: "",
   });
-
+  const [selectedExaminerId, setSelectedExaminerId] = useState("");
   const handleExaminerChange = (event) => {
     const examinerId = event.target.value;
     setSelectedExaminerId(examinerId);
-    setKtea((prevKtea) => ({
+    setNewKtea((prevKtea) => ({
       ...prevKtea,
       examiner_id: examinerId,
     }));
   };
 
-  const handleGoBack = () => {
-    history.push(`/students/${student.id}`);
-  };
+  if (!selectedTest || Object.keys(selectedTest).length === 0) {
+    return <h1>Loading...</h1>;
+  }
 
-  //function to handle inputs changing
   const handleChange = (e) => {
     const { name, value } = e.target;
     let updatedValue = { ...newKtea };
@@ -72,33 +77,119 @@ const AddKtea = () => {
 
       // Convert to number if the field is numeric
       updatedValue[name] = value ? parseInt(value, 10) : 0;
+
+      // Calculate word identification
+      if (name === "read_regular_words" || name === "read_irregular_words") {
+        updatedValue.word_identification =
+          (updatedValue.read_regular_words || 0) +
+          (updatedValue.read_irregular_words || 0);
+      }
+
+      // Calculate spelling
+      if (name === "spell_regular_words" || name === "spell_irregular_words") {
+        updatedValue.spelling =
+          (updatedValue.spell_regular_words || 0) +
+          (updatedValue.spell_irregular_words || 0);
+      }
+
+      // Calculate fundamental literacy
+      if (
+        name === "read_regular_words" ||
+        name === "read_irregular_words" ||
+        name === "spell_regular_words" ||
+        name === "spell_irregular_words"
+      ) {
+        updatedValue.fundamental_literacy =
+          (updatedValue.word_identification || 0) +
+          (updatedValue.spelling || 0);
+      }
+
+      // Calculate sound symbol knowledge
+      if (name === "pseudo_words" || name === "letter_sounds") {
+        updatedValue.sound_symbol_knowledge =
+          (updatedValue.pseudo_words || 0) + (updatedValue.letter_sounds || 0);
+      }
     }
-    setKtea(updatedValue);
-  };
-  //function to handle click of submit button
+    setValidationErrors((prevErrors) => {
+      const newErrors = { ...prevErrors };
+
+      // Validate date
+      if (name === "date") {
+        if (!value) {
+          newErrors.date = "Date is required";
+        } else if (new Date(value) > new Date()) {
+          newErrors.date = "Date cannot be in the future";
+        } else {
+          newErrors.date = "";
+        }
+      }
+      //validate examiner id
+      if (name === "examiner_id") {
+        if (!value) {
+          newErrors.examiner_id = "Examiner is required";
+        } else {
+          newErrors.examiner_id = "";
+        }
+      }
+
+      return newErrors;
+    });
+    setNewKtea(updatedValue);
+  }; //end handle change
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Validate all inputs before submission
+    const newErrors = {};
+    if (!newKtea.date) {
+      newErrors.date = "Date is required";
+    } else if (new Date(newKtea.date) > new Date()) {
+      newErrors.date = "Date cannot be in the future";
+    }
 
-    // Ensure the examiner_id is updated
+    if (!newKtea.examiner_id) {
+      newErrors.examiner_id = "Examiner is required";
+    }
+
+    setValidationErrors(newErrors);
+
+    // Check if there are any errors
+    if (Object.keys(newErrors).length > 0) {
+      console.log("Validation failed");
+      return;
+    }
+
     const submissionData = {
       ...newKtea,
       examiner_id: selectedExaminerId,
     };
 
     dispatch({
-      type: "ADD_KTEA",
-      payload: submissionData,
+      type: "UPDATE_KTEA",
+      payload: { ...submissionData, id: testId.id },
     });
 
-    history.push(`/students/${student.id}`);
-    //history.push back to student details
+    history.push(`/students/${selectedTest.student_id}`);
   };
+
+  const handleGoBack = () => {
+    history.goBack();
+  };
+
+  if (!selectedTest) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <>
-      <h1 className="text-3xl text-center mb-4 bg-primary-100">KTEA</h1>
+      {/* <h1 className="text-2xl text-center mb-4">
+        Test on: {formatDate(selectedTest.date)}{" "}
+      </h1> */}
+      <h1 className="text-3xl text-center mb-4">
+        Edit KTEA from: {formatDate(selectedTest.date)}
+      </h1>
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
-        GO BACK
+        Go Back
       </Button>
       <Paper elevation={3} className="p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -117,7 +208,6 @@ const AddKtea = () => {
                 />
               </FormControl>
             </Grid>
-
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -135,7 +225,6 @@ const AddKtea = () => {
                 </Select>
               </FormControl>
             </Grid>
-
             {/* LWR Scaled Score */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -196,18 +285,20 @@ const AddKtea = () => {
               </FormControl>
             </Grid>
           </Grid>
+
           <Button
             type="submit"
             variant="contained"
             color="primary"
             className="mt-4"
           >
-            Submit
+            Save Changes
           </Button>
+          <Button onClick={handleGoBack}>Go Back</Button>
         </form>
       </Paper>
     </>
   );
 };
 
-export default AddKtea;
+export default EditKteaResults;

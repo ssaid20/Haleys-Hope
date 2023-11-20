@@ -1,7 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool");
+const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
+cloudinary.config({
+  cloud_name: "dkpzxau0g",
+  api_key: "186839942639844",
+  api_secret: "D0nFz2SMjJgdjlTcC5VGOmdvev0",
+});
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  folder: "student_pictures",
+  allowedFormats: ["jpg", "png"],
+});
+const parser = multer({ storage: storage });
 // GET route to fetch all students with all their information
 router.get("/", (req, res) => {
   const queryText = 'SELECT * FROM "students" WHERE "is_active" = TRUE';
@@ -28,8 +42,7 @@ router.get("/archived-students", (req, res) => {
 // GET route to fetch a specific student by ID with all their details
 router.get("/:id", (req, res) => {
   const studentId = req.params.id;
-  const queryText =
-    'SELECT * FROM "students" WHERE "id" = $1 AND "is_active" = TRUE';
+  const queryText = 'SELECT * FROM "students" WHERE "id" = $1';
   pool
     .query(queryText, [studentId])
     .then((result) => {
@@ -69,8 +82,9 @@ router.get("/archived-student/:id", (req, res) => {
 });
 
 // POST route to add a new student
-router.post("/", (req, res) => {
+router.post("/", parser.single("picture"), (req, res) => {
   const newStudent = req.body;
+  const pictureUrl = req.file ? req.file.path : null;
   const queryText = `
     INSERT INTO "students" (
       "first_name", "last_name", "grade", "gender", "dob", 
@@ -86,7 +100,8 @@ router.post("/", (req, res) => {
     newStudent.gender,
     newStudent.dob,
     newStudent.city,
-    newStudent.picture,
+    // newStudent.picture,
+    pictureUrl,
     newStudent.school,
     newStudent.on_site,
     newStudent.barton_c,
@@ -106,13 +121,15 @@ router.post("/", (req, res) => {
 });
 
 // PUT route to update a student's information
-router.put("/:id", (req, res) => {
+router.put("/:id", parser.single("picture"), (req, res) => {
   const studentId = req.params.id;
   const updatedStudent = req.body;
+  console.log(req.body);
+  const pictureUrl = req.file ? req.file.path : updatedStudent.picture;
   const queryText = `UPDATE "students" SET
     "first_name" = $1, "last_name" = $2, "grade" = $3, "gender" = $4, "dob" = $5, 
-    "city" = $6, "school" = $7, "on_site" = $8, 
-    "barton_c" = $9, "barton_c_date" = $10, "state" = $11, "start_date" = $12, "is_active" = $13, "coach_id" = $14 WHERE "id" = $15`;
+    "city" = $6,"picture" = $7, "school" = $8, "on_site" = $9, 
+    "barton_c" = $10, "barton_c_date" = $11, "state" = $12, "start_date" = $13, "is_active" = $14, "coach_id" = $15 WHERE "id" = $16`;
 
   const values = [
     updatedStudent.first_name,
@@ -121,6 +138,8 @@ router.put("/:id", (req, res) => {
     updatedStudent.gender,
     updatedStudent.dob,
     updatedStudent.city,
+    updatedStudent.picture,
+    // pictureUrl,
     updatedStudent.school,
     updatedStudent.on_site,
     updatedStudent.barton_c,

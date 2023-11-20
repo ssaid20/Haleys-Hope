@@ -78,7 +78,6 @@ const AddKtea = () => {
   //function to handle click of submit button
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("New KTEA Entry:", newKtea);
 
     // Ensure the examiner_id is updated
     const submissionData = {

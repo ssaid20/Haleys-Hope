@@ -36,18 +36,13 @@ router.get("/kteaResults/:testId", (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      console.error(
-        "Error completing SELECT KTEA query for test id",
-        err
-      );
+      console.error("Error completing SELECT KTEA query for test id", err);
       res.sendStatus(500);
     });
 });
 
 // POST route for KTEA
 router.post("/", async (req, res) => {
-  console.log(req.params);
-  console.log(req.body);
   try {
     const {
       student_id,

@@ -13,12 +13,44 @@ router.get("/", (req, res) => {
       res.sendStatus(500);
     });
 });
+// GET route to fetch all  archived students with all their information
+router.get("/archived-students", (req, res) => {
+  const queryText = 'SELECT * FROM "students" WHERE "is_active" = FALSE';
+  pool
+    .query(queryText)
+    .then((result) => res.send(result.rows))
+    .catch((err) => {
+      console.error("Error in GET all archived students", err);
+      res.sendStatus(500);
+    });
+});
 
 // GET route to fetch a specific student by ID with all their details
 router.get("/:id", (req, res) => {
   const studentId = req.params.id;
   const queryText =
     'SELECT * FROM "students" WHERE "id" = $1 AND "is_active" = TRUE';
+  pool
+    .query(queryText, [studentId])
+    .then((result) => {
+      if (result.rows.length === 0) {
+        res.status(404).send("Student not found");
+      } else {
+        res.send(result.rows[0]);
+      }
+    })
+    .catch((err) => {
+      // console.error("Error in GET specific student", err);
+      //commented out for now,
+      //this error shows up every time we move to student details page
+      res.sendStatus(500);
+    });
+});
+// GET route to fetch a specific archived student by ID with all their details
+router.get("/archived-student/:id", (req, res) => {
+  const studentId = req.params.id;
+  const queryText =
+    'SELECT * FROM "students" WHERE "id" = $1 AND "is_active" = FALSE';
   pool
     .query(queryText, [studentId])
     .then((result) => {

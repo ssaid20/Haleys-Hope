@@ -7,7 +7,7 @@ const {
 
 //Routes for GORT-5 test
 //GORT GET ROUTE
-router.get("/:studentId", async (req, res) => {
+router.get("/:studentId", rejectUnauthenticated, async (req, res) => {
   try {
     const studentId = req.params.studentId; // TODO: may just be id from front end
 
@@ -25,7 +25,7 @@ router.get("/:studentId", async (req, res) => {
 module.exports = router;
 
 //router to get a specific test for gort
-router.get("/gortResults/:testId", (req, res) => {
+router.get("/gortResults/:testId", rejectUnauthenticated, (req, res) => {
   const testId = req.params.testId;
   const queryText = 'SELECT * FROM "gort" WHERE "id" = $1';
   pool
@@ -40,7 +40,7 @@ router.get("/gortResults/:testId", (req, res) => {
 });
 
 // GORT POST ROUTE
-router.post("/", async (req, res) => {
+router.post("/", rejectUnauthenticated, async (req, res) => {
   try {
     const {
       date,
@@ -101,7 +101,7 @@ router.post("/", async (req, res) => {
 });
 
 // GORT PUT ROUTE
-router.put("/:student_id/:id", (req, res) => {
+router.put("/:student_id/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id;
   const testId = req.params.id;
 
@@ -210,7 +210,7 @@ router.put("/:student_id/:id", (req, res) => {
 //   }
 // });
 // DELETE route to remove a specific record for a given student
-router.delete("/:student_id/:id", (req, res) => {
+router.delete("/:student_id/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id; // Identifier for the specific student
   const recordId = req.params.id; // This is the unique identifier for the specific test
 

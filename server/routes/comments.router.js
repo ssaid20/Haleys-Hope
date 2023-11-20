@@ -1,9 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool");
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 // GET route to fetch all comments
-router.get("/", (req, res) => {
+router.get("/", rejectUnauthenticated, (req, res) => {
   const queryText = 'SELECT * FROM "student_comments ORDER BY "date" DESC"';
   //const queryText = 'SELECT id, student_id, comments, name, date FROM "student_comments"';
   pool
@@ -16,7 +19,7 @@ router.get("/", (req, res) => {
 });
 
 // GET route to fetch a specific comment by studentId
-router.get("/:id", (req, res) => {
+router.get("/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.id;
   console.log("reqqq.paarraaaammmas", req.params);
   const queryText = 'SELECT * FROM "student_comments" WHERE "student_id" = $1';
@@ -36,7 +39,7 @@ router.get("/:id", (req, res) => {
 });
 
 // POST route to add a new comment
-router.post("/", (req, res) => {
+router.post("/", rejectUnauthenticated, (req, res) => {
   const newComment = req.body;
   const queryText = `
     INSERT INTO "student_comments" ("student_id", "comments", "name", "date") 
@@ -59,7 +62,7 @@ router.post("/", (req, res) => {
 });
 
 // PUT route to update a comment's information
-router.put("/:studentId/:commentId", (req, res) => {
+router.put("/:studentId/:commentId", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.studentId;
   const commentId = req.params.commentId;
   console.log("req.params", req.params);
@@ -90,7 +93,7 @@ router.put("/:studentId/:commentId", (req, res) => {
 });
 
 // DELETE route to remove a comment
-router.delete("/:id", (req, res) => {
+router.delete("/:id", rejectUnauthenticated, (req, res) => {
   const commentId = req.params.id;
   const queryText = `DELETE FROM "student_comments" WHERE "id" = $1`;
 

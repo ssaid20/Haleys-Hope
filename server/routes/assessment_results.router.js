@@ -1,9 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool");
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 // GET request for the YOUNGER versions of the CTOPP and WIST with regular GORT
-router.get("/younger/:studentId", (req, res) => {
+router.get("/younger/:studentId", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.studentId;
   const queryText = `
   SELECT
@@ -50,7 +53,7 @@ WHERE
 });
 
 // GET request for OLDER versions of CTOPP and WIST with regular GORT
-router.get("/older/:studentId", (req, res) => {
+router.get("/older/:studentId", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.studentId;
   const queryText = `
     SELECT

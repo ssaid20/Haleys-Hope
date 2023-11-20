@@ -1,9 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool");
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 // GET route to fetch younger ctopp tests for a specific student
-router.get("/:student_id", (req, res) => {
+router.get("/:student_id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id;
   const queryText = 'SELECT * FROM "younger_ctopp" WHERE "student_id" = $1';
 
@@ -17,25 +20,29 @@ router.get("/:student_id", (req, res) => {
 });
 
 //router to get a specific test
-router.get("/youngerCtoppResults/:testId", (req, res) => {
-  const testId = req.params.testId;
-  const queryText = 'SELECT * FROM "younger_ctopp" WHERE "id" = $1';
-  pool
-    .query(queryText, [testId])
-    .then((result) => {
-      res.send(result.rows);
-    })
-    .catch((err) => {
-      console.error(
-        "Error completing SELECT younger_ctopp query for test id",
-        err
-      );
-      res.sendStatus(500);
-    });
-});
+router.get(
+  "/youngerCtoppResults/:testId",
+  rejectUnauthenticated,
+  (req, res) => {
+    const testId = req.params.testId;
+    const queryText = 'SELECT * FROM "younger_ctopp" WHERE "id" = $1';
+    pool
+      .query(queryText, [testId])
+      .then((result) => {
+        res.send(result.rows);
+      })
+      .catch((err) => {
+        console.error(
+          "Error completing SELECT younger_ctopp query for test id",
+          err
+        );
+        res.sendStatus(500);
+      });
+  }
+);
 
 // POST route to add a new record for a specific student
-router.post("/", (req, res) => {
+router.post("/", rejectUnauthenticated, (req, res) => {
   //const newYCtopp = req.body.id;
   const newYCtopp = req.body;
   // Check if student_id is provided
@@ -87,7 +94,7 @@ router.post("/", (req, res) => {
 });
 
 // UPDATE route to modify a specific record for a given student
-router.put("/:student_id/:id", (req, res) => {
+router.put("/:student_id/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id;
   const recordId = req.params.id;
   const updatedYCtopp = req.body;
@@ -123,7 +130,7 @@ router.put("/:student_id/:id", (req, res) => {
 }); // end router.put
 
 // DELETE route to remove a specific record for a given student
-router.delete("/:student_id/:id", (req, res) => {
+router.delete("/:student_id/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id; //Unique identifier for specific student
   const recordId = req.params.id; // This is the unique identifier for the specific test
 

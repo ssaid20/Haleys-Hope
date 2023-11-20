@@ -181,7 +181,11 @@ const EditSecondaryWistResults = () => {
       ...newWist,
       examiner_id: selectedExaminerId,
     };
-
+    console.log(
+      "update wist edit page, sub data, testId",
+      submissionData,
+      testId.id
+    );
     dispatch({
       type: "UPDATE_SECONDARY_WIST",
       payload: { ...submissionData, id: testId.id },

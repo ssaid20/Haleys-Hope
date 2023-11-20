@@ -12,13 +12,8 @@ import TableRow from "@mui/material/TableRow";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { calculateAge } from "../../lib/utils";
-import TextField from "@mui/material/TextField";
-import Fuse from "fuse.js";
-import ArchivedStudentList from "../ArchivedStudentList/ArchivedStudentList";
-import Button from "@mui/material/Button";
 
 const columns = [
-  // { id: "id", label: "ID", minWidth: 100 }, // took id out student list
   { id: "picture", label: "Picture", minWidth: 170 },
   { id: "name", label: "Name", minWidth: 170 },
   { id: "age", label: "Age", minWidth: 80 },
@@ -26,32 +21,19 @@ const columns = [
   { id: "city", label: "City", minWidth: 150 },
   { id: "state", label: "State", minWidth: 150 },
   { id: "start_date", label: "Start Date", minWidth: 130 },
-  // { id: "gender", label: "Gender", minWidth: 100 },
-
-  // { id: "dob", label: "Date of Birth", minWidth: 130 },
-  // { id: "school", label: "School", minWidth: 160 },
-  // { id: "address", label: "Address", minWidth: 200 },
-  // { id: "county", label: "County", minWidth: 150 },
-  // { id: "zip_code", label: "Zip Code", minWidth: 120 }, // may be able to grab city and state from here
-  // { id: "on_site", label: "Status", minWidth: 120 }, *** only need on more details ***
 ];
 
-const StudentList = () => {
+const ArchivedStudentList = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const students = useSelector((store) => store.studentReducer.list);
+  const students = useSelector((store) => store.studentReducer.archivedList);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [query, setQuery] = useState('');
+
   useEffect(() => {
-    dispatch({ type: "FETCH_STUDENTS" });
+    dispatch({ type: "FETCH_ARCHIVED_STUDENTS" });
   }, [dispatch]);
-  const fuse = new Fuse(students, {
-    keys: ['first_name', 'last_name', 'city', 'state'],
-    includeScore: true,
-    threshold: 0.3,
-  });
-  const searchResults = query ? fuse.search(query).map(result => result.item) : students;
+
   // Handlers for pagination
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -61,39 +43,9 @@ const StudentList = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-  useEffect(() => {
-    setPage(0); // Reset to the first page when the query changes
-  }, [query]);
-
-  const [showArchived, setShowArchived] = useState(false); //state to show archived students
-  // function to toggle archived viewable or not
-  const handleToggleArchived = () => {
-    setShowArchived(!showArchived);
-    if (!showArchived) {
-      dispatch({ type: "FETCH_ARCHIVED_STUDENTS" });
-    }
-  };
-
-  console.log("logging Students in list", students);
+  console.log("logging archived Students in list", students);
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-     {/* <TextField
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        label="Search Students"
-        variant="outlined"
-        fullWidth
-        style={{ marginBottom: '20px' }}
-      /> */}
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleToggleArchived}
-        style={{ margin: "10px" }}
-      >
-        {showArchived ? "View Active Students" : "View Archived Students"}
-      </Button>
       <TableContainer sx={{ maxHeight: 840 }}>
         <Table stickyHeader aria-label="student table">
           <TableHead>
@@ -136,7 +88,9 @@ const StudentList = () => {
                     role="checkbox"
                     tabIndex={-1}
                     key={student.id}
-                    onClick={() => history.push(`/students/${student.id}`)}
+                    onClick={() =>
+                      history.push(`/students/archived-student/${student.id}`)
+                    }
                     style={{ cursor: "pointer" }}
                   >
                     {columns.map((column) => {
@@ -156,15 +110,14 @@ const StudentList = () => {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={searchResults.length} // Use searchResults.length for correct pagination
+        count={students.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-      {showArchived ? <ArchivedStudentList /> : null}
     </Paper>
   );
 };
 
-export default StudentList;
+export default ArchivedStudentList;

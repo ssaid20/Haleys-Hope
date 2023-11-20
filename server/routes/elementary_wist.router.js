@@ -112,6 +112,7 @@ router.post("/", (req, res) => {
 router.put("/:student_id/:id", (req, res) => {
   const studentId = req.params.student_id;
   const recordId = req.params.id;
+
   const updatedWist = req.body;
 
   // Constructing the query dynamically based on the fields provided in the body

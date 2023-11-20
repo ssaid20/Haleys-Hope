@@ -15,7 +15,6 @@ function* fetchElementaryWist(action) {
 }
 //saga for fetching a specific test data
 function* fetchElementaryWistResult(action) {
-  console.log("Action.payload in fetch saga for elem wist", action.payload);
   try {
     const response = yield call(
       axios.get,
@@ -43,9 +42,14 @@ function* addElementaryWist(action) {
 function* updateElementaryWist(action) {
   try {
     yield call(
-      axios.put,
-      `/api/elementary_wist/${action.payload.student_id}/${action.payload.id}`,
-      action.payload
+      // axios.put,
+
+      // `/api/elementary_wist/${action.payload.student_id}/${action.payload.id}`,
+      // action.payload
+      axios.put(
+        `/api/elementary_wist/${action.payload.student_id}/${action.payload.id}`,
+        action.payload
+      )
     );
     yield put({
       type: "FETCH_ELEMENTARY_WIST",

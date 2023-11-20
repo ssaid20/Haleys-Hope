@@ -75,9 +75,10 @@ router.post("/", async (req, res) => {
   }
 });
 // PUT route for KTEA
-router.put("/:studentId", async (req, res) => {
+router.put("/:student_id/:id", async (req, res) => {
   try {
-    const studentId = req.params.studentId; // TODO: may just be id from front end
+    const studentId = req.params.student_id; // TODO: may just be id from front end
+    const testId = req.params.id;
     const {
       date,
       examiner_id,

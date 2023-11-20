@@ -204,7 +204,7 @@ const AddYoungerCtopp = () => {
                 />
               </FormControl>
             </Grid>
-            {/* Sound Mathing Scaled Score */}
+            {/* Sound Matching Scaled Score */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <FormLabel>Sound Matching Scaled Score:</FormLabel>
@@ -218,6 +218,7 @@ const AddYoungerCtopp = () => {
                 />
               </FormControl>
             </Grid>
+
             {/* Memory for Digits Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>

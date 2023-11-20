@@ -37,6 +37,7 @@ import KteaResults from "../TestResults/KteaResults";
 import StudentForm from "../Forms/StudentForm";
 import EditElementaryWistResults from "../EditTests/EditElementaryWistResults";
 import EditSecondaryWistResults from "../EditTests/EditSecondaryWistResults";
+import EditYoungerCtoppResults from "../EditTests/EditYoungerCtoppResults";
 
 function App() {
   const dispatch = useDispatch();
@@ -110,6 +111,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact path="/addYoungerCtopp/:id">
             <AddYoungerCtopp />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/EditYoungerCtoppResults/:id">
+            <EditYoungerCtoppResults />
           </ProtectedRoute>
           <ProtectedRoute exact path="/addOlderCtopp/:id">
             <AddOlderCtopp />

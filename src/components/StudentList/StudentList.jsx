@@ -113,6 +113,15 @@ const StudentList = () => {
       </div>
 
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleToggleArchived}
+          style={{ margin: "10px" }}
+        >
+          {showArchived ? "View Active Students" : "View Archived Students"}
+        </Button>
+
         <TableContainer sx={{ maxHeight: 840 }}>
           <Table stickyHeader aria-label="student table">
             <TableHead>
@@ -182,7 +191,7 @@ const StudentList = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
         {showArchived ? <ArchivedStudentList /> : null}
-    </Paper>
+      </Paper>
     </>
   );
 };

@@ -14,6 +14,7 @@ import { useHistory } from "react-router-dom";
 import { calculateAge } from "../../lib/utils";
 import TextField from "@mui/material/TextField";
 import Fuse from "fuse.js";
+import Searchbar from "../shared/Searchbar";
 
 const columns = [
   // { id: "id", label: "ID", minWidth: 100 }, // took id out student list
@@ -40,10 +41,13 @@ const StudentList = () => {
   const students = useSelector((store) => store.studentReducer.list);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const processedSearchResults = searchResults.map((result) => result.item);
   useEffect(() => {
     dispatch({ type: "FETCH_STUDENTS" });
   }, [dispatch]);
- 
+
   // Handlers for pagination
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -53,21 +57,38 @@ const StudentList = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
   useEffect(() => {
+    const fuse = new Fuse(students, {
+      keys: ["first_name", "last_name", "id"],
+      threshold: 0.3,
+    });
+
+    if (!searchQuery) {
+      setSearchResults([]);
+    } else {
+      const results = fuse.search(searchQuery);
+      setSearchResults(results);
+    }
+  }, [searchQuery, students]);
+
+  const handleSearchInputChange = (value) => {
+    setSearchQuery(value);
     setPage(0); // Reset to the first page when the query changes
-  }, [query]);
+  };
+
+  const displayedStudents = searchQuery ? searchResults : students;
   console.log("logging Students in list", students);
   return (
     <>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        {/* <TextField
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        label="Search Students"
-        variant="outlined"
-        fullWidth
-        style={{ marginBottom: '20px' }}
-      /> */}
+        <Searchbar
+          query={searchQuery}
+          setQuery={handleSearchInputChange} // Updated to use the revised function
+          iconPosition="left"
+          imgSrc="assets/search.svg"
+          placeholder="Search Students"
+        />
         <TableContainer sx={{ maxHeight: 840 }}>
           <Table stickyHeader aria-label="student table">
             <TableHead>
@@ -84,7 +105,7 @@ const StudentList = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {students
+              {displayedStudents
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((student) => {
                   const formattedStudent = {
@@ -130,7 +151,7 @@ const StudentList = () => {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={searchResults.length} // Use searchResults.length for correct pagination
+          count={students.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

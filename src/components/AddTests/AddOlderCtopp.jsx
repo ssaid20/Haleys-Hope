@@ -11,6 +11,9 @@ import {
   FormControl,
   FormLabel,
   Paper,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 
 //component to add a new Secondary ctopp test
@@ -18,6 +21,9 @@ const AddOlderCtopp = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
+  const users = useSelector((store) => store.allUsersReducer.users);
+
+  const [selectedExaminerId, setSelectedExaminerId] = useState("");
 
   const [validationErrors, setValidationErrors] = useState({
     //state for validation errors
@@ -59,6 +65,16 @@ const AddOlderCtopp = () => {
     rapid_symbolic_naming_percentile: null,
     alt_phonological_awareness_percentile: null,
   });
+
+  const handleExaminerChange = (event) => {
+    const examinerId = event.target.value;
+    setSelectedExaminerId(examinerId);
+    setNewCtopp((prevCtopp) => ({
+      ...prevCtopp,
+      examiner_id: examinerId,
+    }));
+  };
+
   const handleGoBack = () => {
     history.push(`/students/${student.id}`);
   };
@@ -72,10 +88,7 @@ const AddOlderCtopp = () => {
 
       return newErrors;
     });
-    // setNewCtopp((prevCtopp) => ({
-    //   ...prevCtopp,
-    //   [name]: value === "" ? null : Number(value),
-    // }));
+
     setNewCtopp((prevCtopp) => ({
       ...prevCtopp,
       [name]: value, // Use computed property name to update the state
@@ -105,9 +118,15 @@ const AddOlderCtopp = () => {
       return;
     }
 
+    // Ensure the examiner_id is updated
+    const submissionData = {
+      ...newCtopp,
+      examiner_id: selectedExaminerId,
+    };
+
     dispatch({
       type: "ADD_OLDER_CTOPP",
-      payload: newCtopp,
+      payload: submissionData,
     });
 
     history.push(`/students/${student.id}`);
@@ -141,35 +160,22 @@ const AddOlderCtopp = () => {
                 />
               </FormControl>
             </Grid>
-            {/* Student ID Field */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Student ID:</FormLabel>
-                <TextField
-                  type="number"
-                  id="student_id"
-                  name="student_id"
-                  value={newCtopp.student_id}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
 
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Examiner ID:</FormLabel>
-                <TextField
-                  type="number"
-                  id="examiner_id"
-                  name="examiner_id"
-                  value={newCtopp.examiner_id}
-                  onChange={handleChange}
-                  variant="outlined"
-                  error={!!validationErrors.examiner_id}
-                  helperText={validationErrors.examiner_id}
-                />
+                <InputLabel>Examiner</InputLabel>
+                <Select
+                  value={selectedExaminerId}
+                  label="Examiner"
+                  onChange={handleExaminerChange}
+                >
+                  {users.map((user) => (
+                    <MenuItem key={user.id} value={user.id}>
+                      {user.first_name} {user.last_name}
+                    </MenuItem>
+                  ))}
+                </Select>
               </FormControl>
             </Grid>
 

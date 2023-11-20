@@ -15,15 +15,67 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
+import "./StudentCard.css";
 
 const StudentCard = () => {
   const dispatch = useDispatch();
   const student = useSelector((store) => store.studentReducer.Details);
+  const coach = useSelector((store) => store.coachReducer.list);
+  console.log("Student card coach reducer:", coach);
   // const studentId = useParams();
   const { id: studentId } = useParams();
+  console.log(coach);
+  //find the coach that matches a students coach id
+  const studentCoachId = Number(student.coach_id);
+
+  //setting state to open and close sheet
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+
+  // setting original data so if user doesn't save, or just exits the window, it reverts back to original data
+  const [originalData, setOriginalData] = useState({});
+
+  //state for validation errors
+  const [validationErrors, setValidationErrors] = useState({});
+
+  //function to check for empty inputs and display an error if left empty
+  const validateForm = () => {
+    let errors = {};
+    let isValid = true;
+
+    if (!formData.first_name) {
+      errors.first_name = "Please enter a first name";
+    }
+    // Validate last name
+    if (!formData.last_name) {
+      errors.last_name = "Please enter a last name";
+    }
+
+    // Validate grade
+    if (!formData.grade) {
+      errors.grade = "Please enter a grade";
+    }
+
+    // Validate dob, wont work with a date input, need better error display for this
+    // if (!formData.dob) {
+    //   errors.dob = "Please enter Date of Birth";
+    // }
+
+    // Validate start date, this wont work with date field, need a better error for this
+    // if (!formData.start_date) {
+    //   errors.start_date = "Start Date is required";
+    // }
+    setValidationErrors(errors);
+    return isValid;
+  };
+
+  //looping and finding a coach for the student
+  const matchingCoach = coach.find((c) => c.id === student.coach_id);
+  //combining first name and last name
+  const coachName = matchingCoach?.first_name + " " + matchingCoach?.last_name;
 
   useEffect(() => {
     dispatch({ type: "FETCH_STUDENT", payload: studentId });
+    dispatch({ type: "FETCH_COACHES", payload: studentId });
   }, [dispatch, studentId]);
 
   // State to hold form data
@@ -41,12 +93,13 @@ const StudentCard = () => {
     on_site: true,
     start_date: "",
     is_active: "",
+    coach_id: "",
   });
 
   useEffect(() => {
     if (student) {
       console.log("Incoming student data:", student);
-      setFormData({
+      const studentData = {
         first_name: student.first_name || "",
         last_name: student.last_name || "",
         grade: student.grade || "",
@@ -62,30 +115,51 @@ const StudentCard = () => {
         on_site: student.on_site || true,
         start_date: student.start_date ? student.start_date.split("T")[0] : "",
         is_active: student.is_active || true,
-      });
+      };
+      setFormData(studentData);
+      setOriginalData(studentData); //store original data
       console.log("Updated formData state:", formData);
     }
   }, [student]);
-  // useEffect(() => {
-  //   console.log("Updated formData state:", formData);
-  // }, [formData]);
 
   const handleInputChange = (e) => {
     console.log("Input changed:", e.target.id, e.target.value);
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
+
+    // Clear error message for this field when user starts typing
+    if (validationErrors[id]) {
+      setValidationErrors({ ...validationErrors, [id]: "" });
+    }
   };
 
   const handleSubmit = () => {
-    dispatch({
-      type: "UPDATE_STUDENT",
-      payload: { id: studentId, ...formData },
-    });
+    if (validateForm()) {
+      dispatch({
+        type: "UPDATE_STUDENT",
+        payload: { id: studentId, ...formData },
+      });
+      setIsSheetOpen(false); // Close the sheet if form is valid
+    } else {
+      console.log("Validation failed");
+    }
   };
-
-  if (!student) {
-    return <div>Loading...</div>;
-  }
+  // function to reset for to original data when cancelled or sheet closed
+  const handleCancel = () => {
+    if (JSON.stringify(formData) !== JSON.stringify(originalData)) {
+      if (
+        window.confirm(
+          "You have unsaved changes. Are you sure you want to close?"
+        )
+      ) {
+        setFormData(originalData);
+        setValidationErrors({});
+        setIsSheetOpen(false);
+      }
+    } else {
+      setIsSheetOpen(false); // This will close the form if there are no unsaved changes
+    }
+  }; // end handleCancel
 
   const sheetStyle = {
     backgroundColor: "white",
@@ -108,7 +182,7 @@ const StudentCard = () => {
         />
 
         <Sheet>
-          <SheetTrigger asChild>
+          <SheetTrigger asChild onClick={() => setIsSheetOpen(true)}>
             <Button
               variant="outline"
               className="absolute top-2 right-2 text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
@@ -135,6 +209,8 @@ const StudentCard = () => {
                   id="first_name"
                   value={formData.first_name}
                   onChange={handleInputChange}
+                  placeholder={validationErrors.first_name || "First Name"}
+                  className={validationErrors.first_name ? "error-input" : ""}
                 />
 
                 <Label htmlFor="lastName">Last Name</Label>
@@ -142,6 +218,8 @@ const StudentCard = () => {
                   id="last_name"
                   value={formData.last_name}
                   onChange={handleInputChange}
+                  placeholder={validationErrors.last_name || "Last Name"}
+                  className={validationErrors.last_name ? "error-input" : ""}
                 />
 
                 <Label htmlFor="grade">Grade</Label>
@@ -150,6 +228,8 @@ const StudentCard = () => {
                   type="number"
                   value={formData.grade}
                   onChange={handleInputChange}
+                  placeholder={validationErrors.grade || "Grade"}
+                  className={validationErrors.grade ? "error-input" : ""}
                 />
 
                 <Label htmlFor="school">School</Label>
@@ -172,6 +252,8 @@ const StudentCard = () => {
                   type="date"
                   value={formData.dob}
                   onChange={handleInputChange}
+                  placeholder={validationErrors.dob || "Date of Birth"}
+                  className={validationErrors.dob ? "error-input" : ""}
                 />
 
                 <Label htmlFor="city">City</Label>
@@ -222,6 +304,8 @@ const StudentCard = () => {
                   type="date"
                   value={formData.start_date}
                   onChange={handleInputChange}
+                  placeholder={validationErrors.start_date || "Start Date"}
+                  className={validationErrors.start_date ? "error-input" : ""}
                 />
 
                 <Label htmlFor="is active">Current or Archive</Label>
@@ -233,18 +317,36 @@ const StudentCard = () => {
                   <option value="true">Current</option>
                   <option value="false">Archive</option>
                 </select>
+                <Label htmlFor="coach">Coach</Label>
+                <select
+                  id="coach_id"
+                  value={formData.coach_id}
+                  onChange={handleInputChange}
+                >
+                  {coach.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.first_name} {c.last_name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <SheetFooter>
-              <SheetClose asChild>
-                <Button
-                  onClick={handleSubmit}
-                  type="submit"
-                  className="bg-primary-500 text-white"
-                >
-                  Save Changes
-                </Button>
-              </SheetClose>
+              <Button
+                onClick={handleSubmit}
+                type="submit"
+                className="bg-primary-500 text-white"
+              >
+                Save Changes
+              </Button>
+              {/* <SheetClose asChild> */}
+              <Button
+                onClick={handleCancel}
+                className="bg-primary-500 text-white"
+              >
+                Close
+              </Button>
+              {/* </SheetClose> */}
             </SheetFooter>
           </SheetContent>
         </Sheet>
@@ -274,6 +376,13 @@ const StudentCard = () => {
           </p>
           <p className="body-regular text-dark500_light500">
             Barton C: {student.barton_c ? "Foundations" : "Barton"}
+          </p>
+          {/* <p className="body-regular text-dark500_light500">
+            Coach: {student.coach_id}
+          </p> */}
+          <p className="body-regular text-dark500_light500">
+            Coach: <br></br>
+            {coachName}
           </p>
           <p className="body-regular text-dark500_light500">
             On Site: {student.on_site ? "Yes" : "No"}

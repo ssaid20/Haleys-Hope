@@ -4,7 +4,17 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
-import { TextField, Button, Grid, FormControl, FormLabel, Paper } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Grid,
+  FormControl,
+  FormLabel,
+  Paper,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import "./AddElementaryWist.css";
 
 //component to add a new secondary wist test
@@ -12,12 +22,15 @@ const AddSecondaryWist = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
-
+  const users = useSelector((store) => store.allUsersReducer.users);
+  console.log("logging USERS in wist", users);
   const [validationErrors, setValidationErrors] = useState({
     //state for validation errors
     date: "",
     examiner_id: "",
   });
+
+  const [selectedExaminerId, setSelectedExaminerId] = useState("");
 
   // const todayDate = new Date().toISOString().split("T")[0]; //function to get todays date to auto populate
 
@@ -56,6 +69,16 @@ const AddSecondaryWist = () => {
     sound_symbol_knowledge_percentile: null,
     sound_symbol_knowledge_standard_score: null,
   });
+
+  const handleExaminerChange = (event) => {
+    const examinerId = event.target.value;
+    setSelectedExaminerId(examinerId);
+    setNewWist((prevWist) => ({
+      ...prevWist,
+      examiner_id: examinerId,
+    }));
+  };
+
   const handleGoBack = () => {
     history.push(`/students/${student.id}`);
   };
@@ -156,9 +179,16 @@ const AddSecondaryWist = () => {
       console.log("Validation failed");
       return;
     }
+
+    // Ensure the examiner_id is updated
+    const submissionData = {
+      ...newWist,
+      examiner_id: selectedExaminerId,
+    };
+
     dispatch({
       type: "ADD_SECONDARY_WIST",
-      payload: newWist,
+      payload: submissionData,
     });
 
     history.push(`/students/${student.id}`);
@@ -167,7 +197,9 @@ const AddSecondaryWist = () => {
 
   return (
     <>
-      <h1 className="text-3xl text-center mb-4 bg-primary-100">SECONDARY WIST </h1>
+      <h1 className="text-3xl text-center mb-4 bg-primary-100">
+        SECONDARY WIST{" "}
+      </h1>
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         GO BACK
       </Button>
@@ -190,35 +222,22 @@ const AddSecondaryWist = () => {
                 />
               </FormControl>
             </Grid>
-            {/* Student ID Field */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Student ID:</FormLabel>
-                <TextField
-                  type="number"
-                  id="student_id"
-                  name="student_id"
-                  value={newWist.student_id}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
 
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Examiner ID:</FormLabel>
-                <TextField
-                  type="number"
-                  id="examiner_id"
-                  name="examiner_id"
-                  value={newWist.examiner_id}
-                  onChange={handleChange}
-                  variant="outlined"
-                  error={!!validationErrors.examiner_id}
-                  helperText={validationErrors.examiner_id}
-                />
+                <InputLabel>Examiner</InputLabel>
+                <Select
+                  value={selectedExaminerId}
+                  label="Examiner"
+                  onChange={handleExaminerChange}
+                >
+                  {users.map((user) => (
+                    <MenuItem key={user.id} value={user.id}>
+                      {user.first_name} {user.last_name}
+                    </MenuItem>
+                  ))}
+                </Select>
               </FormControl>
             </Grid>
 
@@ -235,7 +254,7 @@ const AddSecondaryWist = () => {
                   variant="outlined"
                 />
               </FormControl>
-              </Grid>
+            </Grid>
             {/* Read Irregular Words Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -249,7 +268,7 @@ const AddSecondaryWist = () => {
                   variant="outlined"
                 />
               </FormControl>
-              </Grid>
+            </Grid>
             {/* Word Identification Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -264,7 +283,7 @@ const AddSecondaryWist = () => {
                   disabled
                 />
               </FormControl>
-              </Grid>
+            </Grid>
             {/* Word Identification Percentile Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -278,7 +297,7 @@ const AddSecondaryWist = () => {
                   variant="outlined"
                 />
               </FormControl>
-              </Grid>
+            </Grid>
             {/* Word Identification Standard Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -292,7 +311,7 @@ const AddSecondaryWist = () => {
                   variant="outlined"
                 />
               </FormControl>
-              </Grid>
+            </Grid>
             {/* Spell Regular Words Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -306,7 +325,7 @@ const AddSecondaryWist = () => {
                   variant="outlined"
                 />
               </FormControl>
-              </Grid>
+            </Grid>
             {/* Spell Irregular Words Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -320,7 +339,7 @@ const AddSecondaryWist = () => {
                   variant="outlined"
                 />
               </FormControl>
-              </Grid>
+            </Grid>
             {/* Spelling Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -335,7 +354,7 @@ const AddSecondaryWist = () => {
                   disabled
                 />
               </FormControl>
-              </Grid>
+            </Grid>
             {/* Spelling Percentile Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -349,7 +368,7 @@ const AddSecondaryWist = () => {
                   variant="outlined"
                 />
               </FormControl>
-              </Grid>
+            </Grid>
             {/* Spelling Standard Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -363,7 +382,7 @@ const AddSecondaryWist = () => {
                   variant="outlined"
                 />
               </FormControl>
-              </Grid>
+            </Grid>
             {/* Fundamental Literacy Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -378,7 +397,7 @@ const AddSecondaryWist = () => {
                   disabled
                 />
               </FormControl>
-              </Grid>
+            </Grid>
             {/* Fundamental Literacy Percentile Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -392,7 +411,7 @@ const AddSecondaryWist = () => {
                   variant="outlined"
                 />
               </FormControl>
-              </Grid>
+            </Grid>
             {/* Fundamental Literacy Standard Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -406,7 +425,7 @@ const AddSecondaryWist = () => {
                   variant="outlined"
                 />
               </FormControl>
-              </Grid>
+            </Grid>
             {/* Pseudo Words Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -420,7 +439,7 @@ const AddSecondaryWist = () => {
                   variant="outlined"
                 />
               </FormControl>
-              </Grid>
+            </Grid>
             {/* Letter Sounds Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -434,7 +453,7 @@ const AddSecondaryWist = () => {
                   variant="outlined"
                 />
               </FormControl>
-              </Grid>
+            </Grid>
             {/* Sound Symbol Knowledge Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -449,7 +468,7 @@ const AddSecondaryWist = () => {
                   disabled
                 />
               </FormControl>
-              </Grid>
+            </Grid>
             {/* Sound Symbol Knowledge Percentile Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -463,7 +482,7 @@ const AddSecondaryWist = () => {
                   variant="outlined"
                 />
               </FormControl>
-              </Grid>
+            </Grid>
             {/* Sound Symbol Knowledge Standard Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -477,8 +496,7 @@ const AddSecondaryWist = () => {
                   variant="outlined"
                 />
               </FormControl>
-              </Grid>
-
+            </Grid>
           </Grid>
           <Button
             type="submit"

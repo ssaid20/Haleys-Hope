@@ -43,7 +43,9 @@ router.get("/:id", (req, res) => {
       }
     })
     .catch((err) => {
-      console.error("Error in GET specific student", err);
+      // console.error("Error in GET specific student", err);
+      //commented out for now,
+      //this error shows up every time we move to student details page
       res.sendStatus(500);
     });
 });
@@ -95,7 +97,7 @@ router.put("/:id", parser.single('picture'), (req, res) => {
   const queryText = `UPDATE "students" SET
     "first_name" = $1, "last_name" = $2, "grade" = $3, "gender" = $4, "dob" = $5, 
     "city" = $6, "school" = $7, "on_site" = $8, 
-    "barton_c" = $9, "barton_c_date" = $10, "state" = $11, "start_date" = $12, "is_active" = $13 WHERE "id" = $14`;
+    "barton_c" = $9, "barton_c_date" = $10, "state" = $11, "start_date" = $12, "is_active" = $13, "coach_id" = $14 WHERE "id" = $15`;
 
   const values = [
     updatedStudent.first_name,
@@ -112,6 +114,7 @@ router.put("/:id", parser.single('picture'), (req, res) => {
     updatedStudent.state,
     updatedStudent.start_date,
     updatedStudent.is_active,
+    updatedStudent.coach_id,
     studentId,
   ];
 

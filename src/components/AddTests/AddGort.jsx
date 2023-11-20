@@ -11,6 +11,9 @@ import {
   FormControl,
   FormLabel,
   Paper,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 
 //component to add a new Gort test
@@ -18,12 +21,15 @@ const AddGort = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
+  const users = useSelector((store) => store.allUsersReducer.users);
 
   const [validationErrors, setValidationErrors] = useState({
     //state for validation errors
     date: "",
     examiner_id: "",
   });
+
+  const [selectedExaminerId, setSelectedExaminerId] = useState("");
 
   useEffect(() => {
     if (student) {
@@ -57,6 +63,16 @@ const AddGort = () => {
     fluency_scaled_score: null,
     comprehension_scaled_score: null,
   });
+
+  const handleExaminerChange = (event) => {
+    const examinerId = event.target.value;
+    setSelectedExaminerId(examinerId);
+    setNewGort((prevGort) => ({
+      ...prevGort,
+      examiner_id: examinerId,
+    }));
+  };
+
   const handleGoBack = () => {
     history.push(`/students/${student.id}`);
   };
@@ -103,9 +119,15 @@ const AddGort = () => {
       return;
     }
 
+    // Ensure the examiner_id is updated
+    const submissionData = {
+      ...newGort,
+      examiner_id: selectedExaminerId,
+    };
+
     dispatch({
       type: "ADD_GORT",
-      payload: newGort,
+      payload: submissionData,
     });
 
     history.push(`/students/${student.id}`);
@@ -140,43 +162,22 @@ const AddGort = () => {
                 )}
               </FormControl>
             </Grid>
-            {/* Student ID Field */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Student ID:</FormLabel>
-                <TextField
-                  type="number"
-                  id="student_id"
-                  name="student_id"
-                  value={newGort.student_id}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-                {validationErrors.student_id && (
-                  <div className="text-red-500 text-xs italic">
-                    {validationErrors.student_id}
-                  </div>
-                )}
-              </FormControl>
-            </Grid>
 
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Examiner ID:</FormLabel>
-                <TextField
-                  type="number"
-                  id="examiner_id"
-                  name="examiner_id"
-                  value={newGort.examiner_id}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-                {validationErrors.examiner_id && (
-                  <div className="text-red-500 text-xs italic">
-                    {validationErrors.examiner_id}
-                  </div>
-                )}
+                <InputLabel>Examiner</InputLabel>
+                <Select
+                  value={selectedExaminerId}
+                  label="Examiner"
+                  onChange={handleExaminerChange}
+                >
+                  {users.map((user) => (
+                    <MenuItem key={user.id} value={user.id}>
+                      {user.first_name} {user.last_name}
+                    </MenuItem>
+                  ))}
+                </Select>
               </FormControl>
             </Grid>
 

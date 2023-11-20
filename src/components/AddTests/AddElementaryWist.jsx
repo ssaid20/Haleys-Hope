@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   useHistory,
   useParams,
@@ -11,6 +12,9 @@ import {
   FormControl,
   FormLabel,
   Paper,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import "./AddElementaryWist.css";
 
@@ -19,12 +23,15 @@ const AddElementaryWist = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
+  const users = useSelector((store) => store.allUsersReducer.users);
 
   const [validationErrors, setValidationErrors] = useState({
     //state for validation errors
     date: "",
     examiner_id: "",
   });
+
+  const [selectedExaminerId, setSelectedExaminerId] = useState("");
 
   // const todayDate = new Date().toISOString().split("T")[0]; //function to get todays date to auto populate
 
@@ -63,10 +70,21 @@ const AddElementaryWist = () => {
     sound_symbol_knowledge_percentile: null,
     sound_symbol_knowledge_standard_score: null,
   });
+
+  const handleExaminerChange = (event) => {
+    const examinerId = event.target.value;
+    setSelectedExaminerId(examinerId);
+    setNewWist((prevWist) => ({
+      ...prevWist,
+      examiner_id: examinerId,
+    }));
+  };
+
   const handleGoBack = () => {
     history.push(`/students/${student.id}`);
   };
 
+  console.log("new WIST", newWist);
   //function to handle inputs changing
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -140,7 +158,7 @@ const AddElementaryWist = () => {
     setNewWist(updatedValue);
   }; //end handle change
 
-  //function to handle click of submit button
+  //function to handle click of submit button and send newWist data
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -163,9 +181,16 @@ const AddElementaryWist = () => {
       console.log("Validation failed");
       return;
     }
+
+    // Ensure the examiner_id is updated
+    const submissionData = {
+      ...newWist,
+      examiner_id: selectedExaminerId,
+    };
+
     dispatch({
       type: "ADD_ELEMENTARY_WIST",
-      payload: newWist,
+      payload: submissionData,
     });
 
     history.push(`/students/${student.id}`);
@@ -202,43 +227,22 @@ const AddElementaryWist = () => {
                 )}
               </FormControl>
             </Grid>
-            {/* Student ID Field */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Student ID:</FormLabel>
-                <TextField
-                  type="number"
-                  id="student_id"
-                  name="student_id"
-                  value={newWist.student_id}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-                {validationErrors.student_id && (
-                  <div className="text-red-500 text-xs italic">
-                    {validationErrors.student_id}
-                  </div>
-                )}
-              </FormControl>
-            </Grid>
 
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <FormLabel>Examiner ID:</FormLabel>
-                <TextField
-                  type="number"
-                  id="examiner_id"
-                  name="examiner_id"
-                  value={newWist.examiner_id}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-                {validationErrors.examiner_id && (
-                  <div className="text-red-500 text-xs italic">
-                    {validationErrors.examiner_id}
-                  </div>
-                )}
+                <InputLabel>Examiner</InputLabel>
+                <Select
+                  value={selectedExaminerId}
+                  label="Examiner"
+                  onChange={handleExaminerChange}
+                >
+                  {users.map((user) => (
+                    <MenuItem key={user.id} value={user.id}>
+                      {user.first_name} {user.last_name}
+                    </MenuItem>
+                  ))}
+                </Select>
               </FormControl>
             </Grid>
 
@@ -284,6 +288,9 @@ const AddElementaryWist = () => {
                   value={newWist.word_identification}
                   onChange={handleChange}
                   variant="outlined"
+                  InputProps={{
+                    readOnly: true,
+                  }}
                 />
               </FormControl>
             </Grid>
@@ -359,6 +366,9 @@ const AddElementaryWist = () => {
                   value={newWist.spelling}
                   onChange={handleChange}
                   variant="outlined"
+                  InputProps={{
+                    readOnly: true,
+                  }}
                 />
               </FormControl>
             </Grid>
@@ -404,6 +414,9 @@ const AddElementaryWist = () => {
                   value={newWist.fundamental_literacy}
                   onChange={handleChange}
                   variant="outlined"
+                  InputProps={{
+                    readOnly: true,
+                  }}
                 />
               </FormControl>
             </Grid>
@@ -479,6 +492,9 @@ const AddElementaryWist = () => {
                   value={newWist.sound_symbol_knowledge}
                   onChange={handleChange}
                   variant="outlined"
+                  InputProps={{
+                    readOnly: true,
+                  }}
                 />
               </FormControl>
             </Grid>

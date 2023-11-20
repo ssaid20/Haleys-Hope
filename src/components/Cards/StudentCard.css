@@ -1,0 +1,5 @@
+.error-input::placeholder {
+  color: red; /* Red color for the error message */
+  font-size: 1em; /* Larger font size for visibility */
+  /* You can add more styles as needed */
+}

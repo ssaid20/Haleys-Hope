@@ -13,6 +13,7 @@ import {
   Checkbox,
 } from "@mui/material";
 import { useHistory } from "react-router-dom";
+import CloudifyUploadForm from "../Cloudinary/CloudinaryUploadForm";
 
 const StudentForm = () => {
   const dispatch = useDispatch();
@@ -77,6 +78,10 @@ const StudentForm = () => {
       <Paper style={{ padding: "20px", marginTop: "20px" }}>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
+            {/* Include CloudifyUploadForm for Image Upload */}
+            {/* <Grid item xs={12}>
+              <CloudifyUploadForm onImageUpload={(url) => setStudentData({ ...studentData, picture: url })} />
+            </Grid> */}
             <Grid item xs={12} md={6}>
               <TextField
                 label="First Name"

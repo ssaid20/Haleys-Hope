@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import WISTGraph from "../../Graph/WISTGraph";
 import GORT_5Graph from "../../Graph/GORT_5Graph";
+import CombinedGraph from "../../Graph/CombinedGraph";
 
 const GraphTab = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,11 @@ const gortData = gortTests?.map((test) => ({
       <OlderCtoppGraph testData={transformedData} />
       <WISTGraph testData={wistData} />
       <GORT_5Graph testData={gortData} />
+      <CombinedGraph
+        wistData={wistData}
+        olderCtoppData={transformedData}
+        gort5Data={gortData}
+      />
     </div>
   );
 };

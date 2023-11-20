@@ -1,7 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool");
-
+const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+          
+cloudinary.config({ 
+  cloud_name: 'dkpzxau0g', 
+  api_key: '186839942639844', 
+  api_secret: 'D0nFz2SMjJgdjlTcC5VGOmdvev0' 
+});
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  folder: 'student_pictures',
+  allowedFormats: ['jpg', 'png'],
+});
+const parser = multer({ storage: storage });
 // GET route to fetch all students with all their information
 router.get("/", (req, res) => {
   const queryText = 'SELECT * FROM "students" WHERE "is_active" = TRUE';
@@ -35,8 +49,9 @@ router.get("/:id", (req, res) => {
 });
 
 // POST route to add a new student
-router.post("/", (req, res) => {
+router.post("/", parser.single('picture'), (req, res) => {
   const newStudent = req.body;
+  const pictureUrl = req.file ? req.file.path : null;
   const queryText = `
     INSERT INTO "students" (
       "first_name", "last_name", "grade", "gender", "dob", 
@@ -52,7 +67,8 @@ router.post("/", (req, res) => {
     newStudent.gender,
     newStudent.dob,
     newStudent.city,
-    newStudent.picture,
+    // newStudent.picture,
+    pictureUrl,
     newStudent.school,
     newStudent.on_site,
     newStudent.barton_c,
@@ -72,9 +88,10 @@ router.post("/", (req, res) => {
 });
 
 // PUT route to update a student's information
-router.put("/:id", (req, res) => {
+router.put("/:id", parser.single('picture'), (req, res) => {
   const studentId = req.params.id;
   const updatedStudent = req.body;
+  const pictureUrl = req.file ? req.file.path : updatedStudent.picture;
   const queryText = `UPDATE "students" SET
     "first_name" = $1, "last_name" = $2, "grade" = $3, "gender" = $4, "dob" = $5, 
     "city" = $6, "school" = $7, "on_site" = $8, 
@@ -87,6 +104,7 @@ router.put("/:id", (req, res) => {
     updatedStudent.gender,
     updatedStudent.dob,
     updatedStudent.city,
+    pictureUrl,
     updatedStudent.school,
     updatedStudent.on_site,
     updatedStudent.barton_c,

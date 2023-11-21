@@ -13,11 +13,11 @@ const AssessmentCtoppE = () => {
     (assessment) => assessment.date === date
   );
   console.log("selected test is:", selectedTest, assessments);
-  // TODO: DOUBLE CHECK TO MAKE SURE IT IS GETTING FROM THE CORRECT CTOPP
+  // TODO: BOLD SPECIFIC ROWS
   return (
     <div style={{ border: "1px solid black" }}>
       <p style={{ color: "brown" }}> CTOPP-2 Ages 4-6</p>
-      <div //this div is card for WIST
+      <div //this div is card for CTOPP
       >
         <table>
           <thead>
@@ -34,9 +34,34 @@ const AssessmentCtoppE = () => {
               <td>{selectedTest.phonological_awareness_composite}</td>
             </tr>
             <tr>
+              <td>Elison</td>
+              <td>-</td>
+              <td>{selectedTest.elison_scaled_score}</td>
+            </tr>
+            <tr>
+              <td>Blending</td>
+              <td>-</td>
+              <td>{selectedTest.blending_words_scaled_score}</td>
+            </tr>
+            <tr>
+              <td>Phoneme Isolation</td>
+              <td>-</td>
+              <td>{selectedTest.phoneme_isolation_scaled_score}</td>
+            </tr>
+            <tr>
               <td>Phonological Memory: </td>
               <td>{selectedTest.phonological_memory_percentile}</td>
               <td>{selectedTest.phonological_memory_composite}</td>
+            </tr>
+            <tr>
+              <td>Memory for Digits</td>
+              <td>-</td>
+              <td>{selectedTest.memory_for_digits_scaled_score}</td>
+            </tr>
+            <tr>
+              <td>Non-Word Repetition</td>
+              <td>-</td>
+              <td>{selectedTest.nonword_repetition_scaled_score}</td>
             </tr>
             <tr>
               <td>Rapid Symbolic Naming: </td>
@@ -44,9 +69,14 @@ const AssessmentCtoppE = () => {
               <td>{selectedTest.rapid_symbolic_naming_composite}</td>
             </tr>
             <tr>
-              <td>Rapid Non-Symbolic Naming: </td>
-              <td>{selectedTest.rapid_non_symbolic_naming_percentile}</td>
-              <td>{selectedTest.rapid_non_symbolic_naming_composite}</td>
+              <td>Rapid Digit</td>
+              <td>-</td>
+              <td>{selectedTest.rapid_digit_naming_scaled_score}</td>
+            </tr>
+            <tr>
+              <td>Rapid Letter</td>
+              <td>-</td>
+              <td>{selectedTest.rapid_letter_naming_scaled_score}</td>
             </tr>
           </tbody>
         </table>

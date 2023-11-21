@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../lib/utils";
 import MiniStudentCard from "../Cards/MiniStudentCard";
 import { Button } from "@mui/material";
+import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
 
 const ElementaryWistResults = () => {
   const testId = useParams();
@@ -47,35 +48,13 @@ const ElementaryWistResults = () => {
           ) : (
             <p>Examiner ID: {selectedTest.examiner_id}</p>
           )}
-          <p>Fundamental Literacy: {selectedTest.fundamental_literacy}</p>
-          <p>
-            Fundamental Literacy Percentile:{" "}
-            {selectedTest.fundamental_literacy_percentile}
-          </p>
-          <p>
-            Fundamental Literacy Standard Score:{" "}
-            {selectedTest.fundamental_literacy_standard_score}
-          </p>
-          <p>Letter Sounds: {selectedTest.letter_sounds}</p>
-          <p>Pseudo Words: {selectedTest.pseudo_words}</p>
-          <p>Read Irregular Words: {selectedTest.read_irregular_words}</p>
-          <p>Read Regular Words: {selectedTest.read_regular_words}</p>
-          <p>Sound Symbol Knowledge: {selectedTest.sound_symbol_knowledge}</p>
-          <p>
-            Sound Symbol Knowledge Percentile:{" "}
-            {selectedTest.sound_symbol_knowledge_percentile}
-          </p>
-          <p>
-            Sound Symbol Knowledge Standard Score:{" "}
-            {selectedTest.sound_symbol_knowledge_standard_score}
-          </p>
-          <p>Spell Irregular Words: {selectedTest.spell_irregular_words}</p>
-          <p>Spell Regular Words: {selectedTest.spell_regular_words}</p>
-          <p>Spelling: {selectedTest.spelling}</p>
-          <p>Spelling Percentile: {selectedTest.spelling_percentile}</p>
-          <p>Spelling Standard Score: {selectedTest.spelling_standard_score}</p>
 
-          <p>Word Identification: {selectedTest.word_identification}</p>
+          <p>Read Regular Words: {selectedTest.read_regular_words}</p>
+          <p>Read Irregular Words: {selectedTest.read_irregular_words}</p>
+          <p>
+            Word Identification Raw Score: {selectedTest.word_identification}
+          </p>
+
           <p>
             Word Identification Percentile:{" "}
             {selectedTest.word_identification_percentile}
@@ -84,6 +63,61 @@ const ElementaryWistResults = () => {
             Word Identification Standard Score:{" "}
             {selectedTest.word_identification_standard_score}
           </p>
+          <p>Descriptive Term</p>
+          <GetCompositeScoreDescription
+            compositeScore={selectedTest.word_identification_standard_score}
+          />
+
+          <p>Spell Regular Words: {selectedTest.spell_regular_words}</p>
+          <p>Spell Irregular Words: {selectedTest.spell_irregular_words}</p>
+
+          <p>Spelling Raw Score: {selectedTest.spelling}</p>
+          <p>Spelling Percentile: {selectedTest.spelling_percentile}</p>
+          <p>Spelling Standard Score: {selectedTest.spelling_standard_score}</p>
+          <p>Descriptive Term</p>
+          <GetCompositeScoreDescription
+            compositeScore={selectedTest.spelling_standard_score}
+          />
+          <p>
+            Word Identification Raw Score: {selectedTest.word_identification}
+          </p>
+          <p>Spelling Raw Score: {selectedTest.spelling}</p>
+          <p>
+            Fundamental Literacy Ability Index Raw Score:{" "}
+            {selectedTest.fundamental_literacy}
+          </p>
+          <p>
+            Fundamental Literacy Ability Index Percentile:{" "}
+            {selectedTest.fundamental_literacy_percentile}
+          </p>
+          <p>
+            Fundamental Literacy Ability Index Standard Score:{" "}
+            {selectedTest.fundamental_literacy_standard_score}
+          </p>
+          <p>Descriptive Term</p>
+          <GetCompositeScoreDescription
+            compositeScore={selectedTest.fundamental_literacy_standard_score}
+          />
+          <p></p>
+          <p>Supplemental</p>
+          <p>Pseudo Words Raw Score: {selectedTest.pseudo_words}</p>
+          <p>Letter Sounds Raw Score: {selectedTest.letter_sounds}</p>
+          <p>
+            Sound Symbol Knowledge Raw Score:{" "}
+            {selectedTest.sound_symbol_knowledge}
+          </p>
+          <p>
+            Sound Symbol Knowledge Percentile:{" "}
+            {selectedTest.sound_symbol_knowledge_percentile}
+          </p>
+          <p>
+            Sound Symbol Knowledge Standard Score:{" "}
+            {selectedTest.sound_symbol_knowledge_standard_score}
+          </p>
+          <p>Descriptive Term</p>
+          <GetCompositeScoreDescription
+            compositeScore={selectedTest.sound_symbol_knowledge_standard_score}
+          />
         </div>
         <Button
           variant="contained"

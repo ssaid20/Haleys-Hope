@@ -5,6 +5,7 @@ import KteaList from "../../KteaList/KteaList";
 import GortList from "../../GortList/GortList";
 import YoungerCtoppList from "../../CtoppLists/YoungerCtoppList";
 import OlderCtoppList from "../../CtoppLists/OlderCtoppList";
+import GortComparisonTable from "../../TestComparisons/GortComparison";
 import { Button } from "../../ui/button";
 import {
   Table,
@@ -24,6 +25,7 @@ const TestTab = () => {
       <KteaList />
       <YoungerCtoppList />
       <OlderCtoppList />
+      <GortComparisonTable />
       </Table>
     </div>
   );

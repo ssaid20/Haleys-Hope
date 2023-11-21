@@ -1,19 +1,19 @@
 export const getScaledScoreDescription = (scaledScore) => {
   if (scaledScore >= 1 && scaledScore <= 3) {
-    return <p>"Very Poor"</p>;
+    return <p>Very Poor</p>;
   } else if (scaledScore >= 4 && scaledScore <= 5) {
-    return "Poor";
+    return <p>Poor</p>;
   } else if (scaledScore >= 6 && scaledScore <= 7) {
-    return "Below Average";
+    return <p>Below Average</p>;
   } else if (scaledScore >= 8 && scaledScore <= 12) {
-    return "Average";
+    return <p>Average</p>;
   } else if (scaledScore >= 13 && scaledScore <= 14) {
-    return "Above Average";
+    return <p>Above Average</p>;
   } else if (scaledScore >= 15 && scaledScore <= 16) {
-    return "Superior";
+    return <p>Superior</p>;
   } else if (scaledScore >= 17) {
-    return "Very Superior";
+    return <p>Very Superior</p>;
   } else {
-    return "Invalid Score";
+    return <p>Invalid Score</p>;
   }
 };

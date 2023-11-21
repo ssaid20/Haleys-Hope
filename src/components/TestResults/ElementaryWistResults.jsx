@@ -8,6 +8,7 @@ const ElementaryWistResults = () => {
   const testId = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
+  const examiners = useSelector((store) => store.allUsersReducer.users);
 
   useEffect(() => {
     dispatch({ type: "FETCH_ELEMENTARY_WIST_RESULTS", payload: testId.id });
@@ -20,6 +21,10 @@ const ElementaryWistResults = () => {
   if (!selectedTest || Object.keys(selectedTest).length === 0) {
     return <h1>Loading...</h1>;
   }
+  // Find the examiner based on examiner_id
+  const examiner = examiners.find(
+    (user) => user.id === selectedTest.examiner_id
+  );
 
   const goBack = () => history.push(`/students/${selectedTest.student_id}`);
 
@@ -31,7 +36,14 @@ const ElementaryWistResults = () => {
         <button onClick={goBack}>Back to Tests List</button>
         <h2>Test Details:</h2>
         <p>Date: {formatDate(selectedTest.date)}</p>
-        <p>Examiner ID: {selectedTest.examiner_id}</p>
+        {/* <p>Examiner ID: {selectedTest.examiner_id}</p> */}
+        {examiner ? (
+          <p>
+            Examiner: {examiner.first_name} {examiner.last_name}
+          </p>
+        ) : (
+          <p>Examiner ID: {selectedTest.examiner_id}</p>
+        )}
         <p>Fundamental Literacy: {selectedTest.fundamental_literacy}</p>
         <p>
           Fundamental Literacy Percentile:{" "}

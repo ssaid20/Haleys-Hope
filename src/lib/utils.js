@@ -100,3 +100,8 @@ export const calculateAge = (dob) => {
     days < 10 ? "0" : ""
   }${days}D`;
 }; // end calculateAge
+
+export function formatDate3(dateString) {
+  const options = { year: 'numeric', month: 'short', day: 'numeric' };
+  return new Date(dateString).toLocaleDateString('en-US', options);
+}

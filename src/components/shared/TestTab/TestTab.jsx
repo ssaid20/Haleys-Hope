@@ -5,6 +5,7 @@ import KteaList from "../../KteaList/KteaList";
 import GortList from "../../GortList/GortList";
 import YoungerCtoppList from "../../CtoppLists/YoungerCtoppList";
 import OlderCtoppList from "../../CtoppLists/OlderCtoppList";
+import GortComparisonTable from "../../TestComparisons/GortComparison";
 
 const TestTab = () => {
   return (
@@ -16,6 +17,7 @@ const TestTab = () => {
       <KteaList />
       <YoungerCtoppList />
       <OlderCtoppList />
+      <GortComparisonTable />
     </div>
   );
 };

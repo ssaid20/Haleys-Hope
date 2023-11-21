@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDate } from "../../lib/utils";
 import { useParams, useHistory } from "react-router-dom";
+import { Button } from "../ui/button";
+import { TableRow, TableCell } from "@mui/material";
+
 
 const SecondaryWistList = () => {
   const dispatch = useDispatch();
@@ -37,9 +40,30 @@ const SecondaryWistList = () => {
     <div>
       {tests.map((test) => (
         <div key={test.id} onClick={() => moreDetails(test.id)}>
+         <TableRow>
+          <TableCell>
           <p>
-            Wist Age 11-18 Date: {formatDate(test.date)} (click for details)
+            Wist Age 11-18 Date: {formatDate(test.date)}
           </p>
+          </TableCell>
+          <TableCell>
+          <Button
+                variant="outline"
+                className=" text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
+                onClick={() => moreDetails(test.id)}
+              >
+                Details
+              </Button>
+            </TableCell>
+            <TableCell>
+              <Button
+                variant="outline"
+                className=" text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
+              >
+                Compare
+              </Button>
+          </TableCell>
+          </TableRow>
         </div>
       ))}
     </div>

@@ -74,9 +74,9 @@ const AssessmentResults = () => {
           {Object.keys(groupedAssessments).map((dateKey) => (
             <div key={dateKey}>
               {groupedAssessments[dateKey].length > 0 && (
-                <tr>
-                  <td>Assessment Date: {dateKey}</td>
-                  <td>
+                <TableRow>
+                  <TableCell>Assessment Date: {dateKey}</TableCell>
+                  <TableCell>
                     <Button 
                                   variant="outline"
                                   className=" text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
@@ -86,13 +86,13 @@ const AssessmentResults = () => {
 
                     More Details
                     </Button>
-                  </td>
+                  </TableCell>
                   {groupedAssessments[dateKey].map((test) => (
                     <div key={test.id}>
                       <p></p>
                     </div>
                   ))}
-                </tr>
+                </TableRow>
               )}
             </div>
           ))}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDate } from "../../lib/utils";
 import Paper from "@mui/material/Paper";
@@ -17,6 +17,15 @@ import Fuse from "fuse.js";
 import ArchivedStudentList from "../ArchivedStudentList/ArchivedStudentList";
 import Button from "@mui/material/Button";
 import Searchbar from "../shared/Searchbar";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import Tooltip from "@mui/material/Tooltip";
+import SortIcon from "@mui/icons-material/Sort";
+import IconButton from "@mui/material/IconButton";
+import ClearIcon from "@mui/icons-material/Clear";
+import Popper from "@mui/material/Popper";
 
 const columns = [
   // { id: "id", label: "ID", minWidth: 100 }, // took id out student list
@@ -37,6 +46,54 @@ const columns = [
   // { id: "on_site", label: "Status", minWidth: 120 }, *** only need on more details ***
 ];
 
+const sortOptions = [
+  { value: "full_name", label: "Full Name" },
+  { value: "first_name", label: "First Name" },
+  { value: "last_name", label: "Last Name" },
+  { value: "age", label: "Age" },
+  { value: "grade", label: "Grade" },
+  { value: "city", label: "City" },
+  { value: "state", label: "State" },
+  { value: "start_date", label: "Start Date" },
+  // ... other sort options ...
+];
+
+const CustomTooltip = ({ title, children }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleMouseEnter = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const handleMouseLeave = () => {
+    setAnchorEl(null);
+  };
+  return (
+    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      {children}
+      <Popper
+        open={open}
+        anchorEl={anchorEl}
+        placement="top"
+        style={{ zIndex: 1 }}
+      >
+        <div
+          style={{
+            backgroundColor: "#f5f5f5",
+            border: "1px solid #dadde9",
+            padding: "10px",
+            fontSize: "1.05rem",
+            borderRadius: "4px",
+          }}
+        >
+          {title}
+        </div>
+      </Popper>
+    </div>
+  );
+};
+
 const StudentList = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -46,7 +103,31 @@ const StudentList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const processedSearchResults = searchResults.map((result) => result.item);
+  const [sortConfig, setSortConfig] = useState({
+    key: null,
+    direction: "ascending",
+  });
+
+  // const handleSortChange = (event) => {
+  //   setSortConfig({ key: event.target.value, direction: sortConfig.direction });
+  // };
+  const handleSortChange = (event) => {
+    setSortConfig({ ...sortConfig, key: event.target.value });
+  };
+
+  const toggleSortDirection = () => {
+    setSortConfig({
+      ...sortConfig,
+      direction:
+        sortConfig.direction === "ascending" ? "descending" : "ascending",
+    });
+  };
+  const clearSort = () => {
+    setSortConfig({ key: null, direction: "ascending" });
+  };
+
   console.log("logging searchResults", processedSearchResults);
+
   useEffect(() => {
     dispatch({ type: "FETCH_STUDENTS" });
   }, [dispatch]);
@@ -61,19 +142,56 @@ const StudentList = () => {
     setPage(0);
   };
 
+  // Sorting logic
+  const sortedStudents = useMemo(() => {
+    let sortableStudents = [...students];
+    if (sortConfig.key) {
+      sortableStudents.sort((a, b) => {
+        let aValue = a[sortConfig.key];
+        let bValue = b[sortConfig.key];
+
+        // Special handling for specific columns
+        if (sortConfig.key === "age") {
+          aValue = calculateAge(a.dob);
+          bValue = calculateAge(b.dob);
+        } else if (sortConfig.key === "full_name") {
+          aValue = `${a.first_name} ${a.last_name}`;
+          bValue = `${b.first_name} ${b.last_name}`;
+        } else if (sortConfig.key === "start_date") {
+          aValue = new Date(a.barton_c_date);
+          bValue = new Date(b.barton_c_date);
+        }
+
+        if (aValue < bValue) {
+          return sortConfig.direction === "ascending" ? -1 : 1;
+        }
+        if (aValue > bValue) {
+          return sortConfig.direction === "ascending" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return sortableStudents;
+  }, [students, sortConfig]);
+
+  const handleSort = (columnId) => {
+    let direction = "ascending";
+    if (sortConfig.key === columnId && sortConfig.direction === "ascending") {
+      direction = "descending";
+    }
+    setSortConfig({ key: columnId, direction });
+  };
+
+  // Search logic
   useEffect(() => {
-    // Step 1: Preprocess the students data
     const modifiedStudents = students.map((student) => ({
       ...student,
-      full_name: `${student.first_name} ${student.last_name}`, // Combine first and last name
+      full_name: `${student.first_name} ${student.last_name}`,
     }));
-
-    // Step 2: Setup Fuse.js with the new 'full_name' field
     const fuse = new Fuse(modifiedStudents, {
       keys: ["full_name", "grade"],
       threshold: 0.1,
     });
-
     if (!searchQuery) {
       setSearchResults([]);
     } else {
@@ -87,7 +205,10 @@ const StudentList = () => {
     setPage(0); // Reset to the first page when the query changes
   };
 
-  const displayedStudents = searchQuery ? processedSearchResults : students;
+  // const displayedStudents = searchQuery ? processedSearchResults : students;
+  const displayedStudents = searchQuery
+    ? searchResults.map((result) => result.item)
+    : sortedStudents;
 
   const [showArchived, setShowArchived] = useState(false); //state to show archived students
   // function to toggle archived viewable or not
@@ -101,6 +222,41 @@ const StudentList = () => {
   console.log("DISPLAY Students in list", displayedStudents);
   return (
     <>
+      <div
+        style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}
+      >
+        <FormControl style={{ minWidth: 120, marginRight: "10px" }}>
+          <InputLabel id="sort-select-label">Sort By</InputLabel>
+          <Select
+            labelId="sort-select-label"
+            id="sort-select"
+            value={sortConfig.key || ""}
+            label="Sort By"
+            onChange={handleSortChange}
+          >
+            {sortOptions.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <Tooltip title="Toggle between ascending and descending sort order">
+          <span>
+            <IconButton
+              onClick={toggleSortDirection}
+              disabled={!sortConfig.key}
+            >
+              <SortIcon color={sortConfig.key ? "primary" : "disabled"} />
+            </IconButton>
+          </span>
+        </Tooltip>
+        <CustomTooltip title="Clear current sort settings">
+          <IconButton onClick={clearSort}>
+            <ClearIcon />
+          </IconButton>
+        </CustomTooltip>
+      </div>
       <div className="mb-8">
         <Searchbar
           query={searchQuery}
@@ -131,6 +287,7 @@ const StudentList = () => {
                     key={column.id}
                     align={column.align}
                     style={{ minWidth: column.minWidth }}
+                    onClick={() => handleSort(column.id)}
                   >
                     {column.label}
                   </TableCell>
@@ -140,14 +297,12 @@ const StudentList = () => {
             <TableBody>
               {displayedStudents
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((student) => {
+                .map((student, index) => {
                   const formattedStudent = {
                     ...student,
                     name: `${student.first_name} ${student.last_name}`,
                     age: calculateAge(student.dob),
                     city: student.city, // *** need to fix our address input then make function to pull out city and state ***
-                    //on_site: student.on_site ? "On-Site" : "Virtual", *** only need on more details ***
-                    // dob: formatDate(student.dob), // formatting date *** only need on more details ***
                     start_date: formatDate(student.barton_c_date), // *** using pretest date, do we need a start date column? ***
                     picture: (
                       <img

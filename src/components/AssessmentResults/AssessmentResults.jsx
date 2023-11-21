@@ -84,7 +84,7 @@ const AssessmentResults = () => {
                         moreDetails(groupedAssessments[dateKey][0])
                       }>
 
-                    More Details
+                    Details
                     </Button>
                   </TableCell>
                   {groupedAssessments[dateKey].map((test) => (

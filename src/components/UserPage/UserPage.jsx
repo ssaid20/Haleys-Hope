@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import StudentList from "../StudentList/StudentList";
-import Searchbar from "../shared/Searchbar";
+import SearchBar from "../shared/SearchBar";
 import { Button } from "../ui/button";
 
 function UserPage() {
@@ -34,13 +34,8 @@ function UserPage() {
 
 export default UserPage;
 
-
-
-
-
-
-
-
-{/* <h2>Welcome, {user.username}!</h2>
+{
+  /* <h2>Welcome, {user.username}!</h2>
       <p>Your ID is: {user.id}</p>
-      <LogOutButton className="btn" /> */}
+      <LogOutButton className="btn" /> */
+}

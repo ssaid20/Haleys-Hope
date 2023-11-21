@@ -4,6 +4,7 @@ import LogOutButton from "../LogOutButton/LogOutButton";
 import { useSelector } from "react-redux";
 import { Menu, MenuItem } from "@mui/material";
 import { Button } from "../ui/button";
+import "./Nav.css";
 
 function Nav() {
   const user = useSelector((store) => store.user);
@@ -25,6 +26,7 @@ function Nav() {
           src="/assets/images/site-logo.png"
           width={180}
           height={180}
+          className="logo-image"
           alt="Haley's Hope Logo"
         />
       </Link>

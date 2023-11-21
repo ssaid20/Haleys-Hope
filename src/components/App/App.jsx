@@ -31,6 +31,7 @@ import ManageUsers from "../ManageUsers/ManageUsers";
 import CoachList from "../CoachList/CoachList";
 import AddCoach from "../AddCoach/AddCoach";
 import AssessmentContainer from "../AssessmentComponents/AssessmentContainer";
+import StudentList from "../StudentList/StudentList";
 
 import "./App.css";
 import KteaResults from "../TestResults/KteaResults";
@@ -158,8 +159,11 @@ function App() {
           <ProtectedRoute exact path="/AssessmentResults/:date">
             <AssessmentContainer />
           </ProtectedRoute>
-          <ProtectedRoute exact path="/ArchivedStudents/:date">
+          <ProtectedRoute exact path="/ArchivedStudents/">
             <ArchivedStudentList />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/students/">
+            <StudentList />
           </ProtectedRoute>
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage

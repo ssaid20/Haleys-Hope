@@ -9,14 +9,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { calculateAge } from "../../lib/utils";
-import TextField from "@mui/material/TextField";
 import Fuse from "fuse.js";
 import ArchivedStudentList from "../ArchivedStudentList/ArchivedStudentList";
 import Button from "@mui/material/Button";
-import Searchbar from "../shared/Searchbar";
+import SearchBar from "../shared/SearchBar";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
@@ -36,14 +34,6 @@ const columns = [
   { id: "city", label: "City", minWidth: 150 },
   { id: "state", label: "State", minWidth: 150 },
   { id: "start_date", label: "Start Date", minWidth: 130 },
-  // { id: "gender", label: "Gender", minWidth: 100 },
-
-  // { id: "dob", label: "Date of Birth", minWidth: 130 },
-  // { id: "school", label: "School", minWidth: 160 },
-  // { id: "address", label: "Address", minWidth: 200 },
-  // { id: "county", label: "County", minWidth: 150 },
-  // { id: "zip_code", label: "Zip Code", minWidth: 120 }, // may be able to grab city and state from here
-  // { id: "on_site", label: "Status", minWidth: 120 }, *** only need on more details ***
 ];
 
 const sortOptions = [
@@ -83,7 +73,7 @@ const CustomTooltip = ({ title, children }) => {
             backgroundColor: "#f5f5f5",
             border: "1px solid #dadde9",
             padding: "10px",
-            fontSize: "1.05rem",
+            fontSize: "1.5rem",
             borderRadius: "4px",
           }}
         >
@@ -258,7 +248,7 @@ const StudentList = () => {
         </CustomTooltip>
       </div>
       <div className="mb-8">
-        <Searchbar
+        <SearchBar
           query={searchQuery}
           setQuery={handleSearchInputChange} // Updated to use the revised function
           iconPosition="left"

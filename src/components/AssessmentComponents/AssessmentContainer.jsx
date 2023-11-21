@@ -18,10 +18,14 @@ TESTS CAN BE DIFFERENTIATED UNLIKE NOW.
 const AssessmentContainer = () => {
     useEffect(() => {
       }, []);
+      //TODO FIX THIS HISTORY.PUSH TO GO TO THE STUDENTS DETAIL PAGE
     const history = useHistory();
+    const goBack = () => history.goBack();
   return (
     <div>
-        {/* <button onClick={(history.push`/students/`)}>Go Back</button> */}
+        {/* FIGURE OUT HOW TO GET BACK TO THE STUDENT DETAIL VIEW */}
+                <button onClick={goBack}>Back to Student</button>  
+
       <AssessmentGort />
       <AssessmentWistE />
       <AssessmentWistS />

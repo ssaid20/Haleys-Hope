@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import StudentList from "../StudentList/StudentList";
-import SearchBar from "../shared/SearchBar";
 import { Button } from "../ui/button";
 
 function UserPage() {

@@ -50,7 +50,7 @@ const MiniStudentCard = () => {
       style={{
         display: "flex",
         flexDirection: "column",
-        maxWidth: "390px", // Set a maximum width
+        maxWidth: "450px", // Set a maximum width
         margin: "0 auto", // Center in the parent component
         boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)", // Add shadow
         backgroundColor: "#fff", // Background color
@@ -70,19 +70,19 @@ const MiniStudentCard = () => {
           className="rounded-full object-cover mr-4 mb-4 md:mb-0"
         />
         <div className="grid grid-cols-2 gap-x-8 gap-y-4 mt-4">
-          <p className="body-regular text-dark500_light500">
+          <p className="body-regular text-dark500_light500 text-lg">
             Grade: {student.grade}
           </p>
           {/* <p className="body-regular text-dark500_light500">
             School: {student.school}
           </p> */}
-          <p className="body-regular text-dark500_light500">
+          <p className="body-regular text-dark500_light500 text-lg">
             Gender: {student.gender}
           </p>
-          <p className="body-regular text-dark500_light500">
+          <p className="body-regular text-dark500_light500 text-lg">
             Date of Birth: {new Date(student.dob).toLocaleDateString()}
           </p>
-          <p className="body-regular text-dark500_light500">
+          <p className="body-regular text-dark500_light500 text-lg">
             Age: {calculateAge(student.dob)}
           </p>
         </div>

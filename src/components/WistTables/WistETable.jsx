@@ -17,7 +17,7 @@ const tableStyle = {
 };
 const cellStyle = {
   border: "1px solid black",
-  padding: "20px",
+  padding: "22px",
   textAlign: "center",
 };
 const WistETable = () => {

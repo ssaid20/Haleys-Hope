@@ -65,6 +65,24 @@ function createRowData(category, tests) {
     scaledScores: tests.map((test) => test[categoryMap[category].scaled]),
   };
 }
+const DarkBlueHeaderCell = styled(TableCell)(({ theme }) => ({
+  backgroundColor: "#0f3c5c", // Dark blue color
+  color: theme.palette.common.white,
+  [`&.${tableCellClasses.head}`]: {
+    fontSize: 16,
+  },
+}));
+
+// New function to create data for the new table
+function createSummaryRowData(tests) {
+  return tests.map((test) => ({
+    date: formatDate3(test.date),
+    sumScaledScore: test.sum_scaled_score,
+    oralReadingPercentileRank: test.oral_reading_percentile_rank,
+    oralReadingIndex: test.oral_reading_index,
+    descriptiveTerm: getDescriptiveTerm(test.oral_reading_index),
+  }));
+}
 const TestHeaderCell = styled(TableCell)(({ theme, color }) => ({
   backgroundColor: color ? color : theme.palette.primary.main,
   color: theme.palette.common.white,
@@ -103,6 +121,7 @@ export default function GortComparisonTable() {
   // Create rows based on the fetched data
   const rows = categories.map((category) => createRowData(category, gortTests));
   console.log("rows", rows);
+  const summaryRows = createSummaryRowData(gortTests);
 
   // Function to get the average scaled score for a category
   const getAverageScaledScore = (scaledScores) => {
@@ -114,61 +133,109 @@ export default function GortComparisonTable() {
   };
   const lightGreyColor = "#F5F5F5"; // Light grey color
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="GORT-5 Comparison Table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
-            {gortTests.map((test, index) => (
-              <TestHeaderCell
-                key={`test-head-${index}`}
-                colSpan={2}
-                align="center"
-                color={testHeaderColors[index % testHeaderColors.length]}
-              >
-                {`Test ${index + 1} (${formatDate3(test.date)})`}
-              </TestHeaderCell>
-            ))}
-            <StyledTableCell align="right" color={lightGreyColor}>
-              Descriptive Term
-            </StyledTableCell>
-          </TableRow>
-          <TableRow>
-            <StyledTableCell color={lightGreyColor}></StyledTableCell>
-            {gortTests.flatMap(() => [
-              <StyledTableCell align="right">%ile</StyledTableCell>,
-              <StyledTableCell align="right">Scaled Score</StyledTableCell>,
-            ])}
-            <StyledTableCell color={lightGreyColor}></StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row, rowIndex) => (
-            <StyledTableRow key={rowIndex}>
-              <StyledTableCell component="th" scope="row">
-                {row.category}
+    <>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 700 }} aria-label="GORT-5 Comparison Table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
+              {gortTests.map((test, index) => (
+                <TestHeaderCell
+                  key={`test-head-${index}`}
+                  colSpan={2}
+                  align="center"
+                  color={testHeaderColors[index % testHeaderColors.length]}
+                >
+                  {`Test ${index + 1} (${formatDate3(test.date)})`}
+                </TestHeaderCell>
+              ))}
+              <StyledTableCell align="right" color={lightGreyColor}>
+                Descriptive Term
               </StyledTableCell>
-              {gortTests.flatMap((_, testIndex) => [
-                <StyledTableCell align="right">
-                  {row.percentiles[testIndex]}
-                </StyledTableCell>,
-                testIndex === gortTests.length - 1 ? (
-                  <StyledTableCell align="right">
-                    {row.scaledScores[testIndex]}
-                  </StyledTableCell>
-                ) : (
-                  <DottedBorderTableCell align="right">
-                    {row.scaledScores[testIndex]}
-                  </DottedBorderTableCell>
-                ),
+            </TableRow>
+            <TableRow>
+              <StyledTableCell color={lightGreyColor}></StyledTableCell>
+              {gortTests.flatMap(() => [
+                <StyledTableCell align="right">%ile</StyledTableCell>,
+                <StyledTableCell align="right">Scaled Score</StyledTableCell>,
               ])}
-              <StyledTableCell align="right">
-                {getDescriptiveTerm(getAverageScaledScore(row.scaledScores))}
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+              <StyledTableCell color={lightGreyColor}></StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row, rowIndex) => (
+              <StyledTableRow key={rowIndex}>
+                <StyledTableCell component="th" scope="row">
+                  {row.category}
+                </StyledTableCell>
+                {gortTests.flatMap((_, testIndex) => [
+                  <StyledTableCell align="right">
+                    {row.percentiles[testIndex]}
+                  </StyledTableCell>,
+                  testIndex === gortTests.length - 1 ? (
+                    <StyledTableCell align="right">
+                      {row.scaledScores[testIndex]}
+                    </StyledTableCell>
+                  ) : (
+                    <DottedBorderTableCell align="right">
+                      {row.scaledScores[testIndex]}
+                    </DottedBorderTableCell>
+                  ),
+                ])}
+                <StyledTableCell align="right">
+                  {getDescriptiveTerm(getAverageScaledScore(row.scaledScores))}
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <br />
+      {/* GORT Summary Table */}
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 400 }} aria-label="GORT Summary Table">
+          <TableHead>
+            <TableRow>
+              <DarkBlueHeaderCell>Test</DarkBlueHeaderCell>
+              <DarkBlueHeaderCell align="right">Date</DarkBlueHeaderCell>
+              <DarkBlueHeaderCell align="right">
+                Sum Scaled Score
+              </DarkBlueHeaderCell>
+              <DarkBlueHeaderCell align="right">
+                Oral Reading %ile Rank
+              </DarkBlueHeaderCell>
+              <DarkBlueHeaderCell align="right">
+                Oral Reading Index
+              </DarkBlueHeaderCell>
+              <DarkBlueHeaderCell align="right">
+                Descriptive Term
+              </DarkBlueHeaderCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {summaryRows.map((row, index) => (
+              <StyledTableRow key={index}>
+                <StyledTableCell component="th" scope="row">
+                  {`Test ${index + 1}`}
+                </StyledTableCell>
+                <StyledTableCell align="right">{row.date}</StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.sumScaledScore}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.oralReadingPercentileRank}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.oralReadingIndex}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.descriptiveTerm}
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }

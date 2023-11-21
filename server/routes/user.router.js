@@ -50,11 +50,30 @@ router.post("/register", (req, res, next) => {
   pool
     .query(queryText, [username, password])
     .then(() => res.sendStatus(201))
-    .catch((err) => {
-      console.log("User registration failed: ", err);
-      res.sendStatus(500);
-    });
-});
+    const newUserId = result.rows[0].id;
+
+    // Check if the new user's ID is 1
+    if (newUserId === 1) {
+      // Update the user's role_id to 6 (admin)
+      const updateQuery = 'UPDATE "user" SET role_id = 6 WHERE id = $1';
+      pool.query(updateQuery, [newUserId])
+        .then(() => {
+          res.status(201).send(`User created with ID: ${newUserId} and role set to admin`);
+        })
+        .catch((err) => {
+          console.error("Error in updating role to admin", err);
+          res.sendStatus(500);
+        });
+    } else {
+      // If the user's ID is not 1, just send the response
+      res.status(201).send(`User created with ID: ${newUserId}`);
+    }
+  })
+  .catch((err) => {
+    console.error("User registration failed: ", err);
+    res.sendStatus(500);
+  });
+
 
 // Handles login form authenticate/login POST
 // userStrategy.authenticate('local') is middleware that we run on this route

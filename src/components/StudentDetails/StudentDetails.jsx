@@ -50,13 +50,14 @@ function StudentDetails() {
 
         <div className="mt-10">
           {/* Rest of the content like Tabs, Graphs, etc. */}
+
           <Tabs defaultValue="test" className="flex-1">
             <TabsList className="background-light800_dark400 min-h-[42px] p-1 rounded-t-lg">
               {["test", "graph", "assessment", "notes"].map((tab) => (
                 <TabsTrigger
                   key={tab}
                   value={tab}
-                  className="tab h2-semibold hover:bg-primary-100 focus:bg-primary-100 px-4 py-2 rounded-lg transition duration-300 ease-in-out"
+                  className="tab h2-semibold hover:bg-primary-100 focus:bg-primary-100 px-6 py-3 rounded-lg transition duration-300 ease-in-out"
                 >
                   {tab.toUpperCase()}
                 </TabsTrigger>

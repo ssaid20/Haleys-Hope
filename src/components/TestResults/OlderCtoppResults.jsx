@@ -11,6 +11,7 @@ const OlderCtoppResults = () => {
   const testId = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
+  const examiners = useSelector((store) => store.allUsersReducer.users);
 
   useEffect(() => {
     dispatch({ type: "FETCH_OLDER_CTOPP_RESULTS", payload: testId.id });
@@ -24,6 +25,11 @@ const OlderCtoppResults = () => {
     return <h1>Loading...</h1>;
   }
 
+  // Find the examiner based on examiner_id
+  const examiner = examiners.find(
+    (user) => user.id === selectedTest.examiner_id
+  );
+
   const goBack = () => history.push(`/students/${selectedTest.student_id}`);
 
   return (
@@ -34,7 +40,13 @@ const OlderCtoppResults = () => {
         <button onClick={goBack}>Back to Tests List</button>
         <h2>Test Details:</h2>
         <p>Date: {formatDate(selectedTest.date)}</p>
-        <p>Examiner ID: {selectedTest.examiner_id}</p>
+        {examiner ? (
+          <p>
+            Examiner: {examiner.first_name} {examiner.last_name}
+          </p>
+        ) : (
+          <p>Examiner ID: {selectedTest.examiner_id}</p>
+        )}{" "}
         <p>Elison Scaled Score: {selectedTest.elison_scaled_score}</p>
         <p>
           Blending Words Scaled Score:{" "}
@@ -60,7 +72,6 @@ const OlderCtoppResults = () => {
           Rapid Letter Naming Scaled Score:{" "}
           {selectedTest.rapid_letter_naming_scaled_score}
         </p>
-
         <p>
           Blending Non-Words Scaled Score:{" "}
           {selectedTest.blending_nonwords_scaled_score}
@@ -85,7 +96,6 @@ const OlderCtoppResults = () => {
           Alt. Phonological Awareness Composite:{" "}
           {selectedTest.alt_phonological_awareness_composite}
         </p>
-
         <p>
           Phonological Awareness Percentile:{" "}
           {selectedTest.phonological_awareness_percentile}

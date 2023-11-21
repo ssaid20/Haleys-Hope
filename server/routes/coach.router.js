@@ -1,9 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool"); // Adjust the path as needed
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 // GET route to fetch all coaches with all their information
-router.get("/", (req, res) => {
+router.get("/", rejectUnauthenticated, (req, res) => {
   const queryText = 'SELECT * FROM "coaches" WHERE "is_active" = TRUE';
   pool
     .query(queryText)
@@ -35,7 +38,7 @@ router.get("/", (req, res) => {
 // });
 
 // GET route to fetch all users who are archived/deactivated
-router.get("/archivedCoaches", (req, res) => {
+router.get("/archivedCoaches", rejectUnauthenticated, (req, res) => {
   const queryText = 'SELECT * FROM "coaches" WHERE "is_active" = false';
   pool
     .query(queryText)
@@ -47,7 +50,7 @@ router.get("/archivedCoaches", (req, res) => {
 });
 
 // POST route to add a new coach
-router.post("/", (req, res) => {
+router.post("/", rejectUnauthenticated, (req, res) => {
   const newCoach = req.body;
   const queryText = `INSERT INTO "coaches" (
     "first_name", "last_name"
@@ -65,7 +68,7 @@ router.post("/", (req, res) => {
 });
 
 // PUT route to update a coach's information
-router.put("/:id", (req, res) => {
+router.put("/:id", rejectUnauthenticated, (req, res) => {
   const coachId = req.params.id;
 
   const updatedCoach = req.body;
@@ -90,7 +93,7 @@ router.put("/:id", (req, res) => {
 });
 
 // DELETE (soft delete) route to archive a coach
-router.delete("/:id", (req, res) => {
+router.delete("/:id", rejectUnauthenticated, (req, res) => {
   const coachId = req.params.id;
   const queryText = `UPDATE "coaches" SET "is_active" = FALSE WHERE "id" = $1`;
 

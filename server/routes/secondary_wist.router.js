@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool");
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 // GET route to fetch secondary wist tests for a specific student
 // Tested and working in Postman
-router.get("/:student_id", (req, res) => {
+router.get("/:student_id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id;
   const queryText = 'SELECT * FROM "secondary_wist" WHERE "student_id" = $1';
   pool
@@ -22,26 +25,30 @@ router.get("/:student_id", (req, res) => {
 }); // end router.get
 
 //router to get a specific test
-router.get("/secondaryWistResults/:testId", (req, res) => {
-  const testId = req.params.testId;
-  const queryText = 'SELECT * FROM "secondary_wist" WHERE "id" = $1';
-  pool
-    .query(queryText, [testId])
-    .then((result) => {
-      res.send(result.rows);
-    })
-    .catch((err) => {
-      console.error(
-        "Error completing SELECT secondary_wist query for test id",
-        err
-      );
-      res.sendStatus(500);
-    });
-});
+router.get(
+  "/secondaryWistResults/:testId",
+  rejectUnauthenticated,
+  (req, res) => {
+    const testId = req.params.testId;
+    const queryText = 'SELECT * FROM "secondary_wist" WHERE "id" = $1';
+    pool
+      .query(queryText, [testId])
+      .then((result) => {
+        res.send(result.rows);
+      })
+      .catch((err) => {
+        console.error(
+          "Error completing SELECT secondary_wist query for test id",
+          err
+        );
+        res.sendStatus(500);
+      });
+  }
+);
 
 // POST route to add a new record for a specific student
 // Tested and working in Postman
-router.post("/", (req, res) => {
+router.post("/", rejectUnauthenticated, (req, res) => {
   const newWist = req.body;
 
   // Check if student_id is provided
@@ -110,7 +117,7 @@ router.post("/", (req, res) => {
 
 // UPDATE route to modify a specific record for a given student
 // Tested and working in Postman
-router.put("/:student_id/:id", (req, res) => {
+router.put("/:student_id/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id;
   const recordId = req.params.id;
   const updatedWist = req.body;
@@ -147,7 +154,7 @@ router.put("/:student_id/:id", (req, res) => {
 
 // DELETE route to remove a specific record for a given student
 // Tested and working in Postman
-router.delete("/:student_id/:id", (req, res) => {
+router.delete("/:student_id/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id; // Identifier for the specific student
   const recordId = req.params.id; // This is the unique identifier for the specific test
 

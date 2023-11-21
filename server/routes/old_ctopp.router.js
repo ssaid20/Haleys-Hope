@@ -1,9 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool");
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 // GET route to fetch old_ctopp tests for a specific student
-router.get("/:student_id", (req, res) => {
+router.get("/:student_id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id;
   const queryText = 'SELECT * FROM "older_ctopp" WHERE "student_id" = $1';
 
@@ -17,7 +20,7 @@ router.get("/:student_id", (req, res) => {
 });
 
 //router to get a specific test
-router.get("/olderCtoppResults/:testId", (req, res) => {
+router.get("/olderCtoppResults/:testId", rejectUnauthenticated, (req, res) => {
   const testId = req.params.testId;
   const queryText = 'SELECT * FROM "older_ctopp" WHERE "id" = $1';
   pool
@@ -35,7 +38,7 @@ router.get("/olderCtoppResults/:testId", (req, res) => {
 });
 
 // POST route to add a new record for a specific student
-router.post("/", (req, res) => {
+router.post("/", rejectUnauthenticated, (req, res) => {
   const newOCtopp = req.body;
   // Check if student_id is provided
   if (!newOCtopp.student_id) {
@@ -88,7 +91,7 @@ router.post("/", (req, res) => {
 });
 
 // UPDATE route to modify a specific record for a given student
-router.put("/:student_id/:id", (req, res) => {
+router.put("/:student_id/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id;
   const recordId = req.params.id;
   const updatedOCtopp = req.body;
@@ -124,7 +127,7 @@ router.put("/:student_id/:id", (req, res) => {
 }); // end router.put
 
 // DELETE route to remove a specific record for a given student
-router.delete("/:student_id/:id", (req, res) => {
+router.delete("/:student_id/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id; //Unique identifier for specific student
   const recordId = req.params.id; // This is the unique identifier for the specific test
 

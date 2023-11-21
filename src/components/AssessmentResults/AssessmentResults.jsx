@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDate } from "../../lib/utils";
 import { useParams, useHistory } from "react-router-dom/";
+import { Button } from "@mui/material";
 
 const AssessmentResults = () => {
   const olderAssessment = useSelector(
@@ -69,9 +70,9 @@ const AssessmentResults = () => {
               <>
                 <p>
                   Assessment Date:  {dateKey}
-                  <button onClick={() => moreDetails(groupedAssessments[dateKey][0])}>
-                     Click here for more details
-                  </button>
+                  <Button onClick={() => moreDetails(groupedAssessments[dateKey][0])}>
+                  &nbsp; Click here for more details
+                  </Button>
                 </p>
                 {groupedAssessments[dateKey].map((test) => (
                   <div key={test.id}>

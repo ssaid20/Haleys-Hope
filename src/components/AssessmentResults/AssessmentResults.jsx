@@ -28,7 +28,9 @@ const AssessmentResults = () => {
   const allWistS = useSelector((store) => store.secondaryWistReducer.list);
 
   const moreDetails = (test) => {
+    console.log("this is not a test",test);
     history.push(`/AssessmentResults/${test.date}`);
+    
   };
   // Create an object to group assessments by date
   const groupedAssessments = {};
@@ -65,10 +67,15 @@ const AssessmentResults = () => {
           <div key={dateKey}>
             {groupedAssessments[dateKey].length > 0 && (
               <>
-                <p>Assessment Date: {dateKey} (click for details)</p>
+                <p>
+                  Assessment Date:  {dateKey}
+                  <button onClick={() => moreDetails(groupedAssessments[dateKey][0])}>
+                     Click here for more details
+                  </button>
+                </p>
                 {groupedAssessments[dateKey].map((test) => (
-                  <div key={test.date} onClick={() => moreDetails(test)}>
-                    <p>{/* Render assessment details here */}</p>
+                  <div key={test.id}>
+                    <p></p>
                   </div>
                 ))}
               </>
@@ -76,21 +83,6 @@ const AssessmentResults = () => {
           </div>
         ))}
       </div>
-
-      {/* <div>
-        {olderAssessment.map((test) => (
-          <div key={test.date} onClick={() => moreDetails(test)}>
-            <p>Assessment Date: {formatDate(test.date)} (click for details)</p>
-          </div>
-        ))}
-      </div>
-      <div>
-        {youngerAssessment.map((test) => (
-          <div key={test.date} onClick={() => moreDetails(test)}>
-            <p>Assessment: {formatDate(test.date)} (click for details)</p>
-          </div>
-        ))}
-      </div> */}
     </div>
   );
 };

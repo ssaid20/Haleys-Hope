@@ -82,7 +82,7 @@ router.get("/archived-student/:id", (req, res) => {
 });
 
 // POST route to add a new student
-router.post("/", parser.single("picture"), (req, res) => {
+router.post("/", (req, res) => {
   const newStudent = req.body;
   const pictureUrl = req.file ? req.file.path : null;
   const queryText = `
@@ -100,8 +100,7 @@ router.post("/", parser.single("picture"), (req, res) => {
     newStudent.gender,
     newStudent.dob,
     newStudent.city,
-    // newStudent.picture,
-    pictureUrl,
+    newStudent.picture,
     newStudent.school,
     newStudent.on_site,
     newStudent.barton_c,
@@ -121,7 +120,7 @@ router.post("/", parser.single("picture"), (req, res) => {
 });
 
 // PUT route to update a student's information
-router.put("/:id", parser.single("picture"), (req, res) => {
+router.put("/:id", (req, res) => {
   const studentId = req.params.id;
   const updatedStudent = req.body;
   console.log(req.body);
@@ -139,7 +138,6 @@ router.put("/:id", parser.single("picture"), (req, res) => {
     updatedStudent.dob,
     updatedStudent.city,
     updatedStudent.picture,
-    // pictureUrl,
     updatedStudent.school,
     updatedStudent.on_site,
     updatedStudent.barton_c,
@@ -173,5 +171,40 @@ router.delete("/:id", (req, res) => {
       res.sendStatus(500);
     });
 });
+
+//routes for uploading pictures to cloudinary
+router.get('/picture/:id', (req, res) => {
+  const studentId = req.params.id;
+  const queryText = 'SELECT picture FROM "students" WHERE id=$1;';
+  pool.query(queryText, [studentId])
+    .then((result) => res.send(result.rows))
+    .catch((err) => {
+      console.log("Error in getting Student Picture",err);
+      res.sendStatus(500);
+    });
+});
+
+router.post('/picture', (req, res) => {
+  const { pictureUrl } = req.body;
+  const queryText = 'UPDATE "students" SET picture=$1 WHERE id=$2;';
+  pool.query(queryText, [pictureUrl])
+    .then(() => res.sendStatus(201))
+    .catch((err) => {
+      console.log("Error in adding Student Picture",err);
+      res.sendStatus(500);
+    });
+});
+
+router.delete('/picture/:id', (req, res) => {
+  const studentId = req.params.id;
+  const queryText = 'UPDATE "students" SET picture=NULL WHERE id=$1;';
+  pool.query(queryText, [studentId])
+    .then(() => res.sendStatus(204))
+    .catch((err) => {
+      console.log("Error in deleting Student Picture",err);
+      res.sendStatus(500);
+    });
+});
+
 
 module.exports = router;

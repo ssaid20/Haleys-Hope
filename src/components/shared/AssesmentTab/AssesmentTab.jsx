@@ -3,7 +3,7 @@ import AssessmentResults from '../../AssessmentResults/AssessmentResults'
 
 const AssessmentTab = () => {
   return (
-    <div>AssessmentTab
+    <div>
       <AssessmentResults />
     </div>
   )

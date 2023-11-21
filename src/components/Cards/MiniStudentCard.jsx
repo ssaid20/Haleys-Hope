@@ -36,19 +36,32 @@ const MiniStudentCard = () => {
   };
 
   return (
+    // <article
+    //   style={{
+    //     position: "absolute",
+    //     top: "100px",
+    //     left: "10px",
+    //     width: "300px",
+    //     height: "auto",
+    //   }}
+    //   className="background-light900_dark200 light-border rounded-2xl border p-4 shadow-lg flex flex-col items-center"
+    // >
     <article
       style={{
-        position: "absolute",
-        top: "100px",
-        left: "10px",
-        width: "300px",
-        height: "auto",
+        display: "flex",
+        flexDirection: "column",
+        maxWidth: "390px", // Set a maximum width
+        margin: "0 auto", // Center in the parent component
+        boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)", // Add shadow
+        backgroundColor: "#fff", // Background color
+        padding: "1rem", // Padding around content
+        borderRadius: "8px", // Rounded corners
       }}
-      className="background-light900_dark200 light-border rounded-2xl border p-4 shadow-lg flex flex-col items-center"
+      className="background-light900_dark200 light-border rounded-2xl border p-4 shadow-lg"
     >
       {" "}
       <h2 className="h2-bold text-dark100_light900 text-center mb-4">{`${student.first_name} ${student.last_name}`}</h2>
-      <div className="flex flex-col w-full md:flex-row items-start md:items-center justify-between">
+      <div className="flex flex-col md:flex-row items-center justify-between">
         <img
           src={student.picture}
           alt={`${student.first_name} ${student.last_name}`}
@@ -56,7 +69,7 @@ const MiniStudentCard = () => {
           height={140}
           className="rounded-full object-cover mr-4 mb-4 md:mb-0"
         />
-        <div className="grid grid-cols-2 md:grid-cols-2 gap-x-8 gap-y-4 mt-4">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-4 mt-4">
           <p className="body-regular text-dark500_light500">
             Grade: {student.grade}
           </p>

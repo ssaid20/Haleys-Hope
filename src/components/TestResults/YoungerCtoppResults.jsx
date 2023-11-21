@@ -13,6 +13,7 @@ const YoungerCtoppResults = () => {
   const testId = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
+  const examiners = useSelector((store) => store.allUsersReducer.users);
 
   useEffect(() => {
     console.log("useEffect selected test, expect empty", selectedTest);
@@ -23,13 +24,13 @@ const YoungerCtoppResults = () => {
     (store) => store.youngerCtoppReducer.selectedTest[0]
   );
 
-  console.log("##########", selectedTest);
-
   if (!selectedTest || Object.keys(selectedTest).length === 0) {
     return <h1>Loading...</h1>;
   }
-  console.log("selectedtestyboi", selectedTest);
-
+  // Find the examiner based on examiner_id
+  const examiner = examiners.find(
+    (user) => user.id === selectedTest.examiner_id
+  );
   const goBack = () => history.push(`/students/${selectedTest.student_id}`);
 
   return (
@@ -40,7 +41,13 @@ const YoungerCtoppResults = () => {
         <button onClick={goBack}>Back to Tests List</button>
         <h2>Test Details:</h2>
         <p>Date: {formatDate(selectedTest.date)}</p>
-        <p>Examiner ID: {selectedTest.examiner_id}</p>
+        {examiner ? (
+          <p>
+            Examiner: {examiner.first_name} {examiner.last_name}
+          </p>
+        ) : (
+          <p>Examiner ID: {selectedTest.examiner_id}</p>
+        )}{" "}
         <p>Elison Scaled Score: {selectedTest.elison_scaled_score}</p>
         <p>
           Blending Words Scaled Score:{" "}
@@ -93,7 +100,6 @@ const YoungerCtoppResults = () => {
           Rapid Non-Symbolic Naming Composite:{" "}
           {selectedTest.rapid_non_symbolic_naming_composite}
         </p>
-
         <p>
           Phonological Awareness Percentile:{" "}
           {selectedTest.phonological_awareness_percentile}

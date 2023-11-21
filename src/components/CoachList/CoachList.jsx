@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDate } from "../../lib/utils"; // Assuming you have a similar utility for coaches
 import Paper from "@mui/material/Paper";
@@ -9,6 +9,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 import { useHistory } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -52,6 +56,45 @@ const CoachList = () => {
     dispatch({ type: "FETCH_COACHES" });
     dispatch({ type: "FETCH_ARCHIVED_COACHES" });
   }, [dispatch]);
+
+  const [sortConfig, setSortConfig] = useState({
+    key: null,
+    direction: "ascending",
+  });
+
+  // useMemo hook for sorted coaches
+  const sortedCoaches = useMemo(() => {
+    let sortableCoaches = [...coaches];
+    if (sortConfig.key) {
+      sortableCoaches.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "ascending" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "ascending" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return sortableCoaches;
+  }, [coaches, sortConfig]);
+
+  // Function to handle sorting
+  const handleSortChange = (event) => {
+    setSortConfig({ key: event.target.value, direction: sortConfig.direction });
+  };
+
+  const toggleSortDirection = () => {
+    setSortConfig({
+      key: sortConfig.key,
+      direction:
+        sortConfig.direction === "ascending" ? "descending" : "ascending",
+    });
+  };
+
+  const clearSort = () => {
+    setSortConfig({ key: null, direction: "ascending" });
+  };
 
   //handles pagination
   const handleChangePage = (event, newPage) => {
@@ -130,9 +173,30 @@ const CoachList = () => {
 
   return (
     <div>
-      <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        <div className="flex justify-between items-center mb-4">
-          <h1 className="text-center text-xl font-semibold">Coaches</h1>
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-center text-xl font-semibold">Coaches</h1>
+        <div className="flex items-center">
+          <FormControl style={{ minWidth: 120, marginRight: "10px" }}>
+            <InputLabel id="sort-select-label">Sort By</InputLabel>
+            <Select
+              labelId="sort-select-label"
+              id="sort-select"
+              value={sortConfig.key || ""}
+              label="Sort By"
+              onChange={handleSortChange}
+            >
+              {columns.map((column) => (
+                <MenuItem key={column.id} value={column.id}>
+                  {column.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Button onClick={toggleSortDirection}>
+            {sortConfig.direction === "ascending" ? "Asc" : "Desc"}
+          </Button>
+          <Button onClick={clearSort}>Clear</Button>
+
           <button
             onClick={addCoach}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -140,137 +204,139 @@ const CoachList = () => {
             Add A Coach
           </button>
         </div>
-        <div className="bg-white shadow-md rounded my-6">
-          <TableContainer className="max-h-max">
-            <Table stickyHeader aria-label="coach table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth }}
+      </div>
+      {/* <div className="bg-white shadow-md rounded my-6"> */}
+      <Paper sx={{ width: "100%", overflow: "hidden" }}>
+        <TableContainer className="max-h-max">
+          <Table stickyHeader aria-label="coach table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {sortedCoaches
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((coach) => {
+                  const formattedCoach = {
+                    ...coach,
+                    first_name: `${coach.first_name}`,
+                    last_name: `${coach.last_name}`,
+                    is_active: `${coach.is_active}`,
+                  };
+
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={coach.id}
                     >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {coaches
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((coach) => {
-                    const formattedCoach = {
-                      ...coach,
-                      first_name: `${coach.first_name}`,
-                      last_name: `${coach.last_name}`,
-                      is_active: `${coach.is_active}`,
-                    };
+                      {columns.map((column) => {
+                        const value = formattedCoach[column.id];
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            {value}
+                          </TableCell>
+                        );
+                      })}
+                      <TableCell>
+                        <Button
+                          onClick={() => handleEditClick(coach)}
+                          variant="outline"
+                          className=" text-m px-5 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
+                        >
+                          <img
+                            src="/assets/icons/edit.svg"
+                            alt="Edit Icon"
+                            className="w-4 h-4"
+                          />
+                          <span>Edit Coach</span>
+                        </Button>
+                      </TableCell>
+                      {console.log(
+                        "Sheet should open:",
+                        Boolean(editingCoachId)
+                      )}{" "}
+                      {editingCoachId && (
+                        <Sheet
+                          open={Boolean(editingCoachId)}
+                          onOpenChange={setEditingCoachId}
+                        >
+                          <SheetContent
+                            side="top"
+                            style={sheetStyle}
+                          ></SheetContent>
+                          <SheetContent side="top" style={sheetStyle}>
+                            <SheetHeader>
+                              <SheetTitle>Edit Coach</SheetTitle>
+                              <SheetDescription>
+                                Make changes to the coach's profile here.
+                              </SheetDescription>
+                            </SheetHeader>
+                            <div className="p-4">
+                              <div className="grid grid-cols-2 gap-4">
+                                <Label htmlFor="firstName">First Name</Label>
+                                <Input
+                                  id="first_name"
+                                  value={formData.first_name}
+                                  onChange={handleInputChange}
+                                />
 
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={coach.id}
-                      >
-                        {columns.map((column) => {
-                          const value = formattedCoach[column.id];
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {value}
-                            </TableCell>
-                          );
-                        })}
-                        <TableCell>
-                          <Button
-                            onClick={() => handleEditClick(coach)}
-                            variant="outline"
-                            className=" text-m px-5 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
-                          >
-                            <img
-                              src="/assets/icons/edit.svg"
-                              alt="Edit Icon"
-                              className="w-4 h-4"
-                            />
-                            <span>Edit Coach</span>
-                          </Button>
-                        </TableCell>
-                        {console.log(
-                          "Sheet should open:",
-                          Boolean(editingCoachId)
-                        )}{" "}
-                        {editingCoachId && (
-                          <Sheet
-                            open={Boolean(editingCoachId)}
-                            onOpenChange={setEditingCoachId}
-                          >
-                            <SheetContent
-                              side="top"
-                              style={sheetStyle}
-                            ></SheetContent>
-                            <SheetContent side="top" style={sheetStyle}>
-                              <SheetHeader>
-                                <SheetTitle>Edit Coach</SheetTitle>
-                                <SheetDescription>
-                                  Make changes to the coach's profile here.
-                                </SheetDescription>
-                              </SheetHeader>
-                              <div className="p-4">
-                                <div className="grid grid-cols-2 gap-4">
-                                  <Label htmlFor="firstName">First Name</Label>
-                                  <Input
-                                    id="first_name"
-                                    value={formData.first_name}
-                                    onChange={handleInputChange}
-                                  />
-
-                                  <Label htmlFor="lastName">Last Name</Label>
-                                  <Input
-                                    id="last_name"
-                                    value={formData.last_name}
-                                    onChange={handleInputChange}
-                                  />
-                                  <Label htmlFor="is active">Is Active?</Label>
-                                  <select
-                                    id="is_active"
-                                    value={formData.is_active.toString()} // Convert boolean to string for the select value
-                                    onChange={handleInputChange}
-                                  >
-                                    <option value="true">Active</option>
-                                    <option value="false">Inactive</option>
-                                  </select>
-                                </div>
+                                <Label htmlFor="lastName">Last Name</Label>
+                                <Input
+                                  id="last_name"
+                                  value={formData.last_name}
+                                  onChange={handleInputChange}
+                                />
+                                <Label htmlFor="is active">Is Active?</Label>
+                                <select
+                                  id="is_active"
+                                  value={formData.is_active.toString()} // Convert boolean to string for the select value
+                                  onChange={handleInputChange}
+                                >
+                                  <option value="true">Active</option>
+                                  <option value="false">Inactive</option>
+                                </select>
                               </div>
-                              <SheetFooter>
-                                <SheetClose asChild>
-                                  <Button onClick={handleSubmit} type="submit">
-                                    Save Changes
-                                  </Button>
-                                </SheetClose>
-                              </SheetFooter>
-                            </SheetContent>
-                          </Sheet>
-                        )}
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-        <div className="flex justify-between items-center mt-4">
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={coaches.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </div>
+                            </div>
+                            <SheetFooter>
+                              <SheetClose asChild>
+                                <Button onClick={handleSubmit} type="submit">
+                                  Save Changes
+                                </Button>
+                              </SheetClose>
+                            </SheetFooter>
+                          </SheetContent>
+                        </Sheet>
+                      )}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        {/* <div className="flex justify-between items-center mt-4"> */}
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={coaches.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </Paper>
+
       {/* this button opens up a table of archived coaches */}
       <Button
         onClick={toggleArchivedCoaches}

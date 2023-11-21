@@ -12,6 +12,7 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Typography,
 } from "@mui/material";
 
 import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
@@ -50,66 +51,62 @@ const ElementaryWistResults = () => {
       >
         Back to Tests List
       </Button>
-      <div
-        style={{
-          display: "flex",
-
-          alignItems: "center",
-          marginBottom: "20px",
-        }}
-      >
-        <MiniStudentCard />
-        {/* 
+      <div style={{ display: "flex", justifyContent: "center", gap: "50px" }}>
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
-            alignItems: "space-between",
-            marginTop: "20px",
-          }}
-        > */}
+            justifyContent: "center",
 
-        {/* <Paper
-          style={{
-            padding: "10px",
-            flexGrow: 1,
-
-            maxWidth: "150px",
-          }}
-        > */}
-
-        {/* </Paper> */}
-        {/* </div> */}
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
             alignItems: "center",
+            marginBottom: "20px",
           }}
         >
-          <p>Date: {formatDate(selectedTest.date)} &nbsp;</p>
+          <MiniStudentCard />
+        </div>
+        <div>
+          <Paper
+            style={{
+              fontSize: "18px",
+              alignItems: "center",
+              justifyContent: "center",
 
-          {examiner ? (
-            <p>
-              Examiner: {examiner.first_name} {examiner.last_name}
-            </p>
-          ) : (
-            <p>Examiner ID: {selectedTest.examiner_id}</p>
-          )}
+              padding: "10px",
+              maxWidth: "400px",
+              backgroundColor: "#fff",
+              borderRadius: "8px",
+              boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+                padding: "28px",
+              }}
+            >
+              <Typography variant="h6" style={{ marginBottom: "10px" }}>
+                Date: {formatDate(selectedTest.date)} &nbsp;
+              </Typography>
+
+              {examiner ? (
+                <Typography variant="h6" style={{ marginBottom: "10px" }}>
+                  Examiner: {examiner.first_name} {examiner.last_name}
+                </Typography>
+              ) : (
+                <Typography variant="h6" style={{ marginBottom: "10px" }}>
+                  Examiner ID: {selectedTest.examiner_id}
+                </Typography>
+              )}
+
+              <h1 style={{ textAlign: "center", marginBottom: "8px" }}>
+                Elementary WIST Results
+              </h1>
+            </div>
+          </Paper>
         </div>
       </div>
-      <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
-        Elementary WIST Results
-      </h1>
       <div
         style={{
           display: "flex",
@@ -362,12 +359,21 @@ const ElementaryWistResults = () => {
           </Table>
         </Paper>
       </div>
-
+      <h2
+        style={{
+          textAlign: "center",
+          fontWeight: "bold",
+          fontSize: "20px",
+        }}
+      >
+        Record of Informal Assessment
+      </h2>
       <div
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          marginTop: "30px",
         }}
       >
         <WistETable />

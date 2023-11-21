@@ -11,10 +11,18 @@ const WistSTable = () => {
   };
   const cellStyle = {
     border: "1px solid black",
-    padding: "10px",
-    textAlign: "center",  };
+    padding: "22px",
+    textAlign: "center",
+  };
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Typography variant="h6" gutterBottom>
         Raw Score Intervals for Grade Levels
       </Typography>

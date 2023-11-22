@@ -14,7 +14,7 @@ import { calculateAge } from "../../lib/utils";
 import Fuse from "fuse.js";
 import ArchivedStudentList from "../ArchivedStudentList/ArchivedStudentList";
 import Button from "@mui/material/Button";
-import SearchBar from "../shared/SearchBar";
+import Searchbar from "../shared/Searchbar";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
@@ -64,7 +64,8 @@ const StudentList = () => {
   const toggleSortDirection = () => {
     setSortConfig({
       ...sortConfig,
-      direction: sortConfig.direction === "ascending" ? "descending" : "ascending",
+      direction:
+        sortConfig.direction === "ascending" ? "descending" : "ascending",
     });
   };
   const clearSort = () => {
@@ -151,7 +152,9 @@ const StudentList = () => {
   };
 
   // const displayedStudents = searchQuery ? processedSearchResults : students;
-  const displayedStudents = searchQuery ? searchResults.map((result) => result.item) : sortedStudents;
+  const displayedStudents = searchQuery
+    ? searchResults.map((result) => result.item)
+    : sortedStudents;
 
   const [showArchived, setShowArchived] = useState(false); //state to show archived students
   // function to toggle archived viewable or not
@@ -165,7 +168,9 @@ const StudentList = () => {
   console.log("DISPLAY Students in list", displayedStudents);
   return (
     <>
-      <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
+      <div
+        style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}
+      >
         <FormControl style={{ minWidth: 120, marginRight: "10px" }}>
           <InputLabel id="sort-select-label">Sort By</InputLabel>
           <Select
@@ -182,15 +187,23 @@ const StudentList = () => {
             ))}
           </Select>
         </FormControl>
-        <Button variant="outlined" onClick={toggleSortDirection} style={{ margin: "5px" }}>
+        <Button
+          variant="outlined"
+          onClick={toggleSortDirection}
+          style={{ margin: "5px" }}
+        >
           {sortConfig.direction === "ascending" ? "Asc" : "Desc"}
         </Button>
-        <Button variant="outlined" onClick={clearSort} style={{ margin: "5px" }}>
+        <Button
+          variant="outlined"
+          onClick={clearSort}
+          style={{ margin: "5px" }}
+        >
           Clear
         </Button>
       </div>
       <div className="mb-8">
-        <SearchBar
+        <Searchbar
           query={searchQuery}
           setQuery={handleSearchInputChange} // Updated to use the revised function
           iconPosition="left"
@@ -201,7 +214,12 @@ const StudentList = () => {
       </div>
 
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        <Button variant="contained" color="primary" onClick={handleToggleArchived} style={{ margin: "10px" }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleToggleArchived}
+          style={{ margin: "10px" }}
+        >
           {showArchived ? "View Active Students" : "View Archived Students"}
         </Button>
 

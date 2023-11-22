@@ -49,11 +49,12 @@ const scoreRanges = [
   { min: 17, max: 20, term: "Very Superior" },
 ];
 
+//*****   DEPRECATED!! PLEASE USE GET COMPOSITE OR GET SCALED COMPONENTS *****
 // Function to get the descriptive term based on the scaled score
-export const getDescriptiveTerm = (score) => {
-  const range = scoreRanges.find((range) => score >= range.min && score <= range.max);
-  return range ? range.term : "Unknown";
-};
+// export const getDescriptiveTerm = (score) => {
+//   const range = scoreRanges.find((range) => score >= range.min && score <= range.max);
+//   return range ? range.term : "Unknown";
+// };
 
 // Example usage in a React component
 // const ScoreInterpreter = () => {

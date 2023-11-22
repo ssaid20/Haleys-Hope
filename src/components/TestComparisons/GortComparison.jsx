@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { formatDate3 } from "../../lib/utils";
 import { getDescriptiveTerm } from "../../lib/utils";
+import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
+import { GetScaledScoreDescription } from "../../lib/GetScaledScoreDescription";
 
 const StyledTableCell = styled(TableCell)(({ theme, color }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,12 +34,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 // Categories
-const categories = [
-  "Reading Rate",
-  "Reading Accuracy",
-  "Reading Fluency",
-  "Reading Comprehension",
-];
+const categories = ["Reading Rate", "Reading Accuracy", "Reading Fluency", "Reading Comprehension"];
 
 function createRowData(category, tests) {
   const categoryMap = {
@@ -63,9 +60,7 @@ function createRowData(category, tests) {
     category,
     percentiles: tests.map((test) => test[categoryMap[category].percentile]),
     scaledScores: tests.map((test) => test[categoryMap[category].scaled]),
-    descriptiveTerms: tests.map((test) =>
-      getDescriptiveTerm(test[categoryMap[category].scaled])
-    ), // Assuming you calculate descriptive terms based on scaled scores
+    descriptiveTerms: tests.map((test) => GetScaledScoreDescription(test[categoryMap[category].scaled])), // Assuming you calculate descriptive terms based on scaled scores
   };
 }
 const DarkBlueHeaderCell = styled(TableCell)(({ theme }) => ({
@@ -83,7 +78,7 @@ function createSummaryRowData(tests) {
     sumScaledScore: test.sum_scaled_score,
     oralReadingPercentileRank: test.oral_reading_percentile_rank,
     oralReadingIndex: test.oral_reading_index,
-    descriptiveTerm: getDescriptiveTerm(test.oral_reading_index),
+    descriptiveTerm: GetCompositeScoreDescription(test.oral_reading_index),
   }));
 }
 const TestHeaderCell = styled(TableCell)(({ theme, color }) => ({
@@ -126,7 +121,6 @@ export default function GortComparisonTable() {
   console.log("rows", rows);
   const summaryRows = createSummaryRowData(gortTests);
 
-  
   const sectionHeaderColors = {
     percentile: "#778899", // Example color for Percentile Section
     scaledScore: "#0f3c5c", // Example color for Scaled Score Section
@@ -205,18 +199,10 @@ export default function GortComparisonTable() {
             <TableRow>
               <DarkBlueHeaderCell>Test</DarkBlueHeaderCell>
               <DarkBlueHeaderCell align="right">Date</DarkBlueHeaderCell>
-              <DarkBlueHeaderCell align="right">
-                Sum Scaled Score
-              </DarkBlueHeaderCell>
-              <DarkBlueHeaderCell align="right">
-                Oral Reading %ile Rank
-              </DarkBlueHeaderCell>
-              <DarkBlueHeaderCell align="right">
-                Oral Reading Index
-              </DarkBlueHeaderCell>
-              <DarkBlueHeaderCell align="right">
-                Descriptive Term
-              </DarkBlueHeaderCell>
+              <DarkBlueHeaderCell align="right">Sum Scaled Score</DarkBlueHeaderCell>
+              <DarkBlueHeaderCell align="right">Oral Reading %ile Rank</DarkBlueHeaderCell>
+              <DarkBlueHeaderCell align="right">Oral Reading Index</DarkBlueHeaderCell>
+              <DarkBlueHeaderCell align="right">Descriptive Term</DarkBlueHeaderCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -226,18 +212,10 @@ export default function GortComparisonTable() {
                   {`Test ${index + 1}`}
                 </StyledTableCell>
                 <StyledTableCell align="right">{row.date}</StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.sumScaledScore}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.oralReadingPercentileRank}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.oralReadingIndex}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.descriptiveTerm}
-                </StyledTableCell>
+                <StyledTableCell align="right">{row.sumScaledScore}</StyledTableCell>
+                <StyledTableCell align="right">{row.oralReadingPercentileRank}</StyledTableCell>
+                <StyledTableCell align="right">{row.oralReadingIndex}</StyledTableCell>
+                <StyledTableCell align="right">{row.descriptiveTerm}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
@@ -246,5 +224,3 @@ export default function GortComparisonTable() {
     </>
   );
 }
-
-

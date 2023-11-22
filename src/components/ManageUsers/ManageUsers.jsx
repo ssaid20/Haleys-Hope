@@ -121,6 +121,16 @@ const ManageUsers = () => {
     }
   }, [users]);
 
+  //mapping role id to role name
+  const roleMapping = {
+    1: "Deactivated",
+    2: "Academic Assessment Coordinator",
+    3: "Dyslexia Specialist",
+    4: "Literacy Coach Manager",
+    5: "Lead Performing Agent",
+    6: "Admin",
+  };
+
   return (
     <div>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -145,9 +155,21 @@ const ManageUsers = () => {
                 };
 
                 return (
+                  // <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
+                  //   {columns.map((column) => {
+                  //     const value = formattedUser[column.id];
+                  //     return (
+                  //       <TableCell key={column.id} align={column.align}>
+                  //         {value}
+                  //       </TableCell>
+                  //     );
+                  //   })}
                   <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
                     {columns.map((column) => {
-                      const value = formattedUser[column.id];
+                      let value = user[column.id];
+                      if (column.id === "role_id") {
+                        value = roleMapping[value] || "Unknown Role"; // Translate role_id to role name
+                      }
                       return (
                         <TableCell key={column.id} align={column.align}>
                           {value}
@@ -253,7 +275,6 @@ const ManageUsers = () => {
               </TableHead>
               <TableBody>
                 {archivedUsers.map((user) => {
-                  // Assuming similar structure for archived users
                   const formattedUser = {
                     ...user,
                     first_name: `${user.first_name}`,
@@ -262,9 +283,21 @@ const ManageUsers = () => {
                   };
 
                   return (
+                    // <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
+                    //   {columns.map((column) => {
+                    //     const value = formattedUser[column.id];
+                    //     return (
+                    //       <TableCell key={column.id} align={column.align}>
+                    //         {value}
+                    //       </TableCell>
+                    //     );
+                    //   })}
                     <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
                       {columns.map((column) => {
-                        const value = formattedUser[column.id];
+                        let value = user[column.id];
+                        if (column.id === "role_id") {
+                          value = roleMapping[value] || "Unknown Role"; // Translate role_id to role name
+                        }
                         return (
                           <TableCell key={column.id} align={column.align}>
                             {value}

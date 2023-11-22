@@ -1,4 +1,4 @@
-export const getScaledScoreDescription = (scaledScore) => {
+export const GetScaledScoreDescription = ({ scaledScore }) => {
   if (scaledScore >= 1 && scaledScore <= 3) {
     return <p>Very Poor</p>;
   } else if (scaledScore >= 4 && scaledScore <= 5) {

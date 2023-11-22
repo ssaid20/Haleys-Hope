@@ -78,6 +78,8 @@ const StudentForm = () => {
       coach_id: "",
       is_active: true,
     });
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Student Added", severity: "success" } });
+
     history.push(`/students`);
     //history.push back to student details
   };
@@ -166,27 +168,10 @@ const StudentForm = () => {
             <Grid item xs={12} md={6}>
               <FormControl component="fieldset">
                 <FormLabel component="legend">Gender</FormLabel>
-                <RadioGroup
-                  row
-                  name="gender"
-                  value={studentData.gender}
-                  onChange={handleChange}
-                >
-                  <FormControlLabel
-                    value="M"
-                    control={<Radio />}
-                    label="Male"
-                  />
-                  <FormControlLabel
-                    value="F"
-                    control={<Radio />}
-                    label="Female"
-                  />
-                  <FormControlLabel
-                    value="O"
-                    control={<Radio />}
-                    label="Other"
-                  />
+                <RadioGroup row name="gender" value={studentData.gender} onChange={handleChange}>
+                  <FormControlLabel value="M" control={<Radio />} label="Male" />
+                  <FormControlLabel value="F" control={<Radio />} label="Female" />
+                  <FormControlLabel value="O" control={<Radio />} label="Other" />
                 </RadioGroup>
               </FormControl>
             </Grid>
@@ -213,16 +198,8 @@ const StudentForm = () => {
                   value={studentData.barton_c ? "B" : "F"}
                   onChange={handleChange}
                 >
-                  <FormControlLabel
-                    value="F"
-                    control={<Radio />}
-                    label="Foundations"
-                  />
-                  <FormControlLabel
-                    value="B"
-                    control={<Radio />}
-                    label="Barton"
-                  />
+                  <FormControlLabel value="F" control={<Radio />} label="Foundations" />
+                  <FormControlLabel value="B" control={<Radio />} label="Barton" />
                 </RadioGroup>
               </FormControl>
             </Grid>
@@ -230,13 +207,7 @@ const StudentForm = () => {
             {/* On-site Field - Using Checkbox */}
             <Grid item xs={12} md={6}>
               <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={studentData.on_site}
-                    onChange={handleChange}
-                    name="on_site"
-                  />
-                }
+                control={<Checkbox checked={studentData.on_site} onChange={handleChange} name="on_site" />}
                 label="On-site"
               />
             </Grid>
@@ -290,12 +261,7 @@ const StudentForm = () => {
               </FormControl>
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            style={{ marginTop: "20px" }}
-          >
+          <Button type="submit" variant="contained" color="primary" style={{ marginTop: "20px" }}>
             Add Student
           </Button>
         </form>

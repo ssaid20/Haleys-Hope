@@ -23,12 +23,15 @@ function* fetchArchivedStudents() {
 
 // Saga to fetch a specific student
 function* fetchStudent(action) {
+  console.log("**** fetch the damn student", action);
   try {
     const response = yield call(
       axios.get,
       `/api/students/${action.payload.id}`
     );
+
     yield put({ type: "SET_CURRENT_STUDENT", payload: response.data });
+    console.log("**SAGA PAYLOAD", payload);
   } catch (error) {
     console.log("Error fetching specific student", error);
   }

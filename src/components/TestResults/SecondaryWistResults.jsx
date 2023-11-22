@@ -439,7 +439,7 @@ const SecondaryWistResults = () => {
           marginTop: "30px",
         }}
       >
-        <WistSTable />
+        <WistSTable test={selectedTest} />
       </div>
     </div>
   );

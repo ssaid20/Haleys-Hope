@@ -18,9 +18,7 @@ const EditGortResults = () => {
   const testId = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-  const selectedTest = useSelector(
-    (store) => store.gortReducer.selectedTest[0]
-  );
+  const selectedTest = useSelector((store) => store.gortReducer.selectedTest[0]);
   const users = useSelector((store) => store.allUsersReducer.users);
   const student = useSelector((store) => store.user);
 
@@ -85,42 +83,24 @@ const EditGortResults = () => {
     } else {
       // Convert to number if the field is numeric
       updatedValue[name] = value ? parseInt(value, 10) : 0;
-
-      // Convert to number if the field is numeric
-      updatedValue[name] = value ? parseInt(value, 10) : 0;
-
-      // Calculate word identification
-      if (name === "read_regular_words" || name === "read_irregular_words") {
-        updatedValue.word_identification =
-          (updatedValue.read_regular_words || 0) +
-          (updatedValue.read_irregular_words || 0);
-      }
-
-      // Calculate spelling
-      if (name === "spell_regular_words" || name === "spell_irregular_words") {
-        updatedValue.spelling =
-          (updatedValue.spell_regular_words || 0) +
-          (updatedValue.spell_irregular_words || 0);
-      }
-
-      // Calculate fundamental literacy
-      if (
-        name === "read_regular_words" ||
-        name === "read_irregular_words" ||
-        name === "spell_regular_words" ||
-        name === "spell_irregular_words"
-      ) {
-        updatedValue.fundamental_literacy =
-          (updatedValue.word_identification || 0) +
-          (updatedValue.spelling || 0);
-      }
-
-      // Calculate sound symbol knowledge
-      if (name === "pseudo_words" || name === "letter_sounds") {
-        updatedValue.sound_symbol_knowledge =
-          (updatedValue.pseudo_words || 0) + (updatedValue.letter_sounds || 0);
-      }
     }
+
+    // Calculate sum of scaled scores
+    if (
+      [
+        "rate_scaled_score",
+        "accuracy_scaled_score",
+        "fluency_scaled_score",
+        "comprehension_scaled_score",
+      ].includes(name)
+    ) {
+      updatedValue.sum_scaled_score =
+        (updatedValue.rate_scaled_score || 0) +
+        (updatedValue.accuracy_scaled_score || 0) +
+        (updatedValue.fluency_scaled_score || 0) +
+        (updatedValue.comprehension_scaled_score || 0);
+    }
+
     setValidationErrors((prevErrors) => {
       const newErrors = { ...prevErrors };
 
@@ -179,6 +159,7 @@ const EditGortResults = () => {
       type: "UPDATE_GORT",
       payload: { ...submissionData, id: testId.id },
     });
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Successfully Saved", severity: "success" } });
 
     history.push(`/students/${selectedTest.student_id}`);
   };
@@ -196,9 +177,7 @@ const EditGortResults = () => {
       {/* <h1 className="text-2xl text-center mb-4">
         Test on: {formatDate(selectedTest.date)}{" "}
       </h1> */}
-      <h1 className="text-3xl text-center mb-4">
-        Edit GORT from: {formatDate2(selectedTest.date)}
-      </h1>
+      <h1 className="text-3xl text-center mb-4">Edit GORT from: {formatDate2(selectedTest.date)}</h1>
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         Go Back
       </Button>
@@ -223,11 +202,7 @@ const EditGortResults = () => {
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <InputLabel>Examiner</InputLabel>
-                <Select
-                  value={selectedExaminerId}
-                  label="Examiner"
-                  onChange={handleExaminerChange}
-                >
+                <Select value={selectedExaminerId} label="Examiner" onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
@@ -463,12 +438,7 @@ const EditGortResults = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className="mt-4"
-          >
+          <Button type="submit" variant="contained" color="primary" className="mt-4">
             Save Changes
           </Button>
           <Button onClick={handleGoBack}>Go Back</Button>

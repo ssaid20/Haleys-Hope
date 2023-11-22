@@ -27,9 +27,9 @@ const TestTab = () => {
       <KteaList />
       <YoungerCtoppList />
       <OlderCtoppList />
-      <GortComparisonTable />
+      {/* <GortComparisonTable />
       <SecondaryWistComparisonTable />
-      <ElementaryWistComparisonTable />
+      <ElementaryWistComparisonTable /> */}
       </Table>
     </div>
   );

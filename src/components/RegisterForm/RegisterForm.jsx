@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { useHistory } from "react-router-dom/";
+//import { useHistory } from "react-router-dom/";
 
 function RegisterForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
-  // history = useHistory();
+  //history = useHistory();
 
   const registerUser = (event) => {
     event.preventDefault();
@@ -18,6 +18,10 @@ function RegisterForm() {
         username: username,
         password: password,
       },
+    });
+    dispatch({
+      type: "SHOW_SNACKBAR",
+      payload: { message: "Please wait for admin to assign access", severity: "info" },
     });
   }; // end registerUser
 

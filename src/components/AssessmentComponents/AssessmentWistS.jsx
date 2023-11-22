@@ -7,13 +7,15 @@ const AssessmentWistS = () => {
   const { date } = useParams();
   console.log("assessment date", date);
   const assessments = useSelector(
-    (store) => store.assessmentReducer.olderAssessment
+    (store) => store.secondaryWistReducer.list
   );
   const selectedTest = assessments.find(
     (assessment) => assessment.date === date
   );
   console.log("selected test is:", selectedTest, assessments);
-  // TODO: DOUBLE CHECK TO MAKE SURE IT IS GETTING FROM THE CORRECT WIST
+  if (!selectedTest) {
+    return <div>No WIST 11-18 for this date</div>;
+  }
   return (
     <div style={{ border: "1px solid black" }}>
       <p style={{ color: "brown" }}> WIST Ages 11-18</p>
@@ -34,9 +36,29 @@ const AssessmentWistS = () => {
               <td>{selectedTest.word_identification_standard_score}</td>
             </tr>
             <tr>
+              <td>Read Regular Words: </td>
+              <td>-</td>
+              <td>{selectedTest.read_regular_words}</td>
+            </tr>
+            <tr>
+              <td>Read Irregular Words: </td>
+              <td>-</td>
+              <td>{selectedTest.read_irregular_words}</td>
+            </tr>
+            <tr>
               <td>Spelling: </td>
               <td>{selectedTest.spelling_percentile}</td>
               <td>{selectedTest.spelling_standard_score}</td>
+            </tr>
+            <tr>
+              <td>Regular:</td>
+              <td>-</td>
+              <td>{selectedTest.spell_regular_words}</td>
+            </tr>
+            <tr>
+              <td>Irregular:</td>
+              <td>-</td>
+              <td>{selectedTest.spell_irregular_words}</td>
             </tr>
             <tr>
               <td>Fundamental Literacy Ability Index: </td>
@@ -44,9 +66,29 @@ const AssessmentWistS = () => {
               <td>{selectedTest.fundamental_literacy_standard_score}</td>
             </tr>
             <tr>
+              <td>Word Identification: </td>
+              <td>-</td>
+              <td>{selectedTest.word_identification}</td>
+            </tr>
+            <tr>
+              <td>Spelling: </td>
+              <td>-</td>
+              <td>{selectedTest.spelling}</td>
+            </tr>
+            <tr>
               <td>Sound to Symbol Knowledge: </td>
               <td>{selectedTest.sound_symbol_knowledge_percentile}</td>
               <td>{selectedTest.sound_symbol_knowledge_standard_score}</td>
+            </tr>
+            <tr>
+              <td>Pseudo Words: </td>
+              <td>-</td>
+              <td>{selectedTest.pseudo_words}</td>
+            </tr>
+            <tr>
+              <td>Letter Sounds: </td>
+              <td>-</td>
+              <td>{selectedTest.letter_sounds}</td>
             </tr>
           </tbody>
         </table>

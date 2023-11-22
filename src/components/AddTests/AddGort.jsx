@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import {
   TextField,
   Button,
@@ -90,10 +87,45 @@ const AddGort = () => {
     //   ...prevCtopp,
     //   [name]: value === "" ? null : Number(value),
     // }));
-    setNewGort((prevGort) => ({
-      ...prevGort,
-      [name]: value, // Use computed property name to update the state
-    }));
+    // setNewGort((prevGort) => ({
+    //   ...prevGort,
+    //   [name]: value, // Use computed property name to update the state
+    // }));
+    setNewGort((prevGort) => {
+      // Update values based on input type
+      let updatedValue;
+      if (name === "date") {
+        updatedValue = value; // For non-numeric fields like date
+      } else {
+        updatedValue = value === "" ? null : Number(value); // Convert to number for numeric fields
+      }
+
+      const updatedValues = {
+        ...prevGort,
+        [name]: updatedValue,
+      };
+
+      // Update sum scaled score for relevant changes
+      if (
+        [
+          "rate_scaled_score",
+          "accuracy_scaled_score",
+          "fluency_scaled_score",
+          "comprehension_scaled_score",
+        ].includes(name)
+      ) {
+        const sum = [
+          "rate_scaled_score",
+          "accuracy_scaled_score",
+          "fluency_scaled_score",
+          "comprehension_scaled_score",
+        ].reduce((acc, field) => acc + (updatedValues[field] || 0), 0); // Calculate sum
+
+        updatedValues.sum_scaled_score = sum; // Update sum scaled score
+      }
+
+      return updatedValues;
+    });
   };
 
   //function to handle click of submit button
@@ -129,6 +161,7 @@ const AddGort = () => {
       type: "ADD_GORT",
       payload: submissionData,
     });
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Test added", severity: "success" } });
 
     history.push(`/students/${student.id}`);
     //history.push back to student details
@@ -156,9 +189,7 @@ const AddGort = () => {
                   variant="outlined"
                 />
                 {validationErrors.date && (
-                  <div className="text-red-500 text-xs italic">
-                    {validationErrors.date}
-                  </div>
+                  <div className="text-red-500 text-xs italic">{validationErrors.date}</div>
                 )}
               </FormControl>
             </Grid>
@@ -167,11 +198,7 @@ const AddGort = () => {
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <InputLabel>Examiner</InputLabel>
-                <Select
-                  value={selectedExaminerId}
-                  label="Examiner"
-                  onChange={handleExaminerChange}
-                >
+                <Select value={selectedExaminerId} label="Examiner" onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
@@ -180,7 +207,174 @@ const AddGort = () => {
                 </Select>
               </FormControl>
             </Grid>
-
+            {/* Rate Raw Total */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rate Raw Total:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rate_raw_total"
+                  name="rate_raw_total"
+                  value={newGort.rate_raw_total}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rate Percentile Rank */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rate Percentile Rank:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rate_percentile_rank"
+                  name="rate_percentile_rank"
+                  value={newGort.rate_percentile_rank}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rate Scaled Score */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rate Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rate_scaled_score"
+                  name="rate_scaled_score"
+                  value={newGort.rate_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Accuracy Raw Total */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Accuracy Raw Total:</FormLabel>
+                <TextField
+                  type="number"
+                  id="accuracy_raw_total"
+                  name="accuracy_raw_total"
+                  value={newGort.accuracy_raw_total}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Accuracy Percentile Rank */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Accuracy Percentile Rank:</FormLabel>
+                <TextField
+                  type="number"
+                  id="accuracy_percentile_rank"
+                  name="accuracy_percentile_rank"
+                  value={newGort.accuracy_percentile_rank}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Accuracy Scaled Score */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Accuracy Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="accuracy_scaled_score"
+                  name="accuracy_scaled_score"
+                  value={newGort.accuracy_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Fluency Raw Total */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Fluency Raw Total:</FormLabel>
+                <TextField
+                  type="number"
+                  id="fluency_raw_total"
+                  name="fluency_raw_total"
+                  value={newGort.fluency_raw_total}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Fluency Percentile Rank */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Fluency Percentile Rank:</FormLabel>
+                <TextField
+                  type="number"
+                  id="fluency_percentile_rank"
+                  name="fluency_percentile_rank"
+                  value={newGort.fluency_percentile_rank}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Fluency Scaled Score */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Fluency Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="fluency_scaled_score"
+                  name="fluency_scaled_score"
+                  value={newGort.fluency_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Comprehension Raw Total */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Comprehension Raw Total:</FormLabel>
+                <TextField
+                  type="number"
+                  id="comprehension_raw_total"
+                  name="comprehension_raw_total"
+                  value={newGort.comprehension_raw_total}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Comprehension Percentile Rank */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Comprehension Percentile Rank:</FormLabel>
+                <TextField
+                  type="number"
+                  id="comprehension_percentile_rank"
+                  name="comprehension_percentile_rank"
+                  value={newGort.comprehension_percentile_rank}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Comprehension Scaled Score */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Comprehension Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="comprehension_scaled_score"
+                  name="comprehension_scaled_score"
+                  value={newGort.comprehension_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
             {/* Sum Scaled Score */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -189,9 +383,18 @@ const AddGort = () => {
                   type="number"
                   id="sum_scaled_score"
                   name="sum_scaled_score"
-                  value={newGort.sum_scaled_score}
+                  value={newGort.sum_scaled_score || ""} // Handle null or undefined
                   onChange={handleChange}
-                  variant="outlined"
+                  variant="filled"
+                  disabled
+                  InputProps={{
+                    readOnly: true, // Make the field read-only
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
+                  }}
                 />
               </FormControl>
             </Grid>
@@ -225,193 +428,8 @@ const AddGort = () => {
                 />
               </FormControl>
             </Grid>
-
-            {/* Rate Raw Total */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Rate Raw Total:</FormLabel>
-                <TextField
-                  type="number"
-                  id="rate_raw_total"
-                  name="rate_raw_total"
-                  value={newGort.rate_raw_total}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
-
-            {/* Accuracy Raw Total */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Accuracy Raw Total:</FormLabel>
-                <TextField
-                  type="number"
-                  id="accuracy_raw_total"
-                  name="accuracy_raw_total"
-                  value={newGort.accuracy_raw_total}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
-
-            {/* Fluency Raw Total */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Fluency Raw Total:</FormLabel>
-                <TextField
-                  type="number"
-                  id="fluency_raw_total"
-                  name="fluency_raw_total"
-                  value={newGort.fluency_raw_total}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
-
-            {/* Rate Percentile Rank */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Rate Percentile Rank:</FormLabel>
-                <TextField
-                  type="number"
-                  id="rate_percentile_rank"
-                  name="rate_percentile_rank"
-                  value={newGort.rate_percentile_rank}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
-
-            {/* Accuracy Percentile Rank */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Accuracy Percentile Rank:</FormLabel>
-                <TextField
-                  type="number"
-                  id="accuracy_percentile_rank"
-                  name="accuracy_percentile_rank"
-                  value={newGort.accuracy_percentile_rank}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
-
-            {/* Fluency Percentile Rank */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Fluency Percentile Rank:</FormLabel>
-                <TextField
-                  type="number"
-                  id="fluency_percentile_rank"
-                  name="fluency_percentile_rank"
-                  value={newGort.fluency_percentile_rank}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
-
-            {/* Comprehension Percentile Rank */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Comprehension Percentile Rank:</FormLabel>
-                <TextField
-                  type="number"
-                  id="comprehension_percentile_rank"
-                  name="comprehension_percentile_rank"
-                  value={newGort.comprehension_percentile_rank}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
-
-            {/* Comprehension Raw Total */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Comprehension Raw Total:</FormLabel>
-                <TextField
-                  type="number"
-                  id="comprehension_raw_total"
-                  name="comprehension_raw_total"
-                  value={newGort.comprehension_raw_total}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
-
-            {/* Rate Scaled Score */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Rate Scaled Score:</FormLabel>
-                <TextField
-                  type="number"
-                  id="rate_scaled_score"
-                  name="rate_scaled_score"
-                  value={newGort.rate_scaled_score}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
-
-            {/* Accuracy Scaled Score */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Accuracy Scaled Score:</FormLabel>
-                <TextField
-                  type="number"
-                  id="accuracy_scaled_score"
-                  name="accuracy_scaled_score"
-                  value={newGort.accuracy_scaled_score}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
-
-            {/* Fluency Scaled Score */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Fluency Scaled Score:</FormLabel>
-                <TextField
-                  type="number"
-                  id="fluency_scaled_score"
-                  name="fluency_scaled_score"
-                  value={newGort.fluency_scaled_score}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
-
-            {/* Comprehension Scaled Score */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Comprehension Scaled Score:</FormLabel>
-                <TextField
-                  type="number"
-                  id="comprehension_scaled_score"
-                  name="comprehension_scaled_score"
-                  value={newGort.comprehension_scaled_score}
-                  onChange={handleChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Grid>
           </Grid>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className="mt-4"
-          >
+          <Button type="submit" variant="contained" color="primary" className="mt-4">
             Submit
           </Button>
         </form>

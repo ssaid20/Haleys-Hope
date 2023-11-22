@@ -46,9 +46,7 @@ const ManageUsers = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [showArchivedUsers, setShowArchivedUsers] = useState(false);
-  const archivedUsers = useSelector(
-    (store) => store.allUsersReducer.archivedUsers
-  );
+  const archivedUsers = useSelector((store) => store.allUsersReducer.archivedUsers);
   console.log("logging archived users", archivedUsers);
   useEffect(() => {
     dispatch({ type: "FETCH_ALL_USERS" });
@@ -103,6 +101,8 @@ const ManageUsers = () => {
       type: "UPDATE_USER",
       payload: { id: editingUserId, ...formData },
     });
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "User Updated", severity: "success" } });
+
     setEditingUserId(null); // Close the sheet after submitting
   }; // end handleSubmit
 
@@ -121,6 +121,16 @@ const ManageUsers = () => {
     }
   }, [users]);
 
+  //mapping role id to role name
+  const roleMapping = {
+    1: "Deactivated",
+    2: "Academic Assessment Coordinator",
+    3: "Dyslexia Specialist",
+    4: "Literacy Coach Manager",
+    5: "Lead Performing Agent",
+    6: "Admin",
+  };
+
   return (
     <div>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -129,91 +139,78 @@ const ManageUsers = () => {
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                  >
+                  <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth }}>
                     {column.label}
                   </TableCell>
                 ))}
               </TableRow>
             </TableHead>
             <TableBody>
-              {users
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((user) => {
-                  const formattedUser = {
-                    ...user,
-                    first_name: `${user.first_name}`,
-                    last_name: `${user.last_name}`,
-                    role_id: `${user.role_id}`,
-                  };
+              {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => {
+                const formattedUser = {
+                  ...user,
+                  first_name: `${user.first_name}`,
+                  last_name: `${user.last_name}`,
+                  role_id: `${user.role_id}`,
+                };
 
-                  return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
-                      {columns.map((column) => {
-                        const value = formattedUser[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {value}
-                          </TableCell>
-                        );
-                      })}
-                      <TableCell>
-                        <Button
-                          onClick={() => handleEditClick(user)}
-                          variant="outline"
-                          className=" text-m px-5 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
-                        >
-                          <img
-                            src="/assets/icons/edit.svg"
-                            alt="Edit Icon"
-                            className="w-4 h-4"
-                          />
-                          <span>Edit User</span>
-                        </Button>
-                      </TableCell>
-                      {/* {editingUserId === user.id && (
+                return (
+                  // <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
+                  //   {columns.map((column) => {
+                  //     const value = formattedUser[column.id];
+                  //     return (
+                  //       <TableCell key={column.id} align={column.align}>
+                  //         {value}
+                  //       </TableCell>
+                  //     );
+                  //   })}
+                  <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
+                    {columns.map((column) => {
+                      let value = user[column.id];
+                      if (column.id === "role_id") {
+                        value = roleMapping[value] || "Unknown Role"; // Translate role_id to role name
+                      }
+                      return (
+                        <TableCell key={column.id} align={column.align}>
+                          {value}
+                        </TableCell>
+                      );
+                    })}
+                    <TableCell>
+                      <Button
+                        onClick={() => handleEditClick(user)}
+                        variant="outline"
+                        className=" text-m px-5 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
+                      >
+                        <img src="/assets/icons/edit.svg" alt="Edit Icon" className="w-4 h-4" />
+                        <span>Edit User</span>
+                      </Button>
+                    </TableCell>
+                    {/* {editingUserId === user.id && (
                         <Sheet isOpen={editingUserId === user.id}>
                           <SheetTrigger asChild></SheetTrigger> */}
-                      {console.log(
-                        "Sheet should open:",
-                        Boolean(editingUserId)
-                      )}{" "}
-                      {editingUserId && (
-                        <Sheet
-                          open={Boolean(editingUserId)}
-                          onOpenChange={setEditingUserId}
-                        >
-                          <SheetContent
-                            side="top"
-                            style={sheetStyle}
-                          ></SheetContent>
-                          <SheetContent side="top" style={sheetStyle}>
-                            <SheetHeader>
-                              <SheetTitle>Edit User</SheetTitle>
-                              <SheetDescription>
-                                Make changes to the user's profile here.
-                              </SheetDescription>
-                            </SheetHeader>
-                            <div className="p-4">
-                              <div className="grid grid-cols-2 gap-4">
-                                <Label htmlFor="firstName">First Name</Label>
-                                <Input
-                                  id="first_name"
-                                  value={formData.first_name}
-                                  onChange={handleInputChange}
-                                />
+                    {console.log("Sheet should open:", Boolean(editingUserId))}{" "}
+                    {editingUserId && (
+                      <Sheet open={Boolean(editingUserId)} onOpenChange={setEditingUserId}>
+                        <SheetContent side="top" style={sheetStyle}></SheetContent>
+                        <SheetContent side="top" style={sheetStyle}>
+                          <SheetHeader>
+                            <SheetTitle>Edit User</SheetTitle>
+                            <SheetDescription>Make changes to the user's profile here.</SheetDescription>
+                          </SheetHeader>
+                          <div className="p-4">
+                            <div className="grid grid-cols-2 gap-4">
+                              <Label htmlFor="firstName">First Name</Label>
+                              <Input
+                                id="first_name"
+                                value={formData.first_name}
+                                onChange={handleInputChange}
+                              />
 
-                                <Label htmlFor="lastName">Last Name</Label>
-                                <Input
-                                  id="last_name"
-                                  value={formData.last_name}
-                                  onChange={handleInputChange}
-                                />
+                              <Label htmlFor="lastName">Last Name</Label>
+                              <Input id="last_name" value={formData.last_name} onChange={handleInputChange} />
 
-                                {/* <Label htmlFor="Role">Role</Label>
+                              {/* <Label htmlFor="Role">Role</Label>
                                 <Input
                                   id="grade"
                                   type="number"
@@ -221,40 +218,30 @@ const ManageUsers = () => {
                                   onChange={handleInputChange}
                                 /> */}
 
-                                <Label htmlFor="role">Role</Label>
-                                <select
-                                  id="role_id"
-                                  value={formData.role_id}
-                                  onChange={handleInputChange}
-                                >
-                                  <option value="1">Deactivated</option>
-                                  <option value="2">
-                                    Academic Assessment Coordinator
-                                  </option>
-                                  <option value="3">Dyslexia Specialist</option>
-                                  <option value="4">
-                                    Literacy Coach Manager
-                                  </option>
-                                  <option value="5">
-                                    Lead Performing Agent
-                                  </option>
-                                  <option value="6">Admin</option>
-                                </select>
-                              </div>
+                              <Label htmlFor="role">Role</Label>
+                              <select id="role_id" value={formData.role_id} onChange={handleInputChange}>
+                                <option value="1">Deactivated</option>
+                                <option value="2">Academic Assessment Coordinator</option>
+                                <option value="3">Dyslexia Specialist</option>
+                                <option value="4">Literacy Coach Manager</option>
+                                <option value="5">Lead Performing Agent</option>
+                                <option value="6">Admin</option>
+                              </select>
                             </div>
-                            <SheetFooter>
-                              <SheetClose asChild>
-                                <Button onClick={handleSubmit} type="submit">
-                                  Save Changes
-                                </Button>
-                              </SheetClose>
-                            </SheetFooter>
-                          </SheetContent>
-                        </Sheet>
-                      )}
-                    </TableRow>
-                  );
-                })}
+                          </div>
+                          <SheetFooter>
+                            <SheetClose asChild>
+                              <Button onClick={handleSubmit} type="submit">
+                                Save Changes
+                              </Button>
+                            </SheetClose>
+                          </SheetFooter>
+                        </SheetContent>
+                      </Sheet>
+                    )}
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>
@@ -279,11 +266,7 @@ const ManageUsers = () => {
               <TableHead>
                 <TableRow>
                   {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth }}
-                    >
+                    <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth }}>
                       {column.label}
                     </TableCell>
                   ))}
@@ -292,7 +275,6 @@ const ManageUsers = () => {
               </TableHead>
               <TableBody>
                 {archivedUsers.map((user) => {
-                  // Assuming similar structure for archived users
                   const formattedUser = {
                     ...user,
                     first_name: `${user.first_name}`,
@@ -301,9 +283,21 @@ const ManageUsers = () => {
                   };
 
                   return (
+                    // <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
+                    //   {columns.map((column) => {
+                    //     const value = formattedUser[column.id];
+                    //     return (
+                    //       <TableCell key={column.id} align={column.align}>
+                    //         {value}
+                    //       </TableCell>
+                    //     );
+                    //   })}
                     <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
                       {columns.map((column) => {
-                        const value = formattedUser[column.id];
+                        let value = user[column.id];
+                        if (column.id === "role_id") {
+                          value = roleMapping[value] || "Unknown Role"; // Translate role_id to role name
+                        }
                         return (
                           <TableCell key={column.id} align={column.align}>
                             {value}
@@ -316,11 +310,7 @@ const ManageUsers = () => {
                           variant="outline"
                           className=" text-m px-5 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
                         >
-                          <img
-                            src="/assets/icons/edit.svg"
-                            alt="Edit Icon"
-                            className="w-4 h-4"
-                          />
+                          <img src="/assets/icons/edit.svg" alt="Edit Icon" className="w-4 h-4" />
                           <span>Edit User</span>
                         </Button>
                       </TableCell>

@@ -4,6 +4,7 @@ import LogOutButton from "../LogOutButton/LogOutButton";
 import { useSelector } from "react-redux";
 import { Menu, MenuItem } from "@mui/material";
 import { Button } from "../ui/button";
+import "./Nav.css";
 
 function Nav() {
   const user = useSelector((store) => store.user);
@@ -25,6 +26,7 @@ function Nav() {
           src="/assets/images/site-logo.png"
           width={180}
           height={180}
+          className="logo-image"
           alt="Haley's Hope Logo"
         />
       </Link>
@@ -47,24 +49,24 @@ function Nav() {
               Students
             </Link>
 
-            <Link
+            {/* <Link
               className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
               to="/info"
             >
               Info Page
-            </Link>
+            </Link> */}
 
             {/* Adjust LogOutButton styling as needed */}
             <LogOutButton className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg" />
           </>
         )}
 
-        <Link
+        {/* <Link
           className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg"
           to="/about"
         >
           About
-        </Link>
+        </Link> */}
         {user.role_id === 6 && (
           <>
             <Button
@@ -96,12 +98,7 @@ function Nav() {
                 Manage Users
               </MenuItem>
 
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/admin/coaches"
-                className="customMenuItem"
-              >
+              <MenuItem onClick={handleClose} component={Link} to="/admin/coaches" className="customMenuItem">
                 Coaches
               </MenuItem>
               {/* <MenuItem

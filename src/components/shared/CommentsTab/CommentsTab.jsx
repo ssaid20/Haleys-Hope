@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -46,6 +44,7 @@ const CustomSnackbar = ({ open, handleClose, message, severity }) => {
     </Snackbar>
   );
 };
+import CustomSnackbar from "../../../lib/CustomSnackbar";
 
 const CommentsTab = () => {
   const dispatch = useDispatch();
@@ -71,7 +70,8 @@ const CommentsTab = () => {
   const handleDelete = () => {
     if (commentToDelete !== null) {
       dispatch({ type: "DELETE_COMMENT", payload: commentToDelete });
-      openSnackbar("Comment deleted successfully", "success");
+      dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Successfully Deleted", severity: "success" } });
+
       setCommentToDelete(null);
     }
     closeConfirmDialog();
@@ -92,9 +92,7 @@ const CommentsTab = () => {
   }, [dispatch, studentId]);
 
   //access comments from the redux store
-  const { comments, loading, error } = useSelector(
-    (state) => state.commentsReducer
-  );
+  const { comments, loading, error } = useSelector((state) => state.commentsReducer);
   const student = useSelector((store) => store);
   const [newComment, setNewComment] = useState("");
   const [editingCommentId, setEditingCommentId] = useState(null);
@@ -123,7 +121,8 @@ const CommentsTab = () => {
         date: new Date().toISOString(),
       },
     });
-    openSnackbar("Comment added", "success");
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Comment Added", severity: "success" } });
+
     setNewComment("");
   };
 
@@ -138,7 +137,8 @@ const CommentsTab = () => {
         date: new Date().toISOString(),
       },
     });
-    openSnackbar("Edit saved", "success");
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Note Updated", severity: "success" } });
+
     setEditingCommentId(null);
     setEditedComment("");
   };
@@ -242,8 +242,7 @@ const CommentsTab = () => {
         <DialogTitle id="alert-dialog-title">{"Confirm Delete"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete this comment? This action cannot be
-            undone.
+            Are you sure you want to delete this comment? This action cannot be undone.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

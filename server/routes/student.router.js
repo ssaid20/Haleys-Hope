@@ -92,7 +92,7 @@ router.post(
   (req, res) => {
     const newStudent = req.body;
     const pictureUrl = req.file ? req.file.path : null;
-    console.log("post add studeent req.body", newStudent);
+
     const queryText = `
     INSERT INTO "students" (
       "first_name", "last_name", "grade", "gender", "dob", 
@@ -138,7 +138,7 @@ router.put(
   (req, res) => {
     const studentId = req.params.id;
     const updatedStudent = req.body;
-    console.log(req.body);
+
     const pictureUrl = req.file ? req.file.path : updatedStudent.picture;
     const queryText = `UPDATE "students" SET
     "first_name" = $1, "last_name" = $2, "grade" = $3, "gender" = $4, "dob" = $5, 

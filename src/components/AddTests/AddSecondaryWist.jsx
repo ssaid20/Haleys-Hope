@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import {
   TextField,
   Button,
@@ -99,15 +96,13 @@ const AddSecondaryWist = () => {
       // Calculate word identification
       if (name === "read_regular_words" || name === "read_irregular_words") {
         updatedValue.word_identification =
-          (updatedValue.read_regular_words || 0) +
-          (updatedValue.read_irregular_words || 0);
+          (updatedValue.read_regular_words || 0) + (updatedValue.read_irregular_words || 0);
       }
 
       // Calculate spelling
       if (name === "spell_regular_words" || name === "spell_irregular_words") {
         updatedValue.spelling =
-          (updatedValue.spell_regular_words || 0) +
-          (updatedValue.spell_irregular_words || 0);
+          (updatedValue.spell_regular_words || 0) + (updatedValue.spell_irregular_words || 0);
       }
 
       // Calculate fundamental literacy
@@ -118,8 +113,7 @@ const AddSecondaryWist = () => {
         name === "spell_irregular_words"
       ) {
         updatedValue.fundamental_literacy =
-          (updatedValue.word_identification || 0) +
-          (updatedValue.spelling || 0);
+          (updatedValue.word_identification || 0) + (updatedValue.spelling || 0);
       }
 
       // Calculate sound symbol knowledge
@@ -189,6 +183,7 @@ const AddSecondaryWist = () => {
       type: "ADD_SECONDARY_WIST",
       payload: submissionData,
     });
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Test added", severity: "success" } });
 
     history.push(`/students/${student.id}`);
     //history.push back to student details
@@ -196,9 +191,7 @@ const AddSecondaryWist = () => {
 
   return (
     <>
-      <h1 className="text-3xl text-center mb-4 bg-primary-100">
-        SECONDARY WIST{" "}
-      </h1>
+      <h1 className="text-3xl text-center mb-4 bg-primary-100">SECONDARY WIST </h1>
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         GO BACK
       </Button>
@@ -226,11 +219,7 @@ const AddSecondaryWist = () => {
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <InputLabel>Examiner</InputLabel>
-                <Select
-                  value={selectedExaminerId}
-                  label="Examiner"
-                  onChange={handleExaminerChange}
-                >
+                <Select value={selectedExaminerId} label="Examiner" onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
@@ -497,12 +486,7 @@ const AddSecondaryWist = () => {
               </FormControl>
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className="mt-4"
-          >
+          <Button type="submit" variant="contained" color="primary" className="mt-4">
             Submit
           </Button>
         </form>

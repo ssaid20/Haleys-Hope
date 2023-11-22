@@ -18,9 +18,7 @@ const EditOlderCtoppResults = () => {
   const testId = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-  const selectedTest = useSelector(
-    (store) => store.olderCtoppReducer.selectedTest[0]
-  );
+  const selectedTest = useSelector((store) => store.olderCtoppReducer.selectedTest[0]);
   const users = useSelector((store) => store.allUsersReducer.users);
   const student = useSelector((store) => store.user);
 
@@ -146,15 +144,12 @@ const EditOlderCtoppResults = () => {
       ...newCtopp,
       examiner_id: selectedExaminerId,
     };
-    console.log(
-      "update ctopp edit page, sub data, testId",
-      submissionData,
-      testId.id
-    );
+    console.log("update ctopp edit page, sub data, testId", submissionData, testId.id);
     dispatch({
       type: "UPDATE_OLDER_CTOPP",
       payload: { ...submissionData, id: testId.id },
     });
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Successfully Saved", severity: "success" } });
 
     history.push(`/students/${selectedTest.student_id}`);
   };
@@ -172,9 +167,7 @@ const EditOlderCtoppResults = () => {
       {/* <h1 className="text-2xl text-center mb-4">
         Test on: {formatDate(selectedTest.date)}{" "}
       </h1> */}
-      <h1 className="text-3xl text-center mb-4">
-        Edit Older CTOPP from: {formatDate2(selectedTest.date)}
-      </h1>
+      <h1 className="text-3xl text-center mb-4">Edit Older CTOPP from: {formatDate2(selectedTest.date)}</h1>
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         Go Back
       </Button>
@@ -199,11 +192,7 @@ const EditOlderCtoppResults = () => {
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <InputLabel>Examiner</InputLabel>
-                <Select
-                  value={selectedExaminerId}
-                  label="Examiner"
-                  onChange={handleExaminerChange}
-                >
+                <Select value={selectedExaminerId} label="Examiner" onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
@@ -452,12 +441,7 @@ const EditOlderCtoppResults = () => {
             </Grid>
           </Grid>
 
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className="mt-4"
-          >
+          <Button type="submit" variant="contained" color="primary" className="mt-4">
             Save Changes
           </Button>
           <Button onClick={handleGoBack}>Go Back</Button>

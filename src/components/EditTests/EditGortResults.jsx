@@ -159,6 +159,7 @@ const EditGortResults = () => {
       type: "UPDATE_GORT",
       payload: { ...submissionData, id: testId.id },
     });
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Successfully Saved", severity: "success" } });
 
     history.push(`/students/${selectedTest.student_id}`);
   };

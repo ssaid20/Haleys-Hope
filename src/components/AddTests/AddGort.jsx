@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import {
   TextField,
   Button,
@@ -90,10 +87,45 @@ const AddGort = () => {
     //   ...prevCtopp,
     //   [name]: value === "" ? null : Number(value),
     // }));
-    setNewGort((prevGort) => ({
-      ...prevGort,
-      [name]: value, // Use computed property name to update the state
-    }));
+    // setNewGort((prevGort) => ({
+    //   ...prevGort,
+    //   [name]: value, // Use computed property name to update the state
+    // }));
+    setNewGort((prevGort) => {
+      // Update values based on input type
+      let updatedValue;
+      if (name === "date") {
+        updatedValue = value; // For non-numeric fields like date
+      } else {
+        updatedValue = value === "" ? null : Number(value); // Convert to number for numeric fields
+      }
+
+      const updatedValues = {
+        ...prevGort,
+        [name]: updatedValue,
+      };
+
+      // Update sum scaled score for relevant changes
+      if (
+        [
+          "rate_scaled_score",
+          "accuracy_scaled_score",
+          "fluency_scaled_score",
+          "comprehension_scaled_score",
+        ].includes(name)
+      ) {
+        const sum = [
+          "rate_scaled_score",
+          "accuracy_scaled_score",
+          "fluency_scaled_score",
+          "comprehension_scaled_score",
+        ].reduce((acc, field) => acc + (updatedValues[field] || 0), 0); // Calculate sum
+
+        updatedValues.sum_scaled_score = sum; // Update sum scaled score
+      }
+
+      return updatedValues;
+    });
   };
 
   //function to handle click of submit button
@@ -156,9 +188,7 @@ const AddGort = () => {
                   variant="outlined"
                 />
                 {validationErrors.date && (
-                  <div className="text-red-500 text-xs italic">
-                    {validationErrors.date}
-                  </div>
+                  <div className="text-red-500 text-xs italic">{validationErrors.date}</div>
                 )}
               </FormControl>
             </Grid>
@@ -167,11 +197,7 @@ const AddGort = () => {
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <InputLabel>Examiner</InputLabel>
-                <Select
-                  value={selectedExaminerId}
-                  label="Examiner"
-                  onChange={handleExaminerChange}
-                >
+                <Select value={selectedExaminerId} label="Examiner" onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
@@ -189,9 +215,12 @@ const AddGort = () => {
                   type="number"
                   id="sum_scaled_score"
                   name="sum_scaled_score"
-                  value={newGort.sum_scaled_score}
+                  value={newGort.sum_scaled_score || ""} // Handle null or undefined
                   onChange={handleChange}
                   variant="outlined"
+                  InputProps={{
+                    readOnly: true, // Make the field read-only
+                  }}
                 />
               </FormControl>
             </Grid>
@@ -406,12 +435,7 @@ const AddGort = () => {
               </FormControl>
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className="mt-4"
-          >
+          <Button type="submit" variant="contained" color="primary" className="mt-4">
             Submit
           </Button>
         </form>

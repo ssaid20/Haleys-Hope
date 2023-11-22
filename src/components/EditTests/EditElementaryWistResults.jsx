@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { formatDate, formatDate2 } from "../../lib/utils";
+import { formatDate, formatDate2, formatDateForInput } from "../../lib/utils";
 import {
   TextField,
   Button,
@@ -37,8 +37,9 @@ const EditElementaryWistResults = () => {
       // }if (selectedTest) {
       setNewWist({
         ...selectedTest,
-        date: formatDate(selectedTest.date), // Assuming formatDate converts the date to the required format
+        date: formatDateForInput(selectedTest.date), // Assuming formatDate converts the date to the required format
       });
+      console.log("setNEWWIST", setNewWist);
       setSelectedExaminerId(selectedTest.examiner_id.toString());
     }
   }, [selectedTest]);
@@ -67,6 +68,7 @@ const EditElementaryWistResults = () => {
     word_identification_percentile: "",
     word_identification_standard_score: "",
   });
+  console.log("new WISTTTT", newWist);
   const [selectedExaminerId, setSelectedExaminerId] = useState("");
   const handleExaminerChange = (event) => {
     const examinerId = event.target.value;

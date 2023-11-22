@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { formatDate, formatDate2 } from "../../lib/utils";
+import { formatDate, formatDate2, formatDateForInput } from "../../lib/utils";
 import {
   TextField,
   Button,
@@ -35,7 +35,7 @@ const EditGortResults = () => {
     if (selectedTest) {
       setNewGort({
         ...selectedTest,
-        date: formatDate(selectedTest.date), // Assuming formatDate converts the date to the required format
+        date: formatDateForInput(selectedTest.date), // Assuming formatDate converts the date to the required format
       });
       setSelectedExaminerId(selectedTest.examiner_id.toString());
     }

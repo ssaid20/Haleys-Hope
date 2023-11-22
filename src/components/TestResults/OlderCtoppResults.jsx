@@ -135,13 +135,6 @@ const OlderCtoppResults = () => {
             <TableHead>
               <TableRow style={{ backgroundColor: "lightgrey" }}>
                 <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Subtest</TableCell>
-
-                {/* <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
-                  Raw Score
-                </TableCell>
-                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
-                  Percentile Rank
-                </TableCell> */}
                 <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Scaled Score
                 </TableCell>

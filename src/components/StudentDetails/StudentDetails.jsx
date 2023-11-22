@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import StudentCard from "../Cards/StudentCard";
 import CommentsTab from "../shared/CommentsTab/CommentsTab";
+import CompareTab from "../shared/CompareTab/CompareTab";
 
 function StudentDetails() {
   const dispatch = useDispatch();
@@ -53,7 +54,7 @@ function StudentDetails() {
 
           <Tabs defaultValue="test" className="flex-1">
             <TabsList className="background-light800_dark400 min-h-[42px] p-1 rounded-t-lg">
-              {["test", "graph", "assessment", "notes"].map((tab) => (
+              {["test", "graph", "assessment", "notes", "compare"].map((tab) => (
                 <TabsTrigger
                   key={tab}
                   value={tab}
@@ -77,6 +78,9 @@ function StudentDetails() {
             </TabsContent>
             <TabsContent value="notes" className="flex w-full flex-col gap-6">
               <CommentsTab />
+            </TabsContent>
+            <TabsContent value="compare" className="flex w-full flex-col gap-6">
+              <CompareTab />
             </TabsContent>
           </Tabs>
         </div>

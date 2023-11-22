@@ -160,9 +160,7 @@ export default function PrimaryWistComparisonTable() {
                   </StyledTableCell>
                 ))}
                 {row.descriptiveTerms.map((term, index) => (
-                  <StyledTableCell align="right">
-                    {GetCompositeScoreDescription(row.standardScores)}
-                  </StyledTableCell>
+                  <StyledTableCell align="right">{term} </StyledTableCell>
                 ))}
               </StyledTableRow>
             ))}

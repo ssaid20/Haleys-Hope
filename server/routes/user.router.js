@@ -1,7 +1,5 @@
 const express = require("express");
-const {
-  rejectUnauthenticated,
-} = require("../modules/authentication-middleware");
+const { rejectUnauthenticated } = require("../modules/authentication-middleware");
 const encryptLib = require("../modules/encryption");
 const pool = require("../modules/pool");
 const userStrategy = require("../strategies/user.strategy");
@@ -16,7 +14,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 
 // GET route to fetch all users who are not deactivated
 router.get("/allUsers", (req, res) => {
-  const queryText = 'SELECT * FROM "user" WHERE "role_id" > 1';
+  const queryText = 'SELECT * FROM "user" WHERE "role_id" > 1 OR "role_id" IS NULL ORDER BY "role_id" DESC';
   pool
     .query(queryText)
     .then((result) => res.send(result.rows))
@@ -59,9 +57,7 @@ router.post("/register", (req, res) => {
         pool
           .query(updateQuery, [newUserId])
           .then(() => {
-            res
-              .status(201)
-              .send(`User created with ID: ${newUserId} and role set to admin`);
+            res.status(201).send(`User created with ID: ${newUserId} and role set to admin`);
           })
           .catch((err) => {
             console.error("Error in updating role to admin", err);

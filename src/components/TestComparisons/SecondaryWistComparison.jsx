@@ -55,7 +55,9 @@ function createRowData(category, tests) {
     percentiles: tests.map((test) => test[categoryMap[category].percentile]),
     standardScores: tests.map((test) => test[categoryMap[category].standard]),
     descriptiveTerms: tests.map((test) =>
-      GetCompositeScoreDescription({ compositeScore: test[categoryMap[category].standard] })
+      GetCompositeScoreDescription({
+        compositeScore: test[categoryMap[category].standard],
+      })
     ),
   };
 }
@@ -160,8 +162,8 @@ export default function SecondaryWistComparisonTable() {
                   </StyledTableCell>
                 ))}
                 {row.descriptiveTerms.map((term, index) => (
-                  <StyledTableCell align="right">
-                    {GetCompositeScoreDescription(row.standardScores)}
+                  <StyledTableCell align="right" key={`descriptive-${index}`}>
+                    {term}
                   </StyledTableCell>
                 ))}
               </StyledTableRow>

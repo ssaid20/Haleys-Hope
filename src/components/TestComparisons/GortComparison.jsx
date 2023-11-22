@@ -10,7 +10,6 @@ import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { formatDate3 } from "../../lib/utils";
-import { getDescriptiveTerm } from "../../lib/utils";
 import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
 import { GetScaledScoreDescription } from "../../lib/GetScaledScoreDescription";
 

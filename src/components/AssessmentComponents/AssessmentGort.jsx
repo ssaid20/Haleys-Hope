@@ -7,12 +7,17 @@ const AssessmentGort = () => {
   const { date } = useParams();
   console.log("assessment date", date);
   const assessments = useSelector(
-    (store) => store.assessmentReducer.olderAssessment
+    (store) => store.gortReducer.list
   );
   const selectedTest = assessments.find(
     (assessment) => assessment.date === date
   );
   console.log("selected test is:", selectedTest, assessments);
+if (!selectedTest) {
+  return <div>No GORT for this date</div>
+
+}
+
 
   return (
     <div style={{ border: "1px solid black" }}>

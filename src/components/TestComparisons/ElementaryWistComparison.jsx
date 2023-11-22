@@ -110,6 +110,7 @@ export default function ElementaryWistComparisonTable() {
   console.log("rows", rows);
 
   const lightGreyColor = "#F5F5F5"; // Light grey color
+  
   return (
     <>
       <TableContainer component={Paper}>

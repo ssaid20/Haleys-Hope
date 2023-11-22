@@ -65,9 +65,7 @@ function createRowData(category, tests) {
     percentiles: tests.map((test) => test[categoryMap[category].percentile]),
     scaledScores: tests.map((test) => test[categoryMap[category].scaled]),
     descriptiveTerms: tests.map((test) =>
-      GetCompositeScoreDescription({
-        compositeScore: test[categoryMap[category].scaled],
-      })
+      GetCompositeScoreDescription({ compositeScore: test[categoryMap[category].scaled] })
     ), // Assuming you calculate descriptive terms based on scaled scores
   };
 }
@@ -95,9 +93,7 @@ const OldCtoppComparison = () => {
   }, [dispatch, student.id]);
 
   // Create rows based on the fetched data
-  const rows = categories.map((category) =>
-    createRowData(category, OlderctoppTests)
-  );
+  const rows = categories.map((category) => createRowData(category, OlderctoppTests));
   console.log("rows", rows);
 
   const sectionHeaderColors = {

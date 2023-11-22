@@ -29,12 +29,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
-const categories = [
-  "Word Identification",
-  "Spelling",
-  "Literacy Ability",
-  "Sound-Symbol Recognition",
-];
+const categories = ["Word Identification", "Spelling", "Literacy Ability", "Sound-Symbol Recognition"];
 function createRowData(category, tests) {
   const categoryMap = {
     "Word Identification": {
@@ -59,7 +54,7 @@ function createRowData(category, tests) {
     percentiles: tests.map((test) => test[categoryMap[category].percentile]),
     standardScores: tests.map((test) => test[categoryMap[category].standard]),
     descriptiveTerms: tests.map((test) =>
-      GetCompositeScoreDescription({compositeScore: test[categoryMap[category].standard]})
+      GetCompositeScoreDescription({ compositeScore: test[categoryMap[category].standard] })
     ),
   };
 }
@@ -96,9 +91,7 @@ const DottedBorderTableCell = styled(TableCell)(({ theme }) => ({
 }));
 export default function PrimaryWistComparisonTable() {
   const dispatch = useDispatch();
-  const primaryWistTests = useSelector(
-    (store) => store.elementaryWistReducer.list
-  );
+  const primaryWistTests = useSelector((store) => store.elementaryWistReducer.list);
   const student = useParams();
   console.log("AllEleWist tests maybe?", primaryWistTests);
 
@@ -107,9 +100,7 @@ export default function PrimaryWistComparisonTable() {
   }, [dispatch, student.id]);
 
   // Create rows based on the fetched data
-  const rows = categories.map((category) =>
-    createRowData(category, primaryWistTests)
-  );
+  const rows = categories.map((category) => createRowData(category, primaryWistTests));
   console.log("rows", rows);
   const sectionHeaderColors = {
     percentile: "#778899", // Example color for Percentile Section
@@ -117,12 +108,11 @@ export default function PrimaryWistComparisonTable() {
     descriptiveTerm: "#1277bf", // Example color for Descriptive Term Section
   };
   const lightGreyColor = "#F5F5F5"; // Light grey color
+
   return (
     <>
       <TableContainer component={Paper}>
-        <Table
-          sx={{ minWidth: 700 }}
-          aria-label="WIST 11-18 (TODO: CHECK AGES) Comparison Table">
+        <Table sx={{ minWidth: 700 }} aria-label="WIST 11-18 (TODO: CHECK AGES) Comparison Table">
           <TableHead>
             <TableRow>
               <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
@@ -145,11 +135,12 @@ export default function PrimaryWistComparisonTable() {
                 </TestHeaderCell>
               ))}
               {primaryWistTests.map((test, index) => (
-                <TestHeaderCell 
-                align="center"
-                color={sectionHeaderColors.descriptiveTerm}
-                key={`descriptive-term-header-${index}`}>
-                    {`Test ${index +1} (${formatDate3(test.date)}) Descriptive Term`}
+                <TestHeaderCell
+                  align="center"
+                  color={sectionHeaderColors.descriptiveTerm}
+                  key={`descriptive-term-header-${index}`}
+                >
+                  {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive Term`}
                 </TestHeaderCell>
               ))}
             </TableRow>
@@ -161,22 +152,41 @@ export default function PrimaryWistComparisonTable() {
                   {row.category}
                 </StyledTableCell>
                 {row.percentiles.map((percentile, index) => (
-                  <StyledTableCell align="right">
-                    {percentile}
+                  <StyledTableCell align="right">{percentile}</StyledTableCell>
+                ))}
+                {row.standardScores.map((score, index) => (
+                  <StyledTableCell key={`score-${index}`} align="right">
+                    {score}
                   </StyledTableCell>
                 ))}
-{row.standardScores.map((score, index) => (
-    <StyledTableCell key={`score-${index}`} align="right">
-                      {score}
-                    </StyledTableCell>
+                {row.descriptiveTerms.map((term, index) => (
+                  <StyledTableCell align="right">{term} </StyledTableCell>
                 ))}
-{row.descriptiveTerms.map((term, index) => (
-    <StyledTableCell align="right">
-{term}  </StyledTableCell>
-  ))}
-  </StyledTableRow>
-  ))}            
+              </StyledTableRow>
+            ))}
           </TableBody>
+          {/* <TableBody>
+            {rows.map((row, rowIndex) => (
+              <StyledTableRow key={rowIndex}>
+                <StyledTableCell component="th" scope="row">
+                  {row.category}
+                </StyledTableCell>
+                {elementaryWistTests.flatMap((_, testIndex) => [
+                  <StyledTableCell align="right" key={`percentile-${rowIndex}-${testIndex}`}>
+                    {row.percentiles[testIndex]}
+                  </StyledTableCell>,
+                  <DottedBorderTableCell align="right" key={`standard-${rowIndex}-${testIndex}`}>
+                    {row.standardScores[testIndex]}
+                  </DottedBorderTableCell>,
+                ])}
+                <StyledTableCell align="right">
+                  {row.descriptiveTerms.map((term, index) => (
+                    <span key={`descriptive-${rowIndex}-${index}`}>{term}</span>
+                  ))}
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody> */}
         </Table>
       </TableContainer>
 

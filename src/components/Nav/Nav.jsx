@@ -31,19 +31,16 @@ function Nav() {
         />
       </Link>
       <div className="flex gap-4">
-        {!user.id && (
-          <Link
-            className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
-            to="/login"
-          >
+        {/* {!user.id && (
+          <Link className="px-4 py-2 text-white hover:bg-blue-500 bg-primary-100 shadow-lg mr-4" to="/login">
             Login / Register
           </Link>
-        )}
+        )} */}
 
         {user.id && (
           <>
             <Link
-              className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
+              className="px-4 py-2 text-white hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
               to="/students"
             >
               Students
@@ -57,7 +54,10 @@ function Nav() {
             </Link> */}
 
             {/* Adjust LogOutButton styling as needed */}
-            <LogOutButton className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg" />
+            <LogOutButton
+              className="px-4 py-2 text-white hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
+              to="/login"
+            />
           </>
         )}
 
@@ -69,16 +69,17 @@ function Nav() {
         </Link> */}
         {user.role_id === 6 && (
           <>
-            <Button
+            <Link
               aria-controls="admin-menu"
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
-              className="px-4 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg"
+              className="px-5 py-2 text-white hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
+              to="/login"
               //className="bg-primary-100"
             >
               Admin
-            </Button>
+            </Link>
             <Menu
               id="admin-menu"
               anchorEl={anchorEl}

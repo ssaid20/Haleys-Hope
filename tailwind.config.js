@@ -2,11 +2,11 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{js,jsx}',
-    './components/**/*.{js,jsx}',
-    './app/**/*.{js,jsx}',
-    './src/**/*.{js,jsx}',
-	],
+    "./pages/**/*.{js,jsx}",
+    "./components/**/*.{js,jsx}",
+    "./app/**/*.{js,jsx}",
+    "./src/**/*.{js,jsx}",
+  ],
   theme: {
     container: {
       center: true,
@@ -17,10 +17,11 @@ module.exports = {
     },
     extend: {
       colors: {
-        
         primary: {
           500: "#0f3c5c",
           100: "#1277bf",
+          200: "#B7DEEA",
+          300: "#BDE1E9",
         },
         dark: {
           100: "#000000",

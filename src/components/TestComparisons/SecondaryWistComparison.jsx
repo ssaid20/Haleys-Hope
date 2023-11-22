@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { formatDate3 } from "../../lib/utils";
 import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
+
 const StyledTableCell = styled(TableCell)(({ theme, color }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: color ? color : theme.palette.common.white,
@@ -29,12 +30,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
-const categories = [
-  "Word Identification",
-  "Spelling",
-  "Literacy Ability",
-  "Sound-Symbol Recognition",
-];
+const categories = ["Word Identification", "Spelling", "Literacy Ability", "Sound-Symbol Recognition"];
 function createRowData(category, tests) {
   const categoryMap = {
     "Word Identification": {
@@ -98,9 +94,7 @@ const DottedBorderTableCell = styled(TableCell)(({ theme }) => ({
 }));
 export default function SecondaryWistComparisonTable() {
   const dispatch = useDispatch();
-  const secondaryWistTests = useSelector(
-    (store) => store.secondaryWistReducer.list
-  );
+  const secondaryWistTests = useSelector((store) => store.secondaryWistReducer.list); // Get data from store
   const student = useParams();
   console.log("AllSecWist tests maybe?", secondaryWistTests);
 
@@ -109,9 +103,7 @@ export default function SecondaryWistComparisonTable() {
   }, [dispatch, student.id]);
 
   // Create rows based on the fetched data
-  const rows = categories.map((category) =>
-    createRowData(category, secondaryWistTests)
-  );
+  const rows = categories.map((category) => createRowData(category, secondaryWistTests));
   console.log("rows", rows);
   const sectionHeaderColors = {
     percentile: "#778899", // Example color for Percentile Section
@@ -122,10 +114,7 @@ export default function SecondaryWistComparisonTable() {
   return (
     <>
       <TableContainer component={Paper}>
-        <Table
-          sx={{ minWidth: 700 }}
-          aria-label="WIST 11-18 (TODO: CHECK AGES) Comparison Table"
-        >
+        <Table sx={{ minWidth: 700 }} aria-label="WIST 11-18 (TODO: CHECK AGES) Comparison Table">
           <TableHead>
             <TableRow>
               <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
@@ -144,9 +133,7 @@ export default function SecondaryWistComparisonTable() {
                   color={sectionHeaderColors.standardScore}
                   key={`standard-score-header-${index}`}
                 >
-                  {`Test ${index + 1} (${formatDate3(
-                    test.date
-                  )}) Standard Score`}
+                  {`Test ${index + 1} (${formatDate3(test.date)}) Standard Score`}
                 </TestHeaderCell>
               ))}
               {secondaryWistTests.map((test, index) => (
@@ -155,9 +142,7 @@ export default function SecondaryWistComparisonTable() {
                   color={sectionHeaderColors.descriptiveTerm}
                   key={`descriptive-term-header-${index}`}
                 >
-                  {`Test ${index + 1} (${formatDate3(
-                    test.date
-                  )}) Descriptive Term`}
+                  {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive Term`}
                 </TestHeaderCell>
               ))}
             </TableRow>
@@ -177,11 +162,9 @@ export default function SecondaryWistComparisonTable() {
                   </StyledTableCell>
                 ))}
                 {row.descriptiveTerms.map((term, index) => (
-                  <StyledTableCell
-                    align="right"
-                    key={`descriptive-${index}`}
-                   
-                  >{term}</StyledTableCell>
+                  <StyledTableCell align="right" key={`descriptive-${index}`}>
+                    {term}
+                  </StyledTableCell>
                 ))}
               </StyledTableRow>
             ))}

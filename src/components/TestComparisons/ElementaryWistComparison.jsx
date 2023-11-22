@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { formatDate3 } from "../../lib/utils";
 import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
+import { GetScaledScoreDescription } from "../../lib/GetScaledScoreDescription";
 const StyledTableCell = styled(TableCell)(({ theme, color }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: color ? color : theme.palette.common.white,

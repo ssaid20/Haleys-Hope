@@ -59,8 +59,10 @@ function createRowData(category, tests) {
     category,
     percentiles: tests.map((test) => test[categoryMap[category].percentile]),
     scaledScores: tests.map((test) => test[categoryMap[category].scaled]),
-    descriptiveTerms: tests.map((test) => GetScaledScoreDescription(test[categoryMap[category].scaled])), // Assuming you calculate descriptive terms based on scaled scores
-  };
+    descriptiveTerms: tests.map((test) => 
+    GetScaledScoreDescription({scaledScore: test[categoryMap[category].scaled],
+    }) // Assuming you calculate descriptive terms based on scaled scores
+  ),};
 }
 const DarkBlueHeaderCell = styled(TableCell)(({ theme }) => ({
   backgroundColor: "#0f3c5c", // Dark blue color
@@ -72,14 +74,20 @@ const DarkBlueHeaderCell = styled(TableCell)(({ theme }) => ({
 
 // New function to create data for the new table
 function createSummaryRowData(tests) {
+console.log("CREATE SUMMARY ROW DATA FOR ME PLEASE", tests[1].oral_reading_index);
+
   return tests.map((test) => ({
     date: formatDate3(test.date),
     sumScaledScore: test.sum_scaled_score,
     oralReadingPercentileRank: test.oral_reading_percentile_rank,
     oralReadingIndex: test.oral_reading_index,
-    descriptiveTerm: GetCompositeScoreDescription(test.oral_reading_index),
-  }));
-}
+    compositeTerms:
+    GetCompositeScoreDescription({
+      compositeScore: test.oral_reading_index,
+    }
+    ), // Assuming you calculate descriptive terms based on scaled scores
+  }))}
+
 const TestHeaderCell = styled(TableCell)(({ theme, color }) => ({
   backgroundColor: color ? color : theme.palette.primary.main,
   color: theme.palette.common.white,
@@ -214,7 +222,7 @@ export default function GortComparisonTable() {
                 <StyledTableCell align="right">{row.sumScaledScore}</StyledTableCell>
                 <StyledTableCell align="right">{row.oralReadingPercentileRank}</StyledTableCell>
                 <StyledTableCell align="right">{row.oralReadingIndex}</StyledTableCell>
-                <StyledTableCell align="right">{row.descriptiveTerm}</StyledTableCell>
+                <StyledTableCell align="right">{row.compositeTerms}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>

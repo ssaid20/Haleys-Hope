@@ -10,7 +10,7 @@ import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { formatDate3 } from "../../lib/utils";
-import { getDescriptiveTerm } from "../../lib/utils";
+import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
 
 const StyledTableCell = styled(TableCell)(({ theme, color }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -57,16 +57,13 @@ function createRowData(category, tests) {
       percentile: "rapid_non_symbolic_naming_percentile",
       scaled: "rapid_non_symbolic_naming_composite",
     },
-    
   };
 
   return {
     category,
     percentiles: tests.map((test) => test[categoryMap[category].percentile]),
     scaledScores: tests.map((test) => test[categoryMap[category].scaled]),
-    descriptiveTerms: tests.map((test) =>
-      getDescriptiveTerm(test[categoryMap[category].scaled])
-    ), // Assuming you calculate descriptive terms based on scaled scores
+    descriptiveTerms: tests.map((test) => GetCompositeScoreDescription(test[categoryMap[category].scaled])), // Assuming you calculate descriptive terms based on scaled scores
   };
 }
 const TestHeaderCell = styled(TableCell)(({ theme, color }) => ({
@@ -88,11 +85,9 @@ const OldCtoppComparison = () => {
   }, [dispatch, student.id]);
 
   // Create rows based on the fetched data
-  const rows = categories.map((category) =>
-    createRowData(category, YoungerctoppTests)
-  );
+  const rows = categories.map((category) => createRowData(category, YoungerctoppTests));
   console.log("rows", rows);
-  
+
   const sectionHeaderColors = {
     percentile: "#778899", // Example color for Percentile Section
     scaledScore: "#0f3c5c", // Example color for Scaled Score Section

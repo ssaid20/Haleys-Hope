@@ -5,6 +5,7 @@ import { formatDate } from "../../lib/utils";
 import MiniStudentCard from "../Cards/MiniStudentCard";
 import { Button, Table, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from "@mui/material";
 import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
+import { GetScaledScoreDescription } from "../../lib/GetScaledScoreDescription";
 
 const OlderCtoppResults = () => {
   const testId = useParams();
@@ -134,7 +135,7 @@ const OlderCtoppResults = () => {
           <Table>
             <TableHead>
               <TableRow style={{ backgroundColor: "lightgrey" }}>
-                <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Subtest</TableCell>
+                <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Sub Test</TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Scaled Score
                 </TableCell>
@@ -155,59 +156,49 @@ const OlderCtoppResults = () => {
                 <TableCell>Elison Scaled Score (EL)</TableCell>
                 <TableCell align="right">{selectedTest.elison_scaled_score}</TableCell>
                 <TableCell align="right">
-                  <GetCompositeScoreDescription compositeScore={selectedTest.elison_scaled_score} />
+                  <GetScaledScoreDescription scaledScore={selectedTest.elison_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Blending Words (BW)</TableCell>
                 <TableCell align="right">{selectedTest.blending_words_scaled_score}</TableCell>
                 <TableCell align="right">
-                  <GetCompositeScoreDescription compositeScore={selectedTest.blending_words_scaled_score} />
+                  <GetScaledScoreDescription scaledScore={selectedTest.blending_words_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Phoneme Isolation (PI)</TableCell>
                 <TableCell align="right">{selectedTest.phoneme_isolation_scaled_score}</TableCell>
                 <TableCell align="right">
-                  <GetCompositeScoreDescription
-                    compositeScore={selectedTest.phoneme_isolation_scaled_score}
-                  />
+                  <GetScaledScoreDescription scaledScore={selectedTest.phoneme_isolation_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Memory For Digits (MD)</TableCell>
                 <TableCell align="right">{selectedTest.memory_for_digits_scaled_score}</TableCell>
                 <TableCell align="right">
-                  <GetCompositeScoreDescription
-                    compositeScore={selectedTest.memory_for_digits_scaled_score}
-                  />
+                  <GetScaledScoreDescription scaledScore={selectedTest.memory_for_digits_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Non-Word Repitition (NR)</TableCell>
                 <TableCell align="right">{selectedTest.nonword_repetition_scaled_score}</TableCell>
                 <TableCell align="right">
-                  <GetCompositeScoreDescription
-                    compositeScore={selectedTest.nonword_repetition_scaled_score}
-                  />
+                  <GetScaledScoreDescription scaledScore={selectedTest.nonword_repetition_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Rapid Digit Naming (RD)</TableCell>
                 <TableCell align="right">{selectedTest.rapid_digit_naming_scaled_score}</TableCell>
                 <TableCell align="right">
-                  <GetCompositeScoreDescription
-                    compositeScore={selectedTest.rapid_digit_naming_scaled_score}
-                  />
+                  <GetScaledScoreDescription scaledScore={selectedTest.rapid_digit_naming_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Rapid Letter Naming (RL)</TableCell>
                 <TableCell align="right">{selectedTest.rapid_letter_naming_scaled_score}</TableCell>
                 <TableCell align="right">
-                  <GetCompositeScoreDescription
-                    compositeScore={selectedTest.rapid_letter_naming_scaled_score}
-                  />
+                  <GetScaledScoreDescription scaledScore={selectedTest.rapid_letter_naming_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -221,18 +212,14 @@ const OlderCtoppResults = () => {
                 <TableCell>Blending Non-Words (BN)</TableCell>
                 <TableCell align="right">{selectedTest.blending_nonwords_scaled_score}</TableCell>
                 <TableCell align="right">
-                  <GetCompositeScoreDescription
-                    compositeScore={selectedTest.blending_nonwords_scaled_score}
-                  />
+                  <GetScaledScoreDescription scaledScore={selectedTest.blending_nonwords_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Segmenting Non-Words (SN)</TableCell>
                 <TableCell align="right">{selectedTest.segmenting_nonwords_scaled_score}</TableCell>
                 <TableCell align="right">
-                  <GetCompositeScoreDescription
-                    compositeScore={selectedTest.segmenting_nonwords_scaled_score}
-                  />
+                  <GetScaledScoreDescription scaledScore={selectedTest.segmenting_nonwords_scaled_score} />
                 </TableCell>
               </TableRow>
             </TableBody>

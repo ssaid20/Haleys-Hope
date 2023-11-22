@@ -1,0 +1,249 @@
+Date : 2023-11-21 23:13:16
+Directory : /Users/kenny/Desktop/Haleys-Hope
+Total : 150 files,  15862 codes, 1325 comments, 1464 blanks, all 18651 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JavaScript JSX     |         78 |     11,576 |        716 |        893 |     13,185 |
+| JavaScript         |         53 |      3,017 |        504 |        397 |      3,918 |
+| SQL                |          1 |        529 |         18 |         26 |        573 |
+| CSS                |          7 |        350 |         77 |        103 |        530 |
+| JSON               |          4 |        233 |          0 |          2 |        235 |
+| Markdown           |          1 |         83 |          0 |         39 |        122 |
+| XML                |          3 |         36 |          1 |          2 |         39 |
+| HTML               |          1 |         17 |          0 |          1 |         18 |
+| YAML               |          1 |         16 |          5 |          1 |         22 |
+| JSON with Comments |          1 |          5 |          4 |          0 |          9 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                         | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                            |        150 |     15,862 |      1,325 |      1,464 |     18,651 |
+| . (Files)                                                                                    |          8 |        926 |         23 |         68 |      1,017 |
+| .github                                                                                      |          1 |         16 |          5 |          1 |         22 |
+| public                                                                                       |          4 |         53 |          1 |          3 |         57 |
+| public (Files)                                                                               |          1 |         17 |          0 |          1 |         18 |
+| public/assets                                                                                |          3 |         36 |          1 |          2 |         39 |
+| public/assets/icons                                                                          |          3 |         36 |          1 |          2 |         39 |
+| server                                                                                       |         18 |      1,446 |        292 |        194 |      1,932 |
+| server (Files)                                                                               |          1 |         38 |          8 |         11 |         57 |
+| server/constants                                                                             |          1 |         17 |          0 |          7 |         24 |
+| server/modules                                                                               |          4 |         63 |         44 |         19 |        126 |
+| server/routes                                                                                |         11 |      1,284 |        224 |        151 |      1,659 |
+| server/strategies                                                                            |          1 |         44 |         16 |          6 |         66 |
+| src                                                                                          |        119 |     13,421 |      1,004 |      1,198 |     15,623 |
+| src (Files)                                                                                  |          2 |        137 |          9 |         37 |        183 |
+| src/components                                                                               |         81 |     11,606 |        784 |        911 |     13,301 |
+| src/components/AboutPage                                                                     |          1 |         15 |          0 |          3 |         18 |
+| src/components/AddCoach                                                                      |          1 |         77 |          1 |          8 |         86 |
+| src/components/AddTests                                                                      |          7 |      2,249 |        182 |        182 |      2,613 |
+| src/components/App                                                                           |          2 |        247 |         81 |         32 |        360 |
+| src/components/ArchivedStudentList                                                           |          1 |        116 |          3 |          8 |        127 |
+| src/components/AssessmentComponents                                                          |          6 |        446 |         14 |         19 |        479 |
+| src/components/AssessmentResults                                                             |          1 |         73 |          6 |         12 |         91 |
+| src/components/Cards                                                                         |          3 |        426 |         38 |         43 |        507 |
+| src/components/Cloudinary                                                                    |          1 |         55 |          0 |          6 |         61 |
+| src/components/CoachList                                                                     |          1 |        377 |         15 |         29 |        421 |
+| src/components/CtoppLists                                                                    |          2 |         66 |          8 |         16 |         90 |
+| src/components/EditTests                                                                     |          6 |      2,439 |        191 |        152 |      2,782 |
+| src/components/Footer                                                                        |          2 |          6 |          9 |          5 |         20 |
+| src/components/Forms                                                                         |          1 |        277 |         17 |         14 |        308 |
+| src/components/GortList                                                                      |          1 |         62 |          5 |         10 |         77 |
+| src/components/Graph                                                                         |          4 |        328 |          2 |         35 |        365 |
+| src/components/InfoPage                                                                      |          1 |          9 |          0 |          3 |         12 |
+| src/components/KteaList                                                                      |          1 |         50 |          5 |         10 |         65 |
+| src/components/LogOutButton                                                                  |          1 |         14 |          3 |          3 |         20 |
+| src/components/LoginForm                                                                     |          1 |         61 |          0 |          6 |         67 |
+| src/components/LoginPage                                                                     |          1 |         23 |          0 |          5 |         28 |
+| src/components/ManageUsers                                                                   |          1 |        298 |         22 |         20 |        340 |
+| src/components/Nav                                                                           |          2 |        108 |         10 |         12 |        130 |
+| src/components/ProtectedRoute                                                                |          1 |         20 |         15 |          7 |         42 |
+| src/components/RegisterForm                                                                  |          1 |         56 |          2 |          6 |         64 |
+| src/components/RegisterPage                                                                  |          1 |         23 |          0 |          6 |         29 |
+| src/components/StudentDetails                                                                |          1 |         84 |          2 |          9 |         95 |
+| src/components/StudentList                                                                   |          1 |        308 |         11 |         26 |        345 |
+| src/components/TemplateClass                                                                 |          1 |         20 |          6 |          7 |         33 |
+| src/components/TemplateFunction                                                              |          1 |         12 |          5 |          4 |         21 |
+| src/components/TestComparisons                                                               |          2 |        231 |          5 |         15 |        251 |
+| src/components/TestResults                                                                   |          6 |      1,615 |         93 |         79 |      1,787 |
+| src/components/UserPage                                                                      |          1 |         28 |          6 |          7 |         41 |
+| src/components/WistList                                                                      |          2 |         70 |         11 |         17 |         98 |
+| src/components/WistTables                                                                    |          2 |        688 |          6 |         12 |        706 |
+| src/components/shared                                                                        |          8 |        425 |         10 |         46 |        481 |
+| src/components/shared (Files)                                                                |          2 |         88 |          0 |         11 |         99 |
+| src/components/shared/AssesmentTab                                                           |          1 |         10 |          0 |          2 |         12 |
+| src/components/shared/AssessmentTab                                                          |          1 |         11 |          0 |          3 |         14 |
+| src/components/shared/CommentsTab                                                            |          1 |        226 |          9 |         18 |        253 |
+| src/components/shared/CompareTab                                                             |          1 |         11 |          0 |          4 |         15 |
+| src/components/shared/GraphTab                                                               |          1 |         57 |          1 |          5 |         63 |
+| src/components/shared/TestTab                                                                |          1 |         22 |          0 |          3 |         25 |
+| src/components/ui                                                                            |          5 |        204 |          0 |         37 |        241 |
+| src/hooks                                                                                    |          2 |         21 |         12 |         11 |         44 |
+| src/lib                                                                                      |          4 |        113 |         29 |         26 |        168 |
+| src/redux                                                                                    |         29 |      1,385 |        170 |        163 |      1,718 |
+| src/redux (Files)                                                                            |          1 |         15 |          8 |          6 |         29 |
+| src/redux/reducers                                                                           |         14 |        549 |         61 |         59 |        669 |
+| src/redux/sagas                                                                              |         14 |        821 |        101 |         98 |      1,020 |
+| src/styles                                                                                   |          1 |        159 |          0 |         50 |        209 |
++----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                     | language           | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| /Users/kenny/Desktop/Haleys-Hope/.github/dependabot.yml                                      | YAML               |         16 |          5 |          1 |         22 |
+| /Users/kenny/Desktop/Haleys-Hope/PostmanPrimeSoloRoutes.json                                 | JSON               |         77 |          0 |          0 |         77 |
+| /Users/kenny/Desktop/Haleys-Hope/PostmanPrimeSoloRoutesv2.json                               | JSON               |         62 |          0 |          1 |         63 |
+| /Users/kenny/Desktop/Haleys-Hope/README.md                                                   | Markdown           |         83 |          0 |         39 |        122 |
+| /Users/kenny/Desktop/Haleys-Hope/components.json                                             | JSON               |         16 |          0 |          0 |         16 |
+| /Users/kenny/Desktop/Haleys-Hope/database.sql                                                | SQL                |        529 |         18 |         26 |        573 |
+| /Users/kenny/Desktop/Haleys-Hope/jsconfig.json                                               | JSON with Comments |          5 |          4 |          0 |          9 |
+| /Users/kenny/Desktop/Haleys-Hope/package.json                                                | JSON               |         78 |          0 |          1 |         79 |
+| /Users/kenny/Desktop/Haleys-Hope/public/assets/icons/edit.svg                                | XML                |         11 |          0 |          1 |         12 |
+| /Users/kenny/Desktop/Haleys-Hope/public/assets/icons/exam.svg                                | XML                |         22 |          1 |          1 |         24 |
+| /Users/kenny/Desktop/Haleys-Hope/public/assets/icons/search.svg                              | XML                |          3 |          0 |          0 |          3 |
+| /Users/kenny/Desktop/Haleys-Hope/public/index.html                                           | HTML               |         17 |          0 |          1 |         18 |
+| /Users/kenny/Desktop/Haleys-Hope/server/constants/warnings.js                                | JavaScript         |         17 |          0 |          7 |         24 |
+| /Users/kenny/Desktop/Haleys-Hope/server/modules/authentication-middleware.js                 | JavaScript         |         12 |         20 |          4 |         36 |
+| /Users/kenny/Desktop/Haleys-Hope/server/modules/encryption.js                                | JavaScript         |         13 |         10 |          6 |         29 |
+| /Users/kenny/Desktop/Haleys-Hope/server/modules/pool.js                                      | JavaScript         |         18 |          3 |          3 |         24 |
+| /Users/kenny/Desktop/Haleys-Hope/server/modules/session-middleware.js                        | JavaScript         |         20 |         11 |          6 |         37 |
+| /Users/kenny/Desktop/Haleys-Hope/server/routes/assessment_results.router.js                  | JavaScript         |         96 |          2 |          5 |        103 |
+| /Users/kenny/Desktop/Haleys-Hope/server/routes/coach.router.js                               | JavaScript         |         71 |         24 |         15 |        110 |
+| /Users/kenny/Desktop/Haleys-Hope/server/routes/comments.router.js                            | JavaScript         |         89 |          6 |         11 |        106 |
+| /Users/kenny/Desktop/Haleys-Hope/server/routes/elementary_wist.router.js                     | JavaScript         |        149 |         10 |         16 |        175 |
+| /Users/kenny/Desktop/Haleys-Hope/server/routes/gort.router.js                                | JavaScript         |        134 |         78 |         18 |        230 |
+| /Users/kenny/Desktop/Haleys-Hope/server/routes/ktea.router.js                                | JavaScript         |         93 |         45 |         14 |        152 |
+| /Users/kenny/Desktop/Haleys-Hope/server/routes/old_ctopp.router.js                           | JavaScript         |        125 |          7 |         16 |        148 |
+| /Users/kenny/Desktop/Haleys-Hope/server/routes/secondary_wist.router.js                      | JavaScript         |        149 |         11 |         15 |        175 |
+| /Users/kenny/Desktop/Haleys-Hope/server/routes/student.router.js                             | JavaScript         |        163 |         16 |         14 |        193 |
+| /Users/kenny/Desktop/Haleys-Hope/server/routes/user.router.js                                | JavaScript         |         85 |         17 |         14 |        116 |
+| /Users/kenny/Desktop/Haleys-Hope/server/routes/young_ctopp.router.js                         | JavaScript         |        130 |          8 |         13 |        151 |
+| /Users/kenny/Desktop/Haleys-Hope/server/server.js                                            | JavaScript         |         38 |          8 |         11 |         57 |
+| /Users/kenny/Desktop/Haleys-Hope/server/strategies/user.strategy.js                          | JavaScript         |         44 |         16 |          6 |         66 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/AboutPage/AboutPage.jsx                      | JavaScript JSX     |         15 |          0 |          3 |         18 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/AddCoach/AddCoach.jsx                        | JavaScript JSX     |         77 |          1 |          8 |         86 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/AddTests/AddElementaryWist.css               | CSS                |          5 |          0 |          1 |          6 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/AddTests/AddElementaryWist.jsx               | JavaScript JSX     |        460 |         39 |         47 |        546 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/AddTests/AddGort.jsx                         | JavaScript JSX     |        373 |         35 |         40 |        448 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/AddTests/AddKtea.jsx                         | JavaScript JSX     |        179 |         15 |         20 |        214 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/AddTests/AddOlderCtopp.jsx                   | JavaScript JSX     |        386 |         27 |         23 |        436 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/AddTests/AddSecondaryWist.jsx                | JavaScript JSX     |        449 |         38 |         28 |        515 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/AddTests/AddYoungerCtopp.jsx                 | JavaScript JSX     |        397 |         28 |         23 |        448 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/App/App.css                                  | CSS                |         56 |         62 |         16 |        134 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/App/App.jsx                                  | JavaScript JSX     |        191 |         19 |         16 |        226 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/ArchivedStudentList/ArchivedStudentList.jsx  | JavaScript JSX     |        116 |          3 |          8 |        127 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/AssessmentComponents/AssessmentContainer.jsx | JavaScript JSX     |         26 |         10 |          2 |         38 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/AssessmentComponents/AssessmentCtoppE.jsx    | JavaScript JSX     |         85 |          1 |          3 |         89 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/AssessmentComponents/AssessmentCtoppS.jsx    | JavaScript JSX     |         85 |          1 |          3 |         89 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/AssessmentComponents/AssessmentGort.jsx      | JavaScript JSX     |         60 |          0 |          4 |         64 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/AssessmentComponents/AssessmentWistE.jsx     | JavaScript JSX     |         95 |          1 |          4 |        100 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/AssessmentComponents/AssessmentWistS.jsx     | JavaScript JSX     |         95 |          1 |          3 |         99 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/AssessmentResults/AssessmentResults.jsx      | JavaScript JSX     |         73 |          6 |         12 |         91 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/Cards/MiniStudentCard.jsx                    | JavaScript JSX     |         75 |         13 |          6 |         94 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/Cards/StudentCard.css                        | CSS                |          4 |          1 |          1 |          6 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/Cards/StudentCard.jsx                        | JavaScript JSX     |        347 |         24 |         36 |        407 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/Cloudinary/CloudinaryUploadForm.jsx          | JavaScript JSX     |         55 |          0 |          6 |         61 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/CoachList/CoachList.jsx                      | JavaScript JSX     |        377 |         15 |         29 |        421 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/CtoppLists/OlderCtoppList.jsx                | JavaScript JSX     |         34 |          4 |          8 |         46 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/CtoppLists/YoungerCtoppList.jsx              | JavaScript JSX     |         32 |          4 |          8 |         44 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/EditTests/EditElementaryWistResults.jsx      | JavaScript JSX     |        468 |         38 |         25 |        531 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/EditTests/EditGortResults.jsx                | JavaScript JSX     |        388 |         28 |         35 |        451 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/EditTests/EditKteaResults.jsx                | JavaScript JSX     |        256 |         21 |         28 |        305 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/EditTests/EditOlderCtoppResults.jsx          | JavaScript JSX     |        419 |         32 |         20 |        471 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/EditTests/EditSecondaryWistResults.jsx       | JavaScript JSX     |        473 |         38 |         24 |        535 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/EditTests/EditYoungerCtoppResults.jsx        | JavaScript JSX     |        435 |         34 |         20 |        489 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/Footer/Footer.css                            | CSS                |          0 |          5 |          1 |          6 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/Footer/Footer.jsx                            | JavaScript JSX     |          6 |          4 |          4 |         14 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/Forms/StudentForm.jsx                        | JavaScript JSX     |        277 |         17 |         14 |        308 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/GortList/GortList.jsx                        | JavaScript JSX     |         62 |          5 |         10 |         77 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/Graph/CombinedGraph.jsx                      | JavaScript JSX     |         97 |          2 |         12 |        111 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/Graph/GORT_5Graph.jsx                        | JavaScript JSX     |         79 |          0 |          8 |         87 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/Graph/OlderCtoppGraph.jsx                    | JavaScript JSX     |         75 |          0 |          8 |         83 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/Graph/WISTGraph.jsx                          | JavaScript JSX     |         77 |          0 |          7 |         84 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/InfoPage/InfoPage.jsx                        | JavaScript JSX     |          9 |          0 |          3 |         12 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/KteaList/KteaList.jsx                        | JavaScript JSX     |         50 |          5 |         10 |         65 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/LogOutButton/LogOutButton.jsx                | JavaScript JSX     |         14 |          3 |          3 |         20 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/LoginForm/LoginForm.jsx                      | JavaScript JSX     |         61 |          0 |          6 |         67 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/LoginPage/LoginPage.jsx                      | JavaScript JSX     |         23 |          0 |          5 |         28 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/ManageUsers/ManageUsers.jsx                  | JavaScript JSX     |        298 |         22 |         20 |        340 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/Nav/Nav.css                                  | CSS                |          3 |          0 |          1 |          4 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/Nav/Nav.jsx                                  | JavaScript JSX     |        105 |         10 |         11 |        126 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/ProtectedRoute/ProtectedRoute.jsx            | JavaScript JSX     |         20 |         15 |          7 |         42 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/RegisterForm/RegisterForm.jsx                | JavaScript JSX     |         56 |          2 |          6 |         64 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/RegisterPage/RegisterPage.jsx                | JavaScript JSX     |         23 |          0 |          6 |         29 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/StudentDetails/StudentDetails.jsx            | JavaScript JSX     |         84 |          2 |          9 |         95 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/StudentList/StudentList.jsx                  | JavaScript JSX     |        308 |         11 |         26 |        345 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/TemplateClass/TemplateClass.jsx              | JavaScript JSX     |         20 |          6 |          7 |         33 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/TemplateFunction/TemplateFunction.jsx        | JavaScript JSX     |         12 |          5 |          4 |         21 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/TestComparisons/GortComparison.jsx           | JavaScript JSX     |        224 |          5 |         13 |        242 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/TestComparisons/OldCtoppComparison.jsx       | JavaScript JSX     |          7 |          0 |          2 |          9 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/TestResults/ElementaryWistResults.jsx        | JavaScript JSX     |        289 |         13 |         14 |        316 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/TestResults/GortResults.jsx                  | JavaScript JSX     |        211 |          3 |         13 |        227 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/TestResults/KteaResults.jsx                  | JavaScript JSX     |        158 |          3 |         14 |        175 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/TestResults/OlderCtoppResults.jsx            | JavaScript JSX     |        291 |          3 |         14 |        308 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/TestResults/SecondaryWistResults.jsx         | JavaScript JSX     |        367 |         68 |         14 |        449 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/TestResults/YoungerCtoppResults.jsx          | JavaScript JSX     |        299 |          3 |         10 |        312 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/UserPage/UserPage.jsx                        | JavaScript JSX     |         28 |          6 |          7 |         41 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/WistList/ElementaryWistList.jsx              | JavaScript JSX     |         34 |          6 |          8 |         48 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/WistList/SecondaryWistList.jsx               | JavaScript JSX     |         36 |          5 |          9 |         50 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/WistTables/WistETable.jsx                    | JavaScript JSX     |        418 |          5 |          7 |        430 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/WistTables/WistSTable.jsx                    | JavaScript JSX     |        270 |          1 |          5 |        276 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/shared/AssesmentTab/AssesmentTab.jsx         | JavaScript JSX     |         10 |          0 |          2 |         12 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/shared/AssessmentTab/AssessmentTab.jsx       | JavaScript JSX     |         11 |          0 |          3 |         14 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/shared/CommentsTab/CommentsTab.jsx           | JavaScript JSX     |        226 |          9 |         18 |        253 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/shared/CompareTab/CompareTab.jsx             | JavaScript JSX     |         11 |          0 |          4 |         15 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/shared/GraphTab/GraphTab.jsx                 | JavaScript JSX     |         57 |          1 |          5 |         63 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/shared/SearchBar.jsx                         | JavaScript JSX     |         46 |          0 |          5 |         51 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/shared/TestTab/TestTab.jsx                   | JavaScript JSX     |         22 |          0 |          3 |         25 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/shared/Tests.jsx                             | JavaScript JSX     |         42 |          0 |          6 |         48 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/ui/button.jsx                                | JavaScript JSX     |         43 |          0 |          5 |         48 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/ui/input.jsx                                 | JavaScript JSX     |         16 |          0 |          4 |         20 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/ui/label.jsx                                 | JavaScript JSX     |         13 |          0 |          6 |         19 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/ui/sheet.jsx                                 | JavaScript JSX     |         96 |          0 |         14 |        110 |
+| /Users/kenny/Desktop/Haleys-Hope/src/components/ui/tabs.jsx                                  | JavaScript JSX     |         36 |          0 |          8 |         44 |
+| /Users/kenny/Desktop/Haleys-Hope/src/hooks/useReduxStore.js                                  | JavaScript         |          5 |         10 |          6 |         21 |
+| /Users/kenny/Desktop/Haleys-Hope/src/hooks/useScript.js                                      | JavaScript         |         16 |          2 |          5 |         23 |
+| /Users/kenny/Desktop/Haleys-Hope/src/index.css                                               | CSS                |        123 |          9 |         33 |        165 |
+| /Users/kenny/Desktop/Haleys-Hope/src/index.js                                                | JavaScript         |         14 |          0 |          4 |         18 |
+| /Users/kenny/Desktop/Haleys-Hope/src/lib/CustomSnackbar.js                                   | JavaScript         |         16 |          0 |          4 |         20 |
+| /Users/kenny/Desktop/Haleys-Hope/src/lib/GetCompositeScoreDescription.jsx                    | JavaScript JSX     |         19 |          0 |          1 |         20 |
+| /Users/kenny/Desktop/Haleys-Hope/src/lib/GetScaledScoreDescription.jsx                       | JavaScript JSX     |         19 |          0 |          1 |         20 |
+| /Users/kenny/Desktop/Haleys-Hope/src/lib/utils.js                                            | JavaScript         |         59 |         29 |         20 |        108 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/reducers/_root.reducer.js                         | JavaScript         |         30 |          5 |          3 |         38 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/reducers/allUsers.reducer.js                      | JavaScript         |         23 |          0 |          3 |         26 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/reducers/assessment.reducer.js                    | JavaScript         |         27 |          0 |          4 |         31 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/reducers/coach.reducer.js                         | JavaScript         |         57 |          0 |          3 |         60 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/reducers/comments.reducer.js                      | JavaScript         |         54 |          0 |          7 |         61 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/reducers/elementaryWist.reducer.js                | JavaScript         |         42 |         14 |          5 |         61 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/reducers/errors.reducer.js                        | JavaScript         |         31 |          7 |          4 |         42 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/reducers/gort.reducer.js                          | JavaScript         |         37 |          7 |          5 |         49 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/reducers/ktea.reducer.js                          | JavaScript         |         37 |          7 |          4 |         48 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/reducers/olderCtopp.reducer.js                    | JavaScript         |         42 |          1 |          4 |         47 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/reducers/secondaryWist.reducer.js                 | JavaScript         |         42 |         13 |          4 |         59 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/reducers/student.reducer.js                       | JavaScript         |         59 |          0 |          4 |         63 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/reducers/user.reducer.js                          | JavaScript         |         26 |          6 |          4 |         36 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/reducers/youngerCtopp.reducer.js                  | JavaScript         |         42 |          1 |          5 |         48 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/sagas/_root.saga.js                               | JavaScript         |         31 |          6 |          4 |         41 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/sagas/assessment.saga.js                          | JavaScript         |         32 |          3 |          5 |         40 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/sagas/coach.saga.js                               | JavaScript         |         63 |          7 |          9 |         79 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/sagas/comments.saga.js                            | JavaScript         |         54 |          0 |          9 |         63 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/sagas/elementaryWist.saga.js                      | JavaScript         |         73 |          9 |          5 |         87 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/sagas/gort.saga.js                                | JavaScript         |         70 |          6 |          3 |         79 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/sagas/ktea.saga.js                                | JavaScript         |         73 |         10 |          4 |         87 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/sagas/login.saga.js                               | JavaScript         |         37 |         20 |         10 |         67 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/sagas/olderCtopp.saga.js                          | JavaScript         |         71 |          5 |          8 |         84 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/sagas/registration.saga.js                        | JavaScript         |         17 |          6 |          7 |         30 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/sagas/secondaryWist.saga.js                       | JavaScript         |         84 |          6 |          7 |         97 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/sagas/student.saga.js                             | JavaScript         |         81 |          7 |         11 |         99 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/sagas/user.saga.js                                | JavaScript         |         53 |         11 |          9 |         73 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/sagas/youngerCtopp.saga.js                        | JavaScript         |         82 |          5 |          7 |         94 |
+| /Users/kenny/Desktop/Haleys-Hope/src/redux/store.js                                          | JavaScript         |         15 |          8 |          6 |         29 |
+| /Users/kenny/Desktop/Haleys-Hope/src/styles/theme.css                                        | CSS                |        159 |          0 |         50 |        209 |
+| /Users/kenny/Desktop/Haleys-Hope/tailwind.config.js                                          | JavaScript         |         76 |          1 |          1 |         78 |
+| Total                                                                                        |                    |     15,862 |      1,325 |      1,464 |     18,651 |
++----------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

@@ -7,13 +7,15 @@ const AssessmentWistS = () => {
   const { date } = useParams();
   console.log("assessment date", date);
   const assessments = useSelector(
-    (store) => store.assessmentReducer.olderAssessment
+    (store) => store.secondaryWistReducer.list
   );
   const selectedTest = assessments.find(
     (assessment) => assessment.date === date
   );
   console.log("selected test is:", selectedTest, assessments);
-  // TODO: DOUBLE CHECK TO MAKE SURE IT IS GETTING FROM THE CORRECT WIST
+  if (!selectedTest) {
+    return <div>No WIST 11-18 for this date</div>;
+  }
   return (
     <div style={{ border: "1px solid black" }}>
       <p style={{ color: "brown" }}> WIST Ages 11-18</p>

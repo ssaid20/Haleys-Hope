@@ -44,13 +44,27 @@ const AssessmentResults = () => {
   const groupedAssessments = {};
 
   // Combine assessments from Gort and Wist
-  const allAssessments = [
-    ...allGort,
-    ...allWistE,
-    ...allWistS,
-    ...allCtoppO,
-    ...allCtoppY,
-  ];
+  const allAssessments = [];
+console.log("allgortinaaaround",allGort);
+  if (allGort) {
+    allAssessments.push(...allGort);
+  }
+  
+  if (allWistE) {
+    allAssessments.push(...allWistE);
+  }
+  
+  if (allWistS) {
+    allAssessments.push(...allWistS);
+  }
+  
+  if (allCtoppO) {
+    allAssessments.push(...allCtoppO);
+  }
+  
+  if (allCtoppY) {
+    allAssessments.push(...allCtoppY);
+  }
 
   // Group assessments by date
   allAssessments.forEach((assessment) => {

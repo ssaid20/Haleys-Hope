@@ -19,11 +19,6 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import Tooltip from "@mui/material/Tooltip";
-import SortIcon from "@mui/icons-material/Sort";
-import IconButton from "@mui/material/IconButton";
-import ClearIcon from "@mui/icons-material/Clear";
-import Popper from "@mui/material/Popper";
 
 const columns = [
   // { id: "id", label: "ID", minWidth: 100 }, // took id out student list
@@ -48,42 +43,6 @@ const sortOptions = [
   // ... other sort options ...
 ];
 
-const CustomTooltip = ({ title, children }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-
-  const handleMouseEnter = (event) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
-  };
-
-  const handleMouseLeave = () => {
-    setAnchorEl(null);
-  };
-  return (
-    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      {children}
-      <Popper
-        open={open}
-        anchorEl={anchorEl}
-        placement="top"
-        style={{ zIndex: 1 }}
-      >
-        <div
-          style={{
-            backgroundColor: "#f5f5f5",
-            border: "1px solid #dadde9",
-            padding: "10px",
-            fontSize: "1.5rem",
-            borderRadius: "4px",
-          }}
-        >
-          {title}
-        </div>
-      </Popper>
-    </div>
-  );
-};
-
 const StudentList = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -98,9 +57,6 @@ const StudentList = () => {
     direction: "ascending",
   });
 
-  // const handleSortChange = (event) => {
-  //   setSortConfig({ key: event.target.value, direction: sortConfig.direction });
-  // };
   const handleSortChange = (event) => {
     setSortConfig({ ...sortConfig, key: event.target.value });
   };
@@ -108,8 +64,7 @@ const StudentList = () => {
   const toggleSortDirection = () => {
     setSortConfig({
       ...sortConfig,
-      direction:
-        sortConfig.direction === "ascending" ? "descending" : "ascending",
+      direction: sortConfig.direction === "ascending" ? "descending" : "ascending",
     });
   };
   const clearSort = () => {
@@ -196,9 +151,7 @@ const StudentList = () => {
   };
 
   // const displayedStudents = searchQuery ? processedSearchResults : students;
-  const displayedStudents = searchQuery
-    ? searchResults.map((result) => result.item)
-    : sortedStudents;
+  const displayedStudents = searchQuery ? searchResults.map((result) => result.item) : sortedStudents;
 
   const [showArchived, setShowArchived] = useState(false); //state to show archived students
   // function to toggle archived viewable or not
@@ -212,9 +165,7 @@ const StudentList = () => {
   console.log("DISPLAY Students in list", displayedStudents);
   return (
     <>
-      <div
-        style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}
-      >
+      <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
         <FormControl style={{ minWidth: 120, marginRight: "10px" }}>
           <InputLabel id="sort-select-label">Sort By</InputLabel>
           <Select
@@ -231,21 +182,12 @@ const StudentList = () => {
             ))}
           </Select>
         </FormControl>
-        <Tooltip title="Toggle between ascending and descending sort order">
-          <span>
-            <IconButton
-              onClick={toggleSortDirection}
-              disabled={!sortConfig.key}
-            >
-              <SortIcon color={sortConfig.key ? "primary" : "disabled"} />
-            </IconButton>
-          </span>
-        </Tooltip>
-        <CustomTooltip title="Clear current sort settings">
-          <IconButton onClick={clearSort}>
-            <ClearIcon />
-          </IconButton>
-        </CustomTooltip>
+        <Button variant="outlined" onClick={toggleSortDirection} style={{ margin: "5px" }}>
+          {sortConfig.direction === "ascending" ? "Asc" : "Desc"}
+        </Button>
+        <Button variant="outlined" onClick={clearSort} style={{ margin: "5px" }}>
+          Clear
+        </Button>
       </div>
       <div className="mb-8">
         <SearchBar
@@ -259,12 +201,7 @@ const StudentList = () => {
       </div>
 
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleToggleArchived}
-          style={{ margin: "10px" }}
-        >
+        <Button variant="contained" color="primary" onClick={handleToggleArchived} style={{ margin: "10px" }}>
           {showArchived ? "View Active Students" : "View Archived Students"}
         </Button>
 

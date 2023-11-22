@@ -376,7 +376,7 @@ const ElementaryWistResults = () => {
           marginTop: "30px",
         }}
       >
-        <WistETable />
+        <WistETable test={selectedTest} />
       </div>
     </div>
   );

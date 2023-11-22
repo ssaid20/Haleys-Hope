@@ -107,7 +107,7 @@ const KteaResults = () => {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => history.push(`/EditGortResults/${selectedTest.id}`)}
+            onClick={() => history.push(`/EditKteaResults/${selectedTest.id}`)}
             // style={{ marginTop: "20px", marginRight: "50px" }}
           >
             Edit Test

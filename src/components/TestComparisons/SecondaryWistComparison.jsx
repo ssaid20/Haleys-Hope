@@ -147,7 +147,30 @@ export default function SecondaryWistComparisonTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* ended here */}
+            {rows.map((row, rowIndex) => (
+              <StyledTableRow key={rowIndex}>
+                <StyledTableCell component="th" scope="row">
+                  {row.category}
+                </StyledTableCell>
+                {secondaryWistTests.flatMap((_, testIndex) => [
+                    <StyledTableCell align="right">
+                        {row.percentiles[tesstIndex]}
+                    </StyledTableCell>,
+                    testIndex=== secondaryWistTests.length - 1 ? (
+                        <StyledTableCell align="right">
+                            {row.scaledScores[testIndex]}
+                        </StyledTableCell>
+                    ) : (
+                        <DottedBorderTableCell align="right">
+                            {row.scaledScores[testIndex]}
+                        </DottedBorderTableCell>
+                    ),
+                ])}
+                <StyledTableCell align="right">
+                    {getDescriptiveTerm(row.scaledScores)}
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>

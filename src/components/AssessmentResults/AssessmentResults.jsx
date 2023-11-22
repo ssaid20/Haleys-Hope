@@ -45,7 +45,6 @@ const AssessmentResults = () => {
 
   // Combine assessments from Gort and Wist
   const allAssessments = [];
-console.log("allgortinaaaround",allGort);
   if (allGort) {
     allAssessments.push(...allGort);
   }

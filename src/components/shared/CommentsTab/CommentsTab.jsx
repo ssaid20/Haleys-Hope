@@ -7,6 +7,43 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Button } from "@mui/material";
+import CommentCard from "../../Cards/CommentCrad";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+const CustomSnackbar = ({ open, handleClose, message, severity }) => {
+  return (
+    <Snackbar
+      open={open}
+      autoHideDuration={6000}
+      onClose={handleClose}
+      anchorOrigin={{ vertical: "center", horizontal: "center" }}
+      sx={{
+        maxWidth: "80%",
+        "& .MuiSnackbarContent-root": {
+          fontSize: "1rem",
+          padding: "8px 24px",
+          boxShadow:
+            "0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12)", // Example shadow
+        },
+      }}
+    >
+      <Alert
+        onClose={handleClose}
+        severity={severity}
+        sx={{
+          width: "100%",
+          fontSize: "1.3rem",
+          padding: "8px 24px",
+        }}
+      >
+        {message}
+      </Alert>
+    </Snackbar>
+  );
+};
 import CustomSnackbar from "../../../lib/CustomSnackbar";
 
 const CommentsTab = () => {
@@ -115,12 +152,21 @@ const CommentsTab = () => {
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">Notes</h2>
       <div>
         {comments.map((comment) => (
-          <div key={comment.id}>
-            <p>
+          <div>
+            <CommentCard
+              key={comment.id}
+              user={comment.name}
+              comment={comment.comments}
+              date={comment.date}
+              onEdit={() => handleEditStart(comment)}
+              onDelete={() => openConfirmDialog(comment.id)}
+            />
+            {/* <p>
               {comment.name} - {new Date(comment.date).toLocaleDateString()}
-            </p>
+            </p> */}
+
             {editingCommentId === comment.id ? (
-              <div className="flex items-center">
+              <div className="w-2/3 my-4 flex items-center">
                 <input
                   type="text"
                   className="form-input mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
@@ -142,20 +188,20 @@ const CommentsTab = () => {
               </div>
             ) : (
               <div className="flex flex-col space-y-2">
-                <p className="text-gray-700 break-words">{comment.comments}</p>
+                {/* <p className="text-gray-700 break-words">{comment.comments}</p> */}
                 <div className="flex space-x-2">
-                  <button
+                  {/* <button
                     className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 mr-2"
                     onClick={() => handleEditStart(comment)}
                   >
                     Edit
-                  </button>
-                  <button
+                  </button> */}
+                  {/* <button
                     className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
                     onClick={() => openConfirmDialog(comment.id)}
                   >
                     Delete
-                  </button>
+                  </button> */}
                 </div>
               </div>
             )}

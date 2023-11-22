@@ -8,6 +8,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Button } from "@mui/material";
 import CommentCard from "../../Cards/CommentCrad";
+import Snackbar from "@mui/material/Snackbar";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -44,7 +45,6 @@ const CustomSnackbar = ({ open, handleClose, message, severity }) => {
     </Snackbar>
   );
 };
-import CustomSnackbar from "../../../lib/CustomSnackbar";
 
 const CommentsTab = () => {
   const dispatch = useDispatch();

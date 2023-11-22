@@ -283,9 +283,15 @@ const AddElementaryWist = () => {
                   name="word_identification"
                   value={newWist.word_identification}
                   onChange={handleChange}
-                  variant="outlined"
+                  variant="filled"
+                  disabled
                   InputProps={{
                     readOnly: true,
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
                   }}
                 />
               </FormControl>
@@ -361,9 +367,15 @@ const AddElementaryWist = () => {
                   name="spelling"
                   value={newWist.spelling}
                   onChange={handleChange}
-                  variant="outlined"
+                  variant="filled"
+                  disabled
                   InputProps={{
                     readOnly: true,
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
                   }}
                 />
               </FormControl>
@@ -409,9 +421,15 @@ const AddElementaryWist = () => {
                   name="fundamental_literacy"
                   value={newWist.fundamental_literacy}
                   onChange={handleChange}
-                  variant="outlined"
+                  variant="filled"
+                  disabled
                   InputProps={{
                     readOnly: true,
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
                   }}
                 />
               </FormControl>
@@ -487,9 +505,15 @@ const AddElementaryWist = () => {
                   name="sound_symbol_knowledge"
                   value={newWist.sound_symbol_knowledge}
                   onChange={handleChange}
-                  variant="outlined"
+                  variant="filled"
+                  disabled
                   InputProps={{
                     readOnly: true,
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
                   }}
                 />
               </FormControl>

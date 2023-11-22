@@ -267,8 +267,16 @@ const AddSecondaryWist = () => {
                   name="word_identification"
                   value={newWist.word_identification}
                   onChange={handleChange}
-                  variant="outlined"
+                  variant="filled"
                   disabled
+                  InputProps={{
+                    readOnly: true, // Make the field read-only
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
+                  }}
                 />
               </FormControl>
             </Grid>
@@ -338,8 +346,16 @@ const AddSecondaryWist = () => {
                   name="spelling"
                   value={newWist.spelling}
                   onChange={handleChange}
-                  variant="outlined"
+                  variant="filled"
                   disabled
+                  InputProps={{
+                    readOnly: true, // Make the field read-only
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
+                  }}
                 />
               </FormControl>
             </Grid>
@@ -381,8 +397,16 @@ const AddSecondaryWist = () => {
                   name="fundamental_literacy"
                   value={newWist.fundamental_literacy}
                   onChange={handleChange}
-                  variant="outlined"
+                  variant="filled"
                   disabled
+                  InputProps={{
+                    readOnly: true, // Make the field read-only
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
+                  }}
                 />
               </FormControl>
             </Grid>
@@ -452,8 +476,16 @@ const AddSecondaryWist = () => {
                   name="sound_symbol_knowledge"
                   value={newWist.sound_symbol_knowledge}
                   onChange={handleChange}
-                  variant="outlined"
+                  variant="filled"
                   disabled
+                  InputProps={{
+                    readOnly: true, // Make the field read-only
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
+                  }}
                 />
               </FormControl>
             </Grid>

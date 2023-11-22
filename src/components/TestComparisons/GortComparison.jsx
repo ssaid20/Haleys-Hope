@@ -126,14 +126,7 @@ export default function GortComparisonTable() {
   console.log("rows", rows);
   const summaryRows = createSummaryRowData(gortTests);
 
-  // Function to get the average scaled score for a category
-  const getAverageScaledScore = (scaledScores) => {
-    const validScores = scaledScores.filter((score) => score != null);
-    const total = validScores.reduce((acc, score) => acc + score, 0);
-    return validScores.length > 0
-      ? Math.round(total / validScores.length)
-      : null;
-  };
+  
   const sectionHeaderColors = {
     percentile: "#778899", // Example color for Percentile Section
     scaledScore: "#0f3c5c", // Example color for Scaled Score Section
@@ -148,31 +141,31 @@ export default function GortComparisonTable() {
           <TableHead>
             <TableRow>
               <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
-              {gortTests.map((_, index) => (
+              {gortTests.map((test, index) => (
                 <TestHeaderCell
                   align="center"
                   color={sectionHeaderColors.percentile}
                   key={`percentile-header-${index}`}
                 >
-                  {`Test ${index + 1} Percentile`}
+                  {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`}
                 </TestHeaderCell>
               ))}
-              {gortTests.map((_, index) => (
+              {gortTests.map((test, index) => (
                 <TestHeaderCell
                   align="center"
                   color={sectionHeaderColors.scaledScore}
                   key={`scaled-score-header-${index}`}
                 >
-                  {`Test ${index + 1} Scaled Score`}
+                  {`Test ${index + 1} (${formatDate3(test.date)}) Scaled Score`}
                 </TestHeaderCell>
               ))}
-              {gortTests.map((_, index) => (
+              {gortTests.map((test, index) => (
                 <TestHeaderCell
                   align="center"
                   color={sectionHeaderColors.descriptiveTerm}
                   key={`descriptive-term-header-${index}`}
                 >
-                  {`Test ${index + 1} Descriptive`}
+                  {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive`}
                 </TestHeaderCell>
               ))}
             </TableRow>
@@ -253,3 +246,5 @@ export default function GortComparisonTable() {
     </>
   );
 }
+
+

@@ -38,26 +38,26 @@ const categories = [
 function createRowData(category, tests) {
   const categoryMap = {
     "Word Identification": {
-      percentile: "",
-      scaled: "",
+      percentile: "word_identification_percentile",
+      standard: "word_identification_standard_score",
     },
     Spelling: {
-      percentile: "",
-      scaled: "",
+      percentile: "spelling_percentile",
+      standard: "spelling_standard_score",
     },
     "Literacy Ability": {
-      percentile: "",
-      scaled: "",
+      percentile: "fundamental_literacy_percentile",
+      standard: "fundamental_literacy_standard_score",
     },
     "Sound-Symbol Recognition": {
-      percentile: "",
-      scaled: "",
+      percentile: "sound_symbol_knowledge_percentile",
+      standard: "sound_symbol_knowledge_standard_score",
     },
   };
   return {
     category,
     percentiles: tests.map((test) => test[categoryMap[category].percentile]),
-    scaledScores: tests.map((test) => test[categoryMap[category].scaled]),
+    standardScores: tests.map((test) => test[categoryMap[category].standard]),
   };
 }
 const DarkBlueHeaderCell = styled(TableCell)(({ theme }) => ({
@@ -108,7 +108,6 @@ export default function SecondaryWistComparisonTable() {
     createRowData(category, secondaryWistTests)
   );
   console.log("rows", rows);
-  const summaryRows = createSummaryRowData(secondaryWistTests);
 
   const lightGreyColor = "#F5F5F5"; // Light grey color
   return (
@@ -121,18 +120,16 @@ export default function SecondaryWistComparisonTable() {
           <TableHead>
             <TableRow>
               <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
-              {secondaryWistTests.map(
-                (test, index)(
-                  <TestHeaderCell
-                    key={`test-head-${index}`}
-                    colSpan={2}
-                    align="center"
-                    color={testHeaderColors[index % testHeaderColors.length]}
-                  >
-                    {`Test ${index + 1} (${formatDate3(test.date)})`}
-                  </TestHeaderCell>
-                )
-              )}
+              {secondaryWistTests.map((test, index) => (
+                <TestHeaderCell
+                  key={`test-head-${index}`}
+                  colSpan={2}
+                  align="center"
+                  color={testHeaderColors[index % testHeaderColors.length]}
+                >
+                  {`Test ${index + 1} (${formatDate3(test.date)})`}
+                </TestHeaderCell>
+              ))}
               <StyledTableCell align="right" color={lightGreyColor}>
                 Descriptive Term
               </StyledTableCell>
@@ -141,7 +138,7 @@ export default function SecondaryWistComparisonTable() {
               <StyledTableCell color={lightGreyColor}></StyledTableCell>
               {secondaryWistTests.flatMap(() => [
                 <StyledTableCell align="right">%ile</StyledTableCell>,
-                <StyledTableCell align="right">Scaled Score</StyledTableCell>,
+                <StyledTableCell align="right">standard Score</StyledTableCell>,
               ])}
               <StyledTableCell color={lightGreyColor}></StyledTableCell>
             </TableRow>
@@ -153,21 +150,21 @@ export default function SecondaryWistComparisonTable() {
                   {row.category}
                 </StyledTableCell>
                 {secondaryWistTests.flatMap((_, testIndex) => [
+                  <StyledTableCell align="right">
+                    {row.percentiles[testIndex]}
+                  </StyledTableCell>,
+                  testIndex === secondaryWistTests.length - 1 ? (
                     <StyledTableCell align="right">
-                        {row.percentiles[tesstIndex]}
-                    </StyledTableCell>,
-                    testIndex=== secondaryWistTests.length - 1 ? (
-                        <StyledTableCell align="right">
-                            {row.scaledScores[testIndex]}
-                        </StyledTableCell>
-                    ) : (
-                        <DottedBorderTableCell align="right">
-                            {row.scaledScores[testIndex]}
-                        </DottedBorderTableCell>
-                    ),
+                      {row.standardScores[testIndex]}
+                    </StyledTableCell>
+                  ) : (
+                    <DottedBorderTableCell align="right">
+                      {row.standardScores[testIndex]}
+                    </DottedBorderTableCell>
+                  ),
                 ])}
                 <StyledTableCell align="right">
-                    {getDescriptiveTerm(row.scaledScores)}
+                  {getDescriptiveTerm(row.standardScores)}
                 </StyledTableCell>
               </StyledTableRow>
             ))}

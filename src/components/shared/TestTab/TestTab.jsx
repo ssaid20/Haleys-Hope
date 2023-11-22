@@ -7,6 +7,8 @@ import YoungerCtoppList from "../../CtoppLists/YoungerCtoppList";
 import OlderCtoppList from "../../CtoppLists/OlderCtoppList";
 import GortComparisonTable from "../../TestComparisons/GortComparison";
 import { Button } from "../../ui/button";
+import SecondaryWistComparisonTable from "../../TestComparisons/SecondaryWistComparison";
+import ElementaryWistComparisonTable from "../../TestComparisons/ElementaryWistComparison";
 import {
   Table,
   TableHead,
@@ -26,6 +28,8 @@ const TestTab = () => {
       <YoungerCtoppList />
       <OlderCtoppList />
       <GortComparisonTable />
+      <SecondaryWistComparisonTable />
+      <ElementaryWistComparisonTable />
       </Table>
     </div>
   );

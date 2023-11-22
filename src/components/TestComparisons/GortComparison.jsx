@@ -163,6 +163,7 @@ export default function GortComparisonTable() {
             </TableRow>
           </TableHead>
           <TableBody>
+            {/* ended here */}
             {rows.map((row, rowIndex) => (
               <StyledTableRow key={rowIndex}>
                 <StyledTableCell component="th" scope="row">

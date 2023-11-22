@@ -37,6 +37,8 @@ const AddCoach = () => {
       first_name: "",
       last_name: "",
     });
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Coach Added", severity: "success" } });
+
     history.push("/admin/coaches");
   };
 
@@ -70,12 +72,7 @@ const AddCoach = () => {
             />
           </Grid>
         </Grid>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          style={{ marginTop: "20px" }}
-        >
+        <Button type="submit" variant="contained" color="primary" style={{ marginTop: "20px" }}>
           Add Coach
         </Button>
       </form>

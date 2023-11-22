@@ -6,9 +6,18 @@ import { useParams } from "react-router-dom/";
 const AssessmentGort = () => {
   const { date } = useParams();
   console.log("assessment date", date);
-  const assessments = useSelector((store) => store.assessmentReducer.olderAssessment);
-  const selectedTest = assessments.find((assessment) => assessment.date === date);
+  const assessments = useSelector(
+    (store) => store.gortReducer.list
+  );
+  const selectedTest = assessments.find(
+    (assessment) => assessment.date === date
+  );
   console.log("selected test is:", selectedTest, assessments);
+if (!selectedTest) {
+  return <div>No GORT for this date</div>
+
+}
+
 
   if (!assessments) {
     return <div>No Gort for this date</div>;

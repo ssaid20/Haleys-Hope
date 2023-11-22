@@ -14,7 +14,7 @@ import { calculateAge } from "../../lib/utils";
 import Fuse from "fuse.js";
 import ArchivedStudentList from "../ArchivedStudentList/ArchivedStudentList";
 import Button from "@mui/material/Button";
-import SearchBar from "../shared/Searchbar";
+import SearchBar from "../shared/SearchBar";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";

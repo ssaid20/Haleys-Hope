@@ -49,24 +49,24 @@ function Nav() {
               Students
             </Link>
 
-            <Link
+            {/* <Link
               className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
               to="/info"
             >
               Info Page
-            </Link>
+            </Link> */}
 
             {/* Adjust LogOutButton styling as needed */}
             <LogOutButton className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg" />
           </>
         )}
 
-        <Link
+        {/* <Link
           className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg"
           to="/about"
         >
           About
-        </Link>
+        </Link> */}
         {user.role_id === 6 && (
           <>
             <Button
@@ -98,12 +98,7 @@ function Nav() {
                 Manage Users
               </MenuItem>
 
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/admin/coaches"
-                className="customMenuItem"
-              >
+              <MenuItem onClick={handleClose} component={Link} to="/admin/coaches" className="customMenuItem">
                 Coaches
               </MenuItem>
               {/* <MenuItem

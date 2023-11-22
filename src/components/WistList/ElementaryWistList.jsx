@@ -40,7 +40,7 @@ const ElementaryWistList = () => {
       {tests.map((test) => (
         <div key={test.id} onClick={() => moreDetails(test.id)}>
           <TableRow>
-            <TableCell>
+            <TableCell style={{width: 275}}>
               <p>Wist Age 7-11 Date: {formatDate(test.date)}</p>
             </TableCell>
             <TableCell>
@@ -57,6 +57,8 @@ const ElementaryWistList = () => {
           </TableRow>
         </div>
       ))}
+            <hr />
+
     </div>
   );
 };

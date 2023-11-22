@@ -41,7 +41,7 @@ const SecondaryWistList = () => {
       {tests.map((test) => (
         <div key={test.id} onClick={() => moreDetails(test.id)}>
          <TableRow>
-          <TableCell>
+          <TableCell style={{width: 275}}>
           <p>
             Wist Age 11-18 Date: {formatDate(test.date)}
           </p>
@@ -61,6 +61,8 @@ const SecondaryWistList = () => {
           </TableRow>
         </div>
       ))}
+            <hr />
+
     </div>
   );
 };

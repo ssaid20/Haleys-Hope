@@ -63,6 +63,9 @@ function createRowData(category, tests) {
     category,
     percentiles: tests.map((test) => test[categoryMap[category].percentile]),
     scaledScores: tests.map((test) => test[categoryMap[category].scaled]),
+    descriptiveTerms: tests.map((test) =>
+      getDescriptiveTerm(test[categoryMap[category].scaled])
+    ), // Assuming you calculate descriptive terms based on scaled scores
   };
 }
 const DarkBlueHeaderCell = styled(TableCell)(({ theme }) => ({
@@ -131,6 +134,12 @@ export default function GortComparisonTable() {
       ? Math.round(total / validScores.length)
       : null;
   };
+  const sectionHeaderColors = {
+    percentile: "#778899", // Example color for Percentile Section
+    scaledScore: "#0f3c5c", // Example color for Scaled Score Section
+    descriptiveTerm: "#1277bf", // Example color for Descriptive Term Section
+  };
+
   const lightGreyColor = "#F5F5F5"; // Light grey color
   return (
     <>
@@ -139,52 +148,57 @@ export default function GortComparisonTable() {
           <TableHead>
             <TableRow>
               <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
-              {gortTests.map((test, index) => (
+              {gortTests.map((_, index) => (
                 <TestHeaderCell
-                  key={`test-head-${index}`}
-                  colSpan={2}
                   align="center"
-                  color={testHeaderColors[index % testHeaderColors.length]}
+                  color={sectionHeaderColors.percentile}
+                  key={`percentile-header-${index}`}
                 >
-                  {`Test ${index + 1} (${formatDate3(test.date)})`}
+                  {`Test ${index + 1} Percentile`}
                 </TestHeaderCell>
               ))}
-              <StyledTableCell align="right" color={lightGreyColor}>
-                Descriptive Term
-              </StyledTableCell>
-            </TableRow>
-            <TableRow>
-              <StyledTableCell color={lightGreyColor}></StyledTableCell>
-              {gortTests.flatMap(() => [
-                <StyledTableCell align="right">%ile</StyledTableCell>,
-                <StyledTableCell align="right">Scaled Score</StyledTableCell>,
-              ])}
-              <StyledTableCell color={lightGreyColor}></StyledTableCell>
+              {gortTests.map((_, index) => (
+                <TestHeaderCell
+                  align="center"
+                  color={sectionHeaderColors.scaledScore}
+                  key={`scaled-score-header-${index}`}
+                >
+                  {`Test ${index + 1} Scaled Score`}
+                </TestHeaderCell>
+              ))}
+              {gortTests.map((_, index) => (
+                <TestHeaderCell
+                  align="center"
+                  color={sectionHeaderColors.descriptiveTerm}
+                  key={`descriptive-term-header-${index}`}
+                >
+                  {`Test ${index + 1} Descriptive`}
+                </TestHeaderCell>
+              ))}
             </TableRow>
           </TableHead>
+
           <TableBody>
             {rows.map((row, rowIndex) => (
               <StyledTableRow key={rowIndex}>
                 <StyledTableCell component="th" scope="row">
                   {row.category}
                 </StyledTableCell>
-                {gortTests.flatMap((_, testIndex) => [
-                  <StyledTableCell align="right">
-                    {row.percentiles[testIndex]}
-                  </StyledTableCell>,
-                  testIndex === gortTests.length - 1 ? (
-                    <StyledTableCell align="right">
-                      {row.scaledScores[testIndex]}
-                    </StyledTableCell>
-                  ) : (
-                    <DottedBorderTableCell align="right">
-                      {row.scaledScores[testIndex]}
-                    </DottedBorderTableCell>
-                  ),
-                ])}
-                <StyledTableCell align="right">
-                  {getDescriptiveTerm(getAverageScaledScore(row.scaledScores))}
-                </StyledTableCell>
+                {row.percentiles.map((percentile, index) => (
+                  <StyledTableCell key={`percentile-${index}`} align="right">
+                    {percentile}
+                  </StyledTableCell>
+                ))}
+                {row.scaledScores.map((score, index) => (
+                  <StyledTableCell key={`score-${index}`} align="right">
+                    {score}
+                  </StyledTableCell>
+                ))}
+                {row.descriptiveTerms.map((term, index) => (
+                  <StyledTableCell key={`descriptive-${index}`} align="right">
+                    {term}
+                  </StyledTableCell>
+                ))}
               </StyledTableRow>
             ))}
           </TableBody>

@@ -14,7 +14,7 @@ import { calculateAge } from "../../lib/utils";
 import Fuse from "fuse.js";
 import ArchivedStudentList from "../ArchivedStudentList/ArchivedStudentList";
 import Button from "@mui/material/Button";
-import SearchBar from "../shared/Searchbar";
+import Searchbar from "../shared/Searchbar";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
@@ -153,13 +153,14 @@ const StudentList = () => {
   // const displayedStudents = searchQuery ? processedSearchResults : students;
   const displayedStudents = searchQuery ? searchResults.map((result) => result.item) : sortedStudents;
 
-  const [showArchived, setShowArchived] = useState(false); //state to show archived students
+  // const [showArchived, setShowArchived] = useState(false); //state to show archived students
   // function to toggle archived viewable or not
   const handleToggleArchived = () => {
-    setShowArchived(!showArchived);
-    if (!showArchived) {
-      dispatch({ type: "FETCH_ARCHIVED_STUDENTS" });
-    }
+    history.push("/ArchivedStudents");
+    // setShowArchived(!showArchived);
+    // if (!showArchived) {
+    //   dispatch({ type: "FETCH_ARCHIVED_STUDENTS" });
+    // }
   };
 
   console.log("DISPLAY Students in list", displayedStudents);
@@ -190,7 +191,7 @@ const StudentList = () => {
         </Button>
       </div>
       <div className="mb-8">
-        <SearchBar
+        <Searchbar
           query={searchQuery}
           setQuery={handleSearchInputChange} // Updated to use the revised function
           iconPosition="left"
@@ -202,7 +203,7 @@ const StudentList = () => {
 
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <Button variant="contained" color="primary" onClick={handleToggleArchived} style={{ margin: "10px" }}>
-          {showArchived ? "View Active Students" : "View Archived Students"}
+          View Archived Students
         </Button>
 
         <TableContainer sx={{ maxHeight: 840 }}>
@@ -272,7 +273,6 @@ const StudentList = () => {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-        {showArchived ? <ArchivedStudentList /> : null}
       </Paper>
     </>
   );

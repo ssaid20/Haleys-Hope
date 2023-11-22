@@ -159,7 +159,7 @@ export default function GortComparisonTable() {
                   color={sectionHeaderColors.descriptiveTerm}
                   key={`descriptive-term-header-${index}`}
                 >
-                  {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive`}
+                  {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive Term`}
                 </TestHeaderCell>
               ))}
             </TableRow>

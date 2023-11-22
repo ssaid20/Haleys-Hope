@@ -36,10 +36,9 @@ const KteaList = () => {
       {tests.map((test) => (
         <div key={test.id} onClick={() => moreDetails(test.id)}>
           <TableRow>
-            <TableCell>
+            <TableCell style={{width: 275}}>
               <p>KTEA-3 Date: {formatDate(test.date)}</p>
             </TableCell>
-            <TableCell></TableCell>
             <TableCell>
               <Button
                 variant="outline"
@@ -73,7 +72,9 @@ const KteaList = () => {
           </div>
         </div>
       )}
+      <hr />
     </div>
+
   );
 };
 

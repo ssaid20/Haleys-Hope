@@ -35,7 +35,7 @@ const OlderCtoppList = () => {
       {tests.map((test) => (
         <div key={test.id} onClick={() => moreDetails(test.id)}>
           <TableRow>
-            <TableCell>
+            <TableCell style={{width: 275}}>
               <p>
                 CTOPP Age 7-24 Date: {formatDate(test.date)}
               </p>
@@ -53,6 +53,8 @@ const OlderCtoppList = () => {
           </TableRow>
         </div>
       ))}
+            <hr />
+
     </div>
   );
 };

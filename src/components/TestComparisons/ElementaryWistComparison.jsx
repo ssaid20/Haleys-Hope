@@ -10,9 +10,7 @@ import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { formatDate3 } from "../../lib/utils";
-// import { getDescriptiveTerm } from "../../lib/utils";
 import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
-
 const StyledTableCell = styled(TableCell)(({ theme, color }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: color ? color : theme.palette.common.white,
@@ -22,6 +20,7 @@ const StyledTableCell = styled(TableCell)(({ theme, color }) => ({
     fontSize: 14,
   },
 }));
+
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
@@ -90,20 +89,24 @@ const DottedBorderTableCell = styled(TableCell)(({ theme }) => ({
     color: theme.palette.common.black,
   },
 }));
-export default function ElementaryWistComparisonTable() {
+export default function PrimaryWistComparisonTable() {
   const dispatch = useDispatch();
-  const elementaryWistTests = useSelector((store) => store.elementaryWistReducer.list); // Get data from store
+  const primaryWistTests = useSelector((store) => store.elementaryWistReducer.list);
   const student = useParams();
-  console.log("AllSecWist tests maybe?", elementaryWistTests);
+  console.log("AllEleWist tests maybe?", primaryWistTests);
 
   useEffect(() => {
-    dispatch({ type: "FETCH_ELEMENTARY_WIST_RESULTS", payload: student.id }); // Dispatch action to fetch data
+    dispatch({ type: "FETCH_PRIMARY_WIST_RESULTS", payload: student.id }); // Dispatch action to fetch data
   }, [dispatch, student.id]);
 
   // Create rows based on the fetched data
-  const rows = categories.map((category) => createRowData(category, elementaryWistTests));
+  const rows = categories.map((category) => createRowData(category, primaryWistTests));
   console.log("rows", rows);
-
+  const sectionHeaderColors = {
+    percentile: "#778899", // Example color for Percentile Section
+    standardScore: "#0f3c5c", // Example color for Standard Score Section
+    descriptiveTerm: "#1277bf", // Example color for Descriptive Term Section
+  };
   const lightGreyColor = "#F5F5F5"; // Light grey color
 
   return (
@@ -113,27 +116,33 @@ export default function ElementaryWistComparisonTable() {
           <TableHead>
             <TableRow>
               <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
-              {elementaryWistTests.map((test, index) => (
+              {primaryWistTests.map((test, index) => (
                 <TestHeaderCell
-                  key={`test-head-${index}`}
-                  colSpan={2}
+                  key={`percentile-header-${index}`}
                   align="center"
-                  color={testHeaderColors[index % testHeaderColors.length]}
+                  color={sectionHeaderColors.percentile}
                 >
-                  {`Test ${index + 1} (${formatDate3(test.date)})`}
+                  {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`}
                 </TestHeaderCell>
               ))}
-              <StyledTableCell align="right" color={lightGreyColor}>
-                Descriptive Term
-              </StyledTableCell>
-            </TableRow>
-            <TableRow>
-              <StyledTableCell color={lightGreyColor}></StyledTableCell>
-              {elementaryWistTests.flatMap(() => [
-                <StyledTableCell align="right">%ile</StyledTableCell>,
-                <StyledTableCell align="right">standard Score</StyledTableCell>,
-              ])}
-              <StyledTableCell color={lightGreyColor}></StyledTableCell>
+              {primaryWistTests.map((test, index) => (
+                <TestHeaderCell
+                  align="center"
+                  color={sectionHeaderColors.standardScore}
+                  key={`standard-score-header-${index}`}
+                >
+                  {`Test ${index + 1} (${formatDate3(test.date)}) Standard Score`}
+                </TestHeaderCell>
+              ))}
+              {primaryWistTests.map((test, index) => (
+                <TestHeaderCell
+                  align="center"
+                  color={sectionHeaderColors.descriptiveTerm}
+                  key={`descriptive-term-header-${index}`}
+                >
+                  {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive Term`}
+                </TestHeaderCell>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -142,19 +151,19 @@ export default function ElementaryWistComparisonTable() {
                 <StyledTableCell component="th" scope="row">
                   {row.category}
                 </StyledTableCell>
-                {elementaryWistTests.flatMap((_, testIndex) => [
-                  <StyledTableCell align="right">{row.percentiles[testIndex]}</StyledTableCell>,
-                  testIndex === elementaryWistTests.length - 1 ? (
-                    <StyledTableCell align="right">{row.standardScores[testIndex]}</StyledTableCell>
-                  ) : (
-                    <DottedBorderTableCell align="right">
-                      {row.standardScores[testIndex]}
-                    </DottedBorderTableCell>
-                  ),
-                ])}
-                <StyledTableCell align="right">
-                  {GetCompositeScoreDescription({ compositeScore: row.standardScores })}
-                </StyledTableCell>
+                {row.percentiles.map((percentile, index) => (
+                  <StyledTableCell align="right">{percentile}</StyledTableCell>
+                ))}
+                {row.standardScores.map((score, index) => (
+                  <StyledTableCell key={`score-${index}`} align="right">
+                    {score}
+                  </StyledTableCell>
+                ))}
+                {row.descriptiveTerms.map((term, index) => (
+                  <StyledTableCell align="right">
+                    {GetCompositeScoreDescription(row.standardScores)}
+                  </StyledTableCell>
+                ))}
               </StyledTableRow>
             ))}
           </TableBody>

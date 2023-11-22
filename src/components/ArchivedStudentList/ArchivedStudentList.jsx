@@ -12,6 +12,8 @@ import TableRow from "@mui/material/TableRow";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { calculateAge } from "../../lib/utils";
+//import { Button } from "../ui/button";
+import { Button } from "@mui/material";
 
 const columns = [
   { id: "picture", label: "Picture", minWidth: 170 },
@@ -43,9 +45,17 @@ const ArchivedStudentList = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const goBack = () => {
+    history.goBack();
+  };
+
   console.log("logging archived Students in list", students);
   return (
     <>
+      <Button onClick={goBack} variant="outlined">
+        Go Back
+      </Button>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
         <h1
           style={{ fontSize: "22px", alignItems: "center", justifyContent: "center", marginBottom: "10px" }}

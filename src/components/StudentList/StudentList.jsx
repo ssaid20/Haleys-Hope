@@ -14,7 +14,7 @@ import { calculateAge } from "../../lib/utils";
 import Fuse from "fuse.js";
 import ArchivedStudentList from "../ArchivedStudentList/ArchivedStudentList";
 import Button from "@mui/material/Button";
-import SearchBar from "../shared/SearchBar";
+import Searchbar from "../shared/Searchbar";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
@@ -191,7 +191,7 @@ const StudentList = () => {
         </Button>
       </div>
       <div className="mb-8">
-        <SearchBar
+        <Searchbar
           query={searchQuery}
           setQuery={handleSearchInputChange} // Updated to use the revised function
           iconPosition="left"

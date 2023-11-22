@@ -1,12 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 require("dotenv").config();
-
+const {setupCronJobs} = require(`./scheduledTasks/scheduledTasks`)
 const app = express();
 
 const sessionMiddleware = require("./modules/session-middleware");
 const passport = require("./strategies/user.strategy");
-
 // Route includes
 const userRouter = require("./routes/user.router");
 const kteaRouter = require("./routes/ktea.router");
@@ -19,6 +18,9 @@ const studentRouter = require("./routes/student.router");
 const assessmentRouter = require("./routes/assessment_results.router");
 const coachRouter = require("./routes/coach.router");
 const commentsRouter = require("./routes/comments.router");
+
+// Increments Grade +1 Every August
+setupCronJobs();
 
 // Body parser middleware
 app.use(bodyParser.json());

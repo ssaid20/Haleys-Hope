@@ -59,7 +59,9 @@ function createRowData(category, tests) {
     percentiles: tests.map((test) => test[categoryMap[category].percentile]),
     standardScores: tests.map((test) => test[categoryMap[category].standard]),
     descriptiveTerms: tests.map((test) =>
-      GetCompositeScoreDescription({compositeScore: test[categoryMap[category].standard]})
+      GetCompositeScoreDescription({
+        compositeScore: test[categoryMap[category].standard],
+      })
     ),
   };
 }
@@ -122,7 +124,8 @@ export default function SecondaryWistComparisonTable() {
       <TableContainer component={Paper}>
         <Table
           sx={{ minWidth: 700 }}
-          aria-label="WIST 11-18 (TODO: CHECK AGES) Comparison Table">
+          aria-label="WIST 11-18 (TODO: CHECK AGES) Comparison Table"
+        >
           <TableHead>
             <TableRow>
               <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
@@ -141,15 +144,20 @@ export default function SecondaryWistComparisonTable() {
                   color={sectionHeaderColors.standardScore}
                   key={`standard-score-header-${index}`}
                 >
-                  {`Test ${index + 1} (${formatDate3(test.date)}) Standard Score`}
+                  {`Test ${index + 1} (${formatDate3(
+                    test.date
+                  )}) Standard Score`}
                 </TestHeaderCell>
               ))}
               {secondaryWistTests.map((test, index) => (
-                <TestHeaderCell 
-                align="center"
-                color={sectionHeaderColors.descriptiveTerm}
-                key={`descriptive-term-header-${index}`}>
-                    {`Test ${index +1} (${formatDate3(test.date)}) Descriptive Term`}
+                <TestHeaderCell
+                  align="center"
+                  color={sectionHeaderColors.descriptiveTerm}
+                  key={`descriptive-term-header-${index}`}
+                >
+                  {`Test ${index + 1} (${formatDate3(
+                    test.date
+                  )}) Descriptive Term`}
                 </TestHeaderCell>
               ))}
             </TableRow>
@@ -161,22 +169,22 @@ export default function SecondaryWistComparisonTable() {
                   {row.category}
                 </StyledTableCell>
                 {row.percentiles.map((percentile, index) => (
-                  <StyledTableCell align="right">
-                    {percentile}
+                  <StyledTableCell align="right">{percentile}</StyledTableCell>
+                ))}
+                {row.standardScores.map((score, index) => (
+                  <StyledTableCell key={`score-${index}`} align="right">
+                    {score}
                   </StyledTableCell>
                 ))}
-{row.standardScores.map((score, index) => (
-    <StyledTableCell key={`score-${index}`} align="right">
-                      {score}
-                    </StyledTableCell>
+                {row.descriptiveTerms.map((term, index) => (
+                  <StyledTableCell
+                    align="right"
+                    key={`descriptive-${index}`}
+                   
+                  >{term}</StyledTableCell>
                 ))}
-{row.descriptiveTerms.map((term, index) => (
-    <StyledTableCell align="right">
-    {GetCompositeScoreDescription(row.standardScores)}
-  </StyledTableCell>
-  ))}
-  </StyledTableRow>
-  ))}            
+              </StyledTableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>

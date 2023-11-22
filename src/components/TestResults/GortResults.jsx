@@ -5,6 +5,7 @@ import { formatDate } from "../../lib/utils";
 import MiniStudentCard from "../Cards/MiniStudentCard";
 import { Button, Table, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from "@mui/material";
 import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
+import { GetScaledScoreDescription } from "../../lib/GetScaledScoreDescription";
 
 const GortResults = () => {
   const testId = useParams();
@@ -157,7 +158,7 @@ const GortResults = () => {
                 <TableCell align="right">{selectedTest.rate_percentile_rank}</TableCell>
                 <TableCell align="right">{selectedTest.rate_scaled_score}</TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
-                  <GetCompositeScoreDescription compositeScore={selectedTest.rate_scaled_score} />
+                  <GetScaledScoreDescription scaledScore={selectedTest.rate_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -166,7 +167,7 @@ const GortResults = () => {
                 <TableCell align="right">{selectedTest.accuracy_percentile_rank}</TableCell>
                 <TableCell align="right">{selectedTest.accuracy_scaled_score}</TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
-                  <GetCompositeScoreDescription compositeScore={selectedTest.accuracy_scaled_score} />
+                  <GetScaledScoreDescription scaledScore={selectedTest.accuracy_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -175,7 +176,7 @@ const GortResults = () => {
                 <TableCell align="right">{selectedTest.fluency_percentile_rank}</TableCell>
                 <TableCell align="right">{selectedTest.fluency_scaled_score}</TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
-                  <GetCompositeScoreDescription compositeScore={selectedTest.fluency_scaled_score} />
+                  <GetScaledScoreDescription scaledScore={selectedTest.fluency_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -184,7 +185,7 @@ const GortResults = () => {
                 <TableCell align="right">{selectedTest.comprehension_percentile_rank}</TableCell>
                 <TableCell align="right">{selectedTest.comprehension_scaled_score}</TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
-                  <GetCompositeScoreDescription compositeScore={selectedTest.comprehension_scaled_score} />
+                  <GetScaledScoreDescription scaledScore={selectedTest.comprehension_scaled_score} />
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -212,7 +213,7 @@ const GortResults = () => {
               <TableCell align="center">{selectedTest.oral_reading_percentile_rank}</TableCell>
               <TableCell align="center">{selectedTest.oral_reading_index}</TableCell>
               <TableCell align="center" style={{ fontWeight: "bold" }}>
-                <GetCompositeScoreDescription compositeScore={selectedTest.sum_scaled_score} />
+                <GetCompositeScoreDescription compositeScore={selectedTest.oral_reading_index} />
               </TableCell>
             </TableRow>
           </Table>

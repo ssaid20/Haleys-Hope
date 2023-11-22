@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import {
   TextField,
   Button,
@@ -128,6 +125,7 @@ const AddOlderCtopp = () => {
       type: "ADD_OLDER_CTOPP",
       payload: submissionData,
     });
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Test added", severity: "success" } });
 
     history.push(`/students/${student.id}`);
     //history.push back to student details
@@ -135,9 +133,7 @@ const AddOlderCtopp = () => {
 
   return (
     <>
-      <h1 className="text-3xl text-center mb-4 bg-primary-100">
-        CTOPP-2 Over 7
-      </h1>
+      <h1 className="text-3xl text-center mb-4 bg-primary-100">CTOPP-2 Over 7</h1>
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         GO BACK
       </Button>
@@ -165,11 +161,7 @@ const AddOlderCtopp = () => {
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <InputLabel>Examiner</InputLabel>
-                <Select
-                  value={selectedExaminerId}
-                  label="Examiner"
-                  onChange={handleExaminerChange}
-                >
+                <Select value={selectedExaminerId} label="Examiner" onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
@@ -418,12 +410,7 @@ const AddOlderCtopp = () => {
               </FormControl>
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className="mt-4"
-          >
+          <Button type="submit" variant="contained" color="primary" className="mt-4">
             Submit
           </Button>
         </form>

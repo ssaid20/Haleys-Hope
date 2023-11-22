@@ -21,7 +21,6 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 // GET route to fetch a specific comment by studentId
 router.get("/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.id;
-  console.log("reqqq.paarraaaammmas", req.params);
   const queryText = 'SELECT * FROM "student_comments" WHERE "student_id" = $1';
   pool
     .query(queryText, [studentId])
@@ -67,9 +66,6 @@ router.put("/:studentId/:commentId", rejectUnauthenticated, (req, res) => {
   const commentId = req.params.commentId;
   console.log("req.params", req.params);
   const updatedComment = req.body;
-  console.log("commentId:", commentId);
-  console.log("studentId:", studentId);
-  console.log("updated comment req.body:", req.body);
 
   const queryText = `
       UPDATE "student_comments" SET "comments" = $1, "name" = $2, "date" = $3

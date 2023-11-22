@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { formatDate, formatDate2 } from "../../lib/utils";
+import { formatDate, formatDate2, formatDateForInput } from "../../lib/utils";
 import {
   TextField,
   Button,
@@ -18,9 +18,7 @@ const EditKteaResults = () => {
   const testId = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-  const selectedTest = useSelector(
-    (store) => store.kteaReducer.selectedTest[0]
-  );
+  const selectedTest = useSelector((store) => store.kteaReducer.selectedTest[0]);
   const users = useSelector((store) => store.allUsersReducer.users);
   const student = useSelector((store) => store.user);
 
@@ -37,7 +35,7 @@ const EditKteaResults = () => {
     if (selectedTest) {
       setNewKtea({
         ...selectedTest,
-        date: formatDate(selectedTest.date), // Assuming formatDate converts the date to the required format
+        date: formatDateForInput(selectedTest.date), // Assuming formatDate converts the date to the required format
       });
       setSelectedExaminerId(selectedTest.examiner_id.toString());
     }
@@ -81,15 +79,13 @@ const EditKteaResults = () => {
       // Calculate word identification
       if (name === "read_regular_words" || name === "read_irregular_words") {
         updatedValue.word_identification =
-          (updatedValue.read_regular_words || 0) +
-          (updatedValue.read_irregular_words || 0);
+          (updatedValue.read_regular_words || 0) + (updatedValue.read_irregular_words || 0);
       }
 
       // Calculate spelling
       if (name === "spell_regular_words" || name === "spell_irregular_words") {
         updatedValue.spelling =
-          (updatedValue.spell_regular_words || 0) +
-          (updatedValue.spell_irregular_words || 0);
+          (updatedValue.spell_regular_words || 0) + (updatedValue.spell_irregular_words || 0);
       }
 
       // Calculate fundamental literacy
@@ -100,8 +96,7 @@ const EditKteaResults = () => {
         name === "spell_irregular_words"
       ) {
         updatedValue.fundamental_literacy =
-          (updatedValue.word_identification || 0) +
-          (updatedValue.spelling || 0);
+          (updatedValue.word_identification || 0) + (updatedValue.spelling || 0);
       }
 
       // Calculate sound symbol knowledge
@@ -168,6 +163,7 @@ const EditKteaResults = () => {
       type: "UPDATE_KTEA",
       payload: { ...submissionData, id: testId.id },
     });
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Successfully Saved", severity: "success" } });
 
     history.push(`/students/${selectedTest.student_id}`);
   };
@@ -185,9 +181,7 @@ const EditKteaResults = () => {
       {/* <h1 className="text-2xl text-center mb-4">
         Test on: {formatDate(selectedTest.date)}{" "}
       </h1> */}
-      <h1 className="text-3xl text-center mb-4">
-        Edit KTEA from: {formatDate2(selectedTest.date)}
-      </h1>
+      <h1 className="text-3xl text-center mb-4">Edit KTEA from: {formatDate2(selectedTest.date)}</h1>
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         Go Back
       </Button>
@@ -212,11 +206,7 @@ const EditKteaResults = () => {
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <InputLabel>Examiner</InputLabel>
-                <Select
-                  value={selectedExaminerId}
-                  label="Examiner"
-                  onChange={handleExaminerChange}
-                >
+                <Select value={selectedExaminerId} label="Examiner" onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
@@ -286,12 +276,7 @@ const EditKteaResults = () => {
             </Grid>
           </Grid>
 
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className="mt-4"
-          >
+          <Button type="submit" variant="contained" color="primary" className="mt-4">
             Save Changes
           </Button>
           <Button onClick={handleGoBack}>Go Back</Button>

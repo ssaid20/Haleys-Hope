@@ -2,6 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDate } from "../../lib/utils";
 import { useParams, useHistory } from "react-router-dom/";
+import { Button } from "../ui/button";
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  Typography,
+} from "@mui/material";
 
 const AssessmentResults = () => {
   const olderAssessment = useSelector(
@@ -28,21 +37,34 @@ const AssessmentResults = () => {
   const allWistS = useSelector((store) => store.secondaryWistReducer.list);
 
   const moreDetails = (test) => {
-    console.log("this is not a test",test);
+    console.log("this is not a test", test);
     history.push(`/AssessmentResults/${test.date}`);
-    
   };
   // Create an object to group assessments by date
   const groupedAssessments = {};
 
   // Combine assessments from Gort and Wist
-  const allAssessments = [
-    ...allGort,
-    ...allWistE,
-    ...allWistS,
-    ...allCtoppO,
-    ...allCtoppY,
-  ];
+  const allAssessments = [];
+console.log("allgortinaaaround",allGort);
+  if (allGort) {
+    allAssessments.push(...allGort);
+  }
+  
+  if (allWistE) {
+    allAssessments.push(...allWistE);
+  }
+  
+  if (allWistS) {
+    allAssessments.push(...allWistS);
+  }
+  
+  if (allCtoppO) {
+    allAssessments.push(...allCtoppO);
+  }
+  
+  if (allCtoppY) {
+    allAssessments.push(...allCtoppY);
+  }
 
   // Group assessments by date
   allAssessments.forEach((assessment) => {
@@ -61,27 +83,34 @@ const AssessmentResults = () => {
   // pass each test.id to component to render that section of the assessment?
   return (
     <div>
-      <p style={{ color: "brown" }}>Hello Assessments</p>
       <div>
-        {Object.keys(groupedAssessments).map((dateKey) => (
-          <div key={dateKey}>
-            {groupedAssessments[dateKey].length > 0 && (
-              <>
-                <p>
-                  Assessment Date:  {dateKey}
-                  <button onClick={() => moreDetails(groupedAssessments[dateKey][0])}>
-                     Click here for more details
-                  </button>
-                </p>
-                {groupedAssessments[dateKey].map((test) => (
-                  <div key={test.id}>
-                    <p></p>
-                  </div>
-                ))}
-              </>
-            )}
-          </div>
-        ))}
+        <Table>
+          {Object.keys(groupedAssessments).map((dateKey) => (
+            <div key={dateKey}>
+              {groupedAssessments[dateKey].length > 0 && (
+                <TableRow>
+                  <TableCell>Assessment Date: {dateKey}</TableCell>
+                  <TableCell>
+                    <Button 
+                                  variant="outline"
+                                  className=" text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
+                                  onClick={() =>
+                        moreDetails(groupedAssessments[dateKey][0])
+                      }>
+
+                    Details
+                    </Button>
+                  </TableCell>
+                  {groupedAssessments[dateKey].map((test) => (
+                    <div key={test.id}>
+                      <p></p>
+                    </div>
+                  ))}
+                </TableRow>
+              )}
+            </div>
+          ))}
+        </Table>
       </div>
     </div>
   );

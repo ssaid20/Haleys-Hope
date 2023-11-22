@@ -200,8 +200,6 @@ const GortResults = () => {
                 justifyContent: "center",
               }}
             >
-              {" "}
-              {/* Different background for header */}
               <TableRow>
                 <TableCell align="center">Sum of Scaled Score</TableCell>
                 <TableCell align="center">Oral Reading %ile Rank</TableCell>

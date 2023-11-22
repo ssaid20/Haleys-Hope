@@ -77,11 +77,11 @@ const TestHeaderCell = styled(TableCell)(({ theme, color }) => ({
   },
 }));
 
-const testHeaderColors = [
-  "#778899", // Light Slate Gray
-  "#0f3c5c",
-  "#1277bf",
-];
+// const testHeaderColors = [
+//   "#778899", // Light Slate Gray
+//   "#0f3c5c",
+//   "#1277bf",
+// ];
 const OldCtoppComparison = () => {
   const dispatch = useDispatch();
   const OlderctoppTests = useSelector((store) => store.olderCtoppReducer.list); // Get data from store
@@ -97,15 +97,7 @@ const OldCtoppComparison = () => {
     createRowData(category, OlderctoppTests)
   );
   console.log("rows", rows);
-
-  // Function to get the average scaled score for a category
-  const getAverageScaledScore = (scaledScores) => {
-    const validScores = scaledScores.filter((score) => score != null);
-    const total = validScores.reduce((acc, score) => acc + score, 0);
-    return validScores.length > 0
-      ? Math.round(total / validScores.length)
-      : null;
-  };
+  
   const sectionHeaderColors = {
     percentile: "#778899", // Example color for Percentile Section
     scaledScore: "#0f3c5c", // Example color for Scaled Score Section
@@ -118,31 +110,31 @@ const OldCtoppComparison = () => {
         <TableHead>
           <TableRow>
             <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
-            {OlderctoppTests.map((_, index) => (
+            {OlderctoppTests.map((test, index) => (
               <TestHeaderCell
                 align="center"
                 color={sectionHeaderColors.percentile}
                 key={`percentile-header-${index}`}
               >
-                {`Test ${index + 1} Percentile`}
+                {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`}
               </TestHeaderCell>
             ))}
-            {OlderctoppTests.map((_, index) => (
+            {OlderctoppTests.map((test, index) => (
               <TestHeaderCell
                 align="center"
                 color={sectionHeaderColors.scaledScore}
                 key={`scaled-score-header-${index}`}
               >
-                {`Test ${index + 1} Scaled Score`}
+                {`Test ${index + 1} (${formatDate3(test.date)}) Scaled Score`}
               </TestHeaderCell>
             ))}
-            {OlderctoppTests.map((_, index) => (
+            {OlderctoppTests.map((test, index) => (
               <TestHeaderCell
                 align="center"
                 color={sectionHeaderColors.descriptiveTerm}
                 key={`descriptive-term-header-${index}`}
               >
-                {`Test ${index + 1} Descriptive`}
+                {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive`}
               </TestHeaderCell>
             ))}
           </TableRow>

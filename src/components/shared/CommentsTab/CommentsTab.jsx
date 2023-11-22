@@ -44,7 +44,6 @@ const CustomSnackbar = ({ open, handleClose, message, severity }) => {
     </Snackbar>
   );
 };
-import CustomSnackbar from "../../../lib/CustomSnackbar";
 
 const CommentsTab = () => {
   const dispatch = useDispatch();

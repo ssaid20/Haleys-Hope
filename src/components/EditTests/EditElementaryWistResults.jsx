@@ -18,9 +18,7 @@ const EditElementaryWistResults = () => {
   const testId = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-  const selectedTest = useSelector(
-    (store) => store.elementaryWistReducer.selectedTest[0]
-  );
+  const selectedTest = useSelector((store) => store.elementaryWistReducer.selectedTest[0]);
   const users = useSelector((store) => store.allUsersReducer.users);
   const student = useSelector((store) => store.user);
 
@@ -99,15 +97,13 @@ const EditElementaryWistResults = () => {
       // Calculate word identification
       if (name === "read_regular_words" || name === "read_irregular_words") {
         updatedValue.word_identification =
-          (updatedValue.read_regular_words || 0) +
-          (updatedValue.read_irregular_words || 0);
+          (updatedValue.read_regular_words || 0) + (updatedValue.read_irregular_words || 0);
       }
 
       // Calculate spelling
       if (name === "spell_regular_words" || name === "spell_irregular_words") {
         updatedValue.spelling =
-          (updatedValue.spell_regular_words || 0) +
-          (updatedValue.spell_irregular_words || 0);
+          (updatedValue.spell_regular_words || 0) + (updatedValue.spell_irregular_words || 0);
       }
 
       // Calculate fundamental literacy
@@ -118,8 +114,7 @@ const EditElementaryWistResults = () => {
         name === "spell_irregular_words"
       ) {
         updatedValue.fundamental_literacy =
-          (updatedValue.word_identification || 0) +
-          (updatedValue.spelling || 0);
+          (updatedValue.word_identification || 0) + (updatedValue.spelling || 0);
       }
 
       // Calculate sound symbol knowledge
@@ -186,6 +181,7 @@ const EditElementaryWistResults = () => {
       type: "UPDATE_ELEMENTARY_WIST",
       payload: { ...submissionData, id: testId.id },
     });
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Successfully Saved", severity: "success" } });
 
     history.push(`/students/${selectedTest.student_id}`);
   };
@@ -230,11 +226,7 @@ const EditElementaryWistResults = () => {
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <InputLabel>Examiner</InputLabel>
-                <Select
-                  value={selectedExaminerId}
-                  label="Examiner"
-                  onChange={handleExaminerChange}
-                >
+                <Select value={selectedExaminerId} label="Examiner" onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
@@ -512,12 +504,7 @@ const EditElementaryWistResults = () => {
               {/* ... other fields ... */}
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className="mt-4"
-          >
+          <Button type="submit" variant="contained" color="primary" className="mt-4">
             Save Changes
           </Button>
           <Button onClick={handleGoBack}>Go Back</Button>

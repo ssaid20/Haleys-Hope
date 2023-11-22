@@ -1,50 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Button } from "@mui/material";
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
-const CustomSnackbar = ({ open, handleClose, message, severity }) => {
-  return (
-    <Snackbar
-      open={open}
-      autoHideDuration={6000}
-      onClose={handleClose}
-      anchorOrigin={{ vertical: "center", horizontal: "center" }}
-      sx={{
-        maxWidth: "80%",
-        "& .MuiSnackbarContent-root": {
-          fontSize: "1rem",
-          padding: "8px 24px",
-          boxShadow:
-            "0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12)", // Example shadow
-        },
-      }}
-    >
-      <Alert
-        onClose={handleClose}
-        severity={severity}
-        sx={{
-          width: "100%",
-          fontSize: "1.3rem",
-          padding: "8px 24px",
-        }}
-      >
-        {message}
-      </Alert>
-    </Snackbar>
-  );
-};
+import CustomSnackbar from "../../../lib/CustomSnackbar";
 
 const CommentsTab = () => {
   const dispatch = useDispatch();
@@ -70,7 +33,8 @@ const CommentsTab = () => {
   const handleDelete = () => {
     if (commentToDelete !== null) {
       dispatch({ type: "DELETE_COMMENT", payload: commentToDelete });
-      openSnackbar("Comment deleted successfully", "success");
+      dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Successfully Deleted", severity: "success" } });
+
       setCommentToDelete(null);
     }
     closeConfirmDialog();
@@ -91,9 +55,7 @@ const CommentsTab = () => {
   }, [dispatch, studentId]);
 
   //access comments from the redux store
-  const { comments, loading, error } = useSelector(
-    (state) => state.commentsReducer
-  );
+  const { comments, loading, error } = useSelector((state) => state.commentsReducer);
   const student = useSelector((store) => store);
   const [newComment, setNewComment] = useState("");
   const [editingCommentId, setEditingCommentId] = useState(null);
@@ -122,7 +84,8 @@ const CommentsTab = () => {
         date: new Date().toISOString(),
       },
     });
-    openSnackbar("Comment added", "success");
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Comment Added", severity: "success" } });
+
     setNewComment("");
   };
 
@@ -137,7 +100,8 @@ const CommentsTab = () => {
         date: new Date().toISOString(),
       },
     });
-    openSnackbar("Edit saved", "success");
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Note Updated", severity: "success" } });
+
     setEditingCommentId(null);
     setEditedComment("");
   };
@@ -232,8 +196,7 @@ const CommentsTab = () => {
         <DialogTitle id="alert-dialog-title">{"Confirm Delete"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete this comment? This action cannot be
-            undone.
+            Are you sure you want to delete this comment? This action cannot be undone.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

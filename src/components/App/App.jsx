@@ -1,10 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  HashRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { HashRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import Nav from "../Nav/Nav";
@@ -43,6 +38,7 @@ import EditOlderCtoppResults from "../EditTests/EditOlderCtoppResults";
 import EditGortResults from "../EditTests/EditGortResults";
 import EditKteaResults from "../EditTests/EditKteaResults";
 import ArchivedStudentList from "../ArchivedStudentList/ArchivedStudentList";
+import CustomSnackbar from "../../lib/CustomSnackbar";
 
 function App() {
   const dispatch = useDispatch();
@@ -64,6 +60,9 @@ function App() {
 
   return (
     <Router>
+      <div>
+        <CustomSnackbar />
+      </div>
       <div>
         <Nav />
         <Switch>
@@ -172,11 +171,7 @@ function App() {
           >
             <InfoPage />
           </ProtectedRoute>
-          <ProtectedRoute
-            exact
-            path="/students/:id"
-            component={StudentDetails}
-          />
+          <ProtectedRoute exact path="/students/:id" component={StudentDetails} />
 
           <Route exact path="/login">
             {user.id ? (

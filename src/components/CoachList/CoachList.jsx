@@ -151,6 +151,8 @@ const CoachList = () => {
       type: "UPDATE_COACH",
       payload: { id: editingCoachId, ...formData },
     });
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Coach Updated", severity: "success" } });
+
     setEditingCoachId(null); // Close the sheet after submitting
   }; // end handleSubmit
 

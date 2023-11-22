@@ -161,6 +161,7 @@ const AddGort = () => {
       type: "ADD_GORT",
       payload: submissionData,
     });
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Test added", severity: "success" } });
 
     history.push(`/students/${student.id}`);
     //history.push back to student details

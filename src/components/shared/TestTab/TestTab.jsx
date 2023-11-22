@@ -17,7 +17,6 @@ const TestTab = () => {
       <KteaList />
       <YoungerCtoppList />
       <OlderCtoppList />
-      <GortComparisonTable />
     </div>
   );
 };

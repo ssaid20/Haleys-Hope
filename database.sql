@@ -86,7 +86,8 @@ CREATE TABLE
     "rate_scaled_score" INTEGER,
     "accuracy_scaled_score" INTEGER,
     "fluency_scaled_score" INTEGER,
-    "comprehension_scaled_score" INTEGER
+    "comprehension_scaled_score" INTEGER,
+    "grade" INTEGER
   );
 
 CREATE TABLE
@@ -139,7 +140,8 @@ CREATE TABLE
     "rapid_symbolic_naming_composite" INTEGER,
     "rapid_symbolic_naming_percentile" INTEGER,
     "rapid_non_symbolic_naming_composite" INTEGER,
-    "rapid_non_symbolic_naming_percentile" INTEGER
+    "rapid_non_symbolic_naming_percentile" INTEGER,
+    "grade" INTEGER
   );
 
 CREATE TABLE
@@ -165,7 +167,8 @@ CREATE TABLE
     "letter_sounds" INTEGER,
     "sound_symbol_knowledge" INTEGER,
     "sound_symbol_knowledge_percentile" INTEGER,
-    "sound_symbol_knowledge_standard_score" INTEGER
+    "sound_symbol_knowledge_standard_score" INTEGER,
+    "grade" INTEGER
   );
 
 CREATE TABLE
@@ -190,7 +193,8 @@ CREATE TABLE
     "rapid_symbolic_naming_composite" INTEGER,
     "rapid_symbolic_naming_percentile" INTEGER,
     "alt_phonological_awareness_composite" INTEGER,
-    "alt_phonological_awareness_percentile" INTEGER
+    "alt_phonological_awareness_percentile" INTEGER,
+    "grade" INTEGER
   );
 
 CREATE TABLE
@@ -202,7 +206,8 @@ CREATE TABLE
     "lwr_scaled_score" INTEGER,
     "lwr_percentile" INTEGER,
     "spelling_scaled_score" INTEGER,
-    "spelling_percentile" INTEGER
+    "spelling_percentile" INTEGER,
+    "grade" INTEGER
   );
   
 -- Insert test coach records for the students

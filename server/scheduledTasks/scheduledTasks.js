@@ -1,8 +1,8 @@
 const cron = require('node-cron');
-// const { incrementGrades } = require('./gradeService');
+const { incrementGrades } = require('../routes/gradeService');
 
 const setupCronJobs = () => {
-  cron.schedule('0 0 1 8 *', () => {
+  cron.schedule('*/1 * * * *', () => {
     console.log('Running grade increment job');
     incrementGrades();
   });

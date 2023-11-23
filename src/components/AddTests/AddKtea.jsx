@@ -18,6 +18,8 @@ const AddKtea = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
+  const studentGrade = useSelector((store) => store.studentReducer.Details.grade);
+
   const users = useSelector((store) => store.allUsersReducer.users);
 
   const [selectedExaminerId, setSelectedExaminerId] = useState("");
@@ -39,6 +41,8 @@ const AddKtea = () => {
   const [newKtea, setKtea] = useState({
     student_id: student.id,
     date: "",
+    grade: studentGrade,
+
     examiner_id: "",
     lwr_scaled_score: "",
     lwr_percentile: "",

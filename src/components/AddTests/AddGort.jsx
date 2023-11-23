@@ -18,6 +18,8 @@ const AddGort = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
+  const studentGrade = useSelector((store) => store.studentReducer.Details.grade);
+
   const users = useSelector((store) => store.allUsersReducer.users);
 
   const [validationErrors, setValidationErrors] = useState({
@@ -43,6 +45,7 @@ const AddGort = () => {
   const [newGort, setNewGort] = useState({
     student_id: student.id,
     date: "",
+    grade: studentGrade,
     examiner_id: "",
     sum_scaled_score: null,
     oral_reading_percentile_rank: null,

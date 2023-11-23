@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool");
-const {
-  rejectUnauthenticated,
-} = require("../modules/authentication-middleware");
+const { rejectUnauthenticated } = require("../modules/authentication-middleware");
 
 //Routes for GORT-5 test
 //GORT GET ROUTE
@@ -61,15 +59,16 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
       accuracy_scaled_score,
       fluency_scaled_score,
       comprehension_scaled_score,
+      grade,
     } = req.body;
     const query = ` INSERT INTO gort (
             student_id, date, examiner_id, sum_scaled_score, oral_reading_percentile_rank, 
             oral_reading_index, rate_raw_total, accuracy_raw_total, fluency_raw_total, 
             comprehension_raw_total, rate_percentile_rank, accuracy_percentile_rank, 
             fluency_percentile_rank, comprehension_percentile_rank, rate_scaled_score, 
-            accuracy_scaled_score, fluency_scaled_score, comprehension_scaled_score
+            accuracy_scaled_score, fluency_scaled_score, comprehension_scaled_score, grade
         ) VALUES (
-            $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18
+            $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19
         );`;
     const values = [
       student_id,
@@ -90,6 +89,7 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
       accuracy_scaled_score,
       fluency_scaled_score,
       comprehension_scaled_score,
+      grade,
     ];
     await pool.query(query, values);
 
@@ -110,11 +110,7 @@ router.put("/:student_id/:id", rejectUnauthenticated, (req, res) => {
   // Constructing the query dynamically based on the fields provided in the body
   let querySet = [];
   for (let key in updatedGort) {
-    if (
-      updatedGort.hasOwnProperty(key) &&
-      key !== "student_id" &&
-      key !== "id"
-    ) {
+    if (updatedGort.hasOwnProperty(key) && key !== "student_id" && key !== "id") {
       querySet.push(`"${key}" = '${updatedGort[key]}'`);
     }
   }
@@ -122,9 +118,7 @@ router.put("/:student_id/:id", rejectUnauthenticated, (req, res) => {
     return res.status(400).send("No update fields provided");
   }
 
-  const queryText = `UPDATE "gort" SET ${querySet.join(
-    ", "
-  )} WHERE "student_id" = $1 AND "id" = $2`;
+  const queryText = `UPDATE "gort" SET ${querySet.join(", ")} WHERE "student_id" = $1 AND "id" = $2`;
 
   pool
     .query(queryText, [studentId, testId])

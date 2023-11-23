@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool");
-const {
-  rejectUnauthenticated,
-} = require("../modules/authentication-middleware");
+const { rejectUnauthenticated } = require("../modules/authentication-middleware");
 
 // GET route to fetch old_ctopp tests for a specific student
 router.get("/:student_id", rejectUnauthenticated, (req, res) => {
@@ -29,10 +27,7 @@ router.get("/olderCtoppResults/:testId", rejectUnauthenticated, (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      console.error(
-        "Error completing SELECT older_ctopp query for test id",
-        err
-      );
+      console.error("Error completing SELECT older_ctopp query for test id", err);
       res.sendStatus(500);
     });
 });
@@ -52,11 +47,9 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       "blending_nonwords_scaled_score", "segmenting_nonwords_scaled_score", 
       "phonological_awareness_composite", "phonological_memory_composite", 
       "rapid_symbolic_naming_composite", "alt_phonological_awareness_composite", 
-
-
       "phonological_awareness_percentile", "phonological_memory_percentile", 
-      "rapid_symbolic_naming_percentile", "alt_phonological_awareness_percentile"
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)`;
+      "rapid_symbolic_naming_percentile", "alt_phonological_awareness_percentile", "grade"
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21)`;
 
   const values = [
     newOCtopp.student_id,
@@ -79,6 +72,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     newOCtopp.phonological_memory_percentile,
     newOCtopp.rapid_symbolic_naming_percentile,
     newOCtopp.alt_phonological_awareness_percentile,
+    newOCtopp.grade,
   ];
 
   pool
@@ -99,11 +93,7 @@ router.put("/:student_id/:id", rejectUnauthenticated, (req, res) => {
   // Constructing the query dynamically based on the fields provided in the body
   let querySet = [];
   for (let key in updatedOCtopp) {
-    if (
-      updatedOCtopp.hasOwnProperty(key) &&
-      key !== "student_id" &&
-      key !== "id"
-    ) {
+    if (updatedOCtopp.hasOwnProperty(key) && key !== "student_id" && key !== "id") {
       querySet.push(`"${key}" = '${updatedOCtopp[key]}'`);
     }
   }
@@ -111,9 +101,7 @@ router.put("/:student_id/:id", rejectUnauthenticated, (req, res) => {
     return res.status(400).send("No update fields provided");
   }
 
-  const queryText = `UPDATE "older_ctopp" SET ${querySet.join(
-    ", "
-  )} WHERE "student_id" = $1 AND "id" = $2`;
+  const queryText = `UPDATE "older_ctopp" SET ${querySet.join(", ")} WHERE "student_id" = $1 AND "id" = $2`;
 
   pool
     .query(queryText, [studentId, recordId])
@@ -131,8 +119,7 @@ router.delete("/:student_id/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id; //Unique identifier for specific student
   const recordId = req.params.id; // This is the unique identifier for the specific test
 
-  const queryText =
-    'DELETE FROM "older_ctopp" WHERE "student_id" = $1 AND "id" = $2';
+  const queryText = 'DELETE FROM "older_ctopp" WHERE "student_id" = $1 AND "id" = $2';
   pool
     .query(queryText, [studentId, recordId])
     .then(() => {

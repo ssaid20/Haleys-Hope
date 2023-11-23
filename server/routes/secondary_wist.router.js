@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool");
-const {
-  rejectUnauthenticated,
-} = require("../modules/authentication-middleware");
+const { rejectUnauthenticated } = require("../modules/authentication-middleware");
 
 // GET route to fetch secondary wist tests for a specific student
 // Tested and working in Postman
@@ -16,35 +14,25 @@ router.get("/:student_id", rejectUnauthenticated, (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      console.error(
-        "Error completing SELECT secondary_wist query for student_id",
-        err
-      );
+      console.error("Error completing SELECT secondary_wist query for student_id", err);
       res.sendStatus(500);
     });
 }); // end router.get
 
 //router to get a specific test
-router.get(
-  "/secondaryWistResults/:testId",
-  rejectUnauthenticated,
-  (req, res) => {
-    const testId = req.params.testId;
-    const queryText = 'SELECT * FROM "secondary_wist" WHERE "id" = $1';
-    pool
-      .query(queryText, [testId])
-      .then((result) => {
-        res.send(result.rows);
-      })
-      .catch((err) => {
-        console.error(
-          "Error completing SELECT secondary_wist query for test id",
-          err
-        );
-        res.sendStatus(500);
-      });
-  }
-);
+router.get("/secondaryWistResults/:testId", rejectUnauthenticated, (req, res) => {
+  const testId = req.params.testId;
+  const queryText = 'SELECT * FROM "secondary_wist" WHERE "id" = $1';
+  pool
+    .query(queryText, [testId])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.error("Error completing SELECT secondary_wist query for test id", err);
+      res.sendStatus(500);
+    });
+});
 
 // POST route to add a new record for a specific student
 // Tested and working in Postman
@@ -77,8 +65,9 @@ router.post("/", rejectUnauthenticated, (req, res) => {
         "letter_sounds", 
         "sound_symbol_knowledge", 
         "sound_symbol_knowledge_percentile", 
-        "sound_symbol_knowledge_standard_score"
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21)`;
+        "sound_symbol_knowledge_standard_score",
+        "grade"
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22)`;
 
   const values = [
     newWist.student_id,
@@ -102,6 +91,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     newWist.sound_symbol_knowledge,
     newWist.sound_symbol_knowledge_percentile,
     newWist.sound_symbol_knowledge_standard_score,
+    newWist.grade,
   ];
 
   pool
@@ -125,11 +115,7 @@ router.put("/:student_id/:id", rejectUnauthenticated, (req, res) => {
   // Constructing the query dynamically based on the fields provided in the body, can update as many or little as needed
   let querySet = [];
   for (let key in updatedWist) {
-    if (
-      updatedWist.hasOwnProperty(key) &&
-      key !== "student_id" &&
-      key !== "id"
-    ) {
+    if (updatedWist.hasOwnProperty(key) && key !== "student_id" && key !== "id") {
       querySet.push(`"${key}" = '${updatedWist[key]}'`);
     }
   }
@@ -158,8 +144,7 @@ router.delete("/:student_id/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id; // Identifier for the specific student
   const recordId = req.params.id; // This is the unique identifier for the specific test
 
-  const queryText =
-    'DELETE FROM "secondary_wist" WHERE "student_id" = $1 AND "id" = $2';
+  const queryText = 'DELETE FROM "secondary_wist" WHERE "student_id" = $1 AND "id" = $2';
   pool
     .query(queryText, [studentId, recordId])
     .then(() => {

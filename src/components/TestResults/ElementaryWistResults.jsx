@@ -19,7 +19,6 @@ const ElementaryWistResults = () => {
   }, [dispatch]);
 
   const selectedTest = useSelector((store) => store.elementaryWistReducer.selectedTest[0]);
-
   if (!selectedTest || Object.keys(selectedTest).length === 0) {
     return <h1>Loading...</h1>;
   }
@@ -81,7 +80,9 @@ const ElementaryWistResults = () => {
                   Examiner ID: {selectedTest.examiner_id}
                 </Typography>
               )}
-
+              <Typography variant="h6" style={{ marginBottom: "10px" }}>
+                Grade When Test Given: {selectedTest.grade} &nbsp;
+              </Typography>
               <h1 style={{ textAlign: "center", marginBottom: "8px" }}>Elementary WIST Results</h1>
             </div>
           </Paper>

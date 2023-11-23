@@ -21,6 +21,7 @@ const AddOlderCtopp = () => {
   const users = useSelector((store) => store.allUsersReducer.users);
 
   const [selectedExaminerId, setSelectedExaminerId] = useState("");
+  const studentGrade = useSelector((store) => store.studentReducer.Details.grade);
 
   const [validationErrors, setValidationErrors] = useState({
     //state for validation errors
@@ -43,6 +44,8 @@ const AddOlderCtopp = () => {
   const [newCtopp, setNewCtopp] = useState({
     student_id: student.id,
     date: "",
+    grade: studentGrade,
+
     examiner_id: "",
     elison_scaled_score: null,
     blending_words_scaled_score: null,
@@ -62,7 +65,7 @@ const AddOlderCtopp = () => {
     rapid_symbolic_naming_percentile: null,
     alt_phonological_awareness_percentile: null,
   });
-
+  console.log("newCtoppppp:", newCtopp);
   const handleExaminerChange = (event) => {
     const examinerId = event.target.value;
     setSelectedExaminerId(examinerId);

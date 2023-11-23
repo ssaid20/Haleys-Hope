@@ -82,15 +82,15 @@ const WistSTable = ({ test }) => {
               </span>
             </th>
             {/* &lt; is for the < character */}
-            <th style={cellStyle}>&lt;5</th>
-            <th style={cellStyle}>5</th>
-            <th style={cellStyle}>6</th>
-            <th style={cellStyle}>7</th>
-            <th style={cellStyle}>8</th>
-            <th style={cellStyle}>9</th>
-            <th style={cellStyle}>10</th>
-            <th style={cellStyle}>11</th>
-            <th style={cellStyle}>12</th>
+            <th style={test.grade < 5 ? cellStyle2 : cellStyle}>&lt;5</th>
+            <th style={test.grade === 5 ? cellStyle2 : cellStyle}>5</th>
+            <th style={test.grade === 6 ? cellStyle2 : cellStyle}>6</th>
+            <th style={test.grade === 7 ? cellStyle2 : cellStyle}>7</th>
+            <th style={test.grade === 8 ? cellStyle2 : cellStyle}>8</th>
+            <th style={test.grade === 9 ? cellStyle2 : cellStyle}>9</th>
+            <th style={test.grade === 10 ? cellStyle2 : cellStyle}>10</th>
+            <th style={test.grade === 11 ? cellStyle2 : cellStyle}>11</th>
+            <th style={test.grade > 12 ? cellStyle2 : cellStyle}>12</th>
           </tr>
         </thead>
         <tbody>

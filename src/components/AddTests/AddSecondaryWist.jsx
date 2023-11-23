@@ -20,6 +20,8 @@ const AddSecondaryWist = () => {
   const history = useHistory();
   const student = useParams();
   const users = useSelector((store) => store.allUsersReducer.users);
+  const studentGrade = useSelector((store) => store.studentReducer.Details.grade);
+
   const [validationErrors, setValidationErrors] = useState({
     //state for validation errors
     date: "",
@@ -44,6 +46,7 @@ const AddSecondaryWist = () => {
 
   const [newWist, setNewWist] = useState({
     student_id: student.id,
+    grade: studentGrade,
     date: "",
     examiner_id: "",
     read_regular_words: null,

@@ -154,7 +154,7 @@ const OldCtoppComparison = () => {
                   {score}
                 </StyledTableCell>
               ))}
-              {row.descriptiveTerms.map((term, index) => (
+                {row.descriptiveTerms.map((term, index) => (
                 <StyledTableCell key={`descriptive-${index}`} align="right">
                   {term}
                 </StyledTableCell>

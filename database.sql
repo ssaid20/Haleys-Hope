@@ -112,7 +112,8 @@ CREATE TABLE
     "letter_sounds" INTEGER,
     "sound_symbol_knowledge" INTEGER,
     "sound_symbol_knowledge_percentile" INTEGER,
-    "sound_symbol_knowledge_standard_score" INTEGER
+    "sound_symbol_knowledge_standard_score" INTEGER,
+    "grade" INTEGER
   );
 
 CREATE TABLE

@@ -10,8 +10,7 @@ import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { formatDate3 } from "../../lib/utils";
-import { getDescriptiveTerm } from "../../lib/utils";
-
+import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
 const StyledTableCell = styled(TableCell)(({ theme, color }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: color ? color : theme.palette.common.white,
@@ -63,7 +62,11 @@ function createRowData(category, tests) {
     category,
     percentiles: tests.map((test) => test[categoryMap[category].percentile]),
     scaledScores: tests.map((test) => test[categoryMap[category].scaled]),
-    descriptiveTerms: tests.map((test) => getDescriptiveTerm(test[categoryMap[category].scaled])), // Assuming you calculate descriptive terms based on scaled scores
+    descriptiveTerms: tests.map((test) =>
+      GetCompositeScoreDescription({
+        compositeScore: test[categoryMap[category].scaled],
+      })
+    ), // Assuming you calculate descriptive terms based on scaled scores
   };
 }
 const TestHeaderCell = styled(TableCell)(({ theme, color }) => ({

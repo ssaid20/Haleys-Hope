@@ -95,8 +95,8 @@ const EditElementaryWistResults = () => {
         // Convert to number if the field is numeric and not empty
         updatedValue[name] = parseInt(value, 10);
       } else {
-        // If the field is empty, set it to an empty string
-        updatedValue[name] = value;
+        // If the field is empty, set it to null
+        updatedValue[name] = null;
       }
 
       // Calculate word identification

@@ -56,7 +56,6 @@ function createRowData(category, tests) {
       percentile: "rapid_non_symbolic_naming_percentile",
       scaled: "rapid_non_symbolic_naming_composite",
     },
-    
   };
 
   return {
@@ -89,11 +88,9 @@ const OldCtoppComparison = () => {
   }, [dispatch, student.id]);
 
   // Create rows based on the fetched data
-  const rows = categories.map((category) =>
-    createRowData(category, YoungerctoppTests)
-  );
+  const rows = categories.map((category) => createRowData(category, YoungerctoppTests));
   console.log("rows", rows);
-  
+
   const sectionHeaderColors = {
     percentile: "#778899", // Example color for Percentile Section
     scaledScore: "#0f3c5c", // Example color for Scaled Score Section

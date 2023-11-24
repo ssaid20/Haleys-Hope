@@ -64,6 +64,7 @@ const EditYoungerCtoppResults = () => {
     phonological_memory_percentile: "",
     rapid_symbolic_naming_percentile: "",
     rapid_non_symbolic_naming_percentile: "",
+    grade: "",
   });
   const [selectedExaminerId, setSelectedExaminerId] = useState("");
   const handleExaminerChange = (event) => {
@@ -87,10 +88,14 @@ const EditYoungerCtoppResults = () => {
       updatedValue[name] = value;
     } else {
       // Convert to number if the field is numeric
-      updatedValue[name] = value ? parseInt(value, 10) : 0;
-
-      // Convert to number if the field is numeric
-      updatedValue[name] = value ? parseInt(value, 10) : 0;
+      // Check if the value is not an empty string
+      if (value !== "") {
+        // Convert to number if the field is numeric and not empty
+        updatedValue[name] = parseInt(value, 10);
+      } else {
+        // If the field is empty, set it to an empty string
+        updatedValue[name] = value;
+      }
     }
     setValidationErrors((prevErrors) => {
       const newErrors = { ...prevErrors };
@@ -192,14 +197,28 @@ const EditYoungerCtoppResults = () => {
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <InputLabel>Examiner</InputLabel>
-                <Select value={selectedExaminerId} label="Examiner" onChange={handleExaminerChange}>
+                <FormLabel>Examiner</FormLabel>
+                <Select value={selectedExaminerId} onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
                     </MenuItem>
                   ))}
                 </Select>
+              </FormControl>
+            </Grid>
+            {/* Grade Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Grade:</FormLabel>
+                <TextField
+                  type="number"
+                  id="grade"
+                  name="grade"
+                  value={newCtopp.grade}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
               </FormControl>
             </Grid>
             {/* Elison Scaled Score */}

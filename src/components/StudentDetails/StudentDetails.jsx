@@ -70,10 +70,7 @@ function StudentDetails() {
             <TabsContent value="graph" className="flex w-full flex-col gap-6">
               <GraphTab />
             </TabsContent>
-            <TabsContent
-              value="assessment"
-              className="flex w-full flex-col gap-6"
-            >
+            <TabsContent value="assessment" className="flex w-full flex-col gap-6">
               <AssessmentTab />
             </TabsContent>
             <TabsContent value="notes" className="flex w-full flex-col gap-6">

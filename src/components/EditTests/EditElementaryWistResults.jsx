@@ -21,7 +21,7 @@ const EditElementaryWistResults = () => {
   const selectedTest = useSelector((store) => store.elementaryWistReducer.selectedTest[0]);
   const users = useSelector((store) => store.allUsersReducer.users);
   const student = useSelector((store) => store.user);
-
+  console.log("selectedTESTSTST:", selectedTest);
   const [validationErrors, setValidationErrors] = useState({
     //state for validation errors
     date: "",
@@ -67,6 +67,7 @@ const EditElementaryWistResults = () => {
     word_identification: "",
     word_identification_percentile: "",
     word_identification_standard_score: "",
+    grade: "",
   });
   console.log("new WISTTTT", newWist);
   const [selectedExaminerId, setSelectedExaminerId] = useState("");
@@ -90,11 +91,14 @@ const EditElementaryWistResults = () => {
     if (name === "date") {
       updatedValue[name] = value;
     } else {
-      // Convert to number if the field is numeric
-      updatedValue[name] = value ? parseInt(value, 10) : 0;
-
-      // Convert to number if the field is numeric
-      updatedValue[name] = value ? parseInt(value, 10) : 0;
+      // Check if the value is not an empty string
+      if (value !== "") {
+        // Convert to number if the field is numeric and not empty
+        updatedValue[name] = parseInt(value, 10);
+      } else {
+        // If the field is empty, set it to null
+        updatedValue[name] = null;
+      }
 
       // Calculate word identification
       if (name === "read_regular_words" || name === "read_irregular_words") {
@@ -227,14 +231,29 @@ const EditElementaryWistResults = () => {
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <InputLabel>Examiner</InputLabel>
-                <Select value={selectedExaminerId} label="Examiner" onChange={handleExaminerChange}>
+                <FormLabel>Examiner:</FormLabel>
+                {/* <InputLabel>Examiner</InputLabel> */}
+                <Select value={selectedExaminerId} onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
                     </MenuItem>
                   ))}
                 </Select>
+              </FormControl>
+            </Grid>
+            {/* Grade Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Grade:</FormLabel>
+                <TextField
+                  type="number"
+                  id="grade"
+                  name="grade"
+                  value={newWist.grade}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
               </FormControl>
             </Grid>
             {/* Read Regular Words Field */}

@@ -59,6 +59,7 @@ const EditGortResults = () => {
     accuracy_scaled_score: null,
     fluency_scaled_score: null,
     comprehension_scaled_score: null,
+    grade: "",
   });
   const [selectedExaminerId, setSelectedExaminerId] = useState("");
   const handleExaminerChange = (event) => {
@@ -81,26 +82,31 @@ const EditGortResults = () => {
     if (name === "date") {
       updatedValue[name] = value;
     } else {
-      // Convert to number if the field is numeric
-      updatedValue[name] = value ? parseInt(value, 10) : 0;
-    }
+      // Check if the value is not an empty string
+      if (value !== "") {
+        // Convert to number if the field is numeric and not empty
+        updatedValue[name] = parseInt(value, 10);
+      } else {
+        // If the field is empty, set it to an empty string
+        updatedValue[name] = value;
+      }
 
-    // Calculate sum of scaled scores
-    if (
-      [
-        "rate_scaled_score",
-        "accuracy_scaled_score",
-        "fluency_scaled_score",
-        "comprehension_scaled_score",
-      ].includes(name)
-    ) {
-      updatedValue.sum_scaled_score =
-        (updatedValue.rate_scaled_score || 0) +
-        (updatedValue.accuracy_scaled_score || 0) +
-        (updatedValue.fluency_scaled_score || 0) +
-        (updatedValue.comprehension_scaled_score || 0);
+      // Calculate sum of scaled scores
+      if (
+        [
+          "rate_scaled_score",
+          "accuracy_scaled_score",
+          "fluency_scaled_score",
+          "comprehension_scaled_score",
+        ].includes(name)
+      ) {
+        updatedValue.sum_scaled_score =
+          (updatedValue.rate_scaled_score || 0) +
+          (updatedValue.accuracy_scaled_score || 0) +
+          (updatedValue.fluency_scaled_score || 0) +
+          (updatedValue.comprehension_scaled_score || 0);
+      }
     }
-
     setValidationErrors((prevErrors) => {
       const newErrors = { ...prevErrors };
 
@@ -201,14 +207,28 @@ const EditGortResults = () => {
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <InputLabel>Examiner</InputLabel>
-                <Select value={selectedExaminerId} label="Examiner" onChange={handleExaminerChange}>
+                <FormLabel>Examiner:</FormLabel>
+                <Select value={selectedExaminerId} onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
                     </MenuItem>
                   ))}
                 </Select>
+              </FormControl>
+            </Grid>
+            {/* Grade Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Grade:</FormLabel>
+                <TextField
+                  type="number"
+                  id="grade"
+                  name="grade"
+                  value={newGort.grade}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
               </FormControl>
             </Grid>
             {/* Sum Scaled Score */}

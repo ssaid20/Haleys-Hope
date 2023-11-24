@@ -20,16 +20,13 @@ const AddElementaryWist = () => {
   const history = useHistory();
   const student = useParams();
   const users = useSelector((store) => store.allUsersReducer.users);
-
+  const studentGrade = useSelector((store) => store.studentReducer.Details.grade);
   const [validationErrors, setValidationErrors] = useState({
     //state for validation errors
     date: "",
     examiner_id: "",
   });
-
   const [selectedExaminerId, setSelectedExaminerId] = useState("");
-
-  // const todayDate = new Date().toISOString().split("T")[0]; //function to get todays date to auto populate
 
   useEffect(() => {
     if (student) {
@@ -39,12 +36,13 @@ const AddElementaryWist = () => {
   useEffect(() => {
     dispatch({ type: "FETCH_USERS" });
   });
-  useEffect(() => {
-    handleGoBack;
-  });
+  // useEffect(() => {
+  //   handleGoBack;
+  // })[handleGoBack];
 
   const [newWist, setNewWist] = useState({
     student_id: student.id,
+    grade: studentGrade,
     date: "",
     examiner_id: "",
     read_regular_words: null,
@@ -179,6 +177,7 @@ const AddElementaryWist = () => {
       ...newWist,
       examiner_id: selectedExaminerId,
     };
+    console.log("add el wist submission data:", submissionData);
 
     dispatch({
       type: "ADD_ELEMENTARY_WIST",

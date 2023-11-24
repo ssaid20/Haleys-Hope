@@ -81,26 +81,31 @@ const EditGortResults = () => {
     if (name === "date") {
       updatedValue[name] = value;
     } else {
-      // Convert to number if the field is numeric
-      updatedValue[name] = value ? parseInt(value, 10) : 0;
-    }
+      // Check if the value is not an empty string
+      if (value !== "") {
+        // Convert to number if the field is numeric and not empty
+        updatedValue[name] = parseInt(value, 10);
+      } else {
+        // If the field is empty, set it to an empty string
+        updatedValue[name] = value;
+      }
 
-    // Calculate sum of scaled scores
-    if (
-      [
-        "rate_scaled_score",
-        "accuracy_scaled_score",
-        "fluency_scaled_score",
-        "comprehension_scaled_score",
-      ].includes(name)
-    ) {
-      updatedValue.sum_scaled_score =
-        (updatedValue.rate_scaled_score || 0) +
-        (updatedValue.accuracy_scaled_score || 0) +
-        (updatedValue.fluency_scaled_score || 0) +
-        (updatedValue.comprehension_scaled_score || 0);
+      // Calculate sum of scaled scores
+      if (
+        [
+          "rate_scaled_score",
+          "accuracy_scaled_score",
+          "fluency_scaled_score",
+          "comprehension_scaled_score",
+        ].includes(name)
+      ) {
+        updatedValue.sum_scaled_score =
+          (updatedValue.rate_scaled_score || 0) +
+          (updatedValue.accuracy_scaled_score || 0) +
+          (updatedValue.fluency_scaled_score || 0) +
+          (updatedValue.comprehension_scaled_score || 0);
+      }
     }
-
     setValidationErrors((prevErrors) => {
       const newErrors = { ...prevErrors };
 

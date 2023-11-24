@@ -87,10 +87,14 @@ const EditYoungerCtoppResults = () => {
       updatedValue[name] = value;
     } else {
       // Convert to number if the field is numeric
-      updatedValue[name] = value ? parseInt(value, 10) : 0;
-
-      // Convert to number if the field is numeric
-      updatedValue[name] = value ? parseInt(value, 10) : 0;
+      // Check if the value is not an empty string
+      if (value !== "") {
+        // Convert to number if the field is numeric and not empty
+        updatedValue[name] = parseInt(value, 10);
+      } else {
+        // If the field is empty, set it to an empty string
+        updatedValue[name] = value;
+      }
     }
     setValidationErrors((prevErrors) => {
       const newErrors = { ...prevErrors };

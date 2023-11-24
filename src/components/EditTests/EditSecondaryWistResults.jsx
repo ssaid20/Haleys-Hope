@@ -89,12 +89,14 @@ const EditSecondaryWistResults = () => {
       updatedValue[name] = value;
     } else {
       // Convert to number if the field is numeric
-      updatedValue[name] = value ? parseInt(value, 10) : 0;
-
-      // Convert to number if the field is numeric
-      updatedValue[name] = value ? parseInt(value, 10) : 0;
-
-      // Calculate word identification
+      updatedValue[name] = parseInt(value, 10); // Check if the value is not an empty string
+      if (value !== "") {
+        // Convert to number if the field is numeric and not empty
+        updatedValue[name] = parseInt(value, 10);
+      } else {
+        // If the field is empty, set it to an empty string
+        updatedValue[name] = value;
+      } // Calculate word identification
       if (name === "read_regular_words" || name === "read_irregular_words") {
         updatedValue.word_identification =
           (updatedValue.read_regular_words || 0) + (updatedValue.read_irregular_words || 0);

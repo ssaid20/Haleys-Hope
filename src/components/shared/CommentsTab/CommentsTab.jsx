@@ -151,7 +151,7 @@ const CommentsTab = () => {
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">Notes</h2>
       <div>
         {comments.map((comment) => (
-          <div>
+          <div key={comment.id} style={{ marginBottom: "1rem" }}>
             <CommentCard
               key={comment.id}
               user={comment.name}

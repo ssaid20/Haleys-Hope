@@ -12,7 +12,6 @@ import TableRow from "@mui/material/TableRow";
 import { useHistory } from "react-router-dom";
 import { calculateAge } from "../../lib/utils";
 import Fuse from "fuse.js";
-import ArchivedStudentList from "../ArchivedStudentList/ArchivedStudentList";
 import Button from "@mui/material/Button";
 import Searchbar from "../shared/Searchbar";
 import Select from "@mui/material/Select";
@@ -205,7 +204,15 @@ const StudentList = () => {
         <Button variant="contained" color="primary" onClick={handleToggleArchived} style={{ margin: "10px" }}>
           View Archived Students
         </Button>
-
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => history.push("/add-student")}
+          style={{ margin: "10px" }}
+        >
+          {" "}
+          Add Student
+        </Button>
         <TableContainer sx={{ maxHeight: 840 }}>
           <Table stickyHeader aria-label="student table">
             <TableHead>

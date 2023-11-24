@@ -5,6 +5,7 @@ import { useParams, Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Sheet,
   SheetClose,
@@ -185,11 +186,12 @@ const StudentCard = () => {
 
         <Sheet>
           <SheetTrigger asChild onClick={() => setIsSheetOpen(true)}>
-          <Button
+            <Button
               variant="outline"
               className="absolute top-2 right-2 text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
             >
-              <img src="/assets/icons/edit.svg" alt="Edit Icon" className="w-4 h-4" />
+              {/* <img src="/assets/icons/edit.svg" alt="Edit Icon" className="w-4 h-4" /> */}
+              <EditIcon />
               <span>Edit Student</span>
             </Button>
           </SheetTrigger>
@@ -300,9 +302,9 @@ const StudentCard = () => {
                 Save Changes
               </Button>
               {/* <SheetClose asChild> */}
-              <Button onClick={handleCancel} className="bg-primary-500 text-white">
+              {/* <Button onClick={handleCancel} className="bg-primary-500 text-white">
                 Close
-              </Button>
+              </Button> */}
               {/* </SheetClose> */}
             </SheetFooter>
           </SheetContent>

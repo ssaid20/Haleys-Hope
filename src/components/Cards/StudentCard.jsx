@@ -302,9 +302,9 @@ const StudentCard = () => {
                 Save Changes
               </Button>
               {/* <SheetClose asChild> */}
-              <Button onClick={handleCancel} className="bg-primary-500 text-white">
+              {/* <Button onClick={handleCancel} className="bg-primary-500 text-white">
                 Close
-              </Button>
+              </Button> */}
               {/* </SheetClose> */}
             </SheetFooter>
           </SheetContent>

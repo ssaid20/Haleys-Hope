@@ -109,7 +109,11 @@ export default function PrimaryWistComparisonTable() {
     descriptiveTerm: "#1277bf", // Example color for Descriptive Term Section
   };
   const lightGreyColor = "#F5F5F5"; // Light grey color
-
+  if (primaryWistTests.length === 0) {
+    return (
+    <div><p>No WIST 7-11 Assessments for this student </p></div>)
+  
+  }else {
   return (
     <>
       <TableContainer component={Paper}>
@@ -194,4 +198,4 @@ export default function PrimaryWistComparisonTable() {
       {/* end of component */}
     </>
   );
-}
+}}

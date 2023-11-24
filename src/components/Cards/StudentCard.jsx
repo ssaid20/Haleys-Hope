@@ -153,16 +153,16 @@ const StudentCard = () => {
   };
   // function to reset for to original data when cancelled or sheet closed
   const handleCancel = () => {
-    if (JSON.stringify(formData) !== JSON.stringify(originalData)) {
-      if (window.confirm("You have unsaved changes. Are you sure you want to close?")) {
-        setFormData(originalData);
-        setValidationErrors({});
+    // if (JSON.stringify(formData) !== JSON.stringify(originalData)) {
+    //   if (window.confirm("You have unsaved changes. Are you sure you want to close?")) {
+    //     setFormData(originalData);
+    //     setValidationErrors({});
         setIsSheetOpen(false);
       }
-    } else {
-      setIsSheetOpen(false); // This will close the form if there are no unsaved changes
-    }
-  }; // end handleCancel
+    // } else {
+    //   setIsSheetOpen(false); // This will close the form if there are no unsaved changes
+    // }
+  // }; // end handleCancel
 
   const sheetStyle = {
     backgroundColor: "white",

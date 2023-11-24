@@ -84,8 +84,8 @@ const TestHeaderCell = styled(TableCell)(({ theme, color }) => ({
 // ];
 const OldCtoppComparison = () => {
   const dispatch = useDispatch();
-  const OlderctoppTests = useSelector((store) => store.olderCtoppReducer.list); // Get data from store
-  console.log("OlderctoppTests", OlderctoppTests);
+  const olderCtoppTests = useSelector((store) => store.olderCtoppReducer.list); // Get data from store
+  console.log("olderCtoppTests", olderCtoppTests);
   const student = useParams();
 
   useEffect(() => {
@@ -93,7 +93,7 @@ const OldCtoppComparison = () => {
   }, [dispatch, student.id]);
 
   // Create rows based on the fetched data
-  const rows = categories.map((category) => createRowData(category, OlderctoppTests));
+  const rows = categories.map((category) => createRowData(category, olderCtoppTests));
   console.log("rows", rows);
 
   const sectionHeaderColors = {
@@ -102,13 +102,18 @@ const OldCtoppComparison = () => {
     descriptiveTerm: "#1277bf", // Example color for Descriptive Term Section
   };
   const lightGreyColor = "#F5F5F5"; // Light grey color
+  if (olderCtoppTests.length === 0) {
+    return (
+    <div><p>No CTOPP 7-24 Assessments for this student </p></div>)
+  
+  }else {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="GORT-5 Comparison Table">
         <TableHead>
           <TableRow>
             <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
-            {OlderctoppTests.map((test, index) => (
+            {olderCtoppTests.map((test, index) => (
               <TestHeaderCell
                 align="center"
                 color={sectionHeaderColors.percentile}
@@ -117,7 +122,7 @@ const OldCtoppComparison = () => {
                 {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`}
               </TestHeaderCell>
             ))}
-            {OlderctoppTests.map((test, index) => (
+            {olderCtoppTests.map((test, index) => (
               <TestHeaderCell
                 align="center"
                 color={sectionHeaderColors.scaledScore}
@@ -126,7 +131,7 @@ const OldCtoppComparison = () => {
                 {`Test ${index + 1} (${formatDate3(test.date)}) Scaled Score`}
               </TestHeaderCell>
             ))}
-            {OlderctoppTests.map((test, index) => (
+            {olderCtoppTests.map((test, index) => (
               <TestHeaderCell
                 align="center"
                 color={sectionHeaderColors.descriptiveTerm}
@@ -166,5 +171,6 @@ const OldCtoppComparison = () => {
     </TableContainer>
   );
 };
+}
 
 export default OldCtoppComparison;

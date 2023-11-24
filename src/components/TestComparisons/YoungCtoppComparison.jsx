@@ -77,10 +77,10 @@ const TestHeaderCell = styled(TableCell)(({ theme, color }) => ({
   },
 }));
 
-const OldCtoppComparison = () => {
+const YoungCtoppComparison = () => {
   const dispatch = useDispatch();
-  const YoungerctoppTests = useSelector((store) => store.youngerCtoppReducer.list); // Get data from store
-  console.log("YoungerctoppTests", YoungerctoppTests);
+  const youngerCtoppTests = useSelector((store) => store.youngerCtoppReducer.list); // Get data from store
+  console.log("youngerCtoppTests", youngerCtoppTests);
   const student = useParams();
 
   useEffect(() => {
@@ -88,7 +88,7 @@ const OldCtoppComparison = () => {
   }, [dispatch, student.id]);
 
   // Create rows based on the fetched data
-  const rows = categories.map((category) => createRowData(category, YoungerctoppTests));
+  const rows = categories.map((category) => createRowData(category, youngerCtoppTests));
   console.log("rows", rows);
 
   const sectionHeaderColors = {
@@ -97,13 +97,18 @@ const OldCtoppComparison = () => {
     descriptiveTerm: "#1277bf", // Example color for Descriptive Term Section
   };
   const lightGreyColor = "#F5F5F5"; // Light grey color
+  if (youngerCtoppTests.length === 0) {
+    return (
+    <div><p>No CTOPP 4-16 Assessments for this student </p></div>)
+  
+  }else {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="GORT-5 Comparison Table">
         <TableHead>
           <TableRow>
             <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
-            {YoungerctoppTests.map((test, index) => (
+            {youngerCtoppTests.map((test, index) => (
               <TestHeaderCell
                 align="center"
                 color={sectionHeaderColors.percentile}
@@ -112,7 +117,7 @@ const OldCtoppComparison = () => {
                 {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`}
               </TestHeaderCell>
             ))}
-            {YoungerctoppTests.map((test, index) => (
+            {youngerCtoppTests.map((test, index) => (
               <TestHeaderCell
                 align="center"
                 color={sectionHeaderColors.scaledScore}
@@ -121,7 +126,7 @@ const OldCtoppComparison = () => {
                 {`Test ${index + 1} (${formatDate3(test.date)}) Scaled Score`}
               </TestHeaderCell>
             ))}
-            {YoungerctoppTests.map((test, index) => (
+            {youngerCtoppTests.map((test, index) => (
               <TestHeaderCell
                 align="center"
                 color={sectionHeaderColors.descriptiveTerm}
@@ -161,5 +166,5 @@ const OldCtoppComparison = () => {
     </TableContainer>
   );
 };
-
-export default OldCtoppComparison;
+}
+export default YoungCtoppComparison;

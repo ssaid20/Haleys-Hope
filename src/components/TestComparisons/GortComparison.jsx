@@ -74,6 +74,10 @@ const DarkBlueHeaderCell = styled(TableCell)(({ theme }) => ({
 
 // New function to create data for the new table
 function createSummaryRowData(tests) {
+  if (!tests || tests.length === 0) {
+    return [];
+  }
+  else{
 console.log("CREATE SUMMARY ROW DATA FOR ME PLEASE", tests[1].oral_reading_index);
 
   return tests.map((test) => ({
@@ -86,7 +90,7 @@ console.log("CREATE SUMMARY ROW DATA FOR ME PLEASE", tests[1].oral_reading_index
       compositeScore: test.oral_reading_index,
     }
     ), // Assuming you calculate descriptive terms based on scaled scores
-  }))}
+  }))}}
 
 const TestHeaderCell = styled(TableCell)(({ theme, color }) => ({
   backgroundColor: color ? color : theme.palette.primary.main,
@@ -135,6 +139,11 @@ export default function GortComparisonTable() {
   };
 
   const lightGreyColor = "#F5F5F5"; // Light grey color
+  if (gortTests.length === 0) {
+    return (
+    <div><p>No GORT Assessments for this student </p></div>)
+  
+  }else {
   return (
     <>
       <TableContainer component={Paper}>
@@ -230,4 +239,4 @@ export default function GortComparisonTable() {
       </TableContainer>
     </>
   );
-}
+}}

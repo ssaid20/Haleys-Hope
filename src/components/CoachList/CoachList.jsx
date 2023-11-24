@@ -15,7 +15,9 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { useHistory } from "react-router-dom";
 import { Button } from "../ui/button";
+import { Button as MUIButton } from "@mui/material";
 import { Button as Button2 } from "@mui/material";
+
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import {
@@ -310,14 +312,21 @@ const CoachList = () => {
       </Paper>
 
       {/* this button opens up a table of archived coaches */}
-      <Button
+      {/* <Button
         onClick={toggleArchivedCoaches}
         className={`mt-6 ${
           showArchivedCoaches ? "bg-red-500" : "bg-green-500"
         } hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300`}
+      ></Button> */}
+      <MUIButton
+        variant="contained"
+        color="primary"
+        onClick={toggleArchivedCoaches}
+        style={{ margin: "10px" }}
       >
         {showArchivedCoaches ? "Hide Archived Coaches" : "Show Archived Coaches"}
-      </Button>
+      </MUIButton>
+
       {showArchivedCoaches && (
         <Paper sx={{ width: "100%", overflow: "hidden", marginTop: 2 }}>
           <div className="bg-white shadow-md rounded my-6">

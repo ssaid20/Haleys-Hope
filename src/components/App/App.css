@@ -134,8 +134,10 @@ input {
 .assessmentCard {
   display: flex;
   border: black;
-  width: 450px;
+  width: 375px;
   justify-content: space-between;
+  text-align: center;
+  margin-left: 10px;
 }
 .assessmentContainer{
   display: flex;
@@ -143,4 +145,7 @@ input {
   align-content: space-evenly;
   flex-wrap: wrap;
 
+}
+.centerText{
+  text-align: center;
 }

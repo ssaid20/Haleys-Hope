@@ -34,7 +34,8 @@ const OlderCtoppResults = () => {
       <Button variant="contained" color="primary" onClick={goBack} style={{ marginRight: "20px" }}>
         Back to Tests List
       </Button>
-      <h1 className="text-3xl text-center mb-4">CTOPP 7-24 Results </h1>
+      {/* <h1 className="text-3xl text-center mb-4">CTOPP 7-24 Results </h1> */}
+      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">CTOPP 7-24 Results </h1>
 
       <div style={{ display: "flex", justifyContent: "center", gap: "50px" }}>
         <div

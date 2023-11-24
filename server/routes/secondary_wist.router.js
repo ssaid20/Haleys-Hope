@@ -112,23 +112,30 @@ router.put("/:student_id/:id", rejectUnauthenticated, (req, res) => {
   const recordId = req.params.id;
   const updatedWist = req.body;
 
-  // Constructing the query dynamically based on the fields provided in the body, can update as many or little as needed
-  let querySet = [];
+  // Initialize an array to hold the update fields and values
+  let updateFields = [];
+  let values = [studentId, recordId];
+  let valueCount = 3; // Start counting from 3 because $1 and $2 are already used
+
+  // Constructing the query dynamically based on the fields provided in the body
   for (let key in updatedWist) {
     if (updatedWist.hasOwnProperty(key) && key !== "student_id" && key !== "id") {
-      querySet.push(`"${key}" = '${updatedWist[key]}'`);
+      updateFields.push(`"${key}" = $${valueCount}`);
+      values.push(updatedWist[key]);
+      valueCount++;
     }
   }
-  if (querySet.length === 0) {
+
+  if (updateFields.length === 0) {
     return res.status(400).send("No update fields provided");
   }
 
-  const queryText = `UPDATE "secondary_wist" SET ${querySet.join(
+  const queryText = `UPDATE "secondary_wist" SET ${updateFields.join(
     ", "
   )} WHERE "student_id" = $1 AND "id" = $2`;
 
   pool
-    .query(queryText, [studentId, recordId])
+    .query(queryText, values)
     .then(() => {
       res.sendStatus(200);
     })

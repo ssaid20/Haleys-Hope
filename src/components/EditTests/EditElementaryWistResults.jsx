@@ -21,7 +21,7 @@ const EditElementaryWistResults = () => {
   const selectedTest = useSelector((store) => store.elementaryWistReducer.selectedTest[0]);
   const users = useSelector((store) => store.allUsersReducer.users);
   const student = useSelector((store) => store.user);
-
+  console.log("selectedTESTSTST:", selectedTest);
   const [validationErrors, setValidationErrors] = useState({
     //state for validation errors
     date: "",
@@ -67,6 +67,7 @@ const EditElementaryWistResults = () => {
     word_identification: "",
     word_identification_percentile: "",
     word_identification_standard_score: "",
+    grade: "",
   });
   console.log("new WISTTTT", newWist);
   const [selectedExaminerId, setSelectedExaminerId] = useState("");
@@ -230,14 +231,29 @@ const EditElementaryWistResults = () => {
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <InputLabel>Examiner</InputLabel>
-                <Select value={selectedExaminerId} label="Examiner" onChange={handleExaminerChange}>
+                <FormLabel>Examiner:</FormLabel>
+                {/* <InputLabel>Examiner</InputLabel> */}
+                <Select value={selectedExaminerId} onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
                     </MenuItem>
                   ))}
                 </Select>
+              </FormControl>
+            </Grid>
+            {/* Grade Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Grade:</FormLabel>
+                <TextField
+                  type="number"
+                  id="grade"
+                  name="grade"
+                  value={newWist.grade}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
               </FormControl>
             </Grid>
             {/* Read Regular Words Field */}

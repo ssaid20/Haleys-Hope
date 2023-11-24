@@ -88,8 +88,6 @@ const SecondaryWistResults = () => {
               <Typography variant="h6" style={{ marginBottom: "10px" }}>
                 Grade When Test Given: {selectedTest.grade} &nbsp;
               </Typography>
-
-              <h1 style={{ textAlign: "center", marginBottom: "8px" }}>Secondary WIST Results</h1>
             </div>
           </Paper>
         </div>

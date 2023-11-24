@@ -11,6 +11,8 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useHistory } from "react-router-dom";
 import { Button } from "../ui/button";
+import { Button as MUIButton } from "@mui/material";
+
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import {
@@ -256,9 +258,12 @@ const ManageUsers = () => {
         />
       </Paper>
       {/* this button opens up a table of archived users */}
-      <Button onClick={toggleArchivedUsers}>
+      {/* <Button onClick={toggleArchivedUsers}>
         {showArchivedUsers ? "Hide Archived Users" : "Show Archived Users"}
-      </Button>
+      </Button> */}
+      <MUIButton variant="contained" color="primary" onClick={toggleArchivedUsers} style={{ margin: "10px" }}>
+        {showArchivedUsers ? "Hide Archived Users" : "Show Archived Users"}
+      </MUIButton>
       {showArchivedUsers && (
         <Paper sx={{ width: "100%", overflow: "hidden", marginTop: 2 }}>
           <TableContainer sx={{ maxHeight: 440 }}>

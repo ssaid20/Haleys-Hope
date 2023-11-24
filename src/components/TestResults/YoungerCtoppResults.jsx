@@ -6,6 +6,7 @@ import MiniStudentCard from "../Cards/MiniStudentCard";
 import { Button, Table, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from "@mui/material";
 import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
 import { GetScaledScoreDescription } from "../../lib/GetScaledScoreDescription";
+import EditIcon from "@mui/icons-material/Edit";
 
 const YoungerCtoppResults = () => {
   const testId = useParams();
@@ -112,7 +113,7 @@ const YoungerCtoppResults = () => {
             onClick={() => history.push(`/EditYoungerCtoppResults/${selectedTest.id}`)}
             // style={{ marginTop: "20px", marginRight: "50px" }}
           >
-            Edit Test
+            <EditIcon /> &nbsp; Edit Test
           </Button>
         </div>
       </div>

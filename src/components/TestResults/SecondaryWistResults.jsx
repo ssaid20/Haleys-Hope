@@ -6,6 +6,7 @@ import MiniStudentCard from "../Cards/MiniStudentCard";
 import WistSTable from "../WistTables/WistSTable";
 import { Button, Table, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from "@mui/material";
 import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
+import EditIcon from "@mui/icons-material/Edit";
 
 const SecondaryWistResults = () => {
   const testId = useParams();
@@ -123,7 +124,7 @@ const SecondaryWistResults = () => {
             onClick={() => history.push(`/EditSecondaryWistResults/${selectedTest.id}`)}
             // style={{ marginTop: "20px", marginRight: "50px" }}
           >
-            Edit Test
+            <EditIcon /> &nbsp; Edit Test
           </Button>
         </div>
       </div>

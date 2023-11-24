@@ -17,6 +17,7 @@ import { useHistory } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Button as MUIButton } from "@mui/material";
 import { Button as Button2 } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -247,7 +248,7 @@ const CoachList = () => {
                         variant="outline"
                         className=" text-m px-5 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
                       >
-                        <img src="/assets/icons/edit.svg" alt="Edit Icon" className="w-4 h-4" />
+                        <EditIcon /> &nbsp;
                         <span>Edit Coach</span>
                       </Button>
                     </TableCell>
@@ -366,7 +367,7 @@ const CoachList = () => {
                             variant="outline"
                             className=" text-m px-5 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
                           >
-                            <img src="/assets/icons/edit.svg" alt="Edit Icon" className="w-4 h-4" />
+                            <EditIcon /> &nbsp;
                             <span>Edit Coach</span>
                           </Button>
                         </TableCell>

@@ -135,6 +135,8 @@ const ManageUsers = () => {
 
   return (
     <div>
+      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">Manage Users </h1>
+
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer sx={{ maxHeight: 840 }}>
           <Table stickyHeader aria-label="user table">
@@ -157,15 +159,6 @@ const ManageUsers = () => {
                 };
 
                 return (
-                  // <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
-                  //   {columns.map((column) => {
-                  //     const value = formattedUser[column.id];
-                  //     return (
-                  //       <TableCell key={column.id} align={column.align}>
-                  //         {value}
-                  //       </TableCell>
-                  //     );
-                  //   })}
                   <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
                     {columns.map((column) => {
                       let value = user[column.id];

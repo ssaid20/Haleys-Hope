@@ -89,6 +89,7 @@ const StudentForm = () => {
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         GO BACK
       </Button>
+      <h1 className="text-3xl text-center mb-4 ">Add Student </h1>
       <Paper style={{ padding: "20px", marginTop: "20px" }}>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>

@@ -34,6 +34,8 @@ const SecondaryWistResults = () => {
       <Button variant="contained" color="primary" onClick={goBack} style={{ marginRight: "20px" }}>
         Back to Tests List
       </Button>
+      <h1 className="text-3xl text-center mb-4">WIST Age 11-18 Results </h1>
+
       <div style={{ display: "flex", justifyContent: "center", gap: "50px" }}>
         <div
           style={{

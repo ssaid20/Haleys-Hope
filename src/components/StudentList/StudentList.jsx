@@ -165,6 +165,8 @@ const StudentList = () => {
   console.log("DISPLAY Students in list", displayedStudents);
   return (
     <>
+      <h1 className="text-3xl text-center mb-4">Student List </h1>
+
       <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
         <FormControl style={{ minWidth: 120, marginRight: "10px" }}>
           <InputLabel id="sort-select-label">Sort By</InputLabel>
@@ -182,6 +184,7 @@ const StudentList = () => {
             ))}
           </Select>
         </FormControl>
+
         <Button variant="outlined" onClick={toggleSortDirection} style={{ margin: "5px" }}>
           {sortConfig.direction === "ascending" ? "Asc" : "Desc"}
         </Button>
@@ -189,6 +192,7 @@ const StudentList = () => {
           Clear
         </Button>
       </div>
+
       <div className="mb-8">
         <Searchbar
           query={searchQuery}

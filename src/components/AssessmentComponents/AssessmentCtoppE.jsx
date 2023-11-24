@@ -7,7 +7,7 @@ const AssessmentCtoppE = () => {
   const { date } = useParams();
   console.log("assessment date", date);
   const assessments = useSelector(
-    (store) => store.assessmentReducer.youngerAssessment
+    (store) => store.youngerCtoppReducer.list
   );
   const selectedTest = assessments.find(
     (assessment) => assessment.date === date
@@ -15,13 +15,14 @@ const AssessmentCtoppE = () => {
   console.log("selected test is:", selectedTest, assessments);
   // TODO: BOLD SPECIFIC ROWS
   if (!selectedTest) {
-    return <div>No CTOPP-2 4-6 for this date</div>
+    return <></>
+    // <div>No CTOPP-2 4-6 for this date</div>
   
   }else {
   return (
     <div style={{ border: "1px solid black" }}>
       <p style={{ color: "brown" }}> CTOPP-2 Ages 4-6</p>
-      <div //this div is card for CTOPP
+      <div className="assessmentCard" //this div is card for CTOPP
       >
         <table>
           <thead>

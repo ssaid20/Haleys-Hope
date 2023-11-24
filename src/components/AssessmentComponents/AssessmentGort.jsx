@@ -14,7 +14,8 @@ const AssessmentGort = () => {
   );
   console.log("selected test is:", selectedTest, assessments);
 if (!selectedTest) {
-  return <div>No GORT for this date</div>
+  return <></>
+  // <div>No GORT for this date</div>
 
 }
 
@@ -25,7 +26,7 @@ if (!selectedTest) {
     return (
       <div style={{ border: "1px solid black" }}>
         <p style={{ color: "brown" }}> GORT-5</p>
-        <div //this div is card for GORT
+        <div className="assessmentCard" //this div is card for GORT 
         >
           <table>
             <thead>

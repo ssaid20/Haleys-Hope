@@ -214,22 +214,22 @@ CREATE TABLE
 INSERT INTO
   "coaches" ("first_name", "last_name", "is_active")
 VALUES
-  ('Coach1', 'Lastname1', true),
-  ('Coach2', 'Lastname2', true),
-  ('Coach3', 'Lastname3', true),
-  ('Coach4', 'Lastname4', true),
-  ('Coach5', 'Lastname5', true),
-  ('Coach6', 'Lastname6', true),
-  ('Coach7', 'Lastname7', true),
-  ('Coach8', 'Lastname8', true),
-  ('Coach9', 'Lastname9', true),
-  ('Coach10', 'Lastname10', true),
-  ('Coach11', 'Lastname11', true),
-  ('Coach12', 'Lastname12', true),
-  ('Coach13', 'Lastname13', true),
-  ('Coach14', 'Lastname14', true),
-  ('Coach15', 'Lastname15', true),
-  ('Coach16', 'Lastname16', true);
+  ('Emily', 'Johnson', true),
+  ('Michael', 'Smith', true),
+  ('Sarah', 'Miller', true),
+  ('James', 'Davis', true),
+  ('Jennifer', 'Anderson', true),
+  ('Robert', 'Wilson', true),
+  ('Jessica', 'Taylor', true),
+  ('William', 'Moore', true),
+  ('Ashley', 'Brown', true),
+  ('Brian', 'Jones', true),
+  ('Nicole', 'Garcia', true),
+  ('Joshua', 'Martin', true),
+  ('Amanda', 'Thompson', true),
+  ('Christopher', 'White', true),
+  ('Heather', 'Harris', true),
+  ('Matthew', 'Clark', true);
   
 
 INSERT INTO

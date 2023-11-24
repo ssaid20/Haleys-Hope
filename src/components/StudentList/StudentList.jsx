@@ -165,7 +165,8 @@ const StudentList = () => {
   console.log("DISPLAY Students in list", displayedStudents);
   return (
     <>
-      <h1 className="text-3xl text-center mb-4">Student List </h1>
+      {/* <h1 className="text-3xl text-center mb-4">Student List </h1> */}
+      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">Student List</h1>
 
       <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
         <FormControl style={{ minWidth: 120, marginRight: "10px" }}>

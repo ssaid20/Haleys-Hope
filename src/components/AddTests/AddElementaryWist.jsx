@@ -202,10 +202,13 @@ const AddElementaryWist = () => {
 
   return (
     <>
-      <h1 className="text-3xl text-center mb-4 bg-primary-100">ELEMENTARY WIST </h1>
+      {/* <h1 className="text-3xl text-center mb-4 bg-primary-100">ELEMENTARY WIST </h1> */}
+
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         GO BACK
       </Button>
+      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">Add WIST 7-11</h1>
+
       <Paper elevation={3} className="p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           <Grid container spacing={3}>

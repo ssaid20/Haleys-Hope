@@ -37,7 +37,8 @@ const GraphTab = () => {
     fundamental_literacy_percentile: test.fundamental_literacy_percentile,
     sound_symbol_knowledge_percentile: test.sound_symbol_knowledge_percentile,
   }));
-const gortData = gortTests?.map((test) => ({
+  const gortData = gortTests?.map((test) => ({
+    date: test.date,
     rate_percentile_rank: test.rate_percentile_rank,
     accuracy_percentile_rank: test.accuracy_percentile_rank,
     fluency_percentile_rank: test.fluency_percentile_rank,

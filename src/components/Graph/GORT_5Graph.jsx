@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+import { formatDate3 } from "../../lib/utils";
 
 const GORT_5Graph = ({ testData }) => {
   console.log("GORTDATA", testData); // Log to verify the data structure
@@ -41,7 +42,7 @@ const GORT_5Graph = ({ testData }) => {
     if (testData && testData.length > 0) {
       const seriesData = testData.map((test, index) => ({
         type: "column",
-        name: `Test ${index + 1}`,
+        name: formatDate3(test.date),
         data: [
           test.rate_percentile_rank, 
           test.accuracy_percentile_rank,

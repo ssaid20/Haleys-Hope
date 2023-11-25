@@ -1,69 +1,3 @@
-// import React, { useState } from "react";
-// import { useDispatch } from "react-redux";
-// import { useSelector } from "react-redux";
-
-// function LoginForm() {
-//   const [username, setUsername] = useState("");
-//   const [password, setPassword] = useState("");
-//   const errors = useSelector((store) => store.errors);
-//   const dispatch = useDispatch();
-
-//   const login = (event) => {
-//     event.preventDefault();
-
-//     if (username && password) {
-//       dispatch({
-//         type: "LOGIN",
-//         payload: {
-//           username: username,
-//           password: password,
-//         },
-//       });
-//     } else {
-//       dispatch({ type: "LOGIN_INPUT_ERROR" });
-//     }
-//   }; // end login
-
-//   return (
-//     <form className="formPanel" onSubmit={login}>
-//       <h2>Login</h2>
-//       {errors.loginMessage && (
-//         <h3 className="alert" role="alert">
-//           {errors.loginMessage}
-//         </h3>
-//       )}
-//       <div>
-//         <label htmlFor="username">
-//           Username:
-//           <input
-//             type="text"
-//             name="username"
-//             required
-//             value={username}
-//             onChange={(event) => setUsername(event.target.value)}
-//           />
-//         </label>
-//       </div>
-//       <div>
-//         <label htmlFor="password">
-//           Password:
-//           <input
-//             type="password"
-//             name="password"
-//             required
-//             value={password}
-//             onChange={(event) => setPassword(event.target.value)}
-//           />
-//         </label>
-//       </div>
-//       <div>
-//         <input className="btn" type="submit" name="submit" value="Log In" />
-//       </div>
-//     </form>
-//   );
-// }
-
-// export default LoginForm;
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -75,6 +9,7 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
 
   const login = (event) => {
     event.preventDefault();
@@ -114,13 +49,20 @@ function LoginForm() {
           Password:
         </label>
         <input
-          type="password"
+          type={showPassword ? "text" : "password"}
           name="password"
           required
           className="w-full py-3 px-5 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="text-sm text-blue-500 hover:text-blue-700"
+        >
+          {showPassword ? "Hide" : "Show"} Password
+        </button>
       </div>
       <div className="flex items-center justify-center">
         <button

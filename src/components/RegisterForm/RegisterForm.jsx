@@ -8,6 +8,7 @@ function RegisterForm() {
   const [password, setPassword] = useState("");
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
 
   const registerUser = (event) => {
     event.preventDefault();
@@ -52,13 +53,20 @@ function RegisterForm() {
           Password:
         </label>
         <input
-          type="password"
+          type={showPassword ? "text" : "password"}
           name="password"
           value={password}
           required
           className="w-full py-3 px-5 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
           onChange={(event) => setPassword(event.target.value)}
         />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="text-sm text-blue-500 hover:text-blue-700"
+        >
+          {showPassword ? "Hide" : "Show"} Password
+        </button>
       </div>
       <div className="flex items-center justify-center">
         <button

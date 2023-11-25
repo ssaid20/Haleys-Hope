@@ -164,8 +164,8 @@ const AddOlderCtopp = () => {
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <InputLabel>Examiner</InputLabel>
-                <Select value={selectedExaminerId} label="Examiner" onChange={handleExaminerChange}>
+                <FormLabel>Examiner</FormLabel>
+                <Select value={selectedExaminerId} onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
@@ -174,7 +174,20 @@ const AddOlderCtopp = () => {
                 </Select>
               </FormControl>
             </Grid>
-
+            {/* Grade Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Grade:</FormLabel>
+                <TextField
+                  type="number"
+                  id="grade"
+                  name="grade"
+                  value={newCtopp.grade}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
             {/* Elision Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>

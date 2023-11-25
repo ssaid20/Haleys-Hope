@@ -157,11 +157,11 @@ const StudentCard = () => {
     //   if (window.confirm("You have unsaved changes. Are you sure you want to close?")) {
     //     setFormData(originalData);
     //     setValidationErrors({});
-        setIsSheetOpen(false);
-      }
-    // } else {
-    //   setIsSheetOpen(false); // This will close the form if there are no unsaved changes
-    // }
+    setIsSheetOpen(false);
+  };
+  // } else {
+  //   setIsSheetOpen(false); // This will close the form if there are no unsaved changes
+  // }
   // }; // end handleCancel
 
   const sheetStyle = {
@@ -173,7 +173,10 @@ const StudentCard = () => {
 
   return (
     <article className="background-light900_dark200 light-border rounded-2xl border p-8 shadow-md relative flex flex-col items-center">
-      <h2 className="h2-bold text-dark100_light900 text-center mb-4">{`${student.first_name} ${student.last_name}`}</h2>
+      {/* <h2 className="h2-bold text-dark100_light900 text-center mb-4">{`${student.first_name} ${student.last_name}`}</h2> */}
+      <h1 className="text-3xl font-bold text-center text-primary-500 my-4">
+        {`${student.first_name} ${student.last_name}`}
+      </h1>
 
       <div className="flex flex-col w-full md:flex-row items-start md:items-center justify-between">
         <img

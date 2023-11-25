@@ -41,7 +41,7 @@ function LoginPage() {
       <div className="bg-white p-14 rounded-lg shadow-lg">
         <h1 className="text-3xl font-semibold text-center mb-4">Welcome!</h1>
         <LoginForm />
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <Button
             type="button"
             className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md"
@@ -51,8 +51,8 @@ function LoginPage() {
           >
             Register
           </Button>
-        </div>
-        <p className="mt-4 text-center text-gray-600">
+        </div> */}
+        <p className="mt-4 text-center text-gray-600 text-lg">
           Don't have an account?{" "}
           <Link to="/registration" className="text-blue-500 hover:underline">
             Sign up here

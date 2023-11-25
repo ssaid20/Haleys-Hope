@@ -243,7 +243,7 @@ const StudentList = () => {
                     name: `${student.first_name} ${student.last_name}`,
                     age: calculateAge(student.dob),
                     city: student.city, // *** need to fix our address input then make function to pull out city and state ***
-                    start_date: formatDate(student.barton_c_date), // *** using pretest date, do we need a start date column? ***
+                    start_date: formatDate(student.start_date), // *** using pretest date, do we need a start date column? ***
                     picture: (
                       <img
                         src={student.picture}

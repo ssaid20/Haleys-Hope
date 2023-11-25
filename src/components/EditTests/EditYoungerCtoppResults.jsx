@@ -225,262 +225,262 @@ const EditYoungerCtoppResults = () => {
               </FormControl>
             </Grid>
             {/* Elison Scaled Score */}
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={4}>
-                <FormControl fullWidth>
-                  <FormLabel>Elison Scaled Score:</FormLabel>
-                  <TextField
-                    type="number"
-                    id="elison_scaled_score"
-                    name="elison_scaled_score"
-                    value={newCtopp.elison_scaled_score}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
-              {/* Blending Words Scaled Score */}
-              <Grid item xs={12} md={4}>
-                <FormControl fullWidth>
-                  <FormLabel>Blending Words Scaled Score:</FormLabel>
-                  <TextField
-                    type="number"
-                    id="blending_words_scaled_score"
-                    name="blending_words_scaled_score"
-                    value={newCtopp.blending_words_scaled_score}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
-              {/* Sound Matching Scaled Score */}
-              <Grid item xs={12} md={4}>
-                <FormControl fullWidth>
-                  <FormLabel>Sound Matching Scaled Score:</FormLabel>
-                  <TextField
-                    type="number"
-                    id="sound_matching_scaled_score"
-                    name="sound_matching_scaled_score"
-                    value={newCtopp.sound_matching_scaled_score}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
 
-              {/* Memory for Digits Scaled Score Field */}
-              <Grid item xs={12} md={4}>
-                <FormControl fullWidth>
-                  <FormLabel>Memory for Digits Scaled Score:</FormLabel>
-                  <TextField
-                    type="number"
-                    id="memory_for_digits_scaled_score"
-                    name="memory_for_digits_scaled_score"
-                    value={newCtopp.memory_for_digits_scaled_score}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
-              {/* Nonword Repetition Scaled Score Field */}
-              <Grid item xs={12} md={4}>
-                <FormControl fullWidth>
-                  <FormLabel>Nonword Repetition Scaled Score:</FormLabel>
-                  <TextField
-                    type="number"
-                    id="nonword_repetition_scaled_score"
-                    name="nonword_repetition_scaled_score"
-                    value={newCtopp.nonword_repetition_scaled_score}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
-              {/* Rapid Digit Naming Scaled Score Field */}
-              <Grid item xs={12} md={4}>
-                <FormControl fullWidth>
-                  <FormLabel>Rapid Digit Naming Scaled Score:</FormLabel>
-                  <TextField
-                    type="number"
-                    id="rapid_digit_naming_scaled_score"
-                    name="rapid_digit_naming_scaled_score"
-                    value={newCtopp.rapid_digit_naming_scaled_score}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
-              {/* Rapid Letter Naming Scaled Score Field */}
-              <Grid item xs={12} md={4}>
-                <FormControl fullWidth>
-                  <FormLabel>Rapid Letter Naming Scaled Score:</FormLabel>
-                  <TextField
-                    type="number"
-                    id="rapid_letter_naming_scaled_score"
-                    name="rapid_letter_naming_scaled_score"
-                    value={newCtopp.rapid_letter_naming_scaled_score}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
-              {/* Rapid Color Naming Scaled Score*/}
-              <Grid item xs={12} md={4}>
-                <FormControl fullWidth>
-                  <FormLabel>Rapid Color Naming Scaled Score:</FormLabel>
-                  <TextField
-                    type="number"
-                    id="rapid_color_naming_scaled_score"
-                    name="rapid_color_naming_scaled_score"
-                    value={newCtopp.rapid_color_naming_scaled_score}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
-              {/* Rapid Object Naming */}
-              <Grid item xs={12} md={4}>
-                <FormControl fullWidth>
-                  <FormLabel>Rapid Object Naming:</FormLabel>
-                  <TextField
-                    type="number"
-                    id="rapid_object_naming"
-                    name="rapid_object_naming"
-                    value={newCtopp.rapid_object_naming}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
-              {/* Blending Non-Words Scaled Score*/}
-              <Grid item xs={12} md={4}>
-                <FormControl fullWidth>
-                  <FormLabel>Blending Non-Words Scaled Score:</FormLabel>
-                  <TextField
-                    type="number"
-                    id="blending_nonwords_scaled_score"
-                    name="blending_nonwords_scaled_score"
-                    value={newCtopp.blending_nonwords_scaled_score}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
-              {/* Phonological Awareness Composite Field */}
-              <Grid item xs={12} md={4}>
-                <FormControl fullWidth>
-                  <FormLabel>Phonological Awareness Composite:</FormLabel>
-                  <TextField
-                    type="number"
-                    id="phonological_awareness_composite"
-                    name="phonological_awareness_composite"
-                    value={newCtopp.phonological_awareness_composite}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
-              {/* Phonological Memory Composite Field */}
-              <Grid item xs={12} md={4}>
-                <FormControl fullWidth>
-                  <FormLabel>Phonological Memory Composite:</FormLabel>
-                  <TextField
-                    type="number"
-                    id="phonological_memory_composite"
-                    name="phonological_memory_composite"
-                    value={newCtopp.phonological_memory_composite}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
-              {/* Rapid Symbolic Naming Composite Field */}
-              <Grid item xs={12} md={4}>
-                <FormControl fullWidth>
-                  <FormLabel>Rapid Symbolic Naming Composite:</FormLabel>
-                  <TextField
-                    type="number"
-                    id="rapid_symbolic_naming_composite"
-                    name="rapid_symbolic_naming_composite"
-                    value={newCtopp.rapid_symbolic_naming_composite}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
-              {/* Rapid Non-symbolic Naming Composite */}
-              <Grid item xs={12} md={4}>
-                <FormControl fullWidth>
-                  <FormLabel>Rapid Non-Symbolic Naming Composite:</FormLabel>
-                  <TextField
-                    type="number"
-                    id="rapid_non_symbolic_naming_composite"
-                    name="rapid_non_symbolic_naming_composite"
-                    value={newCtopp.rapid_non_symbolic_naming_composite}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
-              {/* Phonological Awareness Percentile Field */}
-              <Grid item xs={12} md={4}>
-                <FormControl fullWidth>
-                  <FormLabel>Phonological Awareness Percentile:</FormLabel>
-                  <TextField
-                    type="number"
-                    id="phonological_awareness_percentile"
-                    name="phonological_awareness_percentile"
-                    value={newCtopp.phonological_awareness_percentile}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
-              {/* Phonological Memory Percentile Field */}
-              <Grid item xs={12} md={4}>
-                <FormControl fullWidth>
-                  <FormLabel>Phonological Memory Percentile:</FormLabel>
-                  <TextField
-                    type="number"
-                    id="phonological_memory_percentile"
-                    name="phonological_memory_percentile"
-                    value={newCtopp.phonological_memory_percentile}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
-              {/* Rapid Symbolic Naming Percentile Field */}
-              <Grid item xs={12} md={4}>
-                <FormControl fullWidth>
-                  <FormLabel>Rapid Symbolic Naming Percentile:</FormLabel>
-                  <TextField
-                    type="number"
-                    id="rapid_symbolic_naming_percentile"
-                    name="rapid_symbolic_naming_percentile"
-                    value={newCtopp.rapid_symbolic_naming_percentile}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
-              {/* Rapid Non-Symbolic Naming Percentile */}
-              <Grid item xs={12} md={4}>
-                <FormControl fullWidth>
-                  <FormLabel>Rapid Non-Symbolic Naming Percentile:</FormLabel>
-                  <TextField
-                    type="number"
-                    id="rapid_non_symbolic_naming_percentile"
-                    name="rapid_non_symbolic_naming_percentile"
-                    value={newCtopp.rapid_non_symbolic_naming_percentile}
-                    onChange={handleChange}
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Grid>
-              {/* ... other fields ... */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Elison Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="elison_scaled_score"
+                  name="elison_scaled_score"
+                  value={newCtopp.elison_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
             </Grid>
+            {/* Blending Words Scaled Score */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Blending Words Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="blending_words_scaled_score"
+                  name="blending_words_scaled_score"
+                  value={newCtopp.blending_words_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Sound Matching Scaled Score */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Sound Matching Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="sound_matching_scaled_score"
+                  name="sound_matching_scaled_score"
+                  value={newCtopp.sound_matching_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+
+            {/* Memory for Digits Scaled Score Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Memory for Digits Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="memory_for_digits_scaled_score"
+                  name="memory_for_digits_scaled_score"
+                  value={newCtopp.memory_for_digits_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Nonword Repetition Scaled Score Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Nonword Repetition Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="nonword_repetition_scaled_score"
+                  name="nonword_repetition_scaled_score"
+                  value={newCtopp.nonword_repetition_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rapid Digit Naming Scaled Score Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rapid Digit Naming Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rapid_digit_naming_scaled_score"
+                  name="rapid_digit_naming_scaled_score"
+                  value={newCtopp.rapid_digit_naming_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rapid Letter Naming Scaled Score Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rapid Letter Naming Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rapid_letter_naming_scaled_score"
+                  name="rapid_letter_naming_scaled_score"
+                  value={newCtopp.rapid_letter_naming_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rapid Color Naming Scaled Score*/}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rapid Color Naming Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rapid_color_naming_scaled_score"
+                  name="rapid_color_naming_scaled_score"
+                  value={newCtopp.rapid_color_naming_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rapid Object Naming */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rapid Object Naming:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rapid_object_naming"
+                  name="rapid_object_naming"
+                  value={newCtopp.rapid_object_naming}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Blending Non-Words Scaled Score*/}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Blending Non-Words Scaled Score:</FormLabel>
+                <TextField
+                  type="number"
+                  id="blending_nonwords_scaled_score"
+                  name="blending_nonwords_scaled_score"
+                  value={newCtopp.blending_nonwords_scaled_score}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Phonological Awareness Composite Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Phonological Awareness Composite:</FormLabel>
+                <TextField
+                  type="number"
+                  id="phonological_awareness_composite"
+                  name="phonological_awareness_composite"
+                  value={newCtopp.phonological_awareness_composite}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Phonological Memory Composite Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Phonological Memory Composite:</FormLabel>
+                <TextField
+                  type="number"
+                  id="phonological_memory_composite"
+                  name="phonological_memory_composite"
+                  value={newCtopp.phonological_memory_composite}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rapid Symbolic Naming Composite Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rapid Symbolic Naming Composite:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rapid_symbolic_naming_composite"
+                  name="rapid_symbolic_naming_composite"
+                  value={newCtopp.rapid_symbolic_naming_composite}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rapid Non-symbolic Naming Composite */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rapid Non-Symbolic Naming Composite:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rapid_non_symbolic_naming_composite"
+                  name="rapid_non_symbolic_naming_composite"
+                  value={newCtopp.rapid_non_symbolic_naming_composite}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Phonological Awareness Percentile Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Phonological Awareness Percentile:</FormLabel>
+                <TextField
+                  type="number"
+                  id="phonological_awareness_percentile"
+                  name="phonological_awareness_percentile"
+                  value={newCtopp.phonological_awareness_percentile}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Phonological Memory Percentile Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Phonological Memory Percentile:</FormLabel>
+                <TextField
+                  type="number"
+                  id="phonological_memory_percentile"
+                  name="phonological_memory_percentile"
+                  value={newCtopp.phonological_memory_percentile}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rapid Symbolic Naming Percentile Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rapid Symbolic Naming Percentile:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rapid_symbolic_naming_percentile"
+                  name="rapid_symbolic_naming_percentile"
+                  value={newCtopp.rapid_symbolic_naming_percentile}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* Rapid Non-Symbolic Naming Percentile */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Rapid Non-Symbolic Naming Percentile:</FormLabel>
+                <TextField
+                  type="number"
+                  id="rapid_non_symbolic_naming_percentile"
+                  name="rapid_non_symbolic_naming_percentile"
+                  value={newCtopp.rapid_non_symbolic_naming_percentile}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            {/* ... other fields ... */}
           </Grid>
+
           <Button type="submit" variant="contained" color="primary" className="mt-4">
             Save Changes
           </Button>

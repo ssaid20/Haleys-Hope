@@ -162,6 +162,7 @@ const CoachList = () => {
   // Function to toggle the display of archived coaches
   const toggleArchivedCoaches = () => {
     setShowArchivedCoaches(!showArchivedCoaches);
+    dispatch({ type: "FETCH_ARCHIVED_COACHES" });
   };
 
   useEffect(() => {

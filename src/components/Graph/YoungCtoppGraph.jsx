@@ -2,22 +2,21 @@ import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { formatDate3 } from "../../lib/utils";
-const WISTGraph = ({ testData }) => {
-  console.log("WISTDATA", testData); // Log to verify the data structure
+const YoungCtoppGraph = ({ testData }) => {
+  console.log("testData", testData); // Log to verify the data structure
   const [options, setOptions] = useState({
     chart: {
       type: "column",
     },
     title: {
-      text: "WIST Test Comparisons",
+      text: "Younger Ctopp Test Comparisons",
       align: "left",
     },
     xAxis: {
       categories: [
-        "Reading Words in Isolation",
-        "Spelling",
-        "Fundamental Literacy Ability Index",
-        "Sound to Symbol Knowledge",
+        "Phonological Awareness",
+        "Phonological Memory",
+        "Rapid Symbolic Naming",
       ],
     },
     yAxis: {
@@ -42,10 +41,9 @@ const WISTGraph = ({ testData }) => {
         type: "column",
         name: formatDate3(test.date),
         data: [
-          test.word_identification_percentile, // Corrected property name
-          test.spelling_percentile, // Corrected property name
-          test.fundamental_literacy_percentile, // Corrected property name
-          test.sound_symbol_knowledge_percentile, // Corrected property name
+          test.phonological_awareness_percentile, // Corrected property name
+          test.phonological_memory_percentile, // Corrected property name
+          test.rapid_symbolic_naming_percentile, // Corrected property name
         ],
       }));
 
@@ -81,4 +79,4 @@ const WISTGraph = ({ testData }) => {
   );
 };
 
-export default WISTGraph;
+export default YoungCtoppGraph;

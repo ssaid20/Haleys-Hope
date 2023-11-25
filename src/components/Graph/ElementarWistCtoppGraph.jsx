@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { formatDate3 } from "../../lib/utils";
-const WISTGraph = ({ testData }) => {
+const ElementarWistCtoppGraph = ({ testData }) => {
   console.log("WISTDATA", testData); // Log to verify the data structure
   const [options, setOptions] = useState({
     chart: {
       type: "column",
     },
     title: {
-      text: "WIST Test Comparisons",
+      text: "Elementary Wist Test Comparisons",
       align: "left",
     },
     xAxis: {
@@ -81,4 +81,4 @@ const WISTGraph = ({ testData }) => {
   );
 };
 
-export default WISTGraph;
+export default ElementarWistCtoppGraph;

@@ -10,7 +10,7 @@ const GORT_5Graph = ({ testData }) => {
       type: "column",
     },
     title: {
-      text: "Gray Oral Reading Test -5 (GORT-5) Comparisons",
+      text: "GORT-5 Test Comparisons",
       align: "left",
     },
     xAxis: {
@@ -70,9 +70,33 @@ const GORT_5Graph = ({ testData }) => {
         },
       };
 
+      // New code to calculate growth rates
+    const growthRates = testData.slice(1).map((test, index) => {
+      const previousTest = testData[index];
+      return {
+        rate: test.rate_percentile_rank - previousTest.rate_percentile_rank,
+        accuracy: test.accuracy_percentile_rank - previousTest.accuracy_percentile_rank,
+        fluency: test.fluency_percentile_rank - previousTest.fluency_percentile_rank,
+        comprehension: test.comprehension_percentile_rank - previousTest.comprehension_percentile_rank,
+        oralReading: test.oral_reading_percentile_rank - previousTest.oral_reading_percentile_rank,
+      };
+    });
+
+    const growthRateSeries = growthRates.map((growth, index) => ({
+      type: 'line',
+      name: `Growth from Test ${index + 1} to ${index + 2}`,
+      data: [
+        growth.rate, 
+        growth.accuracy,
+        growth.fluency,
+        growth.comprehension,
+        growth.oralReading
+      ],
+    }));
+
       setOptions((prevOptions) => ({
         ...prevOptions,
-        series: [...seriesData, averageSeries],
+        series: [...seriesData, averageSeries, ...growthRateSeries],
       }));
     }
   }, [testData]);

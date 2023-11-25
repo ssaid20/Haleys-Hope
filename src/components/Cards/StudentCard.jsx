@@ -171,6 +171,34 @@ const StudentCard = () => {
     overflowY: "auto", // Enables vertical scrolling
   };
 
+  const calculateAge = (dob) => {
+    const today = new Date();
+    const birthDate = new Date(dob);
+
+    // Calculate the difference in years
+    let ageYears = today.getFullYear() - birthDate.getFullYear();
+
+    // Calculate the difference in months
+    let ageMonths = today.getMonth() - birthDate.getMonth();
+
+    // Adjust years and months if the current month is before the birth month
+    if (ageMonths < 0 || (ageMonths === 0 && today.getDate() < birthDate.getDate())) {
+      ageYears--;
+      ageMonths = 12 + ageMonths; // This will give the remaining months after adjusting the year
+    }
+
+    // Calculate the difference in days
+    let ageDays = today.getDate() - birthDate.getDate();
+    if (ageDays < 0) {
+      // Calculate the number of days in the previous month
+      const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+      ageDays = lastMonth.getDate() + ageDays; // This will give the remaining days after adjusting the month
+    }
+
+    // Return the age in format "years months days"
+    return `${ageYears} years, ${ageMonths} months, ${ageDays} days`;
+  };
+
   return (
     <article className="background-light900_dark200 light-border rounded-2xl border p-8 shadow-md relative flex flex-col items-center">
       {/* <h2 className="h2-bold text-dark100_light900 text-center mb-4">{`${student.first_name} ${student.last_name}`}</h2> */}
@@ -320,6 +348,8 @@ const StudentCard = () => {
           <p className="body-regular text-dark500_light500">
             Date of Birth: {new Date(student.dob).toLocaleDateString()}
           </p>
+          <p className="body-regular text-dark500_light500">Age: {calculateAge(student.dob)}</p>
+
           <p className="body-regular text-dark500_light500">City: {student.city}</p>
           <p className="body-regular text-dark500_light500">State: {student.state}</p>
           <p className="body-regular text-dark500_light500">

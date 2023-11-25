@@ -81,6 +81,15 @@ function* deleteStudent(action) {
     console.log("Error deleting student", error);
   }
 }
+function* uploadStudentPicture(action) {
+  try {
+    yield call(axios.post, '/api/students/picture', { studentId: action.payload.id, pictureUrl: action.payload.url });
+    yield put({ type: "FETCH_STUDENTS" }); // Refresh the student list
+  } catch (error) {
+    console.log("Error uploading student picture", error);
+  }
+}
+
 
 function* studentSaga() {
   yield takeLatest("FETCH_STUDENTS", fetchStudents);
@@ -90,6 +99,7 @@ function* studentSaga() {
   yield takeLatest("UPDATE_STUDENT", updateStudent);
   yield takeLatest("UPDATE_ARCHIVED_STUDENT", updateArchivedStudent);
   yield takeLatest("DELETE_STUDENT", deleteStudent);
+  yield takeLatest("UPLOAD_STUDENT_PICTURE", uploadStudentPicture);
 }
 
 export default studentSaga;

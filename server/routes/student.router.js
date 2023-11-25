@@ -185,15 +185,16 @@ router.get('/picture/:id', (req, res) => {
 });
 
 router.post('/picture', (req, res) => {
-  const { pictureUrl } = req.body;
+  const { studentId, pictureUrl } = req.body;
   const queryText = 'UPDATE "students" SET picture=$1 WHERE id=$2;';
-  pool.query(queryText, [pictureUrl])
+  pool.query(queryText, [pictureUrl, studentId])
     .then(() => res.sendStatus(201))
     .catch((err) => {
       console.log("Error in adding Student Picture",err);
       res.sendStatus(500);
     });
 });
+
 
 router.delete('/picture/:id', (req, res) => {
   const studentId = req.params.id;

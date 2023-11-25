@@ -173,10 +173,13 @@ const EditYoungerCtoppResults = () => {
       {/* <h1 className="text-2xl text-center mb-4">
         Test on: {formatDate(selectedTest.date)}{" "}
       </h1> */}
-      <h1 className="text-3xl text-center mb-4">Edit Younger CTOPP from: {formatDate2(selectedTest.date)}</h1>
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         Go Back
       </Button>
+      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">
+        {" "}
+        Edit CTOPP Age 4-6 from: {formatDate2(selectedTest.date)}{" "}
+      </h1>
       <Paper elevation={3} className="p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           <Grid container spacing={3}>

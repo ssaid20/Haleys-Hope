@@ -23,12 +23,8 @@ function* fetchArchivedStudents() {
 
 // Saga to fetch a specific student
 function* fetchStudent(action) {
-  console.log("**** fetch the damn student", action);
   try {
-    const response = yield call(
-      axios.get,
-      `/api/students/${action.payload.id}`
-    );
+    const response = yield call(axios.get, `/api/students/${action.payload.id}`);
 
     yield put({ type: "SET_CURRENT_STUDENT", payload: response.data });
     console.log("**SAGA PAYLOAD", payload);
@@ -63,11 +59,7 @@ function* updateStudent(action) {
 function* updateArchivedStudent(action) {
   console.log("Update archived student payload:", action.payload);
   try {
-    yield call(
-      axios.put,
-      `/api/students/archived-students/${action.payload.id}`,
-      action.payload
-    );
+    yield call(axios.put, `/api/students/archived-students/${action.payload.id}`, action.payload);
     yield put({ type: "FETCH_ARCHIVED_STUDENTS" });
     yield put({ type: "FETCH_STUDENT", payload: { id: action.payload.id } });
   } catch (error) {

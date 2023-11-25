@@ -54,7 +54,7 @@ const WistETable = ({ test }) => {
             <th style={cellStyle}>Item Sets</th>
             <th style={cellStyle}>Raw Score</th>
 
-            <th colSpan="2" style={cellStyle}>
+            {/* <th colSpan="2" style={cellStyle}>
               Level of Functioning <br />{" "}
               <span
                 style={{
@@ -82,7 +82,7 @@ const WistETable = ({ test }) => {
                   At/Above
                 </span>
               </span>
-            </th>
+            </th> */}
 
             {/* &lt; is for the < character &gt; is for > character */}
             <th style={test.grade < 2 ? cellStyle2 : cellStyle}>&lt;2</th>
@@ -103,8 +103,8 @@ const WistETable = ({ test }) => {
 
             <td style={cellStyle}>Read Regular Words</td>
             <td style={cellStyle}>{test.read_regular_words} </td>
-            <td style={cellStyle}>below</td>
-            <td style={cellStyle}>at/above</td>
+            {/* <td style={cellStyle}>below</td>
+            <td style={cellStyle}>at/above</td> */}
             <td style={test.read_regular_words < 64 ? cellStyle1 : cellStyle}>&lt;64</td>
             <td
               style={test.read_regular_words >= 64 && test.read_regular_words <= 73 ? cellStyle1 : cellStyle}
@@ -136,8 +136,8 @@ const WistETable = ({ test }) => {
           <tr>
             <td>Read Irregular Words</td>
             <td style={cellStyle}>{test.read_irregular_words}</td>
-            <td style={cellStyle}> below</td>
-            <td style={cellStyle}>at above</td>
+            {/* <td style={cellStyle}> below</td>
+            <td style={cellStyle}>at above</td> */}
             <td style={test.read_irregular_words < 22 ? cellStyle1 : cellStyle}>&lt;22</td>
             <td style={test.read_irregular_words === 22 ? cellStyle1 : cellStyle}>22</td>
             <td style={test.read_irregular_words === 23 ? cellStyle1 : cellStyle}>23</td>
@@ -149,8 +149,8 @@ const WistETable = ({ test }) => {
           <tr>
             <td style={cellStyle}>Spell Regular Words</td>
             <td style={cellStyle}>{test.spell_regular_words}</td>
-            <td style={cellStyle}>below</td>
-            <td style={cellStyle}>at above</td>
+            {/* <td style={cellStyle}>below</td>
+            <td style={cellStyle}>at above</td> */}
             <td style={test.spell_regular_words < 30 ? cellStyle1 : cellStyle}>&lt;30</td>
             <td
               style={
@@ -192,8 +192,8 @@ const WistETable = ({ test }) => {
           <tr>
             <td style={cellStyle}>Spell Irregular Words</td>
             <td style={cellStyle}>{test.spell_irregular_words}</td>
-            <td style={cellStyle}>below</td>
-            <td style={cellStyle}>at above</td>
+            {/* <td style={cellStyle}>below</td>
+            <td style={cellStyle}>at above</td> */}
             <td style={test.spell_irregular_words < 12 ? cellStyle1 : cellStyle}>&lt;12</td>
             <td
               style={
@@ -235,8 +235,8 @@ const WistETable = ({ test }) => {
           <tr>
             <td style={cellStyle}>Pseudo Words</td>
             <td style={cellStyle}>{test.pseudo_words}</td>
-            <td style={cellStyle}>below</td>
-            <td style={cellStyle}>at above</td>
+            {/* <td style={cellStyle}>below</td>
+            <td style={cellStyle}>at above</td> */}
             <td style={test.pseudo_words < 25 ? cellStyle1 : cellStyle}>&lt;25</td>
             <td style={test.pseudo_words >= 25 && test.pseudo_words <= 26 ? cellStyle1 : cellStyle}>25-26</td>
             <td style={test.pseudo_words >= 27 && test.pseudo_words <= 29 ? cellStyle1 : cellStyle}>27-29</td>
@@ -251,8 +251,8 @@ const WistETable = ({ test }) => {
           <tr>
             <td style={cellStyle}>Letter Sounds</td>
             <td style={cellStyle}>{test.letter_sounds}</td>
-            <td style={cellStyle}>below</td>
-            <td style={cellStyle}>at above</td>
+            {/* <td style={cellStyle}>below</td>
+            <td style={cellStyle}>at above</td> */}
             <td style={test.letter_sounds < 68 ? cellStyle1 : cellStyle}>&lt;68</td>
             <td style={test.letter_sounds >= 68 && test.letter_sounds <= 69 ? cellStyle1 : cellStyle}>
               68-69

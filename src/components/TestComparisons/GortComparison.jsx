@@ -138,47 +138,50 @@ export default function GortComparisonTable() {
   const lightGreyColor = "#F5F5F5"; // Light grey color
   if (gortTests.length === 0) {
     return (
-      <div>
-        <p>No GORT Assessments for this student </p>
-      </div>
-    );
-  } else {
-    return (
-      <>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 700 }} aria-label="GORT-5 Comparison Table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
-                {gortTests.map((test, index) => (
-                  <TestHeaderCell
-                    align="center"
-                    color={sectionHeaderColors.percentile}
-                    key={`percentile-header-${index}`}
-                  >
-                    {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`}
-                  </TestHeaderCell>
-                ))}
-                {gortTests.map((test, index) => (
-                  <TestHeaderCell
-                    align="center"
-                    color={sectionHeaderColors.scaledScore}
-                    key={`scaled-score-header-${index}`}
-                  >
-                    {`Test ${index + 1} (${formatDate3(test.date)}) Scaled Score`}
-                  </TestHeaderCell>
-                ))}
-                {gortTests.map((test, index) => (
-                  <TestHeaderCell
-                    align="center"
-                    color={sectionHeaderColors.descriptiveTerm}
-                    key={`descriptive-term-header-${index}`}
-                  >
-                    {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive Term`}
-                  </TestHeaderCell>
-                ))}
-              </TableRow>
-            </TableHead>
+    <div><p>No GORT Assessments for this student </p></div>)
+  
+  }
+  else if (gortTests.length === 1){
+    return( <div><p>Only 1 GORT Test exists  </p></div>)
+ 
+   }
+  else {
+  return (
+    <>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 700 }} aria-label="GORT-5 Comparison Table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
+              {gortTests.map((test, index) => (
+                <TestHeaderCell
+                  align="center"
+                  color={sectionHeaderColors.percentile}
+                  key={`percentile-header-${index}`}
+                >
+                  {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`}
+                </TestHeaderCell>
+              ))}
+              {gortTests.map((test, index) => (
+                <TestHeaderCell
+                  align="center"
+                  color={sectionHeaderColors.scaledScore}
+                  key={`scaled-score-header-${index}`}
+                >
+                  {`Test ${index + 1} (${formatDate3(test.date)}) Scaled Score`}
+                </TestHeaderCell>
+              ))}
+              {gortTests.map((test, index) => (
+                <TestHeaderCell
+                  align="center"
+                  color={sectionHeaderColors.descriptiveTerm}
+                  key={`descriptive-term-header-${index}`}
+                >
+                  {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive Term`}
+                </TestHeaderCell>
+              ))}
+            </TableRow>
+          </TableHead>
 
             <TableBody>
               {rows.map((row, rowIndex) => (

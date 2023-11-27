@@ -2,6 +2,7 @@ import React, { useEffect, useState, useHistory } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDate } from "../../lib/utils";
 import { useParams } from "react-router-dom/";
+import { Paper } from "@mui/material";
 
 const AssessmentWistS = () => {
   const { date } = useParams();
@@ -18,8 +19,8 @@ const AssessmentWistS = () => {
     //  <div>No WIST 11-18 for this date</div>;
   }
   return (
-    <div style={{ border: "1px solid black" }}>
-      <p style={{ textAlign: "center", textDecoration:"underline" }}> WIST Ages 11-18</p>
+    <Paper style={{boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)"}}>
+      <p style={{ textAlign: "center", textDecoration:"underline", fontWeight: "bold" }}> WIST Ages 11-18</p>
       <div  className="assessmentCard"//this div is card for WIST
       >
         <table>
@@ -94,7 +95,7 @@ const AssessmentWistS = () => {
           </tbody>
         </table>
       </div>
-    </div>
+    </Paper>
   );
 };
 

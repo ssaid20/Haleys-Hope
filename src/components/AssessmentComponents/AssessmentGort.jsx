@@ -25,7 +25,7 @@ if (!selectedTest) {
   } else {
     return (
       <div style={{ border: "1px solid black" }}>
-        <p style={{ textAlign: "center" }}> GORT-5</p>
+        <p style={{ textAlign: "center", textDecoration:"underline"}}> GORT-5</p>
         <div className="assessmentCard" //this div is card for GORT 
         >
           <table>

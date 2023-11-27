@@ -20,7 +20,7 @@ const AssessmentCtoppS = () => {
   }
   return (
     <div style={{ border: "1px solid black" }}>
-      <p style={{ textAlign: "center" }}> CTOPP-2 Ages 7-24</p>
+      <p style={{ textAlign: "center", textDecoration:"underline" }}> CTOPP-2 Ages 7-24</p>
       <div className="assessmentCard" //this div is card for WIST
       >
         <table>

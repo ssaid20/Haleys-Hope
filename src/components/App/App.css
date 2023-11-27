@@ -165,4 +165,7 @@ input {
 .noPrint, print-button{
   display: none;
 }
+.topSpace{
+  display: none;
+}
 }

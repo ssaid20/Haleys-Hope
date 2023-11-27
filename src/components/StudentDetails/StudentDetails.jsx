@@ -13,7 +13,6 @@ import StudentCard from "../Cards/StudentCard";
 import CommentsTab from "../shared/CommentsTab/CommentsTab";
 import CloudifyUploadForm from "../Cloudinary/CloudinaryUploadForm";
 import { useState } from "react";
-import CloudifyUploadFormDialog from "../Cloudinary/CloudifyUploadFormDialog";
 import CompareTab from "../shared/CompareTab/CompareTab";
 
 function StudentDetails() {

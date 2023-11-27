@@ -20,7 +20,7 @@ function Nav() {
   };
 
   return (
-    <div className="flex-between background-light900_dark200 w-full gap-5 p-6 shadow-light-300 dark:shadow-none sm:px-12 bg-primary-500">
+    <div className="flex-between background-light900_dark200 w-full gap-5 p-6 shadow-light-300 dark:shadow-none sm:px-12 bg-primary-500 navBar">
       <Link to="/students" className="flex items-center gap-1">
         <img
           src="/assets/images/site-logo.png"

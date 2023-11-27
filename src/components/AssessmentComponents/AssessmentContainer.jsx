@@ -33,7 +33,7 @@ const AssessmentContainer = () => {
       <Button
         onClick={goBack}
         variant="outline"
-        className=" text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
+        className=" text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2 noPrint"
       >
         Back to Student
       </Button>
@@ -76,7 +76,7 @@ const AssessmentContainer = () => {
                 variant="h6"
                 style={{ marginBottom: "10px", textAlign: "center" }}
               >
-                Date When Test Was Given: {formatDate(date)} &nbsp;
+                Date of Assessment: <br/> {formatDate(date)} &nbsp;
               </Typography>
             </div>
           </Paper>

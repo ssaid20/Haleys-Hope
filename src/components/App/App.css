@@ -153,3 +153,16 @@ input {
 .assessmentCards {
   margin-bottom: 10px;
 }
+
+@media print{
+  @page{
+  margin:0;
+  size: auto;
+}
+.print-header, .print-footer, .print-navBar {
+  display: none;
+}
+.noPrint{
+  display: none;
+}
+}

@@ -83,12 +83,23 @@ function* deleteStudent(action) {
 }
 function* uploadStudentPicture(action) {
   try {
-    yield call(axios.post, '/api/students/picture', { studentId: action.payload.id, pictureUrl: action.payload.url });
+    // Extract the actual student ID from the nested object
+    const studentId = action.payload.id.id;
+
+    // Debug log to check the extracted studentId
+    console.log("Extracted studentId:", studentId);
+
+    const url = `/api/students/picture/${studentId}`;
+    const data = { pictureUrl: action.payload.url };
+    yield call(axios.post, url, data);
     yield put({ type: "FETCH_STUDENTS" }); // Refresh the student list
   } catch (error) {
     console.log("Error uploading student picture", error);
   }
 }
+
+
+
 
 
 function* studentSaga() {

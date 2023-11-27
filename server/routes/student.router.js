@@ -184,16 +184,25 @@ router.get('/picture/:id', (req, res) => {
     });
 });
 
-router.post('/picture', (req, res) => {
-  const { studentId, pictureUrl } = req.body;
+router.post('/picture/:id', (req, res) => {
+  const { pictureUrl } = req.body;
+  const studentId = req.params.id;  // Ensure that the URL contains the student ID
+  console.log("Student ID:", studentId); // Check the type and value
+  console.log("Picture URL:", pictureUrl);
+
+  if (!pictureUrl || !studentId) {
+    return res.status(400).send('Missing picture URL or student ID');
+  }
+
   const queryText = 'UPDATE "students" SET picture=$1 WHERE id=$2;';
-  pool.query(queryText, [pictureUrl, studentId])
+  pool.query(queryText, [pictureUrl, parseInt(studentId, 10)])
     .then(() => res.sendStatus(201))
     .catch((err) => {
-      console.log("Error in adding Student Picture",err);
-      res.sendStatus(500);
+      console.log("Error in adding Student Picture", err);
+      res.status(500).send(err.message);
     });
 });
+
 
 
 router.delete('/picture/:id', (req, res) => {

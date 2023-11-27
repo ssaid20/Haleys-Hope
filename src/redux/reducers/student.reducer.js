@@ -76,6 +76,26 @@ const studentReducer = (state = initialState, action) => {
         isLoading: false,
         error: null,
       };
+      case "UPLOAD_STUDENT_PICTURE":
+        const updatedList = state.list.map((student) => {
+          if (student.id === action.payload.id.id) { // Ensure you're comparing the correct IDs
+            return { ...student, picture: action.payload.url };
+          }
+          return student;
+        });
+      
+        let updatedDetails = state.Details;
+        if (state.Details.id === action.payload.id.id) {
+          updatedDetails = { ...state.Details, picture: action.payload.url };
+        }
+      
+        return {
+          ...state,
+          list: updatedList,
+          Details: updatedDetails,
+          isLoading: false,
+          error: null,
+        };
     default:
       return state;
   }

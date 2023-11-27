@@ -66,10 +66,30 @@ const WISTGraph = ({ testData }) => {
           fillColor: "white",
         },
       };
+      const growthRates = testData.slice(1).map((test, index) => {
+        const previousTest = testData[index];
+        return {
+          readingWords: test.word_identification_percentile - previousTest.word_identification_percentile,
+          spelling: test.spelling_percentile - previousTest.spelling_percentile,
+          fundamentalLiteracy: test.fundamental_literacy_percentile - previousTest.fundamental_literacy_percentile,
+          soundSymbol: test.sound_symbol_knowledge_percentile - previousTest.sound_symbol_knowledge_percentile,
+        };
+      });
+
+      const growthRateSeries = growthRates.map((growth, index) => ({
+        type: 'line',
+        name: `Growth from Test ${index + 1} to ${index + 2}`,
+        data: [
+          growth.readingWords, 
+          growth.spelling,
+          growth.fundamentalLiteracy,
+          growth.soundSymbol
+        ],
+      }));
 
       setOptions((prevOptions) => ({
         ...prevOptions,
-        series: [...seriesData, averageSeries],
+        series: [...seriesData, averageSeries, ...growthRateSeries],
       }));
     }
   }, [testData]);

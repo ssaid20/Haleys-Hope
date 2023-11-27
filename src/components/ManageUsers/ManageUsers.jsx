@@ -227,7 +227,11 @@ const ManageUsers = () => {
                           </div>
                           <SheetFooter>
                             <SheetClose asChild>
-                              <Button onClick={handleSubmit} type="submit">
+                              <Button
+                                onClick={handleSubmit}
+                                type="submit"
+                                className="bg-primary-500 text-white"
+                              >
                                 Save Changes
                               </Button>
                             </SheetClose>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-
+import { formatDate3 } from "../../lib/utils";
 const WISTGraph = ({ testData }) => {
   console.log("WISTDATA", testData); // Log to verify the data structure
   const [options, setOptions] = useState({
@@ -9,7 +9,7 @@ const WISTGraph = ({ testData }) => {
       type: "column",
     },
     title: {
-      text: "Academic Skills Test Comparisons",
+      text: "WIST 11-18 Test Comparison",
       align: "left",
     },
     xAxis: {
@@ -40,7 +40,7 @@ const WISTGraph = ({ testData }) => {
     if (testData && testData.length > 0) {
       const seriesData = testData.map((test, index) => ({
         type: "column",
-        name: `Test ${index + 1}`,
+        name: formatDate3(test.date),
         data: [
           test.word_identification_percentile, // Corrected property name
           test.spelling_percentile, // Corrected property name
@@ -50,14 +50,12 @@ const WISTGraph = ({ testData }) => {
       }));
 
       const averages = seriesData[0].data.map(
-        (_, i) =>
-          seriesData.reduce((acc, test) => acc + test.data[i], 0) /
-          seriesData.length
+        (_, i) => seriesData.reduce((acc, test) => acc + test.data[i], 0) / seriesData.length
       );
 
       const averageSeries = {
         type: "line",
-        step: 'center',
+        step: "center",
         name: "Average",
         data: averages,
         marker: {
@@ -66,10 +64,27 @@ const WISTGraph = ({ testData }) => {
           fillColor: "white",
         },
       };
+      const growthRates = testData.slice(1).map((test, index) => {
+        const previousTest = testData[index];
+        return {
+          readingWords: test.word_identification_percentile - previousTest.word_identification_percentile,
+          spelling: test.spelling_percentile - previousTest.spelling_percentile,
+          fundamentalLiteracy:
+            test.fundamental_literacy_percentile - previousTest.fundamental_literacy_percentile,
+          soundSymbol:
+            test.sound_symbol_knowledge_percentile - previousTest.sound_symbol_knowledge_percentile,
+        };
+      });
+
+      const growthRateSeries = growthRates.map((growth, index) => ({
+        type: "line",
+        name: `Growth from Test ${index + 1} to ${index + 2}`,
+        data: [growth.readingWords, growth.spelling, growth.fundamentalLiteracy, growth.soundSymbol],
+      }));
 
       setOptions((prevOptions) => ({
         ...prevOptions,
-        series: [...seriesData, averageSeries],
+        series: [...seriesData, averageSeries, ...growthRateSeries],
       }));
     }
   }, [testData]);

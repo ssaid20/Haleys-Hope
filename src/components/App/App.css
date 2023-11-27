@@ -139,14 +139,13 @@ input {
   text-align: center;
   margin-left: 10px;
 }
-.assessmentContainer{
+.assessmentContainer {
   display: flex;
   justify-content: space-evenly;
   align-content: space-evenly;
   flex-wrap: wrap;
-
 }
-.centerText{
+.centerText {
   text-align: center;
 }
 
@@ -154,26 +153,31 @@ input {
   margin-bottom: 10px;
 }
 
-@media print{
-  @page{
-  margin:0;
-  size: auto;
-}
-.print-header, .print-footer, .print-navBar {
-  display: none;
-}
-.noPrint, print-button{
-  display: none !important;
-}
-.topSpace{
-  display: none;
-  
-}
-.assessmentCard{
-  margin-bottom: 25px !important;
-  /* padding-bottom: 5px; */
-}
-/* .smallPrint{
+@media print {
+  @page {
+    margin: 0;
+    size: auto;
+  }
+  .print-header,
+  .print-footer,
+  .print-navBar {
+    display: none;
+  }
+  .noPrint,
+  print-button {
+    display: none !important;
+  }
+  .topSpace {
+    display: none;
+  }
+  .assessmentCard {
+    margin-bottom: 25px !important;
+    /* padding-bottom: 5px; */
+  }
+  /* .smallPrint{
   size: 25% !important;
 } */
+}
+.whiteTab {
+  color: white !important;
 }

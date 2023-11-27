@@ -59,10 +59,10 @@ function createRowData(category, tests) {
     category,
     percentiles: tests.map((test) => test[categoryMap[category].percentile]),
     scaledScores: tests.map((test) => test[categoryMap[category].scaled]),
-    descriptiveTerms: tests.map((test) => 
-    GetScaledScoreDescription({scaledScore: test[categoryMap[category].scaled],
-    }) // Assuming you calculate descriptive terms based on scaled scores
-  ),};
+    descriptiveTerms: tests.map(
+      (test) => GetScaledScoreDescription({ scaledScore: test[categoryMap[category].scaled] }) // Assuming you calculate descriptive terms based on scaled scores
+    ),
+  };
 }
 const DarkBlueHeaderCell = styled(TableCell)(({ theme }) => ({
   backgroundColor: "#0f3c5c", // Dark blue color
@@ -76,21 +76,18 @@ const DarkBlueHeaderCell = styled(TableCell)(({ theme }) => ({
 function createSummaryRowData(tests) {
   if (!tests || tests.length === 0) {
     return [];
+  } else {
+    return tests.map((test) => ({
+      date: formatDate3(test.date),
+      sumScaledScore: test.sum_scaled_score,
+      oralReadingPercentileRank: test.oral_reading_percentile_rank,
+      oralReadingIndex: test.oral_reading_index,
+      compositeTerms: GetCompositeScoreDescription({
+        compositeScore: test.oral_reading_index,
+      }), // Assuming you calculate descriptive terms based on scaled scores
+    }));
   }
-  else{
-console.log("CREATE SUMMARY ROW DATA FOR ME PLEASE", tests[0].oral_reading_index);
-
-  return tests.map((test) => ({
-    date: formatDate3(test.date),
-    sumScaledScore: test.sum_scaled_score,
-    oralReadingPercentileRank: test.oral_reading_percentile_rank,
-    oralReadingIndex: test.oral_reading_index,
-    compositeTerms:
-    GetCompositeScoreDescription({
-      compositeScore: test.oral_reading_index,
-    }
-    ), // Assuming you calculate descriptive terms based on scaled scores
-  }))}}
+}
 
 const TestHeaderCell = styled(TableCell)(({ theme, color }) => ({
   backgroundColor: color ? color : theme.palette.primary.main,
@@ -186,62 +183,63 @@ export default function GortComparisonTable() {
             </TableRow>
           </TableHead>
 
-          <TableBody>
-            {rows.map((row, rowIndex) => (
-              <StyledTableRow key={rowIndex}>
-                <StyledTableCell component="th" scope="row">
-                  {row.category}
-                </StyledTableCell>
-                {row.percentiles.map((percentile, index) => (
-                  <StyledTableCell key={`percentile-${index}`} align="right">
-                    {percentile}
+            <TableBody>
+              {rows.map((row, rowIndex) => (
+                <StyledTableRow key={rowIndex}>
+                  <StyledTableCell component="th" scope="row">
+                    {row.category}
                   </StyledTableCell>
-                ))}
-                {row.scaledScores.map((score, index) => (
-                  <StyledTableCell key={`score-${index}`} align="right">
-                    {score}
+                  {row.percentiles.map((percentile, index) => (
+                    <StyledTableCell key={`percentile-${index}`} align="right">
+                      {percentile}
+                    </StyledTableCell>
+                  ))}
+                  {row.scaledScores.map((score, index) => (
+                    <StyledTableCell key={`score-${index}`} align="right">
+                      {score}
+                    </StyledTableCell>
+                  ))}
+                  {row.descriptiveTerms.map((term, index) => (
+                    <StyledTableCell key={`descriptive-${index}`} align="right">
+                      {term}
+                    </StyledTableCell>
+                  ))}
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <br />
+        {/* GORT Summary Table */}
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 400 }} aria-label="GORT Summary Table">
+            <TableHead>
+              <TableRow>
+                <DarkBlueHeaderCell>Test</DarkBlueHeaderCell>
+                <DarkBlueHeaderCell align="right">Date</DarkBlueHeaderCell>
+                <DarkBlueHeaderCell align="right">Sum Scaled Score</DarkBlueHeaderCell>
+                <DarkBlueHeaderCell align="right">Oral Reading %ile Rank</DarkBlueHeaderCell>
+                <DarkBlueHeaderCell align="right">Oral Reading Index</DarkBlueHeaderCell>
+                <DarkBlueHeaderCell align="right">Descriptive Term</DarkBlueHeaderCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {summaryRows.map((row, index) => (
+                <StyledTableRow key={index}>
+                  <StyledTableCell component="th" scope="row">
+                    {`Test ${index + 1}`}
                   </StyledTableCell>
-                ))}
-                {row.descriptiveTerms.map((term, index) => (
-                  <StyledTableCell key={`descriptive-${index}`} align="right">
-                    {term}
-                  </StyledTableCell>
-                ))}
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <br />
-      {/* GORT Summary Table */}
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 400 }} aria-label="GORT Summary Table">
-          <TableHead>
-            <TableRow>
-              <DarkBlueHeaderCell>Test</DarkBlueHeaderCell>
-              <DarkBlueHeaderCell align="right">Date</DarkBlueHeaderCell>
-              <DarkBlueHeaderCell align="right">Sum Scaled Score</DarkBlueHeaderCell>
-              <DarkBlueHeaderCell align="right">Oral Reading %ile Rank</DarkBlueHeaderCell>
-              <DarkBlueHeaderCell align="right">Oral Reading Index</DarkBlueHeaderCell>
-              <DarkBlueHeaderCell align="right">Descriptive Term</DarkBlueHeaderCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {summaryRows.map((row, index) => (
-              <StyledTableRow key={index}>
-                <StyledTableCell component="th" scope="row">
-                  {`Test ${index + 1}`}
-                </StyledTableCell>
-                <StyledTableCell align="right">{row.date}</StyledTableCell>
-                <StyledTableCell align="right">{row.sumScaledScore}</StyledTableCell>
-                <StyledTableCell align="right">{row.oralReadingPercentileRank}</StyledTableCell>
-                <StyledTableCell align="right">{row.oralReadingIndex}</StyledTableCell>
-                <StyledTableCell align="right">{row.compositeTerms}</StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </>
-  );
-}}
+                  <StyledTableCell align="right">{row.date}</StyledTableCell>
+                  <StyledTableCell align="right">{row.sumScaledScore}</StyledTableCell>
+                  <StyledTableCell align="right">{row.oralReadingPercentileRank}</StyledTableCell>
+                  <StyledTableCell align="right">{row.oralReadingIndex}</StyledTableCell>
+                  <StyledTableCell align="right">{row.compositeTerms}</StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </>
+    );
+  }
+}

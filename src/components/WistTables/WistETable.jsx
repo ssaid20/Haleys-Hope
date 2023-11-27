@@ -17,13 +17,13 @@ const cellStyle1 = {
   border: "1px solid black",
   padding: "22px",
   textAlign: "center",
-  backgroundColor: "#EFB11A",
+  backgroundColor: "#61e2ff",
 };
 const cellStyle2 = {
   border: "1px solid black",
   padding: "22px",
   textAlign: "center",
-  backgroundColor: "#E47026",
+  backgroundColor: "#caccca",
 };
 
 const WistETable = ({ test }) => {
@@ -218,7 +218,7 @@ const WistETable = ({ test }) => {
             </td>
             <td
               style={
-                test.spell_irregular_words >= 12 && test.spell_irregular_words <= 23 ? cellStyle1 : cellStyle
+                test.spell_irregular_words >= 21 && test.spell_irregular_words <= 23 ? cellStyle1 : cellStyle
               }
             >
               21-23

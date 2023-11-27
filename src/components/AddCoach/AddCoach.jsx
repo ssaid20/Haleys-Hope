@@ -48,7 +48,9 @@ const AddCoach = () => {
 
   return (
     <Paper style={{ padding: "20px", marginTop: "20px" }}>
-      <button onClick={goBack}>Go Back</button>
+      <Button variant="outlined" onClick={goBack} style={{ marginBottom: "10px" }}>
+        Go Back
+      </Button>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>

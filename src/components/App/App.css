@@ -149,3 +149,31 @@ input {
 .centerText{
   text-align: center;
 }
+
+.assessmentCards {
+  margin-bottom: 10px;
+}
+
+@media print{
+  @page{
+  margin:0;
+  size: auto;
+}
+.print-header, .print-footer, .print-navBar {
+  display: none;
+}
+.noPrint, print-button{
+  display: none !important;
+}
+.topSpace{
+  display: none;
+  
+}
+.assessmentCard{
+  margin-bottom: 25px !important;
+  /* padding-bottom: 5px; */
+}
+/* .smallPrint{
+  size: 25% !important;
+} */
+}

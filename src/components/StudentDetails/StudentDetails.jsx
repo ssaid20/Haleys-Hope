@@ -36,7 +36,10 @@ function StudentDetails() {
     dispatch({
       type: "UPLOAD_STUDENT_PICTURE",
       payload: { id: studentId, url: url },
+      
     });
+    dispatch({ type: "FETCH_STUDENT", payload: studentId });
+
     
   };
 

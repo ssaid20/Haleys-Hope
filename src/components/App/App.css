@@ -162,7 +162,7 @@ input {
 .print-header, .print-footer, .print-navBar {
   display: none;
 }
-.noPrint{
+.noPrint, print-button{
   display: none;
 }
 }

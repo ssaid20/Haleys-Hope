@@ -10,6 +10,7 @@ import AssessmentWistS from "./AssessmentWistS";
 import { Button } from "../ui/button";
 import MicroStudentCard from "../Cards/MicroStudentCard";
 import { Paper, Typography } from "@mui/material";
+import PrintButton from "../PrintButton/PrintButton";
 // TODO: CHANGE ROUTE FOR GET TO DO EACH TEST SEPARATELY TO
 // MAKE SURE IF ONE DOES NOT EXIST, IT WILL STILL WORK
 /*  
@@ -29,6 +30,7 @@ const AssessmentContainer = () => {
   const goBack = () => history.goBack();
   return (
     <>
+    <div style={{display: "flex"}}>
       {/* FIGURE OUT HOW TO GET BACK TO THE STUDENT DETAIL VIEW */}
       <Button
         onClick={goBack}
@@ -37,6 +39,8 @@ const AssessmentContainer = () => {
       >
         Back to Student
       </Button>
+      <PrintButton />
+      </div>
       <div style={{ display: "flex", justifyContent: "center", gap: "50px" }}>
         <div
           style={{
@@ -76,7 +80,7 @@ const AssessmentContainer = () => {
                 variant="h6"
                 style={{ marginBottom: "10px", textAlign: "center" }}
               >
-                Date of Assessment: <br/> {formatDate(date)} &nbsp;
+                Date of Assessment: <br /> {formatDate(date)} &nbsp;
               </Typography>
             </div>
           </Paper>

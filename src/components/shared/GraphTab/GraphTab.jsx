@@ -87,6 +87,8 @@ const GraphTab = () => {
         wistData={wistData}
         olderCtoppData={transformedData}
         gort5Data={gortData}
+        elwistData={elwistData}
+        youngerCtoppData={youngerCtopp}
       />
     </div>
   );

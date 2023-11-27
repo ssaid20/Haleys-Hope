@@ -2,21 +2,22 @@ import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { formatDate3 } from "../../lib/utils";
-const OlderCtoppGraph = ({ testData }) => {
-  console.log("testData", testData); // Log to verify the data structure
+const ElementarWistCtoppGraph = ({ testData }) => {
+  console.log("WISTDATA", testData); // Log to verify the data structure
   const [options, setOptions] = useState({
     chart: {
       type: "column",
     },
     title: {
-      text: "CTOPP OVER 7 Test Comparisons",
+      text: "Elementary Wist Test Comparisons",
       align: "left",
     },
     xAxis: {
       categories: [
-        "Phonological Awareness",
-        "Phonological Memory",
-        "Rapid Symbolic Naming",
+        "Reading Words in Isolation",
+        "Spelling",
+        "Fundamental Literacy Ability Index",
+        "Sound to Symbol Knowledge",
       ],
     },
     yAxis: {
@@ -41,9 +42,10 @@ const OlderCtoppGraph = ({ testData }) => {
         type: "column",
         name: formatDate3(test.date),
         data: [
-          test.phonological_awareness_percentile, // Corrected property name
-          test.phonological_memory_percentile, // Corrected property name
-          test.rapid_symbolic_naming_percentile, // Corrected property name
+          test.word_identification_percentile, // Corrected property name
+          test.spelling_percentile, // Corrected property name
+          test.fundamental_literacy_percentile, // Corrected property name
+          test.sound_symbol_knowledge_percentile, // Corrected property name
         ],
       }));
 
@@ -64,13 +66,13 @@ const OlderCtoppGraph = ({ testData }) => {
           fillColor: "white",
         },
       };
-
       const growthRates = testData.slice(1).map((test, index) => {
         const previousTest = testData[index];
         return {
-          phonologicalAwareness: test.phonological_awareness_percentile - previousTest.phonological_awareness_percentile,
-          phonologicalMemory: test.phonological_memory_percentile - previousTest.phonological_memory_percentile,
-          rapidSymbolicNaming: test.rapid_symbolic_naming_percentile - previousTest.rapid_symbolic_naming_percentile,
+          readingWords: test.word_identification_percentile - previousTest.word_identification_percentile,
+          spelling: test.spelling_percentile - previousTest.spelling_percentile,
+          fundamentalLiteracy: test.fundamental_literacy_percentile - previousTest.fundamental_literacy_percentile,
+          soundSymbol: test.sound_symbol_knowledge_percentile - previousTest.sound_symbol_knowledge_percentile,
         };
       });
 
@@ -78,9 +80,10 @@ const OlderCtoppGraph = ({ testData }) => {
         type: 'line',
         name: `Growth from Test ${index + 1} to ${index + 2}`,
         data: [
-          growth.phonologicalAwareness, 
-          growth.phonologicalMemory,
-          growth.rapidSymbolicNaming
+          growth.readingWords, 
+          growth.spelling,
+          growth.fundamentalLiteracy,
+          growth.soundSymbol
         ],
       }));
 
@@ -98,4 +101,4 @@ const OlderCtoppGraph = ({ testData }) => {
   );
 };
 
-export default OlderCtoppGraph;
+export default ElementarWistCtoppGraph;

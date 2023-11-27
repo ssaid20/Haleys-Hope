@@ -11,6 +11,8 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import StudentCard from "../Cards/StudentCard";
 import CommentsTab from "../shared/CommentsTab/CommentsTab";
+import CloudifyUploadForm from "../Cloudinary/CloudinaryUploadForm";
+import { useState } from "react";
 import CompareTab from "../shared/CompareTab/CompareTab";
 
 function StudentDetails() {
@@ -29,6 +31,18 @@ function StudentDetails() {
     }
   }, [dispatch, studentId]);
 
+  const handleImageUpload = (url) => {
+    // Dispatch action to update student record with new image URL
+    dispatch({
+      type: "UPLOAD_STUDENT_PICTURE",
+      payload: { id: studentId, url: url },
+      
+    });
+    dispatch({ type: "FETCH_STUDENT", payload: studentId });
+
+    
+  };
+
   if (!student) {
     return <div>Loading...</div>;
   }
@@ -41,6 +55,12 @@ function StudentDetails() {
             <div className=" flex-1 flex flex-col justify-center">
               <StudentCard />
             </div>
+            {/* Button to open the upload dialog */}
+            {/* <button onClick={handleOpenUploadDialog}>Upload Student Image</button> */}
+          </div>
+          {/* Image upload form */}
+          <div className="absolute top-17 right-30  ">
+            <CloudifyUploadForm onImageUpload={handleImageUpload} />
           </div>
           <div className="lg:flex-1 flex justify-center">
             <div className="flex-1 flex flex-col justify-center">

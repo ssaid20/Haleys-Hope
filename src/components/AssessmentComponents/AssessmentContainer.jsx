@@ -31,12 +31,24 @@ const AssessmentContainer = () => {
       >
         Back to Student
       </Button>
-      <div className="assessmentContainer">
+     <div className="assessmentContainer">
+
+      <div className="assessmentCards">
         <AssessmentCtoppE />
+    
+      </div>{" "}
+      <div className="assessmentCards">
         <AssessmentCtoppS />
+        </div>{" "}
+      <div className="assessmentCards">
         <AssessmentWistE />
+      </div>{" "}
+      <div className="assessmentCards">
         <AssessmentWistS />
+      </div>{" "}
+      <div className="assessmentCards">
         <AssessmentGort />
+      </div>
       </div>
     </>
   );

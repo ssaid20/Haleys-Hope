@@ -149,3 +149,7 @@ input {
 .centerText{
   text-align: center;
 }
+
+.assessmentCards {
+  margin-bottom: 10px;
+}

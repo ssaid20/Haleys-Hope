@@ -8,6 +8,8 @@ import AssessmentCtoppS from "./AssessmentCtoppS";
 import AssessmentWistE from "./AssessmentWistE";
 import AssessmentWistS from "./AssessmentWistS";
 import { Button } from "../ui/button";
+import MicroStudentCard from "../Cards/MicroStudentCard";
+import { Paper, Typography } from "@mui/material";
 // TODO: CHANGE ROUTE FOR GET TO DO EACH TEST SEPARATELY TO
 // MAKE SURE IF ONE DOES NOT EXIST, IT WILL STILL WORK
 /*  
@@ -17,6 +19,10 @@ CONDITIONALLY RENDERING EACH OF THESE COMPONENTS WILL BE EASIER AND THE CTOPP AN
 TESTS CAN BE DIFFERENTIATED UNLIKE NOW.
 */
 const AssessmentContainer = () => {
+  const { date } = useParams();
+  console.log("assessment date", date);
+  const selectedTest = useSelector((store) => store);
+  console.log(selectedTest);
   useEffect(() => {}, []);
   //TODO FIX THIS HISTORY.PUSH TO GO TO THE STUDENTS DETAIL PAGE
   const history = useHistory();
@@ -31,24 +37,67 @@ const AssessmentContainer = () => {
       >
         Back to Student
       </Button>
-     <div className="assessmentContainer">
+      <div style={{ display: "flex", justifyContent: "center", gap: "50px" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
 
-      <div className="assessmentCards">
-        <AssessmentCtoppE />
-    
-      </div>{" "}
-      <div className="assessmentCards">
-        <AssessmentCtoppS />
-        </div>{" "}
-      <div className="assessmentCards">
-        <AssessmentWistE />
-      </div>{" "}
-      <div className="assessmentCards">
-        <AssessmentWistS />
-      </div>{" "}
-      <div className="assessmentCards">
-        <AssessmentGort />
+            alignItems: "center",
+            marginBottom: "20px",
+          }}
+        >
+          <MicroStudentCard />
+        </div>
+        <div>
+          <Paper
+            style={{
+              fontSize: "18px",
+              alignItems: "center",
+              justifyContent: "center",
+
+              padding: "10px",
+              maxWidth: "400px",
+              backgroundColor: "#fff",
+              borderRadius: "8px",
+              boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+                padding: "28px",
+              }}
+            >
+              <Typography
+                variant="h6"
+                style={{ marginBottom: "10px", textAlign: "center" }}
+              >
+                Date When Test Was Given: {formatDate(date)} &nbsp;
+              </Typography>
+            </div>
+          </Paper>
+        </div>
       </div>
+      <div className="assessmentContainer">
+        <div className="assessmentCards">
+          <AssessmentCtoppE />
+        </div>{" "}
+        <div className="assessmentCards">
+          <AssessmentCtoppS />
+        </div>{" "}
+        <div className="assessmentCards">
+          <AssessmentWistE />
+        </div>{" "}
+        <div className="assessmentCards">
+          <AssessmentWistS />
+        </div>{" "}
+        <div className="assessmentCards">
+          <AssessmentGort />
+        </div>
       </div>
     </>
   );

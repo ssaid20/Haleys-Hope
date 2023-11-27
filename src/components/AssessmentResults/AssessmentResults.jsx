@@ -79,48 +79,7 @@ const AssessmentResults = () => {
 
   console.log("Grouped assessments", groupedAssessments);
 
-  const transformedData = allCtoppO?.map((test) => ({
-    date: test.date,
-    phonological_awareness_percentile: test.phonological_awareness_percentile,
-    phonological_memory_percentile: test.phonological_memory_percentile,
-    rapid_symbolic_naming_percentile: test.rapid_symbolic_naming_percentile,
-    word_identification_percentile: test.word_identification_percentile,
-    spelling_percentile: test.spelling_percentile,
-    fundamental_literacy_percentile: test.fundamental_literacy_percentile,
-  }));
-  const youngerCtopp = allCtoppY?.map((test) => ({
-    date: test.date,
-    phonological_awareness_percentile: test.phonological_awareness_percentile,
-    phonological_memory_percentile: test.phonological_memory_percentile,
-    rapid_symbolic_naming_percentile: test.rapid_symbolic_naming_percentile,
-    word_identification_percentile: test.word_identification_percentile,
-    spelling_percentile: test.spelling_percentile,
-    fundamental_literacy_percentile: test.fundamental_literacy_percentile,
-  }));
-
-  const elwistData = allWistE?.map((test) => ({
-    date: test.date,
-    word_identification_percentile: test.word_identification_percentile,
-    spelling_percentile: test.spelling_percentile,
-    fundamental_literacy_percentile: test.fundamental_literacy_percentile,
-    sound_symbol_knowledge_percentile: test.sound_symbol_knowledge_percentile,
-  }));
-
-  const wistData = allWistS?.map((test) => ({
-    date: test.date,
-    word_identification_percentile: test.word_identification_percentile,
-    spelling_percentile: test.spelling_percentile,
-    fundamental_literacy_percentile: test.fundamental_literacy_percentile,
-    sound_symbol_knowledge_percentile: test.sound_symbol_knowledge_percentile,
-  }));
-  const gortData = allGort?.map((test) => ({
-    date: test.date,
-    rate_percentile_rank: test.rate_percentile_rank,
-    accuracy_percentile_rank: test.accuracy_percentile_rank,
-    fluency_percentile_rank: test.fluency_percentile_rank,
-    comprehension_percentile_rank: test.comprehension_percentile_rank,
-    oral_reading_percentile_rank: test.oral_reading_percentile_rank,
-  }));
+  
 
   // map through all of the tests and based on date add to a new object. then
   // pass each test.id to component to render that section of the assessment?
@@ -155,13 +114,7 @@ const AssessmentResults = () => {
           ))}
         </Table>
       </div>
-      <CombinedGraph
-        wistData={wistData}
-        olderCtoppData={transformedData}
-        gort5Data={gortData}
-        elwistData={elwistData}
-        youngerCtoppData={youngerCtopp}
-      />
+      
     </div>
   );
 };

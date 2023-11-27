@@ -80,7 +80,6 @@ const GraphTab = () => {
       <OlderCtoppGraph testData={transformedData} />
       <YoungCtoppGraph testData={youngerCtopp} />
       <WISTGraph testData={wistData} />
-      <WISTGraph testData={elwistData} />
       <ElementarWistCtoppGraph testData={elwistData} />
       <GORT_5Graph testData={gortData} />
       <CombinedGraph

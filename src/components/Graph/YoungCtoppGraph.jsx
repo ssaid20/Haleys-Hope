@@ -64,10 +64,28 @@ const YoungCtoppGraph = ({ testData }) => {
           fillColor: "white",
         },
       };
+      const growthRates = testData.slice(1).map((test, index) => {
+        const previousTest = testData[index];
+        return {
+          phonologicalAwareness: test.phonological_awareness_percentile - previousTest.phonological_awareness_percentile,
+          phonologicalMemory: test.phonological_memory_percentile - previousTest.phonological_memory_percentile,
+          rapidSymbolicNaming: test.rapid_symbolic_naming_percentile - previousTest.rapid_symbolic_naming_percentile,
+        };
+      });
+
+      const growthRateSeries = growthRates.map((growth, index) => ({
+        type: 'line',
+        name: `Growth from Test ${index + 1} to ${index + 2}`,
+        data: [
+          growth.phonologicalAwareness, 
+          growth.phonologicalMemory,
+          growth.rapidSymbolicNaming
+        ],
+      }));
 
       setOptions((prevOptions) => ({
         ...prevOptions,
-        series: [...seriesData, averageSeries],
+        series: [...seriesData, averageSeries, ...growthRateSeries],
       }));
     }
   }, [testData]);

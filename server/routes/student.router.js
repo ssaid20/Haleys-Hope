@@ -189,4 +189,49 @@ router.delete("/:id", rejectUnauthenticated, (req, res) => {
     });
 });
 
+//routes for uploading pictures to cloudinary
+router.get('/picture/:id', (req, res) => {
+  const studentId = req.params.id;
+  const queryText = 'SELECT picture FROM "students" WHERE id=$1;';
+  pool.query(queryText, [studentId])
+    .then((result) => res.send(result.rows))
+    .catch((err) => {
+      console.log("Error in getting Student Picture",err);
+      res.sendStatus(500);
+    });
+});
+
+router.post('/picture/:id', (req, res) => {
+  const { pictureUrl } = req.body;
+  const studentId = req.params.id;  // Ensure that the URL contains the student ID
+  console.log("Student ID:", studentId); // Check the type and value
+  console.log("Picture URL:", pictureUrl);
+
+  if (!pictureUrl || !studentId) {
+    return res.status(400).send('Missing picture URL or student ID');
+  }
+
+  const queryText = 'UPDATE "students" SET picture=$1 WHERE id=$2;';
+  pool.query(queryText, [pictureUrl, parseInt(studentId, 10)])
+    .then(() => res.sendStatus(201))
+    .catch((err) => {
+      console.log("Error in adding Student Picture", err);
+      res.status(500).send(err.message);
+    });
+});
+
+
+
+router.delete('/picture/:id', (req, res) => {
+  const studentId = req.params.id;
+  const queryText = 'UPDATE "students" SET picture=NULL WHERE id=$1;';
+  pool.query(queryText, [studentId])
+    .then(() => res.sendStatus(204))
+    .catch((err) => {
+      console.log("Error in deleting Student Picture",err);
+      res.sendStatus(500);
+    });
+});
+
+
 module.exports = router;

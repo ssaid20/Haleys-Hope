@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { formatDate3 } from "../../lib/utils";
-const OlderCtoppGraph = ({ testData }) => {
+const YoungCtoppGraph = ({ testData }) => {
   console.log("testData", testData); // Log to verify the data structure
   const [options, setOptions] = useState({
     chart: {
       type: "column",
     },
     title: {
-      text: "CTOPP 7-24 Test Comparison",
+      text: "CTOPP 4-6  Test Comparison",
       align: "left",
     },
     xAxis: {
@@ -58,7 +58,6 @@ const OlderCtoppGraph = ({ testData }) => {
           fillColor: "white",
         },
       };
-
       const growthRates = testData.slice(1).map((test, index) => {
         const previousTest = testData[index];
         return {
@@ -91,4 +90,4 @@ const OlderCtoppGraph = ({ testData }) => {
   );
 };
 
-export default OlderCtoppGraph;
+export default YoungCtoppGraph;

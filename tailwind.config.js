@@ -37,6 +37,7 @@ module.exports = {
           700: "#DCE3F1",
           500: "#7B8EC8",
           400: "#858EAD",
+          300: "#6A718A",
         },
         "accent-blue": "#1DA1F2",
       },

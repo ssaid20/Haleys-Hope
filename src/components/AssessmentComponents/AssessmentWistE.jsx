@@ -15,13 +15,14 @@ const AssessmentWistE = () => {
   console.log("selected test is:", selectedTest, assessments);
   // TODO: DOUBLE CHECK TO MAKE SURE IT IS GETTING FROM THE CORRECT WIST
   if (!selectedTest) {
-    return <div>No WIST 7-11 for this date</div>
+    return <></>
+    // <div>No WIST 7-11 for this date</div>
   
   }
   return (
     <div style={{ border: "1px solid black" }}>
       <p style={{ color: "brown" }}> WIST Ages 7-11</p>
-      <div //this div is card for WIST
+      <div className="assessmentCard" //this div is card for WIST
       >
         <table>
           <thead>

@@ -10,7 +10,7 @@ import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { formatDate3 } from "../../lib/utils";
-import { getDescriptiveTerm } from "../../lib/utils";
+import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
 
 const StyledTableCell = styled(TableCell)(({ theme, color }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -65,7 +65,7 @@ function createRowData(category, tests) {
     percentiles: tests.map((test) => test[categoryMap[category].percentile]),
     scaledScores: tests.map((test) => test[categoryMap[category].scaled]),
     descriptiveTerms: tests.map((test) =>
-      getDescriptiveTerm(test[categoryMap[category].scaled])
+      GetCompositeScoreDescription({ compositeScore: test[categoryMap[category].scaled] })
     ), // Assuming you calculate descriptive terms based on scaled scores
   };
 }
@@ -84,8 +84,8 @@ const TestHeaderCell = styled(TableCell)(({ theme, color }) => ({
 // ];
 const OldCtoppComparison = () => {
   const dispatch = useDispatch();
-  const OlderctoppTests = useSelector((store) => store.olderCtoppReducer.list); // Get data from store
-  console.log("OlderctoppTests", OlderctoppTests);
+  const olderCtoppTests = useSelector((store) => store.olderCtoppReducer.list); // Get data from store
+  console.log("olderCtoppTests", olderCtoppTests);
   const student = useParams();
 
   useEffect(() => {
@@ -93,24 +93,27 @@ const OldCtoppComparison = () => {
   }, [dispatch, student.id]);
 
   // Create rows based on the fetched data
-  const rows = categories.map((category) =>
-    createRowData(category, OlderctoppTests)
-  );
+  const rows = categories.map((category) => createRowData(category, olderCtoppTests));
   console.log("rows", rows);
-  
+
   const sectionHeaderColors = {
     percentile: "#778899", // Example color for Percentile Section
     scaledScore: "#0f3c5c", // Example color for Scaled Score Section
     descriptiveTerm: "#1277bf", // Example color for Descriptive Term Section
   };
   const lightGreyColor = "#F5F5F5"; // Light grey color
+  if (olderCtoppTests.length === 0) {
+    return (
+    <div><p>No CTOPP 7-24 Assessments for this student </p></div>)
+  
+  }else {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="GORT-5 Comparison Table">
         <TableHead>
           <TableRow>
             <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
-            {OlderctoppTests.map((test, index) => (
+            {olderCtoppTests.map((test, index) => (
               <TestHeaderCell
                 align="center"
                 color={sectionHeaderColors.percentile}
@@ -119,7 +122,7 @@ const OldCtoppComparison = () => {
                 {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`}
               </TestHeaderCell>
             ))}
-            {OlderctoppTests.map((test, index) => (
+            {olderCtoppTests.map((test, index) => (
               <TestHeaderCell
                 align="center"
                 color={sectionHeaderColors.scaledScore}
@@ -128,7 +131,7 @@ const OldCtoppComparison = () => {
                 {`Test ${index + 1} (${formatDate3(test.date)}) Scaled Score`}
               </TestHeaderCell>
             ))}
-            {OlderctoppTests.map((test, index) => (
+            {olderCtoppTests.map((test, index) => (
               <TestHeaderCell
                 align="center"
                 color={sectionHeaderColors.descriptiveTerm}
@@ -156,7 +159,7 @@ const OldCtoppComparison = () => {
                   {score}
                 </StyledTableCell>
               ))}
-              {row.descriptiveTerms.map((term, index) => (
+                {row.descriptiveTerms.map((term, index) => (
                 <StyledTableCell key={`descriptive-${index}`} align="right">
                   {term}
                 </StyledTableCell>
@@ -168,5 +171,6 @@ const OldCtoppComparison = () => {
     </TableContainer>
   );
 };
+}
 
 export default OldCtoppComparison;

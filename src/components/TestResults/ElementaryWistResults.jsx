@@ -5,6 +5,7 @@ import { formatDate } from "../../lib/utils";
 import MiniStudentCard from "../Cards/MiniStudentCard";
 import WistETable from "../WistTables/WistETable";
 import { Button, Table, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 
 import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
 
@@ -19,7 +20,6 @@ const ElementaryWistResults = () => {
   }, [dispatch]);
 
   const selectedTest = useSelector((store) => store.elementaryWistReducer.selectedTest[0]);
-
   if (!selectedTest || Object.keys(selectedTest).length === 0) {
     return <h1>Loading...</h1>;
   }
@@ -33,6 +33,10 @@ const ElementaryWistResults = () => {
       <Button variant="contained" color="primary" onClick={goBack} style={{ marginRight: "20px" }}>
         Back to Tests List
       </Button>
+
+      {/* <h1 className="text-3xl text-center mb-4">WIST Age 7-11 Results </h1> */}
+      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">WIST Age 7-11 Results </h1>
+
       <div style={{ display: "flex", justifyContent: "center", gap: "50px" }}>
         <div
           style={{
@@ -81,8 +85,9 @@ const ElementaryWistResults = () => {
                   Examiner ID: {selectedTest.examiner_id}
                 </Typography>
               )}
-
-              <h1 style={{ textAlign: "center", marginBottom: "8px" }}>Elementary WIST Results</h1>
+              <Typography variant="h6" style={{ marginBottom: "10px" }}>
+                Grade When Test Given: {selectedTest.grade} &nbsp;
+              </Typography>
             </div>
           </Paper>
         </div>
@@ -120,7 +125,7 @@ const ElementaryWistResults = () => {
             onClick={() => history.push(`/EditElementaryWistResults/${selectedTest.id}`)}
             // style={{ marginTop: "20px", marginRight: "50px" }}
           >
-            Edit Test
+            <EditIcon /> &nbsp; Edit Test
           </Button>
         </div>
       </div>

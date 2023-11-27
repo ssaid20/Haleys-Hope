@@ -18,6 +18,8 @@ const AddGort = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
+  const studentGrade = useSelector((store) => store.studentReducer.Details.grade);
+
   const users = useSelector((store) => store.allUsersReducer.users);
 
   const [validationErrors, setValidationErrors] = useState({
@@ -43,6 +45,7 @@ const AddGort = () => {
   const [newGort, setNewGort] = useState({
     student_id: student.id,
     date: "",
+    grade: studentGrade,
     examiner_id: "",
     sum_scaled_score: null,
     oral_reading_percentile_rank: null,
@@ -169,10 +172,11 @@ const AddGort = () => {
 
   return (
     <>
-      <h1 className="text-3xl text-center mb-4 bg-primary-100">GORT-5 </h1>
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         GO BACK
       </Button>
+      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">Add GORT </h1>
+
       <Paper elevation={3} className="p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           <Grid container spacing={3}>
@@ -197,14 +201,28 @@ const AddGort = () => {
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <InputLabel>Examiner</InputLabel>
-                <Select value={selectedExaminerId} label="Examiner" onChange={handleExaminerChange}>
+                <FormLabel>Examiner</FormLabel>
+                <Select value={selectedExaminerId} onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
                     </MenuItem>
                   ))}
                 </Select>
+              </FormControl>
+            </Grid>
+            {/* Grade Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Grade:</FormLabel>
+                <TextField
+                  type="number"
+                  id="grade"
+                  name="grade"
+                  value={newGort.grade}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
               </FormControl>
             </Grid>
             {/* Rate Raw Total */}

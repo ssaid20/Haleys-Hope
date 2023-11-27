@@ -7,6 +7,7 @@ import AssessmentCtoppE from "./AssessmentCtoppE";
 import AssessmentCtoppS from "./AssessmentCtoppS";
 import AssessmentWistE from "./AssessmentWistE";
 import AssessmentWistS from "./AssessmentWistS";
+import { Button } from "../ui/button";
 // TODO: CHANGE ROUTE FOR GET TO DO EACH TEST SEPARATELY TO
 // MAKE SURE IF ONE DOES NOT EXIST, IT WILL STILL WORK
 /*  
@@ -16,22 +17,28 @@ CONDITIONALLY RENDERING EACH OF THESE COMPONENTS WILL BE EASIER AND THE CTOPP AN
 TESTS CAN BE DIFFERENTIATED UNLIKE NOW.
 */
 const AssessmentContainer = () => {
-    useEffect(() => {
-      }, []);
-      //TODO FIX THIS HISTORY.PUSH TO GO TO THE STUDENTS DETAIL PAGE
-    const history = useHistory();
-    const goBack = () => history.goBack();
+  useEffect(() => {}, []);
+  //TODO FIX THIS HISTORY.PUSH TO GO TO THE STUDENTS DETAIL PAGE
+  const history = useHistory();
+  const goBack = () => history.goBack();
   return (
-    <div>
-        {/* FIGURE OUT HOW TO GET BACK TO THE STUDENT DETAIL VIEW */}
-                <button onClick={goBack}>Back to Student</button>  
-
-      <AssessmentGort />
-      <AssessmentWistE />
-      <AssessmentWistS />
-      <AssessmentCtoppE />
-      <AssessmentCtoppS />
-    </div>
+    <>
+      {/* FIGURE OUT HOW TO GET BACK TO THE STUDENT DETAIL VIEW */}
+      <Button
+        onClick={goBack}
+        variant="outline"
+        className=" text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
+      >
+        Back to Student
+      </Button>
+      <div className="assessmentContainer">
+        <AssessmentCtoppE />
+        <AssessmentCtoppS />
+        <AssessmentWistE />
+        <AssessmentWistS />
+        <AssessmentGort />
+      </div>
+    </>
   );
 };
 export default AssessmentContainer;

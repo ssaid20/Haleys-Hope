@@ -20,16 +20,13 @@ const AddElementaryWist = () => {
   const history = useHistory();
   const student = useParams();
   const users = useSelector((store) => store.allUsersReducer.users);
-
+  const studentGrade = useSelector((store) => store.studentReducer.Details.grade);
   const [validationErrors, setValidationErrors] = useState({
     //state for validation errors
     date: "",
     examiner_id: "",
   });
-
   const [selectedExaminerId, setSelectedExaminerId] = useState("");
-
-  // const todayDate = new Date().toISOString().split("T")[0]; //function to get todays date to auto populate
 
   useEffect(() => {
     if (student) {
@@ -39,12 +36,13 @@ const AddElementaryWist = () => {
   useEffect(() => {
     dispatch({ type: "FETCH_USERS" });
   });
-  useEffect(() => {
-    handleGoBack;
-  });
+  // useEffect(() => {
+  //   handleGoBack;
+  // })[handleGoBack];
 
   const [newWist, setNewWist] = useState({
     student_id: student.id,
+    grade: studentGrade,
     date: "",
     examiner_id: "",
     read_regular_words: null,
@@ -179,6 +177,7 @@ const AddElementaryWist = () => {
       ...newWist,
       examiner_id: selectedExaminerId,
     };
+    console.log("add el wist submission data:", submissionData);
 
     dispatch({
       type: "ADD_ELEMENTARY_WIST",
@@ -203,10 +202,13 @@ const AddElementaryWist = () => {
 
   return (
     <>
-      <h1 className="text-3xl text-center mb-4 bg-primary-100">ELEMENTARY WIST </h1>
+      {/* <h1 className="text-3xl text-center mb-4 bg-primary-100">ELEMENTARY WIST </h1> */}
+
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         GO BACK
       </Button>
+      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">Add WIST 7-11</h1>
+
       <Paper elevation={3} className="p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           <Grid container spacing={3}>
@@ -231,8 +233,8 @@ const AddElementaryWist = () => {
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <InputLabel>Examiner</InputLabel>
-                <Select value={selectedExaminerId} label="Examiner" onChange={handleExaminerChange}>
+                <FormLabel>Examiner</FormLabel>
+                <Select value={selectedExaminerId} onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
@@ -241,7 +243,20 @@ const AddElementaryWist = () => {
                 </Select>
               </FormControl>
             </Grid>
-
+            {/* Grade Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Grade:</FormLabel>
+                <TextField
+                  type="number"
+                  id="grade"
+                  name="grade"
+                  value={newWist.grade}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
             {/* Additional Fields */}
             {/* Read Regular Words Field */}
             <Grid item xs={12} md={4}>

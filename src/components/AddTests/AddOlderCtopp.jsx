@@ -21,6 +21,7 @@ const AddOlderCtopp = () => {
   const users = useSelector((store) => store.allUsersReducer.users);
 
   const [selectedExaminerId, setSelectedExaminerId] = useState("");
+  const studentGrade = useSelector((store) => store.studentReducer.Details.grade);
 
   const [validationErrors, setValidationErrors] = useState({
     //state for validation errors
@@ -43,6 +44,8 @@ const AddOlderCtopp = () => {
   const [newCtopp, setNewCtopp] = useState({
     student_id: student.id,
     date: "",
+    grade: studentGrade,
+
     examiner_id: "",
     elison_scaled_score: null,
     blending_words_scaled_score: null,
@@ -62,7 +65,7 @@ const AddOlderCtopp = () => {
     rapid_symbolic_naming_percentile: null,
     alt_phonological_awareness_percentile: null,
   });
-
+  console.log("newCtoppppp:", newCtopp);
   const handleExaminerChange = (event) => {
     const examinerId = event.target.value;
     setSelectedExaminerId(examinerId);
@@ -133,10 +136,11 @@ const AddOlderCtopp = () => {
 
   return (
     <>
-      <h1 className="text-3xl text-center mb-4 bg-primary-100">CTOPP-2 Over 7</h1>
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         GO BACK
       </Button>
+      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">Add CTOPP 7-24 </h1>
+
       <Paper elevation={3} className="p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           <Grid container spacing={3}>
@@ -160,8 +164,8 @@ const AddOlderCtopp = () => {
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <InputLabel>Examiner</InputLabel>
-                <Select value={selectedExaminerId} label="Examiner" onChange={handleExaminerChange}>
+                <FormLabel>Examiner</FormLabel>
+                <Select value={selectedExaminerId} onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
@@ -170,7 +174,20 @@ const AddOlderCtopp = () => {
                 </Select>
               </FormControl>
             </Grid>
-
+            {/* Grade Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Grade:</FormLabel>
+                <TextField
+                  type="number"
+                  id="grade"
+                  name="grade"
+                  value={newCtopp.grade}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
             {/* Elision Scaled Score Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>

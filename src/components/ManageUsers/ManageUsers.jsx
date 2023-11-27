@@ -11,6 +11,8 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useHistory } from "react-router-dom";
 import { Button } from "../ui/button";
+import { Button as MUIButton } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import {
@@ -133,6 +135,8 @@ const ManageUsers = () => {
 
   return (
     <div>
+      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">Manage Users </h1>
+
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer sx={{ maxHeight: 840 }}>
           <Table stickyHeader aria-label="user table">
@@ -155,15 +159,6 @@ const ManageUsers = () => {
                 };
 
                 return (
-                  // <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
-                  //   {columns.map((column) => {
-                  //     const value = formattedUser[column.id];
-                  //     return (
-                  //       <TableCell key={column.id} align={column.align}>
-                  //         {value}
-                  //       </TableCell>
-                  //     );
-                  //   })}
                   <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
                     {columns.map((column) => {
                       let value = user[column.id];
@@ -182,8 +177,9 @@ const ManageUsers = () => {
                         variant="outline"
                         className=" text-m px-5 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
                       >
-                        <img src="/assets/icons/edit.svg" alt="Edit Icon" className="w-4 h-4" />
-                        <span>Edit User</span>
+                        <span>
+                          <EditIcon /> &nbsp; Edit User
+                        </span>
                       </Button>
                     </TableCell>
                     {/* {editingUserId === user.id && (
@@ -256,9 +252,12 @@ const ManageUsers = () => {
         />
       </Paper>
       {/* this button opens up a table of archived users */}
-      <Button onClick={toggleArchivedUsers}>
+      {/* <Button onClick={toggleArchivedUsers}>
         {showArchivedUsers ? "Hide Archived Users" : "Show Archived Users"}
-      </Button>
+      </Button> */}
+      <MUIButton variant="contained" color="primary" onClick={toggleArchivedUsers} style={{ margin: "10px" }}>
+        {showArchivedUsers ? "Hide Archived Users" : "Show Archived Users"}
+      </MUIButton>
       {showArchivedUsers && (
         <Paper sx={{ width: "100%", overflow: "hidden", marginTop: 2 }}>
           <TableContainer sx={{ maxHeight: 440 }}>
@@ -310,8 +309,9 @@ const ManageUsers = () => {
                           variant="outline"
                           className=" text-m px-5 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
                         >
-                          <img src="/assets/icons/edit.svg" alt="Edit Icon" className="w-4 h-4" />
-                          <span>Edit User</span>
+                          <span>
+                            <EditIcon /> &nbsp; Edit User
+                          </span>
                         </Button>
                       </TableCell>
                     </TableRow>

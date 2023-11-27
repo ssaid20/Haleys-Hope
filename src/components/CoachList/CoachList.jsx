@@ -15,7 +15,10 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { useHistory } from "react-router-dom";
 import { Button } from "../ui/button";
+import { Button as MUIButton } from "@mui/material";
 import { Button as Button2 } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import {
@@ -159,6 +162,7 @@ const CoachList = () => {
   // Function to toggle the display of archived coaches
   const toggleArchivedCoaches = () => {
     setShowArchivedCoaches(!showArchivedCoaches);
+    dispatch({ type: "FETCH_ARCHIVED_COACHES" });
   };
 
   useEffect(() => {
@@ -173,8 +177,9 @@ const CoachList = () => {
 
   return (
     <div>
+      <h1 className="text-4xl font-bold text-center text-primary-500 my-4"> Manage Coaches </h1>
+
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-center text-xl font-semibold">Coaches</h1>
         <div className="flex items-center">
           <FormControl style={{ minWidth: 120, marginRight: "10px" }}>
             <InputLabel id="sort-select-label">Sort By</InputLabel>
@@ -245,7 +250,7 @@ const CoachList = () => {
                         variant="outline"
                         className=" text-m px-5 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
                       >
-                        <img src="/assets/icons/edit.svg" alt="Edit Icon" className="w-4 h-4" />
+                        <EditIcon /> &nbsp;
                         <span>Edit Coach</span>
                       </Button>
                     </TableCell>
@@ -310,14 +315,21 @@ const CoachList = () => {
       </Paper>
 
       {/* this button opens up a table of archived coaches */}
-      <Button
+      {/* <Button
         onClick={toggleArchivedCoaches}
         className={`mt-6 ${
           showArchivedCoaches ? "bg-red-500" : "bg-green-500"
         } hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300`}
+      ></Button> */}
+      <MUIButton
+        variant="contained"
+        color="primary"
+        onClick={toggleArchivedCoaches}
+        style={{ margin: "10px" }}
       >
         {showArchivedCoaches ? "Hide Archived Coaches" : "Show Archived Coaches"}
-      </Button>
+      </MUIButton>
+
       {showArchivedCoaches && (
         <Paper sx={{ width: "100%", overflow: "hidden", marginTop: 2 }}>
           <div className="bg-white shadow-md rounded my-6">
@@ -357,7 +369,7 @@ const CoachList = () => {
                             variant="outline"
                             className=" text-m px-5 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
                           >
-                            <img src="/assets/icons/edit.svg" alt="Edit Icon" className="w-4 h-4" />
+                            <EditIcon /> &nbsp;
                             <span>Edit Coach</span>
                           </Button>
                         </TableCell>

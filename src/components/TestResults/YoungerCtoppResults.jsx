@@ -6,6 +6,7 @@ import MiniStudentCard from "../Cards/MiniStudentCard";
 import { Button, Table, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from "@mui/material";
 import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
 import { GetScaledScoreDescription } from "../../lib/GetScaledScoreDescription";
+import EditIcon from "@mui/icons-material/Edit";
 
 const YoungerCtoppResults = () => {
   const testId = useParams();
@@ -32,6 +33,9 @@ const YoungerCtoppResults = () => {
       <Button variant="contained" color="primary" onClick={goBack} style={{ marginRight: "20px" }}>
         Back to Tests List
       </Button>
+      {/* <h1 className="text-3xl text-center mb-4">CTOPP 4-6 Results </h1> */}
+      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">CTOPP 4-6 Results </h1>
+
       <div style={{ display: "flex", justifyContent: "center", gap: "50px" }}>
         <div
           style={{
@@ -79,7 +83,9 @@ const YoungerCtoppResults = () => {
                   Examiner ID: {selectedTest.examiner_id}
                 </Typography>
               )}
-              <h1 style={{ textAlign: "center", marginBottom: "8px" }}>CTOPP ages 7-24 Results</h1>
+              <Typography variant="h6" style={{ marginBottom: "10px" }}>
+                Grade When Test Given: {selectedTest.grade} &nbsp;
+              </Typography>
             </div>
           </Paper>
         </div>
@@ -109,7 +115,7 @@ const YoungerCtoppResults = () => {
             onClick={() => history.push(`/EditYoungerCtoppResults/${selectedTest.id}`)}
             // style={{ marginTop: "20px", marginRight: "50px" }}
           >
-            Edit Test
+            <EditIcon /> &nbsp; Edit Test
           </Button>
         </div>
       </div>

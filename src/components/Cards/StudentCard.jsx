@@ -5,6 +5,7 @@ import { useParams, Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Sheet,
   SheetClose,
@@ -152,16 +153,16 @@ const StudentCard = () => {
   };
   // function to reset for to original data when cancelled or sheet closed
   const handleCancel = () => {
-    if (JSON.stringify(formData) !== JSON.stringify(originalData)) {
-      if (window.confirm("You have unsaved changes. Are you sure you want to close?")) {
-        setFormData(originalData);
-        setValidationErrors({});
-        setIsSheetOpen(false);
-      }
-    } else {
-      setIsSheetOpen(false); // This will close the form if there are no unsaved changes
-    }
-  }; // end handleCancel
+    // if (JSON.stringify(formData) !== JSON.stringify(originalData)) {
+    //   if (window.confirm("You have unsaved changes. Are you sure you want to close?")) {
+    //     setFormData(originalData);
+    //     setValidationErrors({});
+    setIsSheetOpen(false);
+  };
+  // } else {
+  //   setIsSheetOpen(false); // This will close the form if there are no unsaved changes
+  // }
+  // }; // end handleCancel
 
   const sheetStyle = {
     backgroundColor: "white",
@@ -170,9 +171,40 @@ const StudentCard = () => {
     overflowY: "auto", // Enables vertical scrolling
   };
 
+  const calculateAge = (dob) => {
+    const today = new Date();
+    const birthDate = new Date(dob);
+
+    // Calculate the difference in years
+    let ageYears = today.getFullYear() - birthDate.getFullYear();
+
+    // Calculate the difference in months
+    let ageMonths = today.getMonth() - birthDate.getMonth();
+
+    // Adjust years and months if the current month is before the birth month
+    if (ageMonths < 0 || (ageMonths === 0 && today.getDate() < birthDate.getDate())) {
+      ageYears--;
+      ageMonths = 12 + ageMonths; // This will give the remaining months after adjusting the year
+    }
+
+    // Calculate the difference in days
+    let ageDays = today.getDate() - birthDate.getDate();
+    if (ageDays < 0) {
+      // Calculate the number of days in the previous month
+      const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+      ageDays = lastMonth.getDate() + ageDays; // This will give the remaining days after adjusting the month
+    }
+
+    // Return the age in format "years months days"
+    return `${ageYears} years, ${ageMonths} months, ${ageDays} days`;
+  };
+
   return (
     <article className="background-light900_dark200 light-border rounded-2xl border p-8 shadow-md relative flex flex-col items-center">
-      <h2 className="h2-bold text-dark100_light900 text-center mb-4">{`${student.first_name} ${student.last_name}`}</h2>
+      {/* <h2 className="h2-bold text-dark100_light900 text-center mb-4">{`${student.first_name} ${student.last_name}`}</h2> */}
+      <h1 className="text-3xl font-bold text-center text-primary-500 my-4">
+        {`${student.first_name} ${student.last_name}`}
+      </h1>
 
       <div className="flex flex-col w-full md:flex-row items-start md:items-center justify-between">
         <img
@@ -185,11 +217,12 @@ const StudentCard = () => {
 
         <Sheet>
           <SheetTrigger asChild onClick={() => setIsSheetOpen(true)}>
-          <Button
+            <Button
               variant="outline"
               className="absolute top-2 right-2 text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
             >
-              <img src="/assets/icons/edit.svg" alt="Edit Icon" className="w-4 h-4" />
+              {/* <img src="/assets/icons/edit.svg" alt="Edit Icon" className="w-4 h-4" /> */}
+              <EditIcon />
               <span>Edit Student</span>
             </Button>
           </SheetTrigger>
@@ -300,9 +333,9 @@ const StudentCard = () => {
                 Save Changes
               </Button>
               {/* <SheetClose asChild> */}
-              <Button onClick={handleCancel} className="bg-primary-500 text-white">
+              {/* <Button onClick={handleCancel} className="bg-primary-500 text-white">
                 Close
-              </Button>
+              </Button> */}
               {/* </SheetClose> */}
             </SheetFooter>
           </SheetContent>
@@ -315,10 +348,12 @@ const StudentCard = () => {
           <p className="body-regular text-dark500_light500">
             Date of Birth: {new Date(student.dob).toLocaleDateString()}
           </p>
+          <p className="body-regular text-dark500_light500">Age: {calculateAge(student.dob)}</p>
+
           <p className="body-regular text-dark500_light500">City: {student.city}</p>
           <p className="body-regular text-dark500_light500">State: {student.state}</p>
           <p className="body-regular text-dark500_light500">
-            Barton C Date: {new Date(student.barton_c_date).toLocaleDateString()}
+            Start Date: {new Date(student.start_date).toLocaleDateString()}
           </p>
           <p className="body-regular text-dark500_light500">
             Barton C: {student.barton_c ? "Foundations" : "Barton"}

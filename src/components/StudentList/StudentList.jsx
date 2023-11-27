@@ -12,7 +12,6 @@ import TableRow from "@mui/material/TableRow";
 import { useHistory } from "react-router-dom";
 import { calculateAge } from "../../lib/utils";
 import Fuse from "fuse.js";
-import ArchivedStudentList from "../ArchivedStudentList/ArchivedStudentList";
 import Button from "@mui/material/Button";
 import Searchbar from "../shared/Searchbar";
 import Select from "@mui/material/Select";
@@ -166,6 +165,9 @@ const StudentList = () => {
   console.log("DISPLAY Students in list", displayedStudents);
   return (
     <>
+      {/* <h1 className="text-3xl text-center mb-4">Student List </h1> */}
+      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">Student List</h1>
+
       <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
         <FormControl style={{ minWidth: 120, marginRight: "10px" }}>
           <InputLabel id="sort-select-label">Sort By</InputLabel>
@@ -183,6 +185,7 @@ const StudentList = () => {
             ))}
           </Select>
         </FormControl>
+
         <Button variant="outlined" onClick={toggleSortDirection} style={{ margin: "5px" }}>
           {sortConfig.direction === "ascending" ? "Asc" : "Desc"}
         </Button>
@@ -190,6 +193,7 @@ const StudentList = () => {
           Clear
         </Button>
       </div>
+
       <div className="mb-8">
         <Searchbar
           query={searchQuery}
@@ -205,7 +209,15 @@ const StudentList = () => {
         <Button variant="contained" color="primary" onClick={handleToggleArchived} style={{ margin: "10px" }}>
           View Archived Students
         </Button>
-
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => history.push("/add-student")}
+          style={{ margin: "10px" }}
+        >
+          {" "}
+          Add Student
+        </Button>
         <TableContainer sx={{ maxHeight: 840 }}>
           <Table stickyHeader aria-label="student table">
             <TableHead>
@@ -231,7 +243,7 @@ const StudentList = () => {
                     name: `${student.first_name} ${student.last_name}`,
                     age: calculateAge(student.dob),
                     city: student.city, // *** need to fix our address input then make function to pull out city and state ***
-                    start_date: formatDate(student.barton_c_date), // *** using pretest date, do we need a start date column? ***
+                    start_date: formatDate(student.start_date), // *** using pretest date, do we need a start date column? ***
                     picture: (
                       <img
                         src={student.picture}

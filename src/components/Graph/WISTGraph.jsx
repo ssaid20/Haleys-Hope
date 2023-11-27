@@ -9,7 +9,7 @@ const WISTGraph = ({ testData }) => {
       type: "column",
     },
     title: {
-      text: "WIST Test Comparisons",
+      text: "WIST 11-18 Test Comparison",
       align: "left",
     },
     xAxis: {
@@ -50,14 +50,12 @@ const WISTGraph = ({ testData }) => {
       }));
 
       const averages = seriesData[0].data.map(
-        (_, i) =>
-          seriesData.reduce((acc, test) => acc + test.data[i], 0) /
-          seriesData.length
+        (_, i) => seriesData.reduce((acc, test) => acc + test.data[i], 0) / seriesData.length
       );
 
       const averageSeries = {
         type: "line",
-        step: 'center',
+        step: "center",
         name: "Average",
         data: averages,
         marker: {
@@ -71,20 +69,17 @@ const WISTGraph = ({ testData }) => {
         return {
           readingWords: test.word_identification_percentile - previousTest.word_identification_percentile,
           spelling: test.spelling_percentile - previousTest.spelling_percentile,
-          fundamentalLiteracy: test.fundamental_literacy_percentile - previousTest.fundamental_literacy_percentile,
-          soundSymbol: test.sound_symbol_knowledge_percentile - previousTest.sound_symbol_knowledge_percentile,
+          fundamentalLiteracy:
+            test.fundamental_literacy_percentile - previousTest.fundamental_literacy_percentile,
+          soundSymbol:
+            test.sound_symbol_knowledge_percentile - previousTest.sound_symbol_knowledge_percentile,
         };
       });
 
       const growthRateSeries = growthRates.map((growth, index) => ({
-        type: 'line',
+        type: "line",
         name: `Growth from Test ${index + 1} to ${index + 2}`,
-        data: [
-          growth.readingWords, 
-          growth.spelling,
-          growth.fundamentalLiteracy,
-          growth.soundSymbol
-        ],
+        data: [growth.readingWords, growth.spelling, growth.fundamentalLiteracy, growth.soundSymbol],
       }));
 
       setOptions((prevOptions) => ({

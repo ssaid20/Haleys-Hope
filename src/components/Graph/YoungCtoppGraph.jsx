@@ -9,15 +9,11 @@ const YoungCtoppGraph = ({ testData }) => {
       type: "column",
     },
     title: {
-      text: "Younger Ctopp Test Comparisons",
+      text: "CTOPP 4-6  Test Comparison",
       align: "left",
     },
     xAxis: {
-      categories: [
-        "Phonological Awareness",
-        "Phonological Memory",
-        "Rapid Symbolic Naming",
-      ],
+      categories: ["Phonological Awareness", "Phonological Memory", "Rapid Symbolic Naming"],
     },
     yAxis: {
       title: {
@@ -48,14 +44,12 @@ const YoungCtoppGraph = ({ testData }) => {
       }));
 
       const averages = seriesData[0].data.map(
-        (_, i) =>
-          seriesData.reduce((acc, test) => acc + test.data[i], 0) /
-          seriesData.length
+        (_, i) => seriesData.reduce((acc, test) => acc + test.data[i], 0) / seriesData.length
       );
 
       const averageSeries = {
         type: "line",
-        step: 'center',
+        step: "center",
         name: "Average",
         data: averages,
         marker: {
@@ -67,20 +61,19 @@ const YoungCtoppGraph = ({ testData }) => {
       const growthRates = testData.slice(1).map((test, index) => {
         const previousTest = testData[index];
         return {
-          phonologicalAwareness: test.phonological_awareness_percentile - previousTest.phonological_awareness_percentile,
-          phonologicalMemory: test.phonological_memory_percentile - previousTest.phonological_memory_percentile,
-          rapidSymbolicNaming: test.rapid_symbolic_naming_percentile - previousTest.rapid_symbolic_naming_percentile,
+          phonologicalAwareness:
+            test.phonological_awareness_percentile - previousTest.phonological_awareness_percentile,
+          phonologicalMemory:
+            test.phonological_memory_percentile - previousTest.phonological_memory_percentile,
+          rapidSymbolicNaming:
+            test.rapid_symbolic_naming_percentile - previousTest.rapid_symbolic_naming_percentile,
         };
       });
 
       const growthRateSeries = growthRates.map((growth, index) => ({
-        type: 'line',
+        type: "line",
         name: `Growth from Test ${index + 1} to ${index + 2}`,
-        data: [
-          growth.phonologicalAwareness, 
-          growth.phonologicalMemory,
-          growth.rapidSymbolicNaming
-        ],
+        data: [growth.phonologicalAwareness, growth.phonologicalMemory, growth.rapidSymbolicNaming],
       }));
 
       setOptions((prevOptions) => ({

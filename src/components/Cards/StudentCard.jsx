@@ -120,6 +120,7 @@ const StudentCard = () => {
         on_site: student.on_site || true,
         start_date: student.start_date ? student.start_date.split("T")[0] : "",
         is_active: student.is_active || true,
+        coach_id: student.coach_id || "",
       };
       setFormData(studentData);
       setOriginalData(studentData); //store original data

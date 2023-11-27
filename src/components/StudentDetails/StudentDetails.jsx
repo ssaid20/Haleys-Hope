@@ -36,11 +36,8 @@ function StudentDetails() {
     dispatch({
       type: "UPLOAD_STUDENT_PICTURE",
       payload: { id: studentId, url: url },
-      
     });
     dispatch({ type: "FETCH_STUDENT", payload: studentId });
-
-    
   };
 
   if (!student) {
@@ -78,7 +75,7 @@ function StudentDetails() {
                 <TabsTrigger
                   key={tab}
                   value={tab}
-                  className="tab h2-semibold hover:bg-primary-100 focus:bg-primary-100 px-6 py-3 rounded-lg transition duration-300 ease-in-out"
+                  className="tab h2-semibold hover:bg-primary-100 focus:bg-primary-100 px-6 py-3 rounded-lg transition duration-300 ease-in-out whiteTab"
                 >
                   {tab.toUpperCase()}
                 </TabsTrigger>
@@ -87,7 +84,7 @@ function StudentDetails() {
             <TabsContent value="test">
               <TestTab />
             </TabsContent>
-            <TabsContent value="graph" className="flex w-full flex-col gap-6">
+            <TabsContent value="graph" className="flex w-full flex-col gap-6 ">
               <GraphTab />
             </TabsContent>
             <TabsContent value="assessment" className="flex w-full flex-col gap-6">

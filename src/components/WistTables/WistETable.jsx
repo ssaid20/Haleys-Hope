@@ -218,7 +218,7 @@ const WistETable = ({ test }) => {
             </td>
             <td
               style={
-                test.spell_irregular_words >= 12 && test.spell_irregular_words <= 23 ? cellStyle1 : cellStyle
+                test.spell_irregular_words >= 21 && test.spell_irregular_words <= 23 ? cellStyle1 : cellStyle
               }
             >
               21-23

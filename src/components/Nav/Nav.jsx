@@ -20,7 +20,7 @@ function Nav() {
   };
 
   return (
-    <div className="flex-between background-light900_dark200 w-full gap-5 p-6 shadow-light-300 dark:shadow-none sm:px-12 bg-primary-500 navBar">
+    <div className="smallPrint flex-between background-light900_dark200 w-full gap-5 p-6 shadow-light-300 dark:shadow-none sm:px-12 bg-primary-500 navBar">
       <Link to="/students" className="flex items-center gap-1">
         <img
           src="/assets/images/site-logo.png"
@@ -40,7 +40,7 @@ function Nav() {
         {user.id && (
           <>
             <Link
-              className="px-4 py-2 text-white hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
+              className="noPrint px-4 py-2 text-white hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
               to="/students"
             >
               Students
@@ -55,7 +55,7 @@ function Nav() {
 
             {/* Adjust LogOutButton styling as needed */}
             <LogOutButton
-              className="px-4 py-2 text-white hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
+              className=" noPrint px-4 py-2 text-white hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
               to="/login"
             />
           </>
@@ -74,7 +74,7 @@ function Nav() {
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
-              className="px-5 py-2 text-white hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
+              className="noPrint px-5 py-2 text-white hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
               to="/login"
               //className="bg-primary-100"
             >

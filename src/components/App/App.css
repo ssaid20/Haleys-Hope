@@ -163,9 +163,17 @@ input {
   display: none;
 }
 .noPrint, print-button{
-  display: none;
+  display: none !important;
 }
 .topSpace{
   display: none;
+  
 }
+.assessmentCard{
+  margin-bottom: 25px !important;
+  /* padding-bottom: 5px; */
+}
+/* .smallPrint{
+  size: 25% !important;
+} */
 }

@@ -1,17 +1,7 @@
 import { useState } from "react";
 import { useScript } from "../../hooks/useScript";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogTrigger,
-} from "../ui/dialog";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 function CloudifyUploadForm({ onImageUpload }) {
   // Accepting the callback function as a prop
@@ -60,12 +50,13 @@ function CloudifyUploadForm({ onImageUpload }) {
             className="px-4 py-2 bg-primary-500 text-white rounded hover:bg-blue-600 flex items-center space-x-2"
             onClick={openWidget}
           >
-            <img
+            {/* <img
               src="/assets/icons/upload.svg"
               alt="Upload Icon"
               className="w-4 h-4"
-            />
-            <span>Pick File</span>
+            /> */}
+            <CloudUploadIcon />
+            <span>Upload Picture</span>
           </button>
         </div>
 

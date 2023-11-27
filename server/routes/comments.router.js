@@ -1,10 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool");
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 // GET route to fetch all comments
-router.get("/", (req, res) => {
-  const queryText = 'SELECT * FROM "student_comments"';
+router.get("/", rejectUnauthenticated, (req, res) => {
+  const queryText = 'SELECT * FROM "student_comments ORDER BY "date" DESC"';
+  //const queryText = 'SELECT id, student_id, comments, name, date FROM "student_comments"';
   pool
     .query(queryText)
     .then((result) => res.send(result.rows))
@@ -15,7 +19,7 @@ router.get("/", (req, res) => {
 });
 
 // GET route to fetch a specific comment by studentId
-router.get("/:id", (req, res) => {
+router.get("/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.id;
   const queryText = 'SELECT * FROM "student_comments" WHERE "student_id" = $1';
   pool
@@ -34,13 +38,18 @@ router.get("/:id", (req, res) => {
 });
 
 // POST route to add a new comment
-router.post("/", (req, res) => {
+router.post("/", rejectUnauthenticated, (req, res) => {
   const newComment = req.body;
   const queryText = `
-    INSERT INTO "student_comments" ("student_id", "comments") 
-    VALUES ($1, $2)
+    INSERT INTO "student_comments" ("student_id", "comments", "name", "date") 
+    VALUES ($1, $2, $3, $4)
   `;
-  const values = [newComment.student_id, newComment.comments];
+  const values = [
+    newComment.student_id,
+    newComment.comments,
+    newComment.name,
+    newComment.date,
+  ];
 
   pool
     .query(queryText, values)
@@ -52,16 +61,23 @@ router.post("/", (req, res) => {
 });
 
 // PUT route to update a comment's information
-router.put("/:studentId/:commentId", (req, res) => {
+router.put("/:studentId/:commentId", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.studentId;
   const commentId = req.params.commentId;
-  const updatedComment = req.body.comments;
+  console.log("req.params", req.params);
+  const updatedComment = req.body;
 
   const queryText = `
-      UPDATE "student_comments" SET "comments" = $1
-      WHERE "id" = $2 AND "student_id" = $3
+      UPDATE "student_comments" SET "comments" = $1, "name" = $2, "date" = $3
+      WHERE "id" = $4 AND "student_id" = $5
     `;
-  const values = [updatedComment, commentId, studentId];
+  const values = [
+    updatedComment.comments,
+    updatedComment.name,
+    updatedComment.date,
+    commentId,
+    studentId,
+  ];
 
   pool
     .query(queryText, values)
@@ -73,7 +89,7 @@ router.put("/:studentId/:commentId", (req, res) => {
 });
 
 // DELETE route to remove a comment
-router.delete("/:id", (req, res) => {
+router.delete("/:id", rejectUnauthenticated, (req, res) => {
   const commentId = req.params.id;
   const queryText = `DELETE FROM "student_comments" WHERE "id" = $1`;
 

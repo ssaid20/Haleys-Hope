@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { formatDate } from "../../lib/utils";
+import { formatDate2, formatDateForInput } from "../../lib/utils";
 import {
   TextField,
   Button,
@@ -18,9 +18,7 @@ const EditOlderCtoppResults = () => {
   const testId = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-  const selectedTest = useSelector(
-    (store) => store.olderCtoppReducer.selectedTest[0]
-  );
+  const selectedTest = useSelector((store) => store.olderCtoppReducer.selectedTest[0]);
   const users = useSelector((store) => store.allUsersReducer.users);
   const student = useSelector((store) => store.user);
 
@@ -39,7 +37,7 @@ const EditOlderCtoppResults = () => {
       // }if (selectedTest) {
       setNewCtopp({
         ...selectedTest,
-        date: formatDate(selectedTest.date), // Assuming formatDate converts the date to the required format
+        date: formatDateForInput(selectedTest.date), // Assuming formatDate converts the date to the required format
       });
       setSelectedExaminerId(selectedTest.examiner_id.toString());
     }
@@ -65,6 +63,7 @@ const EditOlderCtoppResults = () => {
     phonological_memory_percentile: null,
     rapid_symbolic_naming_percentile: null,
     alt_phonological_awareness_percentile: null,
+    grade: "",
   });
   const [selectedExaminerId, setSelectedExaminerId] = useState("");
   const handleExaminerChange = (event) => {
@@ -88,10 +87,14 @@ const EditOlderCtoppResults = () => {
       updatedValue[name] = value;
     } else {
       // Convert to number if the field is numeric
-      updatedValue[name] = value ? parseInt(value, 10) : 0;
-
-      // Convert to number if the field is numeric
-      updatedValue[name] = value ? parseInt(value, 10) : 0;
+      // Check if the value is not an empty string
+      if (value !== "") {
+        // Convert to number if the field is numeric and not empty
+        updatedValue[name] = parseInt(value, 10);
+      } else {
+        // If the field is empty, set it to an empty string
+        updatedValue[name] = value;
+      }
     }
     setValidationErrors((prevErrors) => {
       const newErrors = { ...prevErrors };
@@ -146,15 +149,12 @@ const EditOlderCtoppResults = () => {
       ...newCtopp,
       examiner_id: selectedExaminerId,
     };
-    console.log(
-      "update ctopp edit page, sub data, testId",
-      submissionData,
-      testId.id
-    );
+    console.log("update ctopp edit page, sub data, testId", submissionData, testId.id);
     dispatch({
       type: "UPDATE_OLDER_CTOPP",
       payload: { ...submissionData, id: testId.id },
     });
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Successfully Saved", severity: "success" } });
 
     history.push(`/students/${selectedTest.student_id}`);
   };
@@ -172,12 +172,13 @@ const EditOlderCtoppResults = () => {
       {/* <h1 className="text-2xl text-center mb-4">
         Test on: {formatDate(selectedTest.date)}{" "}
       </h1> */}
-      <h1 className="text-3xl text-center mb-4">
-        Edit Older CTOPP from: {formatDate(selectedTest.date)}
-      </h1>
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         Go Back
       </Button>
+      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">
+        {" "}
+        Edit CTOPP Age 7-24 from: {formatDate2(selectedTest.date)}{" "}
+      </h1>
       <Paper elevation={3} className="p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           <Grid container spacing={3}>
@@ -198,18 +199,28 @@ const EditOlderCtoppResults = () => {
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <InputLabel>Examiner</InputLabel>
-                <Select
-                  value={selectedExaminerId}
-                  label="Examiner"
-                  onChange={handleExaminerChange}
-                >
+                <FormLabel>Examiner</FormLabel>
+                <Select value={selectedExaminerId} onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
                     </MenuItem>
                   ))}
                 </Select>
+              </FormControl>
+            </Grid>
+            {/* Grade Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Grade:</FormLabel>
+                <TextField
+                  type="number"
+                  id="grade"
+                  name="grade"
+                  value={newCtopp.grade}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
               </FormControl>
             </Grid>
             {/* Elision Scaled Score Field */}
@@ -452,12 +463,7 @@ const EditOlderCtoppResults = () => {
             </Grid>
           </Grid>
 
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className="mt-4"
-          >
+          <Button type="submit" variant="contained" color="primary" className="mt-4">
             Save Changes
           </Button>
           <Button onClick={handleGoBack}>Go Back</Button>

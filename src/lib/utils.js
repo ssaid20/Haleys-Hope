@@ -5,7 +5,7 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
-//function to format tate as (year/month/day: 2023/Nov/13)
+//function to format tate as (yyyy/mon/dd: 2023/Nov/13)
 export const formatDate = (dateString) => {
   const date = new Date(dateString);
   const year = date.getFullYear();
@@ -14,7 +14,30 @@ export const formatDate = (dateString) => {
 
   return `${year}/${month}/${day}`;
 };
+// formats date as mm/dd/yyyy
+export const formatDate2 = (dateString) => {
+  const date = new Date(dateString);
+  let month = "" + (date.getMonth() + 1), // Months are zero indexed
+    day = "" + date.getDate(),
+    year = date.getFullYear();
 
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return [month, day, year].join("/");
+};
+// Function to format date as YYYY-MM-DD
+export const formatDateForInput = (dateString) => {
+  const date = new Date(dateString);
+  let month = "" + (date.getMonth() + 1), // Months are zero indexed
+    day = "" + date.getDate(),
+    year = date.getFullYear();
+
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return [year, month, day].join("-"); // Format as YYYY-MM-DD
+};
 // Define the score ranges and descriptive terms
 const scoreRanges = [
   { min: 1, max: 3, term: "Very Poor" },
@@ -26,13 +49,12 @@ const scoreRanges = [
   { min: 17, max: 20, term: "Very Superior" },
 ];
 
+//*****   DEPRECATED!! PLEASE USE GET COMPOSITE OR GET SCALED COMPONENTS *****
 // Function to get the descriptive term based on the scaled score
-export const getDescriptiveTerm = (score) => {
-  const range = scoreRanges.find(
-    (range) => score >= range.min && score <= range.max
-  );
-  return range ? range.term : "Unknown";
-};
+// export const getDescriptiveTerm = (score) => {
+//   const range = scoreRanges.find((range) => score >= range.min && score <= range.max);
+//   return range ? range.term : "Unknown";
+// };
 
 // Example usage in a React component
 // const ScoreInterpreter = () => {
@@ -84,7 +106,10 @@ export const calculateAge = (dob) => {
   }
 
   // Return the age in the desired format
-  return `${years}Y ${months < 10 ? "0" : ""}${months}M ${
-    days < 10 ? "0" : ""
-  }${days}D`;
+  return `${years}Y ${months < 10 ? "0" : ""}${months}M ${days < 10 ? "0" : ""}${days}D`;
 }; // end calculateAge
+
+export function formatDate3(dateString) {
+  const options = { year: "numeric", month: "short", day: "numeric" };
+  return new Date(dateString).toLocaleDateString("en-US", options);
+}

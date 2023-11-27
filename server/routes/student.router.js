@@ -4,6 +4,9 @@ const pool = require("../modules/pool");
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 cloudinary.config({
   cloud_name: "dkpzxau0g",
@@ -28,7 +31,7 @@ router.get("/", (req, res) => {
     });
 });
 // GET route to fetch all  archived students with all their information
-router.get("/archived-students", (req, res) => {
+router.get("/archived-students", rejectUnauthenticated, (req, res) => {
   const queryText = 'SELECT * FROM "students" WHERE "is_active" = FALSE';
   pool
     .query(queryText)
@@ -40,7 +43,7 @@ router.get("/archived-students", (req, res) => {
 });
 
 // GET route to fetch a specific student by ID with all their details
-router.get("/:id", (req, res) => {
+router.get("/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.id;
   const queryText = 'SELECT * FROM "students" WHERE "id" = $1';
   pool
@@ -60,7 +63,7 @@ router.get("/:id", (req, res) => {
     });
 });
 // GET route to fetch a specific archived student by ID with all their details
-router.get("/archived-student/:id", (req, res) => {
+router.get("/archived-student/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.id;
   const queryText =
     'SELECT * FROM "students" WHERE "id" = $1 AND "is_active" = FALSE';
@@ -82,84 +85,98 @@ router.get("/archived-student/:id", (req, res) => {
 });
 
 // POST route to add a new student
-router.post("/", (req, res) => {
-  const newStudent = req.body;
-  const pictureUrl = req.file ? req.file.path : null;
-  const queryText = `
+router.post(
+  "/",
+  parser.single("picture"),
+  rejectUnauthenticated,
+  (req, res) => {
+    const newStudent = req.body;
+    const pictureUrl = req.file ? req.file.path : null;
+
+    const queryText = `
     INSERT INTO "students" (
       "first_name", "last_name", "grade", "gender", "dob", 
       "city", "picture", "school", "on_site", 
-      "barton_c", "barton_c_date", "state", "start_date", "is_active"
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13 $14)
+      "barton_c", "barton_c_date", "state", "start_date", "is_active", "coach_id"
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
   `;
 
-  const values = [
-    newStudent.first_name,
-    newStudent.last_name,
-    newStudent.grade,
-    newStudent.gender,
-    newStudent.dob,
-    newStudent.city,
-    newStudent.picture,
-    newStudent.school,
-    newStudent.on_site,
-    newStudent.barton_c,
-    newStudent.barton_c_date,
-    newStudent.state,
-    newStudent.start_date,
-    newStudent.is_active,
-  ];
+    const values = [
+      newStudent.first_name,
+      newStudent.last_name,
+      newStudent.grade,
+      newStudent.gender,
+      newStudent.dob,
+      newStudent.city,
+      newStudent.picture,
+      // pictureUrl,
+      newStudent.school,
+      newStudent.on_site,
+      newStudent.barton_c,
+      newStudent.barton_c_date === "" ? null : newStudent.barton_c_date,
+      newStudent.state,
+      newStudent.start_date,
+      newStudent.is_active,
+      newStudent.coach_id,
+    ];
 
-  pool
-    .query(queryText, values)
-    .then(() => res.sendStatus(201))
-    .catch((err) => {
-      console.error("Error in POST new student", err);
-      res.sendStatus(500);
-    });
-});
+    pool
+      .query(queryText, values)
+      .then(() => res.sendStatus(201))
+      .catch((err) => {
+        console.error("Error in POST new student", err);
+        res.sendStatus(500);
+      });
+  }
+);
 
 // PUT route to update a student's information
-router.put("/:id", (req, res) => {
-  const studentId = req.params.id;
-  const updatedStudent = req.body;
-  console.log(req.body);
-  const pictureUrl = req.file ? req.file.path : updatedStudent.picture;
-  const queryText = `UPDATE "students" SET
+router.put(
+  "/:id",
+  parser.single("picture"),
+  rejectUnauthenticated,
+  (req, res) => {
+    const studentId = req.params.id;
+    const updatedStudent = req.body;
+
+    const pictureUrl = req.file ? req.file.path : updatedStudent.picture;
+    const queryText = `UPDATE "students" SET
     "first_name" = $1, "last_name" = $2, "grade" = $3, "gender" = $4, "dob" = $5, 
-    "city" = $6,"picture" = $7, "school" = $8, "on_site" = $9, 
-    "barton_c" = $10, "barton_c_date" = $11, "state" = $12, "start_date" = $13, "is_active" = $14, "coach_id" = $15 WHERE "id" = $16`;
+    "city" = $6, "school" = $7, "on_site" = $8, 
+    "barton_c" = $9, "barton_c_date" = $10, "state" = $11, "start_date" = $12, "is_active" = $13, "coach_id" = $14 WHERE "id" = $15`;
 
-  const values = [
-    updatedStudent.first_name,
-    updatedStudent.last_name,
-    updatedStudent.grade,
-    updatedStudent.gender,
-    updatedStudent.dob,
-    updatedStudent.city,
-    updatedStudent.picture,
-    updatedStudent.school,
-    updatedStudent.on_site,
-    updatedStudent.barton_c,
-    updatedStudent.barton_c_date,
-    updatedStudent.state,
-    updatedStudent.start_date,
-    updatedStudent.is_active,
-    updatedStudent.coach_id,
-    studentId,
-  ];
+    const values = [
+      updatedStudent.first_name,
+      updatedStudent.last_name,
+      updatedStudent.grade,
+      updatedStudent.gender,
+      updatedStudent.dob,
+      updatedStudent.city,
+      // updatedStudent.picture,
+      // pictureUrl,
+      updatedStudent.school,
+      updatedStudent.on_site,
+      updatedStudent.barton_c,
+      updatedStudent.barton_c_date,
+      updatedStudent.state,
+      updatedStudent.start_date,
+      updatedStudent.is_active,
+      updatedStudent.coach_id,
+      studentId,
+    ];
 
-  pool
-    .query(queryText, values)
-    .then(() => res.sendStatus(204))
-    .catch((err) => {
-      console.error("Error in PUT update student", err);
-      res.sendStatus(500);
-    });
-});
+    pool
+      .query(queryText, values)
+      .then(() => res.sendStatus(204))
+      .catch((err) => {
+        console.error("Error in PUT update student", err);
+        res.sendStatus(500);
+      });
+  }
+);
 
 // DELETE (soft delete) route to archive a student
-router.delete("/:id", (req, res) => {
+router.delete("/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.id;
   const queryText = `UPDATE "students" SET "is_active" = FALSE WHERE "id" = $1`;
 

@@ -1,16 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool");
-const {
-  rejectUnauthenticated,
-} = require("../modules/authentication-middleware");
+const { rejectUnauthenticated } = require("../modules/authentication-middleware");
 const { RequestQuoteTwoTone } = require("@mui/icons-material");
 
 // Routes for KTEA test
 
 //TODO reject unauth
 // GET route to fetch all KTEA items for a specific student
-router.get("/:studentId", async (req, res) => {
+router.get("/:studentId", rejectUnauthenticated, async (req, res) => {
   try {
     const studentId = req.params.studentId;
 
@@ -27,7 +25,7 @@ router.get("/:studentId", async (req, res) => {
 });
 
 //router to get a specific test
-router.get("/kteaResults/:testId", (req, res) => {
+router.get("/kteaResults/:testId", rejectUnauthenticated, (req, res) => {
   const testId = req.params.testId;
   const queryText = 'SELECT * FROM "ktea" WHERE "id" = $1';
   pool
@@ -42,7 +40,7 @@ router.get("/kteaResults/:testId", (req, res) => {
 });
 
 // POST route for KTEA
-router.post("/", async (req, res) => {
+router.post("/", rejectUnauthenticated, async (req, res) => {
   try {
     const {
       student_id,
@@ -52,11 +50,12 @@ router.post("/", async (req, res) => {
       lwr_percentile,
       spelling_scaled_score,
       spelling_percentile,
+      grade,
     } = req.body;
     const query = ` INSERT INTO ktea (
-            student_id, date, examiner_id, lwr_scaled_score, lwr_percentile, spelling_scaled_score, spelling_percentile
+            student_id, date, examiner_id, lwr_scaled_score, lwr_percentile, spelling_scaled_score, spelling_percentile, grade
         ) VALUES (
-            $1, $2, $3, $4, $5, $6, $7);`;
+            $1, $2, $3, $4, $5, $6, $7, $8);`;
     const values = [
       student_id,
       date,
@@ -65,6 +64,7 @@ router.post("/", async (req, res) => {
       lwr_percentile,
       spelling_scaled_score,
       spelling_percentile,
+      grade,
     ];
     await pool.query(query, values);
 
@@ -75,33 +75,33 @@ router.post("/", async (req, res) => {
   }
 });
 // PUT route for KTEA
-router.put("/:student_id/:id", (req, res) => {
+router.put("/:student_id/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id;
   const testId = req.params.id;
-
   const updatedKtea = req.body;
 
+  // Initialize an array to hold the update fields and values
+  let updateFields = [];
+  let values = [studentId, testId];
+  let valueCount = 3; // Start counting from 3 because $1 and $2 are already used
+
   // Constructing the query dynamically based on the fields provided in the body
-  let querySet = [];
   for (let key in updatedKtea) {
-    if (
-      updatedKtea.hasOwnProperty(key) &&
-      key !== "student_id" &&
-      key !== "id"
-    ) {
-      querySet.push(`"${key}" = '${updatedKtea[key]}'`);
+    if (updatedKtea.hasOwnProperty(key) && key !== "student_id" && key !== "id") {
+      updateFields.push(`"${key}" = $${valueCount}`);
+      values.push(updatedKtea[key]);
+      valueCount++;
     }
   }
-  if (querySet.length === 0) {
+
+  if (updateFields.length === 0) {
     return res.status(400).send("No update fields provided");
   }
 
-  const queryText = `UPDATE "ktea" SET ${querySet.join(
-    ", "
-  )} WHERE "student_id" = $1 AND "id" = $2`;
+  const queryText = `UPDATE "ktea" SET ${updateFields.join(", ")} WHERE "student_id" = $1 AND "id" = $2`;
 
   pool
-    .query(queryText, [studentId, testId])
+    .query(queryText, values)
     .then(() => {
       res.sendStatus(200);
     })

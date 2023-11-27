@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { formatDate } from "../../lib/utils";
 import { useParams } from "react-router-dom/";
 import { useHistory } from "react-router-dom/";
+import { TableRow, TableCell } from "@mui/material";
+import { Button } from "../ui/button";
 
 const GortList = () => {
   const dispatch = useDispatch();
@@ -37,16 +39,31 @@ const GortList = () => {
     <div>
       {tests.map((test) => (
         <div key={test.id} onClick={() => moreDetails(test.id)}>
+         <TableRow>
+          <TableCell style={{width: 275}}>
           <p>
-            GORT Date: {formatDate(test.date)} (click for details)
+            GORT Date: {formatDate(test.date)}
           </p>
+          </TableCell>
+          <TableCell>
+           <Button
+                variant="outline"
+                className=" text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
+                onClick={() => moreDetails(test.id)}
+              >
+                Details
+              </Button>
+            </TableCell>
+     
+      </TableRow>
+      
         </div>
       ))}
-
       {selectedTest && (
         <div>
-          <button onClick={() => setSelectedTest(null)}>Close Details</button>
+         <button onClick={() => setSelectedTest(null)}>Close Details</button>
           <div>
+            
             <h2>Test Details:</h2>
             <p>Date: {formatDate(selectedTest.date)}</p>
             <p>Examiner ID: {selectedTest.examiner_id}</p>
@@ -67,8 +84,11 @@ const GortList = () => {
             <p>Comprehension Scaled Score: {selectedTest.comprehension_scaled_score}</p>
 
           </div>
+          
         </div>
       )}
+            <hr />
+
     </div>
   );
 };

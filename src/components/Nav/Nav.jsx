@@ -4,6 +4,7 @@ import LogOutButton from "../LogOutButton/LogOutButton";
 import { useSelector } from "react-redux";
 import { Menu, MenuItem } from "@mui/material";
 import { Button } from "../ui/button";
+import "./Nav.css";
 
 function Nav() {
   const user = useSelector((store) => store.user);
@@ -25,58 +26,60 @@ function Nav() {
           src="/assets/images/site-logo.png"
           width={180}
           height={180}
+          className="logo-image"
           alt="Haley's Hope Logo"
         />
       </Link>
       <div className="flex gap-4">
-        {!user.id && (
-          <Link
-            className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
-            to="/login"
-          >
+        {/* {!user.id && (
+          <Link className="px-4 py-2 text-white hover:bg-blue-500 bg-primary-100 shadow-lg mr-4" to="/login">
             Login / Register
           </Link>
-        )}
+        )} */}
 
         {user.id && (
           <>
             <Link
-              className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
+              className="px-4 py-2 text-white hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
               to="/students"
             >
               Students
             </Link>
 
-            <Link
+            {/* <Link
               className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
               to="/info"
             >
               Info Page
-            </Link>
+            </Link> */}
 
             {/* Adjust LogOutButton styling as needed */}
-            <LogOutButton className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg" />
+            <LogOutButton
+              className="px-4 py-2 text-white hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
+              to="/login"
+            />
           </>
         )}
 
-        <Link
+        {/* <Link
           className="px-4 py-2 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg"
           to="/about"
         >
           About
-        </Link>
+        </Link> */}
         {user.role_id === 6 && (
           <>
-            <Button
+            <Link
               aria-controls="admin-menu"
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
-              className="px-4 text-primary-500 hover:bg-blue-500 bg-primary-100 shadow-lg"
+              className="px-5 py-2 text-white hover:bg-blue-500 bg-primary-100 shadow-lg mr-4"
+              to="/login"
               //className="bg-primary-100"
             >
               Admin
-            </Button>
+            </Link>
             <Menu
               id="admin-menu"
               anchorEl={anchorEl}
@@ -96,12 +99,7 @@ function Nav() {
                 Manage Users
               </MenuItem>
 
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/admin/coaches"
-                className="customMenuItem"
-              >
+              <MenuItem onClick={handleClose} component={Link} to="/admin/coaches" className="customMenuItem">
                 Coaches
               </MenuItem>
               {/* <MenuItem

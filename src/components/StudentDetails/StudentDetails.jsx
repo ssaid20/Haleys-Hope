@@ -14,6 +14,7 @@ import CommentsTab from "../shared/CommentsTab/CommentsTab";
 import CloudifyUploadForm from "../Cloudinary/CloudinaryUploadForm";
 import { useState } from "react";
 import CloudifyUploadFormDialog from "../Cloudinary/CloudifyUploadFormDialog";
+import CompareTab from "../shared/CompareTab/CompareTab";
 
 function StudentDetails() {
   const dispatch = useDispatch();
@@ -68,13 +69,14 @@ function StudentDetails() {
 
         <div className="mt-10">
           {/* Rest of the content like Tabs, Graphs, etc. */}
+
           <Tabs defaultValue="test" className="flex-1">
             <TabsList className="background-light800_dark400 min-h-[42px] p-1 rounded-t-lg">
-              {["test", "graph", "assessment", "notes"].map((tab) => (
+              {["test", "graph", "assessment", "notes", "compare"].map((tab) => (
                 <TabsTrigger
                   key={tab}
                   value={tab}
-                  className="tab h2-semibold hover:bg-primary-100 focus:bg-primary-100 px-4 py-2 rounded-lg transition duration-300 ease-in-out"
+                  className="tab h2-semibold hover:bg-primary-100 focus:bg-primary-100 px-6 py-3 rounded-lg transition duration-300 ease-in-out"
                 >
                   {tab.toUpperCase()}
                 </TabsTrigger>
@@ -86,14 +88,14 @@ function StudentDetails() {
             <TabsContent value="graph" className="flex w-full flex-col gap-6">
               <GraphTab />
             </TabsContent>
-            <TabsContent
-              value="assessment"
-              className="flex w-full flex-col gap-6"
-            >
+            <TabsContent value="assessment" className="flex w-full flex-col gap-6">
               <AssessmentTab />
             </TabsContent>
             <TabsContent value="notes" className="flex w-full flex-col gap-6">
               <CommentsTab />
+            </TabsContent>
+            <TabsContent value="compare" className="flex w-full flex-col gap-6">
+              <CompareTab />
             </TabsContent>
           </Tabs>
         </div>

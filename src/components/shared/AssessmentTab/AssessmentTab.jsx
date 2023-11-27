@@ -4,7 +4,7 @@ import AssessmentResults from "../../AssessmentResults/AssessmentResults";
 const AssessmentTab = () => {
   return (
     <div>
-      AssessmentTab
+      
       <AssessmentResults />
     </div>
   );

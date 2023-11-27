@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { formatDate } from "../../lib/utils";
+import { formatDate, formatDate2, formatDateForInput } from "../../lib/utils";
 import {
   TextField,
   Button,
@@ -18,9 +18,7 @@ const EditKteaResults = () => {
   const testId = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-  const selectedTest = useSelector(
-    (store) => store.kteaReducer.selectedTest[0]
-  );
+  const selectedTest = useSelector((store) => store.kteaReducer.selectedTest[0]);
   const users = useSelector((store) => store.allUsersReducer.users);
   const student = useSelector((store) => store.user);
 
@@ -37,7 +35,7 @@ const EditKteaResults = () => {
     if (selectedTest) {
       setNewKtea({
         ...selectedTest,
-        date: formatDate(selectedTest.date), // Assuming formatDate converts the date to the required format
+        date: formatDateForInput(selectedTest.date), // Assuming formatDate converts the date to the required format
       });
       setSelectedExaminerId(selectedTest.examiner_id.toString());
     }
@@ -50,6 +48,7 @@ const EditKteaResults = () => {
     lwr_percentile: "",
     spelling_scaled_score: "",
     spelling_percentile: "",
+    grade: "",
   });
   const [selectedExaminerId, setSelectedExaminerId] = useState("");
   const handleExaminerChange = (event) => {
@@ -73,23 +72,24 @@ const EditKteaResults = () => {
       updatedValue[name] = value;
     } else {
       // Convert to number if the field is numeric
-      updatedValue[name] = value ? parseInt(value, 10) : 0;
-
-      // Convert to number if the field is numeric
-      updatedValue[name] = value ? parseInt(value, 10) : 0;
-
+      // Check if the value is not an empty string
+      if (value !== "") {
+        // Convert to number if the field is numeric and not empty
+        updatedValue[name] = parseInt(value, 10);
+      } else {
+        // If the field is empty, set it to an empty string
+        updatedValue[name] = value;
+      }
       // Calculate word identification
       if (name === "read_regular_words" || name === "read_irregular_words") {
         updatedValue.word_identification =
-          (updatedValue.read_regular_words || 0) +
-          (updatedValue.read_irregular_words || 0);
+          (updatedValue.read_regular_words || 0) + (updatedValue.read_irregular_words || 0);
       }
 
       // Calculate spelling
       if (name === "spell_regular_words" || name === "spell_irregular_words") {
         updatedValue.spelling =
-          (updatedValue.spell_regular_words || 0) +
-          (updatedValue.spell_irregular_words || 0);
+          (updatedValue.spell_regular_words || 0) + (updatedValue.spell_irregular_words || 0);
       }
 
       // Calculate fundamental literacy
@@ -100,8 +100,7 @@ const EditKteaResults = () => {
         name === "spell_irregular_words"
       ) {
         updatedValue.fundamental_literacy =
-          (updatedValue.word_identification || 0) +
-          (updatedValue.spelling || 0);
+          (updatedValue.word_identification || 0) + (updatedValue.spelling || 0);
       }
 
       // Calculate sound symbol knowledge
@@ -168,6 +167,7 @@ const EditKteaResults = () => {
       type: "UPDATE_KTEA",
       payload: { ...submissionData, id: testId.id },
     });
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Successfully Saved", severity: "success" } });
 
     history.push(`/students/${selectedTest.student_id}`);
   };
@@ -185,12 +185,13 @@ const EditKteaResults = () => {
       {/* <h1 className="text-2xl text-center mb-4">
         Test on: {formatDate(selectedTest.date)}{" "}
       </h1> */}
-      <h1 className="text-3xl text-center mb-4">
-        Edit KTEA from: {formatDate(selectedTest.date)}
-      </h1>
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         Go Back
       </Button>
+      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">
+        {" "}
+        Edit KTEA from: {formatDate2(selectedTest.date)}{" "}
+      </h1>
       <Paper elevation={3} className="p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           <Grid container spacing={3}>
@@ -211,18 +212,28 @@ const EditKteaResults = () => {
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <InputLabel>Examiner</InputLabel>
-                <Select
-                  value={selectedExaminerId}
-                  label="Examiner"
-                  onChange={handleExaminerChange}
-                >
+                <FormLabel>Examiner</FormLabel>
+                <Select value={selectedExaminerId} onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
                     </MenuItem>
                   ))}
                 </Select>
+              </FormControl>
+            </Grid>
+            {/* Grade Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Grade:</FormLabel>
+                <TextField
+                  type="number"
+                  id="grade"
+                  name="grade"
+                  value={newKtea.grade}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
               </FormControl>
             </Grid>
             {/* LWR Scaled Score */}
@@ -286,12 +297,7 @@ const EditKteaResults = () => {
             </Grid>
           </Grid>
 
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className="mt-4"
-          >
+          <Button type="submit" variant="contained" color="primary" className="mt-4">
             Save Changes
           </Button>
           <Button onClick={handleGoBack}>Go Back</Button>

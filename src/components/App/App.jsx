@@ -1,10 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  HashRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { HashRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import Nav from "../Nav/Nav";
@@ -31,6 +26,7 @@ import ManageUsers from "../ManageUsers/ManageUsers";
 import CoachList from "../CoachList/CoachList";
 import AddCoach from "../AddCoach/AddCoach";
 import AssessmentContainer from "../AssessmentComponents/AssessmentContainer";
+import StudentList from "../StudentList/StudentList";
 
 import "./App.css";
 import KteaResults from "../TestResults/KteaResults";
@@ -41,6 +37,8 @@ import EditYoungerCtoppResults from "../EditTests/EditYoungerCtoppResults";
 import EditOlderCtoppResults from "../EditTests/EditOlderCtoppResults";
 import EditGortResults from "../EditTests/EditGortResults";
 import EditKteaResults from "../EditTests/EditKteaResults";
+import ArchivedStudentList from "../ArchivedStudentList/ArchivedStudentList";
+import CustomSnackbar from "../../lib/CustomSnackbar";
 
 function App() {
   const dispatch = useDispatch();
@@ -63,6 +61,9 @@ function App() {
   return (
     <Router>
       <div>
+        <CustomSnackbar />
+      </div>
+      <div>
         <Nav />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
@@ -81,13 +82,13 @@ function App() {
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-          <ProtectedRoute
+          {/* <ProtectedRoute
             // logged in shows UserPage else shows LoginPage
             exact
             path="/students"
-          >
-            <UserPage />
-          </ProtectedRoute>
+          > */}
+
+          {/* </ProtectedRoute> */}
           <ProtectedRoute exact path="/addElementaryWist/:id">
             <AddElementaryWist />
           </ProtectedRoute>
@@ -157,6 +158,12 @@ function App() {
           <ProtectedRoute exact path="/AssessmentResults/:date">
             <AssessmentContainer />
           </ProtectedRoute>
+          <ProtectedRoute exact path="/ArchivedStudents/">
+            <ArchivedStudentList />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/students/">
+            <StudentList />
+          </ProtectedRoute>
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
@@ -164,17 +171,13 @@ function App() {
           >
             <InfoPage />
           </ProtectedRoute>
-          <ProtectedRoute
-            exact
-            path="/students/:id"
-            component={StudentDetails}
-          />
+          <ProtectedRoute exact path="/students/:id" component={StudentDetails} />
 
           <Route exact path="/login">
             {user.id ? (
               // If the user is already logged in,
               // redirect to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/students" />
             ) : (
               // Otherwise, show the login page
               <LoginPage />
@@ -196,7 +199,7 @@ function App() {
             {user.id ? (
               // If the user is already logged in,
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/students" />
             ) : (
               // Otherwise, show the Login page
               <LoginPage />

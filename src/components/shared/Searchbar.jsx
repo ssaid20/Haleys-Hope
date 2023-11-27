@@ -6,7 +6,9 @@ const Searchbar = ({ query, setQuery, iconPosition, imgSrc, placeholder, otherCl
   }
 
   return (
-    <div className={`background-light800_darkgradient flex min-h-[56px] grow items-center gap-4 rounded-[10px] px-4 ${otherClasses}`}>
+    <div
+      className={`background-light800_darkgradient flex min-h-[56px] grow items-center gap-4 rounded-[10px] px-4 ${otherClasses}`}
+    >
       {iconPosition === "left" && (
         <img src={imgSrc} alt="search icon" width={24} height={24} className="cursor-pointer" />
       )}
@@ -27,4 +29,3 @@ const Searchbar = ({ query, setQuery, iconPosition, imgSrc, placeholder, otherCl
 };
 
 export default Searchbar;
-

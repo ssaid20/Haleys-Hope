@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool");
+const { rejectUnauthenticated } = require("../modules/authentication-middleware");
 
 // GET route to fetch secondary wist tests for a specific student
 // Tested and working in Postman
-router.get("/:student_id", (req, res) => {
+router.get("/:student_id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id;
   const queryText = 'SELECT * FROM "secondary_wist" WHERE "student_id" = $1';
   pool
@@ -13,16 +14,13 @@ router.get("/:student_id", (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      console.error(
-        "Error completing SELECT secondary_wist query for student_id",
-        err
-      );
+      console.error("Error completing SELECT secondary_wist query for student_id", err);
       res.sendStatus(500);
     });
 }); // end router.get
 
 //router to get a specific test
-router.get("/secondaryWistResults/:testId", (req, res) => {
+router.get("/secondaryWistResults/:testId", rejectUnauthenticated, (req, res) => {
   const testId = req.params.testId;
   const queryText = 'SELECT * FROM "secondary_wist" WHERE "id" = $1';
   pool
@@ -31,17 +29,14 @@ router.get("/secondaryWistResults/:testId", (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      console.error(
-        "Error completing SELECT secondary_wist query for test id",
-        err
-      );
+      console.error("Error completing SELECT secondary_wist query for test id", err);
       res.sendStatus(500);
     });
 });
 
 // POST route to add a new record for a specific student
 // Tested and working in Postman
-router.post("/", (req, res) => {
+router.post("/", rejectUnauthenticated, (req, res) => {
   const newWist = req.body;
 
   // Check if student_id is provided
@@ -70,8 +65,9 @@ router.post("/", (req, res) => {
         "letter_sounds", 
         "sound_symbol_knowledge", 
         "sound_symbol_knowledge_percentile", 
-        "sound_symbol_knowledge_standard_score"
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21)`;
+        "sound_symbol_knowledge_standard_score",
+        "grade"
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22)`;
 
   const values = [
     newWist.student_id,
@@ -95,6 +91,7 @@ router.post("/", (req, res) => {
     newWist.sound_symbol_knowledge,
     newWist.sound_symbol_knowledge_percentile,
     newWist.sound_symbol_knowledge_standard_score,
+    newWist.grade,
   ];
 
   pool
@@ -110,32 +107,35 @@ router.post("/", (req, res) => {
 
 // UPDATE route to modify a specific record for a given student
 // Tested and working in Postman
-router.put("/:student_id/:id", (req, res) => {
+router.put("/:student_id/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id;
   const recordId = req.params.id;
   const updatedWist = req.body;
 
-  // Constructing the query dynamically based on the fields provided in the body, can update as many or little as needed
-  let querySet = [];
+  // Initialize an array to hold the update fields and values
+  let updateFields = [];
+  let values = [studentId, recordId];
+  let valueCount = 3; // Start counting from 3 because $1 and $2 are already used
+
+  // Constructing the query dynamically based on the fields provided in the body
   for (let key in updatedWist) {
-    if (
-      updatedWist.hasOwnProperty(key) &&
-      key !== "student_id" &&
-      key !== "id"
-    ) {
-      querySet.push(`"${key}" = '${updatedWist[key]}'`);
+    if (updatedWist.hasOwnProperty(key) && key !== "student_id" && key !== "id") {
+      updateFields.push(`"${key}" = $${valueCount}`);
+      values.push(updatedWist[key]);
+      valueCount++;
     }
   }
-  if (querySet.length === 0) {
+
+  if (updateFields.length === 0) {
     return res.status(400).send("No update fields provided");
   }
 
-  const queryText = `UPDATE "secondary_wist" SET ${querySet.join(
+  const queryText = `UPDATE "secondary_wist" SET ${updateFields.join(
     ", "
   )} WHERE "student_id" = $1 AND "id" = $2`;
 
   pool
-    .query(queryText, [studentId, recordId])
+    .query(queryText, values)
     .then(() => {
       res.sendStatus(200);
     })
@@ -147,12 +147,11 @@ router.put("/:student_id/:id", (req, res) => {
 
 // DELETE route to remove a specific record for a given student
 // Tested and working in Postman
-router.delete("/:student_id/:id", (req, res) => {
+router.delete("/:student_id/:id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id; // Identifier for the specific student
   const recordId = req.params.id; // This is the unique identifier for the specific test
 
-  const queryText =
-    'DELETE FROM "secondary_wist" WHERE "student_id" = $1 AND "id" = $2';
+  const queryText = 'DELETE FROM "secondary_wist" WHERE "student_id" = $1 AND "id" = $2';
   pool
     .query(queryText, [studentId, recordId])
     .then(() => {

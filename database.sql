@@ -86,7 +86,8 @@ CREATE TABLE
     "rate_scaled_score" INTEGER,
     "accuracy_scaled_score" INTEGER,
     "fluency_scaled_score" INTEGER,
-    "comprehension_scaled_score" INTEGER
+    "comprehension_scaled_score" INTEGER,
+    "grade" INTEGER
   );
 
 CREATE TABLE
@@ -112,7 +113,8 @@ CREATE TABLE
     "letter_sounds" INTEGER,
     "sound_symbol_knowledge" INTEGER,
     "sound_symbol_knowledge_percentile" INTEGER,
-    "sound_symbol_knowledge_standard_score" INTEGER
+    "sound_symbol_knowledge_standard_score" INTEGER,
+    "grade" INTEGER
   );
 
 CREATE TABLE
@@ -138,7 +140,8 @@ CREATE TABLE
     "rapid_symbolic_naming_composite" INTEGER,
     "rapid_symbolic_naming_percentile" INTEGER,
     "rapid_non_symbolic_naming_composite" INTEGER,
-    "rapid_non_symbolic_naming_percentile" INTEGER
+    "rapid_non_symbolic_naming_percentile" INTEGER,
+    "grade" INTEGER
   );
 
 CREATE TABLE
@@ -164,7 +167,8 @@ CREATE TABLE
     "letter_sounds" INTEGER,
     "sound_symbol_knowledge" INTEGER,
     "sound_symbol_knowledge_percentile" INTEGER,
-    "sound_symbol_knowledge_standard_score" INTEGER
+    "sound_symbol_knowledge_standard_score" INTEGER,
+    "grade" INTEGER
   );
 
 CREATE TABLE
@@ -189,7 +193,8 @@ CREATE TABLE
     "rapid_symbolic_naming_composite" INTEGER,
     "rapid_symbolic_naming_percentile" INTEGER,
     "alt_phonological_awareness_composite" INTEGER,
-    "alt_phonological_awareness_percentile" INTEGER
+    "alt_phonological_awareness_percentile" INTEGER,
+    "grade" INTEGER
   );
 
 CREATE TABLE
@@ -201,29 +206,30 @@ CREATE TABLE
     "lwr_scaled_score" INTEGER,
     "lwr_percentile" INTEGER,
     "spelling_scaled_score" INTEGER,
-    "spelling_percentile" INTEGER
+    "spelling_percentile" INTEGER,
+    "grade" INTEGER
   );
   
 -- Insert test coach records for the students
 INSERT INTO
   "coaches" ("first_name", "last_name", "is_active")
 VALUES
-  ('Coach1', 'Lastname1', true),
-  ('Coach2', 'Lastname2', true),
-  ('Coach3', 'Lastname3', true),
-  ('Coach4', 'Lastname4', true),
-  ('Coach5', 'Lastname5', true),
-  ('Coach6', 'Lastname6', true),
-  ('Coach7', 'Lastname7', true),
-  ('Coach8', 'Lastname8', true),
-  ('Coach9', 'Lastname9', true),
-  ('Coach10', 'Lastname10', true),
-  ('Coach11', 'Lastname11', true),
-  ('Coach12', 'Lastname12', true),
-  ('Coach13', 'Lastname13', true),
-  ('Coach14', 'Lastname14', true),
-  ('Coach15', 'Lastname15', true),
-  ('Coach16', 'Lastname16', true);
+  ('Emily', 'Johnson', true),
+  ('Michael', 'Smith', true),
+  ('Sarah', 'Miller', true),
+  ('James', 'Davis', true),
+  ('Jennifer', 'Anderson', true),
+  ('Robert', 'Wilson', true),
+  ('Jessica', 'Taylor', true),
+  ('William', 'Moore', false),
+  ('Ashley', 'Brown', true),
+  ('Brian', 'Jones', true),
+  ('Nicole', 'Garcia', false),
+  ('Joshua', 'Martin', true),
+  ('Amanda', 'Thompson', true),
+  ('Christopher', 'White', true),
+  ('Heather', 'Harris', true),
+  ('Matthew', 'Clark', true);
   
 
 INSERT INTO

@@ -1,0 +1,7 @@
+.login-page {
+  background-image: url("../../../public/DALL·E\ 2023-11-22\ 15.05.51\ -\ A\ soothing\ and\ inspiring\ image\ for\ a\ login\ screen\ background\ of\ an\ employee\ portal\ for\ a\ dyslexia\ learning\ center.\ The\ image\ features\ a\ serene\ landsca.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* This keeps the background fixed while scrolling */
+  /* Add any other background styles you need */
+}

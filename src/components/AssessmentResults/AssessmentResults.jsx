@@ -2,6 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDate } from "../../lib/utils";
 import { useParams, useHistory } from "react-router-dom/";
+import { Button } from "../ui/button";
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  Typography,
+} from "@mui/material";
+import CombinedGraph from "../Graph/CombinedGraph";
 
 const AssessmentResults = () => {
   const olderAssessment = useSelector(
@@ -20,40 +30,138 @@ const AssessmentResults = () => {
   useEffect(() => {
     console.log("theStudentId ISSSS", studentId.id);
   }, []);
+  // NEW CODE TO FIX ASSESSMENTS!!!!!
+  const allGort = useSelector((store) => store.gortReducer.list);
+  const allCtoppY = useSelector((store) => store.youngerCtoppReducer.list);
+  const allCtoppO = useSelector((store) => store.olderCtoppReducer.list);
+  const allWistE = useSelector((store) => store.elementaryWistReducer.list);
+  const allWistS = useSelector((store) => store.secondaryWistReducer.list);
 
   const moreDetails = (test) => {
+    console.log("this is not a test", test);
     history.push(`/AssessmentResults/${test.date}`);
   };
+  // Create an object to group assessments by date
+  const groupedAssessments = {};
+
+  // Combine assessments from Gort and Wist
+  const allAssessments = [];
+  if (allGort) {
+    allAssessments.push(...allGort);
+  }
+
+  if (allWistE) {
+    allAssessments.push(...allWistE);
+  }
+
+  if (allWistS) {
+    allAssessments.push(...allWistS);
+  }
+
+  if (allCtoppO) {
+    allAssessments.push(...allCtoppO);
+  }
+
+  if (allCtoppY) {
+    allAssessments.push(...allCtoppY);
+  }
+
+  // Group assessments by date
+  allAssessments.forEach((assessment) => {
+    const dateKey = formatDate(assessment.date);
+
+    if (!groupedAssessments[dateKey]) {
+      groupedAssessments[dateKey] = [];
+    }
+
+    groupedAssessments[dateKey].push(assessment);
+  });
+
+  console.log("Grouped assessments", groupedAssessments);
+
+  const transformedData = allCtoppO?.map((test) => ({
+    date: test.date,
+    phonological_awareness_percentile: test.phonological_awareness_percentile,
+    phonological_memory_percentile: test.phonological_memory_percentile,
+    rapid_symbolic_naming_percentile: test.rapid_symbolic_naming_percentile,
+    word_identification_percentile: test.word_identification_percentile,
+    spelling_percentile: test.spelling_percentile,
+    fundamental_literacy_percentile: test.fundamental_literacy_percentile,
+  }));
+  const youngerCtopp = allCtoppY?.map((test) => ({
+    date: test.date,
+    phonological_awareness_percentile: test.phonological_awareness_percentile,
+    phonological_memory_percentile: test.phonological_memory_percentile,
+    rapid_symbolic_naming_percentile: test.rapid_symbolic_naming_percentile,
+    word_identification_percentile: test.word_identification_percentile,
+    spelling_percentile: test.spelling_percentile,
+    fundamental_literacy_percentile: test.fundamental_literacy_percentile,
+  }));
+
+  const elwistData = allWistE?.map((test) => ({
+    date: test.date,
+    word_identification_percentile: test.word_identification_percentile,
+    spelling_percentile: test.spelling_percentile,
+    fundamental_literacy_percentile: test.fundamental_literacy_percentile,
+    sound_symbol_knowledge_percentile: test.sound_symbol_knowledge_percentile,
+  }));
+
+  const wistData = allWistS?.map((test) => ({
+    date: test.date,
+    word_identification_percentile: test.word_identification_percentile,
+    spelling_percentile: test.spelling_percentile,
+    fundamental_literacy_percentile: test.fundamental_literacy_percentile,
+    sound_symbol_knowledge_percentile: test.sound_symbol_knowledge_percentile,
+  }));
+  const gortData = allGort?.map((test) => ({
+    date: test.date,
+    rate_percentile_rank: test.rate_percentile_rank,
+    accuracy_percentile_rank: test.accuracy_percentile_rank,
+    fluency_percentile_rank: test.fluency_percentile_rank,
+    comprehension_percentile_rank: test.comprehension_percentile_rank,
+    oral_reading_percentile_rank: test.oral_reading_percentile_rank,
+  }));
+
   // map through all of the tests and based on date add to a new object. then
   // pass each test.id to component to render that section of the assessment?
   return (
     <div>
-      <p style={{ color: "brown" }}>Hello Assessments</p>
-
       <div>
-        {olderAssessment.map((test) => (
-          <div key={test.date} onClick={() => moreDetails(test)}>
-            <p>Assessment Date: {formatDate(test.date)} (click for details)</p>
-          </div>
-        ))}
+        <Table>
+          {Object.keys(groupedAssessments).map((dateKey) => (
+            <div key={dateKey}>
+              {groupedAssessments[dateKey].length > 0 && (
+                <TableRow>
+                  <TableCell>Assessment Date: {dateKey}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outline"
+                      className=" text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
+                      onClick={() =>
+                        moreDetails(groupedAssessments[dateKey][0])
+                      }
+                    >
+                      Details
+                    </Button>
+                  </TableCell>
+                  {groupedAssessments[dateKey].map((test) => (
+                    <div key={test.id}>
+                      <p></p>
+                    </div>
+                  ))}
+                </TableRow>
+              )}
+            </div>
+          ))}
+        </Table>
       </div>
-      <div>
-        {youngerAssessment.map((test) => (
-          <div key={test.date} onClick={() => moreDetails(test)}>
-            <p>Assessment: {formatDate(test.date)} (click for details)</p>
-          </div>
-        ))}
-      </div>
-
-      {/* <AssessmentGort />
-        <AssessmentWistE />  TODO: Add components as cards for each test based on date
-        <AssessmentWistS />
-        <AssessmentCtoppE />
-        <AssessmentCtoppS />
-        <AssessmentGort />
-
-        TODO: ADD NEW COMPONENTS FOR TESTS AND THEY WILL HAVE ACCESS TO ALL OF THE TEST INFO
-         */}
+      <CombinedGraph
+        wistData={wistData}
+        olderCtoppData={transformedData}
+        gort5Data={gortData}
+        elwistData={elwistData}
+        youngerCtoppData={youngerCtopp}
+      />
     </div>
   );
 };

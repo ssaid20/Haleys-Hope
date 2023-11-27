@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-
+import { formatDate3 } from "../../lib/utils";
 const OlderCtoppGraph = ({ testData }) => {
   console.log("testData", testData); // Log to verify the data structure
   const [options, setOptions] = useState({
@@ -9,7 +9,7 @@ const OlderCtoppGraph = ({ testData }) => {
       type: "column",
     },
     title: {
-      text: "Cognitive Processes Test Comparisons",
+      text: "CTOPP OVER 7 Test Comparisons",
       align: "left",
     },
     xAxis: {
@@ -39,7 +39,7 @@ const OlderCtoppGraph = ({ testData }) => {
     if (testData && testData.length > 0) {
       const seriesData = testData.map((test, index) => ({
         type: "column",
-        name: `Test ${index + 1}`,
+        name: formatDate3(test.date),
         data: [
           test.phonological_awareness_percentile, // Corrected property name
           test.phonological_memory_percentile, // Corrected property name

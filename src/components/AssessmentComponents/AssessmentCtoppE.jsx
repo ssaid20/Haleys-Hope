@@ -7,46 +7,81 @@ const AssessmentCtoppE = () => {
   const { date } = useParams();
   console.log("assessment date", date);
   const assessments = useSelector(
-    (store) => store.assessmentReducer.olderAssessment
+    (store) => store.youngerCtoppReducer.list
   );
   const selectedTest = assessments.find(
     (assessment) => assessment.date === date
   );
   console.log("selected test is:", selectedTest, assessments);
-  // TODO: DOUBLE CHECK TO MAKE SURE IT IS GETTING FROM THE CORRECT CTOPP
+  // TODO: BOLD SPECIFIC ROWS
+  if (!selectedTest) {
+    return <></>
+    // <div>No CTOPP-2 4-6 for this date</div>
+  
+  }else {
   return (
     <div style={{ border: "1px solid black" }}>
-      <p style={{ color: "brown" }}> CTOPP-2 Ages 4-6</p>
-      <div //this div is card for WIST
+      <p style={{ color: "brown", textAlign: "center" }}> CTOPP-2 Ages 4-6</p>
+      <div className="assessmentCard" //this div is card for CTOPP
       >
         <table>
           <thead>
             <tr>
               <th></th>
-              <th>Percentile</th>
-              <th>Scaled Score</th>
+              <th style={{width: "100px" }}>%ile</th>
+              <th>SS</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Phonological Awareness: </td>
-              <td>{selectedTest.phonological_awareness_percentile}</td>
-              <td>{selectedTest.phonological_awareness_composite}</td>
+              <td style={{textAlign: "left", fontWeight: "bold" }}>Phonological Awareness: </td>
+              <td style={{fontWeight: "bold"}}>{selectedTest.phonological_awareness_percentile}</td>
+              <td style={{fontWeight: "bold"}}>{selectedTest.phonological_awareness_composite}</td>
             </tr>
             <tr>
-              <td>Phonological Memory: </td>
-              <td>{selectedTest.phonological_memory_percentile}</td>
-              <td>{selectedTest.phonological_memory_composite}</td>
+              <td style={{textAlign: "left"}}>Elison</td>
+              <td>-</td>
+              <td>{selectedTest.elison_scaled_score}</td>
             </tr>
             <tr>
-              <td>Rapid Symbolic Naming: </td>
-              <td>{selectedTest.rapid_symbolic_naming_percentile}</td>
-              <td>{selectedTest.rapid_symbolic_naming_composite}</td>
+              <td style={{textAlign: "left"}}>Blending</td>
+              <td>-</td>
+              <td>{selectedTest.blending_words_scaled_score}</td>
             </tr>
             <tr>
-              <td>Rapid Non-Symbolic Naming: </td>
-              <td>{selectedTest.rapid_non_symbolic_naming_percentile}</td>
-              <td>{selectedTest.rapid_non_symbolic_naming_composite}</td>
+              <td style={{textAlign: "left"}}>Phoneme Isolation</td>
+              <td>-</td>
+              <td>{selectedTest.phoneme_isolation_scaled_score}</td>
+            </tr>
+            <tr>
+              <td style={{textAlign: "left", fontWeight: "bold"}}>Phonological Memory: </td>
+              <td style={{fontWeight: "bold"}}>{selectedTest.phonological_memory_percentile}</td>
+              <td style={{fontWeight: "bold"}}>{selectedTest.phonological_memory_composite}</td>
+            </tr>
+            <tr>
+              <td style={{textAlign: "left"}}>Memory for Digits</td>
+              <td>-</td>
+              <td>{selectedTest.memory_for_digits_scaled_score}</td>
+            </tr>
+            <tr>
+              <td style={{textAlign: "left"}}>Non-Word Repetition</td>
+              <td>-</td>
+              <td>{selectedTest.nonword_repetition_scaled_score}</td>
+            </tr>
+            <tr>
+              <td style={{textAlign: "left", fontWeight: "bold"}}>Rapid Symbolic Naming: </td>
+              <td style={{fontWeight: "bold"}}>{selectedTest.rapid_symbolic_naming_percentile}</td>
+              <td style={{fontWeight: "bold"}}>{selectedTest.rapid_symbolic_naming_composite}</td>
+            </tr>
+            <tr>
+              <td style={{textAlign: "left"}}>Rapid Digit</td>
+              <td>-</td>
+              <td>{selectedTest.rapid_digit_naming_scaled_score}</td>
+            </tr>
+            <tr>
+              <td style={{textAlign: "left"}}>Rapid Letter</td>
+              <td>-</td>
+              <td>{selectedTest.rapid_letter_naming_scaled_score}</td>
             </tr>
           </tbody>
         </table>
@@ -54,5 +89,5 @@ const AssessmentCtoppE = () => {
     </div>
   );
 };
-
+};
 export default AssessmentCtoppE;

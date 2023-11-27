@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import {
   TextField,
   Button,
@@ -23,6 +20,8 @@ const AddSecondaryWist = () => {
   const history = useHistory();
   const student = useParams();
   const users = useSelector((store) => store.allUsersReducer.users);
+  const studentGrade = useSelector((store) => store.studentReducer.Details.grade);
+
   const [validationErrors, setValidationErrors] = useState({
     //state for validation errors
     date: "",
@@ -47,6 +46,7 @@ const AddSecondaryWist = () => {
 
   const [newWist, setNewWist] = useState({
     student_id: student.id,
+    grade: studentGrade,
     date: "",
     examiner_id: "",
     read_regular_words: null,
@@ -99,15 +99,13 @@ const AddSecondaryWist = () => {
       // Calculate word identification
       if (name === "read_regular_words" || name === "read_irregular_words") {
         updatedValue.word_identification =
-          (updatedValue.read_regular_words || 0) +
-          (updatedValue.read_irregular_words || 0);
+          (updatedValue.read_regular_words || 0) + (updatedValue.read_irregular_words || 0);
       }
 
       // Calculate spelling
       if (name === "spell_regular_words" || name === "spell_irregular_words") {
         updatedValue.spelling =
-          (updatedValue.spell_regular_words || 0) +
-          (updatedValue.spell_irregular_words || 0);
+          (updatedValue.spell_regular_words || 0) + (updatedValue.spell_irregular_words || 0);
       }
 
       // Calculate fundamental literacy
@@ -118,8 +116,7 @@ const AddSecondaryWist = () => {
         name === "spell_irregular_words"
       ) {
         updatedValue.fundamental_literacy =
-          (updatedValue.word_identification || 0) +
-          (updatedValue.spelling || 0);
+          (updatedValue.word_identification || 0) + (updatedValue.spelling || 0);
       }
 
       // Calculate sound symbol knowledge
@@ -189,6 +186,7 @@ const AddSecondaryWist = () => {
       type: "ADD_SECONDARY_WIST",
       payload: submissionData,
     });
+    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Test added", severity: "success" } });
 
     history.push(`/students/${student.id}`);
     //history.push back to student details
@@ -196,12 +194,11 @@ const AddSecondaryWist = () => {
 
   return (
     <>
-      <h1 className="text-3xl text-center mb-4 bg-primary-100">
-        SECONDARY WIST{" "}
-      </h1>
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         GO BACK
       </Button>
+      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">Add WIST 11-18</h1>
+
       <Paper elevation={3} className="p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           <Grid container spacing={3}>
@@ -225,12 +222,8 @@ const AddSecondaryWist = () => {
             {/* Examiner ID Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <InputLabel>Examiner</InputLabel>
-                <Select
-                  value={selectedExaminerId}
-                  label="Examiner"
-                  onChange={handleExaminerChange}
-                >
+                <FormLabel>Examiner</FormLabel>
+                <Select value={selectedExaminerId} onChange={handleExaminerChange}>
                   {users.map((user) => (
                     <MenuItem key={user.id} value={user.id}>
                       {user.first_name} {user.last_name}
@@ -239,7 +232,20 @@ const AddSecondaryWist = () => {
                 </Select>
               </FormControl>
             </Grid>
-
+            {/* Grade Field */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>Grade:</FormLabel>
+                <TextField
+                  type="number"
+                  id="grade"
+                  name="grade"
+                  value={newWist.grade}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
             {/* Read Regular Words Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -278,8 +284,16 @@ const AddSecondaryWist = () => {
                   name="word_identification"
                   value={newWist.word_identification}
                   onChange={handleChange}
-                  variant="outlined"
+                  variant="filled"
                   disabled
+                  InputProps={{
+                    readOnly: true, // Make the field read-only
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
+                  }}
                 />
               </FormControl>
             </Grid>
@@ -349,8 +363,16 @@ const AddSecondaryWist = () => {
                   name="spelling"
                   value={newWist.spelling}
                   onChange={handleChange}
-                  variant="outlined"
+                  variant="filled"
                   disabled
+                  InputProps={{
+                    readOnly: true, // Make the field read-only
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
+                  }}
                 />
               </FormControl>
             </Grid>
@@ -392,8 +414,16 @@ const AddSecondaryWist = () => {
                   name="fundamental_literacy"
                   value={newWist.fundamental_literacy}
                   onChange={handleChange}
-                  variant="outlined"
+                  variant="filled"
                   disabled
+                  InputProps={{
+                    readOnly: true, // Make the field read-only
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
+                  }}
                 />
               </FormControl>
             </Grid>
@@ -463,8 +493,16 @@ const AddSecondaryWist = () => {
                   name="sound_symbol_knowledge"
                   value={newWist.sound_symbol_knowledge}
                   onChange={handleChange}
-                  variant="outlined"
+                  variant="filled"
                   disabled
+                  InputProps={{
+                    readOnly: true, // Make the field read-only
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
+                  }}
                 />
               </FormControl>
             </Grid>
@@ -497,12 +535,7 @@ const AddSecondaryWist = () => {
               </FormControl>
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className="mt-4"
-          >
+          <Button type="submit" variant="contained" color="primary" className="mt-4">
             Submit
           </Button>
         </form>

@@ -5,6 +5,7 @@ import { useParams, Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Sheet,
   SheetClose,
@@ -67,7 +68,13 @@ const StudentCard = () => {
     setValidationErrors(errors);
     return isValid;
   };
+  //if date not entered for barton c, displaying this
+  const isDateValid = (dateString) => {
+    if (!dateString) return false;
 
+    const date = new Date(dateString);
+    return date.getFullYear() >= 1980;
+  };
   //looping and finding a coach for the student
   const matchingCoach = coach.find((c) => c.id === student.coach_id);
   //combining first name and last name
@@ -88,7 +95,7 @@ const StudentCard = () => {
     dob: "",
     city: "",
     state: "",
-    barton_c_date: "",
+    barton_c_date: null,
     barton_c: true,
     on_site: true,
     start_date: "",
@@ -108,9 +115,7 @@ const StudentCard = () => {
         dob: student.dob ? student.dob.split("T")[0] : "",
         city: student.city || "",
         state: student.state || "",
-        barton_c_date: student.barton_c_date
-          ? student.barton_c_date.split("T")[0]
-          : "",
+        barton_c_date: student.barton_c_date ? student.barton_c_date.split("T")[0] : "",
         barton_c: student.barton_c || true,
         on_site: student.on_site || true,
         start_date: student.start_date ? student.start_date.split("T")[0] : "",
@@ -139,6 +144,8 @@ const StudentCard = () => {
         type: "UPDATE_STUDENT",
         payload: { id: studentId, ...formData },
       });
+      dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Student Updated", severity: "success" } });
+
       setIsSheetOpen(false); // Close the sheet if form is valid
     } else {
       console.log("Validation failed");
@@ -146,20 +153,16 @@ const StudentCard = () => {
   };
   // function to reset for to original data when cancelled or sheet closed
   const handleCancel = () => {
-    if (JSON.stringify(formData) !== JSON.stringify(originalData)) {
-      if (
-        window.confirm(
-          "You have unsaved changes. Are you sure you want to close?"
-        )
-      ) {
-        setFormData(originalData);
-        setValidationErrors({});
-        setIsSheetOpen(false);
-      }
-    } else {
-      setIsSheetOpen(false); // This will close the form if there are no unsaved changes
-    }
-  }; // end handleCancel
+    // if (JSON.stringify(formData) !== JSON.stringify(originalData)) {
+    //   if (window.confirm("You have unsaved changes. Are you sure you want to close?")) {
+    //     setFormData(originalData);
+    //     setValidationErrors({});
+    setIsSheetOpen(false);
+  };
+  // } else {
+  //   setIsSheetOpen(false); // This will close the form if there are no unsaved changes
+  // }
+  // }; // end handleCancel
 
   const sheetStyle = {
     backgroundColor: "white",
@@ -168,9 +171,40 @@ const StudentCard = () => {
     overflowY: "auto", // Enables vertical scrolling
   };
 
+  const calculateAge = (dob) => {
+    const today = new Date();
+    const birthDate = new Date(dob);
+
+    // Calculate the difference in years
+    let ageYears = today.getFullYear() - birthDate.getFullYear();
+
+    // Calculate the difference in months
+    let ageMonths = today.getMonth() - birthDate.getMonth();
+
+    // Adjust years and months if the current month is before the birth month
+    if (ageMonths < 0 || (ageMonths === 0 && today.getDate() < birthDate.getDate())) {
+      ageYears--;
+      ageMonths = 12 + ageMonths; // This will give the remaining months after adjusting the year
+    }
+
+    // Calculate the difference in days
+    let ageDays = today.getDate() - birthDate.getDate();
+    if (ageDays < 0) {
+      // Calculate the number of days in the previous month
+      const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+      ageDays = lastMonth.getDate() + ageDays; // This will give the remaining days after adjusting the month
+    }
+
+    // Return the age in format "years months days"
+    return `${ageYears} years, ${ageMonths} months, ${ageDays} days`;
+  };
+
   return (
     <article className="background-light900_dark200 light-border rounded-2xl border p-8 shadow-md relative flex flex-col items-center">
-      <h2 className="h2-bold text-dark100_light900 text-center mb-4">{`${student.first_name} ${student.last_name}`}</h2>
+      {/* <h2 className="h2-bold text-dark100_light900 text-center mb-4">{`${student.first_name} ${student.last_name}`}</h2> */}
+      <h1 className="text-3xl font-bold text-center text-primary-500 my-4">
+        {`${student.first_name} ${student.last_name}`}
+      </h1>
 
       <div className="flex flex-col w-full md:flex-row items-start md:items-center justify-between">
         <img
@@ -187,20 +221,15 @@ const StudentCard = () => {
               variant="outline"
               className="absolute top-2 right-2 text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
             >
-              <img
-                src="/assets/icons/edit.svg"
-                alt="Edit Icon"
-                className="w-4 h-4"
-              />
+              {/* <img src="/assets/icons/edit.svg" alt="Edit Icon" className="w-4 h-4" /> */}
+              <EditIcon />
               <span>Edit Student</span>
             </Button>
           </SheetTrigger>
           <SheetContent side="top" style={sheetStyle}>
             <SheetHeader>
               <SheetTitle>Edit Student</SheetTitle>
-              <SheetDescription>
-                Make changes to the student's profile here.
-              </SheetDescription>
+              <SheetDescription>Make changes to the student's profile here.</SheetDescription>
             </SheetHeader>
             <div className="p-4">
               <div className="grid grid-cols-2 gap-4">
@@ -233,18 +262,10 @@ const StudentCard = () => {
                 />
 
                 <Label htmlFor="school">School</Label>
-                <Input
-                  id="school"
-                  value={formData.school}
-                  onChange={handleInputChange}
-                />
+                <Input id="school" value={formData.school} onChange={handleInputChange} />
 
                 <Label htmlFor="gender">Gender</Label>
-                <Input
-                  id="gender"
-                  value={formData.gender}
-                  onChange={handleInputChange}
-                />
+                <Input id="gender" value={formData.gender} onChange={handleInputChange} />
 
                 <Label htmlFor="dob">Date of Birth</Label>
                 <Input
@@ -257,18 +278,10 @@ const StudentCard = () => {
                 />
 
                 <Label htmlFor="city">City</Label>
-                <Input
-                  id="city"
-                  value={formData.city}
-                  onChange={handleInputChange}
-                />
+                <Input id="city" value={formData.city} onChange={handleInputChange} />
 
                 <Label htmlFor="state">State</Label>
-                <Input
-                  id="state"
-                  value={formData.state}
-                  onChange={handleInputChange}
-                />
+                <Input id="state" value={formData.state} onChange={handleInputChange} />
 
                 <Label htmlFor="bartonDate">Barton C Date</Label>
                 <Input
@@ -279,21 +292,13 @@ const StudentCard = () => {
                 />
 
                 <Label htmlFor="bartonC">Barton C</Label>
-                <select
-                  id="barton_c"
-                  value={formData.barton_c}
-                  onChange={handleInputChange}
-                >
+                <select id="barton_c" value={formData.barton_c} onChange={handleInputChange}>
                   <option value="true">Foundations</option>
                   <option value="false">Barton</option>
                 </select>
 
                 <Label htmlFor="onSite">On Site</Label>
-                <select
-                  id="on_site"
-                  value={formData.on_site}
-                  onChange={handleInputChange}
-                >
+                <select id="on_site" value={formData.on_site} onChange={handleInputChange}>
                   <option value="true">Yes</option>
                   <option value="false">No</option>
                 </select>
@@ -309,20 +314,12 @@ const StudentCard = () => {
                 />
 
                 <Label htmlFor="is active">Current or Archive</Label>
-                <select
-                  id="is_active"
-                  value={formData.is_active}
-                  onChange={handleInputChange}
-                >
+                <select id="is_active" value={formData.is_active} onChange={handleInputChange}>
                   <option value="true">Current</option>
                   <option value="false">Archive</option>
                 </select>
                 <Label htmlFor="coach">Coach</Label>
-                <select
-                  id="coach_id"
-                  value={formData.coach_id}
-                  onChange={handleInputChange}
-                >
+                <select id="coach_id" value={formData.coach_id} onChange={handleInputChange}>
                   {coach.map((c) => (
                     <option key={c.id} value={c.id}>
                       {c.first_name} {c.last_name}
@@ -332,63 +329,46 @@ const StudentCard = () => {
               </div>
             </div>
             <SheetFooter>
-              <Button
-                onClick={handleSubmit}
-                type="submit"
-                className="bg-primary-500 text-white"
-              >
+              <Button onClick={handleSubmit} type="submit" className="bg-primary-500 text-white">
                 Save Changes
               </Button>
               {/* <SheetClose asChild> */}
-              <Button
-                onClick={handleCancel}
-                className="bg-primary-500 text-white"
-              >
+              {/* <Button onClick={handleCancel} className="bg-primary-500 text-white">
                 Close
-              </Button>
+              </Button> */}
               {/* </SheetClose> */}
             </SheetFooter>
           </SheetContent>
         </Sheet>
 
         <div className="grid grid-cols-2 md:grid-cols-2 gap-x-8 gap-y-4 mt-4">
-          <p className="body-regular text-dark500_light500">
-            Grade: {student.grade}
-          </p>
-          <p className="body-regular text-dark500_light500">
-            School: {student.school}
-          </p>
-          <p className="body-regular text-dark500_light500">
-            Gender: {student.gender}
-          </p>
+          <p className="body-regular text-dark500_light500">Grade: {student.grade}</p>
+          <p className="body-regular text-dark500_light500">School: {student.school}</p>
+          <p className="body-regular text-dark500_light500">Gender: {student.gender}</p>
           <p className="body-regular text-dark500_light500">
             Date of Birth: {new Date(student.dob).toLocaleDateString()}
           </p>
+          <p className="body-regular text-dark500_light500">Age: {calculateAge(student.dob)}</p>
+
+          <p className="body-regular text-dark500_light500">City: {student.city}</p>
+          <p className="body-regular text-dark500_light500">State: {student.state}</p>
           <p className="body-regular text-dark500_light500">
-            City: {student.city}
-          </p>
-          <p className="body-regular text-dark500_light500">
-            State: {student.state}
-          </p>
-          <p className="body-regular text-dark500_light500">
-            Barton C Date:{" "}
-            {new Date(student.barton_c_date).toLocaleDateString()}
+            Start Date: {new Date(student.start_date).toLocaleDateString()}
           </p>
           <p className="body-regular text-dark500_light500">
             Barton C: {student.barton_c ? "Foundations" : "Barton"}
           </p>
-          {/* <p className="body-regular text-dark500_light500">
-            Coach: {student.coach_id}
-          </p> */}
+
           <p className="body-regular text-dark500_light500">
             Coach: <br></br>
             {coachName}
           </p>
+          <p className="body-regular text-dark500_light500">On Site: {student.on_site ? "Yes" : "No"}</p>
           <p className="body-regular text-dark500_light500">
-            On Site: {student.on_site ? "Yes" : "No"}
-          </p>
-          <p className="body-regular text-dark500_light500">
-            Start Date: {new Date(student.start_date).toLocaleDateString()}
+            Barton C Date:{" "}
+            {isDateValid(student.barton_c_date)
+              ? new Date(student.barton_c_date).toLocaleDateString()
+              : "No date entered or test not given"}
           </p>
         </div>
       </div>

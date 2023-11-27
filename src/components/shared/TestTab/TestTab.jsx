@@ -5,17 +5,32 @@ import KteaList from "../../KteaList/KteaList";
 import GortList from "../../GortList/GortList";
 import YoungerCtoppList from "../../CtoppLists/YoungerCtoppList";
 import OlderCtoppList from "../../CtoppLists/OlderCtoppList";
-
+import GortComparisonTable from "../../TestComparisons/GortComparison";
+import { Button } from "../../ui/button";
+import SecondaryWistComparisonTable from "../../TestComparisons/SecondaryWistComparison";
+import ElementaryWistComparisonTable from "../../TestComparisons/ElementaryWistComparison";
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  Typography,
+} from "@mui/material";
 const TestTab = () => {
   return (
     <div>
-      <div>TestTab</div>
+      <Table>
       <ElementaryWistList />
       <SecondaryWistList />
       <GortList />
       <KteaList />
       <YoungerCtoppList />
       <OlderCtoppList />
+      {/* <GortComparisonTable />
+      <SecondaryWistComparisonTable />
+      <ElementaryWistComparisonTable /> */}
+      </Table>
     </div>
   );
 };

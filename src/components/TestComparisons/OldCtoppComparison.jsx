@@ -106,7 +106,12 @@ const OldCtoppComparison = () => {
     return (
     <div><p>No CTOPP 7-24 Assessments for this student </p></div>)
   
-  }else {
+  }
+  else if (olderCtoppTests.length === 1){
+    return( <div><p>Only 1 CTOPP 7-24 exists  </p></div>)
+ 
+   }
+  else {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="GORT-5 Comparison Table">

@@ -78,7 +78,7 @@ function createSummaryRowData(tests) {
     return [];
   }
   else{
-console.log("CREATE SUMMARY ROW DATA FOR ME PLEASE", tests[1].oral_reading_index);
+console.log("CREATE SUMMARY ROW DATA FOR ME PLEASE", tests[0].oral_reading_index);
 
   return tests.map((test) => ({
     date: formatDate3(test.date),
@@ -143,7 +143,12 @@ export default function GortComparisonTable() {
     return (
     <div><p>No GORT Assessments for this student </p></div>)
   
-  }else {
+  }
+  else if (gortTests.length === 1){
+    return( <div><p>Only 1 GORT Test exists  </p></div>)
+ 
+   }
+  else {
   return (
     <>
       <TableContainer component={Paper}>

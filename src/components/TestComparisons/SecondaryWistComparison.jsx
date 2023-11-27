@@ -115,7 +115,12 @@ export default function SecondaryWistComparisonTable() {
     return (
     <div><p>No WIST 11-18 Assessments for this student </p></div>)
   
-  }else {
+  }
+  else if (secondaryWistTests.length === 1){
+    return( <div><p>Only 1 WIST Test 11-18 exists  </p></div>)
+ 
+   }
+  else {
   return (
     <>
       <TableContainer component={Paper}>

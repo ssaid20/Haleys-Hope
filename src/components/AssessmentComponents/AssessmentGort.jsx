@@ -2,6 +2,7 @@ import React, { useEffect, useState, useHistory } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDate } from "../../lib/utils";
 import { useParams } from "react-router-dom/";
+import { Paper } from "@mui/material";
 
 const AssessmentGort = () => {
   const { date } = useParams();
@@ -24,8 +25,8 @@ if (!selectedTest) {
     return <div>No Gort for this date</div>;
   } else {
     return (
-      <div style={{ border: "1px solid black" }}>
-        <p style={{ textAlign: "center", textDecoration:"underline"}}> GORT-5</p>
+      <Paper style={{boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)"}}>
+      <p style={{ textAlign: "center", textDecoration:"underline" , fontWeight: "bold"}}> GORT-5</p>
         <div className="assessmentCard" //this div is card for GORT 
         >
           <table>
@@ -65,7 +66,7 @@ if (!selectedTest) {
             </tbody>
           </table>
         </div>
-      </div>
+      </Paper>
     );
   }
 };

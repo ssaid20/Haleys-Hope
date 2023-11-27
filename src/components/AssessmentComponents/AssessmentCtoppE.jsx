@@ -21,14 +21,14 @@ const AssessmentCtoppE = () => {
   }else {
   return (
     <div style={{ border: "1px solid black" }}>
-      <p style={{ color: "brown", textAlign: "center" }}> CTOPP-2 Ages 4-6</p>
+      <p style={{ textAlign: "center" , textDecoration:"underline"}}> CTOPP-2 Ages 4-6</p>
       <div className="assessmentCard" //this div is card for CTOPP
       >
         <table>
           <thead>
             <tr>
-              <th></th>
-              <th style={{width: "100px" }}>%ile</th>
+              <th style={{width: "271.69px"}}></th>
+              <th style={{width: "50px" }}>%ile</th>
               <th>SS</th>
             </tr>
           </thead>

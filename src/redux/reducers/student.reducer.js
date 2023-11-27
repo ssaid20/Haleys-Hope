@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   error: null,
   archivedList: [], //list of all archived students
+  picture: [],
 };
 
 const studentReducer = (state = initialState, action) => {
@@ -54,6 +55,47 @@ const studentReducer = (state = initialState, action) => {
         isLoading: false,
         error: null,
       };
+    case "ADD_PICTURE":
+      return {
+        ...state,
+        picture: [...state.picture, action.payload],
+        isLoading: false,
+        error: null,
+      };
+    case "DELETE_PICTURE":
+      return {
+        ...state,
+        picture: state.picture.filter((pic) => pic.id !== action.payload.id),
+        isLoading: false,
+        error: null,
+      };
+    case "SET_STUDENT_PICTURES":
+      return {
+        ...state,
+        picture: action.payload, // action.payload should be an array of picture data
+        isLoading: false,
+        error: null,
+      };
+      case "UPLOAD_STUDENT_PICTURE":
+        const updatedList = state.list.map((student) => {
+          if (student.id === action.payload.id.id) { // Ensure you're comparing the correct IDs
+            return { ...student, picture: action.payload.url };
+          }
+          return student;
+        });
+      
+        let updatedDetails = state.Details;
+        if (state.Details.id === action.payload.id.id) {
+          updatedDetails = { ...state.Details, picture: action.payload.url };
+        }
+      
+        return {
+          ...state,
+          list: updatedList,
+          Details: updatedDetails,
+          isLoading: false,
+          error: null,
+        };
     default:
       return state;
   }

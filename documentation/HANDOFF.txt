@@ -2,3 +2,13 @@ Here is a list of unfinished features, bugs, instructions.
 
 To use the app view the readme file
 
+KNOWN BUGS:
+if you use the search input, the sort input cannot be used at the same time
+the alternate/ not always used test sections default with the descriptive term
+
+TODO:
+admin change password
+
+to use cloudinary, need to purchase a cloudinary account and add the key to a .env file:
+REACT_APP_CLOUDINARY_NAME=
+REACT_APP_CLOUDINARY_UPLOAD_PRESET=

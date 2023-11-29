@@ -1,4 +1,5 @@
-![Repo Size](https://img.shields.io/github/languages/code-size/TheAnimalConnection/star-pet.svg?style=for-the-badge) ![TOP_LANGUAGE](https://img.shields.io/github/languages/top/TheAnimalConnection/star-pet.svg?style=for-the-badge)
+[TOP_LANGUAGE](https://img.shields.io/github/languages/top/Kennyfergy/Haleys-Hope)
+[Built_By:](https://img.shields.io/badge/Project_Built_By-David_Campbell%2C_Kenny_Ferguson%2C_Said_Said-blue)
 
 # Haley's Hope Student Tracker
 
@@ -13,7 +14,7 @@
 
 ## Description
 
-Haley's Hope Student Tracker is a website that keeps track of all the assessments given to the students.
+Haley's Hope Student Tracker is a platform that simplifies and digitizes the process of tracking student test results and growth, eliminating the need to constantly dig through physical student records. The platform provides a central hub to academic assessment coordinators, allowing them to enter assessment scores for various tests. This generates comprehensive assessment result forms, making it easy to identify strengths and weaknesses in students' performance. Regular accounts can add new students, edit the student details, assign assessments, edit assessments, and view the results. Admin accounts have the authority to assign or remove access, add or remove coaches, and manage student information seamlessly. Student Tracker goes beyond data entry; it allows you to visualize student progress with graphs and charts. Easily compare test results and gain a deeper understanding of each student's development. Join us in the digital transformation of record management. The Student Tracker empowers you to work smarter, not harder, and make data-driven decisions that truly impact student growth. The assessments supported are the CTOPP-2 ages 4-6 and 7-24, WIST 7-11 and 11-18, GORT-5, and KTEA-3.
 
 ## Built With
 
@@ -23,13 +24,12 @@ Haley's Hope Student Tracker is a website that keeps track of all the assessment
 <a href="https://www.postgresql.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg" height="40px" width="40px" /></a>
 <a href="https://reactjs.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" height="40px" width="40px" /></a>
 <a href="https://redux.js.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redux/redux-original.svg" height="40px" width="40px" /></a>
-<a href="https://www.figma.com/?fuid="><img src="https://github.com/devicons/devicon/blob/master/icons/figma/figma-original.svg" height="40px" width="40px" /></a>
 <a href="https://material-ui.com/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/materialui/materialui-original.svg" height="40px" width="40px" /></a>
 <a href="https://nodejs.org/en/"><img src="https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-plain.svg" height="40px" width="40px" /></a>
 
 ## Getting Started
 
-This project should be able to run in your favorite IDE. I used VS code while building it.
+This project should be able to run in your favorite IDE. We used VS code while building it.
 <a href="https://code.visualstudio.com/"><img src="https://github.com/devicons/devicon/blob/master/icons/vscode/vscode-original-wordmark.svg" height="40px" width="40px" /></a>
 
 ## Video of App
@@ -47,6 +47,7 @@ This project should be able to run in your favorite IDE. I used VS code while bu
 
 Before you get started, make sure you have the following software installed on your computer:
 
+- [VsCode](https://code.visualstudio.com/)
 - [Node.js](https://nodejs.org/en/)
 
 ### Installation
@@ -57,9 +58,9 @@ Before you get started, make sure you have the following software installed on y
 4. Navigate into the repository's folder in your terminal
 5. Open VS Code (or editor of your choice) and open the folder
 6. In the terminal of VS Code run `npm install` to install all dependencies
-7. Create a `.env` file at the root of the project and paste this line into the file:
-8. Create a database named `animal_connections` in PostgresSQL
-   If you would like to name your database something else, you will need to change `animal_connections` to the name of your new database name in `server/modules/pool.js`
+7. Create a `.env` file at the root of the project and paste this line into the file: `SERVER_SESSION_SECRET= {your server secret}`
+8. Create a database named `student_tracker` in PostgresSQL
+   If you would like to name your database something else, you will need to change `student_tracker` to the name of your new database name in `server/modules/pool.js`
 9. The queries in the database.sql file are set up to create all the necessary tables that you need, as well as a dummy data table to test the app. Copy and paste those queries in the SQL query of the database. If this is going to production, leave out the dummy data.
 10. Run `npm run server` in your VS Code terminal
 11. Open a second terminal and run `npm run client`
@@ -68,21 +69,11 @@ Before you get started, make sure you have the following software installed on y
 
 Once everything is installed and running it should open in your default browser - if not, navigate to http://localhost:3000/#/.
 
-Video walkthrough of application usage: https://www.youtube.com/watch?v=HRonNTkScl0
-
 ## Deployment
 
-- Login Credentials for Heroku have been provided in the hand off document.
-- If you need make changes you wish to push to the deployed app, you must login, go into the pet-star section, go to the deploy tab, and then manually deploy. You can reconfigure this to redeploy automatically if you wish, which is on the same page.
+- Login Credentials for Fly.io have been provided in the hand off document.
+- If you need make changes you wish to push to the deployed app, you must login, go into the haleys-hope section, go to the deploy tab, and then manually deploy. You can reconfigure this to redeploy automatically if you wish, which is on the same page.
 - Environment variables are kept on Heroku in the Settings tab, just click the Reveal Config Vars button
 - To set up the DB, we used Postico, just plug the information from Heroku into a new favorite. The Information for this can be found in the Resources tab, by clicking the Postgres add on. From there it will bring you to a new page where you will go into the settings tab and click view credentials.
 
-- If you'd like to create new users (also a hacky way to change password) you must:
-
-1. Go into the user router
-1. Uncomment the route
-1. Push changes and redeploy app
-1. Register User
-1. Comment out the route back in VSCode
-1. Push changes
-1. Redeploy
+- The first use of the app will automatically be an admin.

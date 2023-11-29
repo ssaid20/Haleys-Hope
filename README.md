@@ -7,7 +7,16 @@ We **STRONGLY** recommend following these instructions carefully. It's a lot, an
 ## Use the Template for This Repository (Don't Clone)
 
 - Don't Fork or Clone. Instead, click the `Use this Template` button, and make a copy to your personal account. Make the project `PUBLIC`!
-
+  
+Haley's Hope - 29 November 2023 - Watch Video
+<div>
+    <a href="https://www.loom.com/share/b5673790381243ee8904b38b5eb13474">
+      <p>Haley's Hope - 29 November 2023 - Watch Video</p>
+    </a>
+    <a href="https://www.loom.com/share/b5673790381243ee8904b38b5eb13474">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/b5673790381243ee8904b38b5eb13474-with-play.gif">
+    </a>
+  </div>
 
 ## Prerequisites
 
@@ -32,6 +41,7 @@ CREATE TABLE "user" (
 If you would like to name your database something else, you will need to change `prime_app` to the name of your new database name in `server/modules/pool.js`
 
 ## Development Setup Instructions
+
 
 - Run `npm install`
 - Create a `.env` file at the root of the project and paste this line into the file:

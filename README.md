@@ -1,5 +1,5 @@
-![TOP_LANGUAGE](https://img.shields.io/github/languages/top/Kennyfergy/Haleys-Hope)!
-[Built_By](https://img.shields.io/badge/Project_Built_By-David_Campbell%2C_Kenny_Ferguson%2C_Said_Said-blue)
+![TOP_LANGUAGE](https://img.shields.io/github/languages/top/Kennyfergy/Haleys-Hope)
+![Built_By](https://img.shields.io/badge/Project_Built_By-David_Campbell%2C_Kenny_Ferguson%2C_Said_Said-blue)
 
 # Haley's Hope Student Tracker
 

@@ -1,0 +1,4 @@
+Here is a list of unfinished features, bugs, instructions.
+
+To use the app view the readme file
+

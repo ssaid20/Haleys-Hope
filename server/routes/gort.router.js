@@ -7,7 +7,7 @@ const { rejectUnauthenticated } = require("../modules/authentication-middleware"
 //GORT GET ROUTE
 router.get("/:studentId", rejectUnauthenticated, async (req, res) => {
   try {
-    const studentId = req.params.studentId; // TODO: may just be id from front end
+    const studentId = req.params.studentId;
 
     // Query to fetch all GORT-5 items for the given student ID
     const query = "SELECT * FROM gort WHERE student_id = $1";

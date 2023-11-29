@@ -37,7 +37,7 @@ function createRowData(category, tests) {
       percentile: "word_identification_percentile",
       standard: "word_identification_standard_score",
     },
-    "Spelling": {
+    Spelling: {
       percentile: "spelling_percentile",
       standard: "spelling_standard_score",
     },
@@ -111,71 +111,74 @@ export default function PrimaryWistComparisonTable() {
   const lightGreyColor = "#F5F5F5"; // Light grey color
   if (primaryWistTests.length === 0) {
     return (
-    <div><p>No WIST 7-11 Assessments for this student </p></div>)
-  
-  }
-  else if (primaryWistTests.length === 1){
-   return( <div><p>Only 1 WIST Test 7-11 exists  </p></div>)
-
-  }
-  else {
-  return (
-    <>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="WIST 11-18 (TODO: CHECK AGES) Comparison Table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
-              {primaryWistTests.map((test, index) => (
-                <TestHeaderCell
-                  key={`percentile-header-${index}`}
-                  align="center"
-                  color={sectionHeaderColors.percentile}
-                >
-                  {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`}
-                </TestHeaderCell>
-              ))}
-              {primaryWistTests.map((test, index) => (
-                <TestHeaderCell
-                  align="center"
-                  color={sectionHeaderColors.standardScore}
-                  key={`standard-score-header-${index}`}
-                >
-                  {`Test ${index + 1} (${formatDate3(test.date)}) Standard Score`}
-                </TestHeaderCell>
-              ))}
-              {primaryWistTests.map((test, index) => (
-                <TestHeaderCell
-                  align="center"
-                  color={sectionHeaderColors.descriptiveTerm}
-                  key={`descriptive-term-header-${index}`}
-                >
-                  {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive Term`}
-                </TestHeaderCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row, rowIndex) => (
-              <StyledTableRow key={rowIndex}>
-                <StyledTableCell component="th" scope="row">
-                  {row.category}
-                </StyledTableCell>
-                {row.percentiles.map((percentile, index) => (
-                  <StyledTableCell align="right">{percentile}</StyledTableCell>
+      <div>
+        <p>No WIST 7-11 Assessments for this student </p>
+      </div>
+    );
+  } else if (primaryWistTests.length === 1) {
+    return (
+      <div>
+        <p>Only 1 WIST Test 7-11 exists </p>
+      </div>
+    );
+  } else {
+    return (
+      <>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 700 }} aria-label="WIST 7-11 Comparison Table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
+                {primaryWistTests.map((test, index) => (
+                  <TestHeaderCell
+                    key={`percentile-header-${index}`}
+                    align="center"
+                    color={sectionHeaderColors.percentile}
+                  >
+                    {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`}
+                  </TestHeaderCell>
                 ))}
-                {row.standardScores.map((score, index) => (
-                  <StyledTableCell key={`score-${index}`} align="right">
-                    {score}
+                {primaryWistTests.map((test, index) => (
+                  <TestHeaderCell
+                    align="center"
+                    color={sectionHeaderColors.standardScore}
+                    key={`standard-score-header-${index}`}
+                  >
+                    {`Test ${index + 1} (${formatDate3(test.date)}) Standard Score`}
+                  </TestHeaderCell>
+                ))}
+                {primaryWistTests.map((test, index) => (
+                  <TestHeaderCell
+                    align="center"
+                    color={sectionHeaderColors.descriptiveTerm}
+                    key={`descriptive-term-header-${index}`}
+                  >
+                    {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive Term`}
+                  </TestHeaderCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row, rowIndex) => (
+                <StyledTableRow key={rowIndex}>
+                  <StyledTableCell component="th" scope="row">
+                    {row.category}
                   </StyledTableCell>
-                ))}
-                {row.descriptiveTerms.map((term, index) => (
-                  <StyledTableCell align="right">{term} </StyledTableCell>
-                ))}
-              </StyledTableRow>
-            ))}
-          </TableBody>
-          {/* <TableBody>
+                  {row.percentiles.map((percentile, index) => (
+                    <StyledTableCell align="right">{percentile}</StyledTableCell>
+                  ))}
+                  {row.standardScores.map((score, index) => (
+                    <StyledTableCell key={`score-${index}`} align="right">
+                      {score}
+                    </StyledTableCell>
+                  ))}
+                  {row.descriptiveTerms.map((term, index) => (
+                    <StyledTableCell align="right">{term} </StyledTableCell>
+                  ))}
+                </StyledTableRow>
+              ))}
+            </TableBody>
+            {/* <TableBody>
             {rows.map((row, rowIndex) => (
               <StyledTableRow key={rowIndex}>
                 <StyledTableCell component="th" scope="row">
@@ -197,10 +200,11 @@ export default function PrimaryWistComparisonTable() {
               </StyledTableRow>
             ))}
           </TableBody> */}
-        </Table>
-      </TableContainer>
+          </Table>
+        </TableContainer>
 
-      {/* end of component */}
-    </>
-  );
-}}
+        {/* end of component */}
+      </>
+    );
+  }
+}

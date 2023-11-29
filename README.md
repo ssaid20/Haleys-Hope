@@ -37,6 +37,33 @@ Haley's Hope Student Tracker is a platform that simplifies and digitizes the pro
 <a href="https://sweetalert2.github.io"><img src="https://avatars.githubusercontent.com/u/35137722?s=200&v=4" height="40px" width="40px" /></a>
 <a href="https://ui.shadcn.com/"><img src="https://avatars.githubusercontent.com/u/139895814?s=48&v=4" height="40px" width="40px" /></a>
 <a href="https://fly.io/"><img src="https://fly.io/static/images/brand/brandmark-dark.svg" height="40px" width="40px" /></a>
+<a href="https://www.postman.com/"><img src="https://voyager.postman.com/logo/postman-logo-icon-orange.svg" height="40px" width="40px" /></a>
+<a href="https://axios-http.com"><img src="https://avatars.githubusercontent.com/u/32372333?s=200&v=4" height="40px" width="40px" /></a>
+
+- [Javascript](https://www.javascript.com/) - Core Language
+- [CSS](<[https://expressjs.com/](https://www.w3schools.com/w3css/defaulT.asp)>) - CSS styling
+- [HTML](<[https://www.javascript.com/](https://www.w3schools.com/html)>) - HTML5
+- [Express.js](https://expressjs.com/) - RESTful API Web App Framework
+- [Passport.js](https://www.passportjs.org/) - Authentication
+- [bcrypt.js](https://www.npmjs.com/package/bcryptjs) - Password Hashing and Salting
+- [React](https://react.dev/) - User interface with components
+- [React Redux](https://react-redux.js.org/) - Read store data and dispatch actions to update state
+- [React Sagas/Routers](https://redux-saga.js.org/) - Redux side effect manager
+- [Material_UI](https://mui.com/) - React UI tools
+- [PostgreSQL](https://www.postgresql.org/) - Relational Database System
+- [Postico2](https://eggerapps.at/postico2/) - Local Database
+- [Postman](https://www.postman.com/) - For testing APIs
+- [SweetAlert2](https://sweetalert2.github.io/) - Customized Popup Boxes
+- [Fuse.js](https://www.fusejs.io/) - Fuzzy search library
+- [Node.js](https://nodejs.org/en/) - runtime enviroment
+- [Axios](https://axios-http.com/) - HTTP client
+- [Tailwind](https://tailwindcss.com/) - Inline Styling
+- [Cloudinary](https://cloudinary.com/) - Image importing
+- [UI/Shadcn](https://ui.shadcn.com/) - Reusable UI components
+- [Highcharts](https://www.highcharts.com/) - Interactive graphs
+- [Cron](https://www.npmjs.com/package/cron) - Automated tasks based on date / yearly renewed task
+- [Fly.io](https://fly.io/) - Deployment
+- [Axios](https://axios-http.com) - Promise based HTTP Client / database communications
 
 ## Getting Started
 
@@ -84,9 +111,9 @@ Once everything is installed and running it should open in your default browser 
 ## Deployment
 
 - Login Credentials for Fly.io have been provided in the hand off document.
-- If you need make changes you wish to push to the deployed app, you must login, go into the haleys-hope section, go to the deploy tab, and then manually deploy. You can reconfigure this to redeploy automatically if you wish, which is on the same page.
-- Environment variables are kept on Fly.io in the Settings tab, just click the Reveal Config Vars button
-- To set up the DB, we used Postico, just plug the information from Heroku into a new favorite. The Information for this can be found in the Resources tab, by clicking the Postgres add on. From there it will bring you to a new page where you will go into the settings tab and click view credentials.
+- If you need to make changes you wish to push to the deployed app, you must login, go into the haleys-hope section, go to the deploy tab, and then manually deploy. You can reconfigure this to redeploy automatically if you wish, which is on the same page.
+- Environment variables are kept on Fly.io in the Secrets tab.
+- To set up the DB, TODO: (fill this out)
 
 - The first user of the app will automatically be an admin.
 

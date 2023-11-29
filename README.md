@@ -1,5 +1,5 @@
-[TOP_LANGUAGE](https://img.shields.io/github/languages/top/Kennyfergy/Haleys-Hope)
-[Built_By:](https://img.shields.io/badge/Project_Built_By-David_Campbell%2C_Kenny_Ferguson%2C_Said_Said-blue)
+![TOP_LANGUAGE](https://img.shields.io/github/languages/top/Kennyfergy/Haleys-Hope)!
+[Built_By](https://img.shields.io/badge/Project_Built_By-David_Campbell%2C_Kenny_Ferguson%2C_Said_Said-blue)
 
 # Haley's Hope Student Tracker
 
@@ -11,6 +11,7 @@
 - [Prerequisites](#prerequisite)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Authors](#authors)
 
 ## Description
 
@@ -49,6 +50,7 @@ Before you get started, make sure you have the following software installed on y
 
 - [VsCode](https://code.visualstudio.com/)
 - [Node.js](https://nodejs.org/en/)
+- [Node.js]
 
 ### Installation
 
@@ -77,3 +79,5 @@ Once everything is installed and running it should open in your default browser 
 - To set up the DB, we used Postico, just plug the information from Heroku into a new favorite. The Information for this can be found in the Resources tab, by clicking the Postgres add on. From there it will bring you to a new page where you will go into the settings tab and click view credentials.
 
 - The first use of the app will automatically be an admin.
+
+## Authors

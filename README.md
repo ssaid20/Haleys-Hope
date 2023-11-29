@@ -27,6 +27,16 @@ Haley's Hope Student Tracker is a platform that simplifies and digitizes the pro
 <a href="https://redux.js.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redux/redux-original.svg" height="40px" width="40px" /></a>
 <a href="https://material-ui.com/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/materialui/materialui-original.svg" height="40px" width="40px" /></a>
 <a href="https://nodejs.org/en/"><img src="https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-plain.svg" height="40px" width="40px" /></a>
+<a href="https://tailwindcss.com/"><img src="https://avatars.githubusercontent.com/u/30317862?s=200&v=4" height="40px" width="40px" /></a>
+<a href="https://expressjs.com/"><img src="https://avatars.githubusercontent.com/u/5658226?s=200&v=4" height="40px" width="40px" /></a>
+<a href="https://www.highcharts.com/"><img src="https://avatars.githubusercontent.com/u/15981345?s=200&v=4" height="40px" width="40px" /></a>
+<a href="https://www.fusejs.io/"><img src="https://www.fusejs.io/assets/img/logo.png" height="40px" width="40px" /></a>
+<a href="https://www.npmjs.com/package/cron"><img src="https://raw.githubusercontent.com/kelektiv/node-cron/3111ecdd00e950c8d9bf292b9e61f4c27c4e7330/logo.svg" height="40px" width="40px" /></a>
+<a href="https://www.passportjs.org"><img src="https://avatars.githubusercontent.com/u/1160530?s=200&v=4" height="40px" width="40px" /></a>
+<a href="https://cloudinary.com/"><img src="https://avatars.githubusercontent.com/u/1460763?s=200&v=4" height="40px" width="40px" /></a>
+<a href="https://sweetalert2.github.io"><img src="https://avatars.githubusercontent.com/u/35137722?s=200&v=4" height="40px" width="40px" /></a>
+<a href="https://ui.shadcn.com/"><img src="https://avatars.githubusercontent.com/u/139895814?s=48&v=4" height="40px" width="40px" /></a>
+<a href="https://fly.io/"><img src="https://fly.io/static/images/brand/brandmark-dark.svg" height="40px" width="40px" /></a>
 
 ## Getting Started
 
@@ -50,7 +60,7 @@ Before you get started, make sure you have the following software installed on y
 
 - [VsCode](https://code.visualstudio.com/)
 - [Node.js](https://nodejs.org/en/)
-- [Node.js]
+- [postgreSql](https://www.postgresql.org)
 
 ### Installation
 
@@ -75,9 +85,9 @@ Once everything is installed and running it should open in your default browser 
 
 - Login Credentials for Fly.io have been provided in the hand off document.
 - If you need make changes you wish to push to the deployed app, you must login, go into the haleys-hope section, go to the deploy tab, and then manually deploy. You can reconfigure this to redeploy automatically if you wish, which is on the same page.
-- Environment variables are kept on Heroku in the Settings tab, just click the Reveal Config Vars button
+- Environment variables are kept on Fly.io in the Settings tab, just click the Reveal Config Vars button
 - To set up the DB, we used Postico, just plug the information from Heroku into a new favorite. The Information for this can be found in the Resources tab, by clicking the Postgres add on. From there it will bring you to a new page where you will go into the settings tab and click view credentials.
 
-- The first use of the app will automatically be an admin.
+- The first user of the app will automatically be an admin.
 
 ## Authors

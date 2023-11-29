@@ -57,7 +57,6 @@ const GraphTab = () => {
     fundamental_literacy_percentile: test.fundamental_literacy_percentile,
     sound_symbol_knowledge_percentile: test.sound_symbol_knowledge_percentile,
   }));
-  
 
   const wistData = wistTests?.map((test) => ({
     date: test.date,

@@ -35,48 +35,50 @@ function RegisterForm() {
       {errors.registrationMessage && (
         <p className="text-red-500 text-center mb-4">{errors.registrationMessage}</p>
       )}
-      <div className="mb-4">
-        <label htmlFor="username" className="block text-gray-600">
-          Username:
-        </label>
-        <input
-          type="text"
-          name="username"
-          value={username}
-          required
-          className="w-full py-3 px-5 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-          onChange={(event) => setUsername(event.target.value)}
-        />
-      </div>
-      <div className="mb-6">
-        <label htmlFor="password" className="block text-gray-600">
-          Password:
-        </label>
-        <input
-          type={showPassword ? "text" : "password"}
-          name="password"
-          value={password}
-          required
-          className="w-full py-3 px-5 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        <button
-          type="button"
-          onClick={() => setShowPassword(!showPassword)}
-          className="text-sm text-blue-500 hover:text-blue-700"
-        >
-          {showPassword ? "Hide" : "Show"} Password
-        </button>
-      </div>
-      <div className="flex items-center justify-center">
-        <button
-          class="bg-blue-500 hover:bg-blue-900 text-white font-bold py-2 px-4 border border-blue-700 rounded"
-          type="submit"
-          onClick={registerUser}
-        >
-          Register
-        </button>
-      </div>
+      <form onSubmit={registerUser}>
+        <div className="mb-4">
+          <label htmlFor="username" className="block text-gray-600">
+            Username:
+          </label>
+          <input
+            type="text"
+            name="username"
+            value={username}
+            required
+            className="w-full py-3 px-5 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            onChange={(event) => setUsername(event.target.value)}
+          />
+        </div>
+        <div className="mb-6">
+          <label htmlFor="password" className="block text-gray-600">
+            Password:
+          </label>
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            value={password}
+            required
+            className="w-full py-3 px-5 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="text-sm text-blue-500 hover:text-blue-700"
+          >
+            {showPassword ? "Hide" : "Show"} Password
+          </button>
+        </div>
+        <div className="flex items-center justify-center">
+          <button
+            class="bg-blue-500 hover:bg-blue-900 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+            type="submit"
+            // onClick={registerUser}
+          >
+            Register
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

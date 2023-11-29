@@ -37,7 +37,7 @@ function createRowData(category, tests) {
       percentile: "word_identification_percentile",
       standard: "word_identification_standard_score",
     },
-    Spelling: {
+    "Spelling": {
       percentile: "spelling_percentile",
       standard: "spelling_standard_score",
     },
@@ -113,7 +113,12 @@ export default function PrimaryWistComparisonTable() {
     return (
     <div><p>No WIST 7-11 Assessments for this student </p></div>)
   
-  }else {
+  }
+  else if (primaryWistTests.length === 1){
+   return( <div><p>Only 1 WIST Test 7-11 exists  </p></div>)
+
+  }
+  else {
   return (
     <>
       <TableContainer component={Paper}>

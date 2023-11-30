@@ -64,9 +64,6 @@ typings/
 # dotenv environment variables file
 .env
 
-# ignore package-lock as it complicates merging
-package-lock.json
-
 .vscode/settings.json
 
 .VSCodeCounter

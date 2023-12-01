@@ -12,6 +12,8 @@ function CloudifyUploadForm({ onImageUpload }) {
   });
 
   const openWidget = () => {
+    console.log("CloudName:", process.env.REACT_APP_CLOUDINARY_NAME);
+    console.log("UploadPreset:", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
     !!window.cloudinary &&
       window.cloudinary
         .createUploadWidget(

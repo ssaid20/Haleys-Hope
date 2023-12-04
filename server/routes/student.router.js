@@ -16,7 +16,16 @@ const storage = new CloudinaryStorage({
   folder: "student_pictures",
   allowedFormats: ["jpg", "png"],
 });
+
 const parser = multer({ storage: storage });
+
+router.get("/cloudinary-config", (req, res) => {
+  res.json({
+    cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
+    uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+  });
+});
+
 // GET route to fetch all students with all their information
 router.get("/", (req, res) => {
   const queryText = 'SELECT * FROM "students" WHERE "is_active" = TRUE';
@@ -28,6 +37,7 @@ router.get("/", (req, res) => {
       res.sendStatus(500);
     });
 });
+
 // GET route to fetch all  archived students with all their information
 router.get("/archived-students", rejectUnauthenticated, (req, res) => {
   const queryText = 'SELECT * FROM "students" WHERE "is_active" = FALSE';

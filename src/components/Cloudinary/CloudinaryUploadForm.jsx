@@ -1,9 +1,10 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useScript } from "../../hooks/useScript";
 import { Button } from "../ui/button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 function CloudifyUploadForm({ onImageUpload }) {
+  const [cloudinaryConfig, setCloudinaryConfig] = useState(null);
   // Accepting the callback function as a prop
   const [state, setState] = useState({
     file_url: null,
@@ -11,16 +12,28 @@ function CloudifyUploadForm({ onImageUpload }) {
     description: "",
   });
 
+  useEffect(() => {
+    fetch("/api/students/cloudinary-config")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Received data:", data); // Check what data is received
+        setCloudinaryConfig(data);
+      })
+      .catch((error) => console.error("Error fetching Cloudinary config:", error));
+  }, []);
   const openWidget = () => {
-    console.log("CloudName:", process.env.REACT_APP_CLOUDINARY_NAME);
-    console.log("UploadPreset:", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
     !!window.cloudinary &&
       window.cloudinary
         .createUploadWidget(
           {
             sources: ["local", "url", "camera"],
-            cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
-            uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+            cloudName: cloudinaryConfig.cloudName,
+            uploadPreset: cloudinaryConfig.uploadPreset,
           },
           (error, result) => {
             if (!error && result && result.event === "success") {
@@ -47,10 +60,9 @@ function CloudifyUploadForm({ onImageUpload }) {
       <form onSubmit={onSubmit} className="">
         {useScript("https://widget.cloudinary.com/v2.0/global/all.js")}
         <div>
-          <Button
+          <button
             type="button"
-            // className="px-4 py-2 bg-primary-500 text-white rounded hover:bg-blue-600 flex items-center space-x-2"
-            className="text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
+            className="px-4 py-2 bg-primary-500 text-white rounded hover:bg-blue-600 flex items-center space-x-2"
             onClick={openWidget}
           >
             {/* <img
@@ -60,7 +72,7 @@ function CloudifyUploadForm({ onImageUpload }) {
             /> */}
             <CloudUploadIcon />
             <span>Upload Picture</span>
-          </Button>
+          </button>
         </div>
 
         {/* {state.file_url && (

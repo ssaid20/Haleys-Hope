@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { formatDate } from "../../lib/utils"; // Assuming you have a similar utility for users
+import { formatDate } from "../../lib/utils";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -83,6 +83,7 @@ const ManageUsers = () => {
       first_name: user.first_name,
       last_name: user.last_name,
       role_id: user.role_id,
+      password: user.password,
     });
     setEditingUserId(user.id); // Set the editing user's ID
   }; // end handleEditClick
@@ -94,6 +95,7 @@ const ManageUsers = () => {
     first_name: "",
     last_name: "",
     role_id: "",
+    password: "",
   });
 
   // Adjusted handleSubmit function
@@ -131,6 +133,23 @@ const ManageUsers = () => {
     4: "Literacy Coach Manager",
     5: "Lead Performing Agent",
     6: "Admin",
+  };
+
+  const [isPasswordSheetOpen, setIsPasswordSheetOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+
+  // Function to open the sheet for changing password
+  const handleOpenPasswordSheet = (userId) => {
+    setSelectedUserId(userId);
+    setIsPasswordSheetOpen(true);
+    console.log("pass selected user id:", selectedUserId);
+  };
+
+  // Function to handle password change submission
+  const handleSubmitPasswordChange = (newPassword) => {
+    console.log("New Password for user", selectedUserId, ":", newPassword);
+    // dispatch an action to update the password in backend
+    setIsPasswordSheetOpen(false);
   };
 
   return (
@@ -181,11 +200,50 @@ const ManageUsers = () => {
                           <EditIcon /> &nbsp; Edit User
                         </span>
                       </Button>
+                      {/* Change Password Button */}
+                      <Button
+                        onClick={() => handleOpenPasswordSheet(user.id)}
+                        variant="outline"
+                        className=" text-m px-5 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
+                      >
+                        Change Password
+                      </Button>
                     </TableCell>
-                    {/* {editingUserId === user.id && (
-                        <Sheet isOpen={editingUserId === user.id}>
-                          <SheetTrigger asChild></SheetTrigger> */}
-                    {console.log("Sheet should open:", Boolean(editingUserId))}{" "}
+                    {console.log("Sheet should open:", Boolean(editingUserId))} {/* Password Change Modal */}
+                    {/* Password Change Sheet */}
+                    {isPasswordSheetOpen && (
+                      <Sheet open={isPasswordSheetOpen} onOpenChange={setIsPasswordSheetOpen}>
+                        <SheetContent side="top" style={sheetStyle}>
+                          {/* ... Sheet header and description */}
+
+                          <SheetHeader>
+                            <SheetTitle>Edit User Password</SheetTitle>
+                            <SheetDescription>Change The User's Password Here.</SheetDescription>
+                          </SheetHeader>
+                          <div className="p-4">
+                            <div className="grid grid-cols-2 gap-4">
+                              <Label htmlFor="password">Password</Label>
+                              <Input
+                                type="password"
+                                placeholder="Enter new password"
+                                // Add onChange handler as needed
+                              />
+                            </div>
+                          </div>
+                          <SheetFooter>
+                            <SheetClose asChild>
+                              <Button
+                                onClick={() => handleSubmitPasswordChange(/* Get new password value here */)}
+                                type="submit"
+                                className="bg-primary-500 text-white"
+                              >
+                                Submit New Password
+                              </Button>
+                            </SheetClose>
+                          </SheetFooter>
+                        </SheetContent>
+                      </Sheet>
+                    )}
                     {editingUserId && (
                       <Sheet open={Boolean(editingUserId)} onOpenChange={setEditingUserId}>
                         <SheetContent side="top" style={sheetStyle}></SheetContent>
@@ -202,10 +260,8 @@ const ManageUsers = () => {
                                 value={formData.first_name}
                                 onChange={handleInputChange}
                               />
-
                               <Label htmlFor="lastName">Last Name</Label>
                               <Input id="last_name" value={formData.last_name} onChange={handleInputChange} />
-
                               {/* <Label htmlFor="Role">Role</Label>
                                 <Input
                                   id="grade"
@@ -213,7 +269,6 @@ const ManageUsers = () => {
                                   value={formData.role_id}
                                   onChange={handleInputChange}
                                 /> */}
-
                               <Label htmlFor="role">Role</Label>
                               <select id="role_id" value={formData.role_id} onChange={handleInputChange}>
                                 <option value="1">Deactivated</option>

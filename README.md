@@ -118,3 +118,5 @@ Once everything is installed and running it should open in your default browser 
 - The first user of the app will automatically be an admin.
 
 ## Authors
+
+David Campbell, Said, Said, Kenny Ferguson

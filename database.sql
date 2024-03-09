@@ -53,7 +53,8 @@ CREATE TABLE
     "barton_c" BOOLEAN,
     "barton_c_date" DATE,
     "coach_id" INTEGER REFERENCES "coaches" ("id"),
-    "start_date" DATE NOT NULL
+    "start_date" DATE NOT NULL,
+    "intake_grade" VARCHAR(10)
   );
 
 CREATE TABLE
@@ -89,6 +90,10 @@ CREATE TABLE
     "comprehension_scaled_score" INTEGER,
     "grade" INTEGER
   );
+ALTER TABLE "gort" ADD rate_descriptor CHAR(1);
+ALTER TABLE "gort" ADD accuracy_descriptor CHAR(1);
+ALTER TABLE "gort" ADD fluency_descriptor CHAR(1);
+ALTER TABLE "gort" ADD comprehension_descriptor CHAR(1);
 
 CREATE TABLE
   IF NOT EXISTS "elementary_wist" (
@@ -116,7 +121,12 @@ CREATE TABLE
     "sound_symbol_knowledge_standard_score" INTEGER,
     "grade" INTEGER
   );
-
+  ALTER TABLE "elementary_wist" ADD read_regular_words_descriptor CHAR(1);
+ALTER TABLE "elementary_wist" ADD read_irregular_words_descriptor CHAR(1);
+ALTER TABLE "elementary_wist" ADD spell_regular_words_descriptor CHAR(1);
+ALTER TABLE "elementary_wist" ADD spell_irregular_words_descriptor CHAR(1);
+ALTER TABLE "elementary_wist" ADD pseudo_words_descriptor CHAR(1);
+ALTER TABLE "elementary_wist" ADD letter_sounds_descriptor CHAR(1);
 CREATE TABLE
   IF NOT EXISTS "younger_ctopp" (
     "id" SERIAL PRIMARY KEY,
@@ -143,6 +153,10 @@ CREATE TABLE
     "rapid_non_symbolic_naming_percentile" INTEGER,
     "grade" INTEGER
   );
+ALTER TABLE "younger_ctopp" ADD phonological_awareness_descriptor CHAR(1);
+ALTER TABLE "younger_ctopp" ADD phonological_memory_descriptor CHAR(1);
+ALTER TABLE "younger_ctopp" ADD rapid_symbolic_naming_descriptor CHAR(1);
+ALTER TABLE "younger_ctopp" ADD rapid_non_symbolic_naming_descriptor CHAR(1);
 
 CREATE TABLE
   IF NOT EXISTS "secondary_wist" (
@@ -170,6 +184,12 @@ CREATE TABLE
     "sound_symbol_knowledge_standard_score" INTEGER,
     "grade" INTEGER
   );
+ALTER TABLE "secondary_wist" ADD read_regular_words_descriptor CHAR(1);
+ALTER TABLE "secondary_wist" ADD read_irregular_words_descriptor CHAR(1);
+ALTER TABLE "secondary_wist" ADD spell_regular_words_descriptor CHAR(1);
+ALTER TABLE "secondary_wist" ADD spell_irregular_words_descriptor CHAR(1);
+ALTER TABLE "secondary_wist" ADD pseudo_words_descriptor CHAR(1);
+ALTER TABLE "secondary_wist" ADD letter_sounds_descriptor CHAR(1);
 
 CREATE TABLE
   IF NOT EXISTS "older_ctopp" (
@@ -196,6 +216,11 @@ CREATE TABLE
     "alt_phonological_awareness_percentile" INTEGER,
     "grade" INTEGER
   );
+ALTER TABLE "older_ctopp" ADD phonological_awareness_descriptor CHAR(1);
+ALTER TABLE "older_ctopp" ADD phonological_memory_descriptor CHAR(1);
+ALTER TABLE "older_ctopp" ADD rapid_symbolic_naming_descriptor CHAR(1);
+ALTER TABLE "older_ctopp" ADD alt_phonological_awareness_descriptor CHAR(1);
+
 
 CREATE TABLE
   IF NOT EXISTS "ktea" (
@@ -209,6 +234,8 @@ CREATE TABLE
     "spelling_percentile" INTEGER,
     "grade" INTEGER
   );
+
+CREATE TABLE "cron" ("last_updated" DATE);
   
 -- Insert test coach records for the students
 -- INSERT INTO

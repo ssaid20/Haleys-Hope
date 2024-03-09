@@ -120,4 +120,3 @@ Once everything is installed and running it should open in your default browser 
 ## Authors
 
 David Campbell, Said, Said, Kenny Ferguson
-Test

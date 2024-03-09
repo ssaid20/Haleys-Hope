@@ -27,7 +27,7 @@ const columns = [
   { id: "grade", label: "Grade", minWidth: 80 },
   { id: "city", label: "City", minWidth: 150 },
   { id: "state", label: "State", minWidth: 150 },
-  { id: "start_date", label: "Start Date", minWidth: 130 },
+  { id: "start_date", label: "Intake Date", minWidth: 130 },
 ];
 
 const sortOptions = [
@@ -38,7 +38,7 @@ const sortOptions = [
   { value: "grade", label: "Grade" },
   { value: "city", label: "City" },
   { value: "state", label: "State" },
-  { value: "start_date", label: "Start Date" },
+  { value: "start_date", label: "Intake Date" },
   // ... other sort options ...
 ];
 
@@ -168,43 +168,49 @@ const StudentList = () => {
       {/* <h1 className="text-3xl text-center mb-4">Student List </h1> */}
       <h1 className="text-4xl font-bold text-center text-primary-500 my-4">Student List</h1>
 
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
-  <Searchbar
-    query={searchQuery}
-    setQuery={handleSearchInputChange}
-    iconPosition="left"
-    imgSrc="/assets/icons/search.svg"
-    placeholder="Search Students"
-    otherClasses="w-1/3"
-  />
-
-  <div>
-    <FormControl style={{ minWidth: 120, marginRight: "10px" }}>
-      <InputLabel id="sort-select-label">Sort By</InputLabel>
-      <Select
-        labelId="sort-select-label"
-        id="sort-select"
-        value={sortConfig.key || ""}
-        label="Sort By"
-        onChange={handleSortChange}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: "20px",
+        }}
       >
-        {sortOptions.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+        <Searchbar
+          query={searchQuery}
+          setQuery={handleSearchInputChange}
+          iconPosition="left"
+          imgSrc="/assets/icons/search.svg"
+          placeholder="Search Students"
+          otherClasses="w-1/3"
+        />
 
-    <Button variant="outlined" onClick={toggleSortDirection} style={{ margin: "5px" }}>
-      {sortConfig.direction === "ascending" ? "Asc" : "Desc"}
-    </Button>
-    <Button variant="outlined" onClick={clearSort} style={{ margin: "5px" }}>
-      Clear
-    </Button>
-  </div>
-</div>
+        <div>
+          <FormControl style={{ minWidth: 120, marginRight: "10px" }}>
+            <InputLabel id="sort-select-label">Sort By</InputLabel>
+            <Select
+              labelId="sort-select-label"
+              id="sort-select"
+              value={sortConfig.key || ""}
+              label="Sort By"
+              onChange={handleSortChange}
+            >
+              {sortOptions.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
+          <Button variant="outlined" onClick={toggleSortDirection} style={{ margin: "5px" }}>
+            {sortConfig.direction === "ascending" ? "Asc" : "Desc"}
+          </Button>
+          <Button variant="outlined" onClick={clearSort} style={{ margin: "5px" }}>
+            Clear
+          </Button>
+        </div>
+      </div>
 
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <Button variant="contained" color="primary" onClick={handleToggleArchived} style={{ margin: "10px" }}>

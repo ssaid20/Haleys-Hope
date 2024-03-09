@@ -232,7 +232,7 @@ const StudentForm = () => {
             {/* Barton C Date Field */}
             <Grid item xs={12} md={6}>
               <TextField
-                label="Start Date"
+                label="Intake Date"
                 variant="outlined"
                 fullWidth
                 name="start_date"

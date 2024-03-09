@@ -354,7 +354,7 @@ const StudentCard = () => {
           <p className="body-regular text-dark500_light500">City: {student.city}</p>
           <p className="body-regular text-dark500_light500">State: {student.state}</p>
           <p className="body-regular text-dark500_light500">
-            Start Date: {new Date(student.start_date).toLocaleDateString()}
+            Intake Date: {new Date(student.start_date).toLocaleDateString()}
           </p>
           <p className="body-regular text-dark500_light500">
             Barton C: {student.barton_c ? "Foundations" : "Barton"}

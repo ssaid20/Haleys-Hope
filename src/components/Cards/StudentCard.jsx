@@ -304,13 +304,13 @@ const StudentCard = () => {
                   <option value="false">No</option>
                 </select>
 
-                <Label htmlFor="startDate">Start Date</Label>
+                <Label htmlFor="startDate">Intake Date</Label>
                 <Input
                   id="start_date"
                   type="date"
                   value={formData.start_date}
                   onChange={handleInputChange}
-                  placeholder={validationErrors.start_date || "Start Date"}
+                  placeholder={validationErrors.start_date || "Intake Date"}
                   className={validationErrors.start_date ? "error-input" : ""}
                 />
 

@@ -25,6 +25,7 @@ const columns = [
   { id: "name", label: "Name", minWidth: 170 },
   { id: "age", label: "Age", minWidth: 80 },
   { id: "grade", label: "Grade", minWidth: 80 },
+  { id: "intake_grade", label: "Intake Grade", minWidth: 80 },
   { id: "city", label: "City", minWidth: 150 },
   { id: "state", label: "State", minWidth: 150 },
   { id: "start_date", label: "Intake Date", minWidth: 130 },
@@ -36,6 +37,7 @@ const sortOptions = [
   { value: "last_name", label: "Last Name" },
   { value: "age", label: "Age" },
   { value: "grade", label: "Grade" },
+  { value: "intake_grade", label: "Intake Grade" },
   { value: "city", label: "City" },
   { value: "state", label: "State" },
   { value: "start_date", label: "Intake Date" },
@@ -127,13 +129,38 @@ const StudentList = () => {
   };
 
   // Search logic
+  // useEffect(() => {
+  //   const modifiedStudents = students.map((student) => ({
+  //     ...student,
+  //     full_name: `${student.first_name} ${student.last_name}`,
+  //   }));
+  //   const fuse = new Fuse(modifiedStudents, {
+  //     keys: ["full_name", "grade"],
+  //     threshold: 0.1,
+  //   });
+  //   if (!searchQuery) {
+  //     setSearchResults([]);
+  //   } else {
+  //     const results = fuse.search(searchQuery);
+  //     setSearchResults(results);
+  //   }
+  // }, [searchQuery, students]);
+
+  const handleSearchInputChange = (value) => {
+    setSearchQuery(value);
+    setPage(0); // Reset to the first page when the query changes
+  };
+
+  // Search logic, added intake grade
   useEffect(() => {
     const modifiedStudents = students.map((student) => ({
       ...student,
       full_name: `${student.first_name} ${student.last_name}`,
+      // Ensure intake_grade is a string for consistent search behavior
+      intake_grade: student.intake_grade.toString(),
     }));
     const fuse = new Fuse(modifiedStudents, {
-      keys: ["full_name", "grade"],
+      keys: ["full_name", "grade", "intake_grade"], // Include intake_grade in search keys
       threshold: 0.1,
     });
     if (!searchQuery) {
@@ -143,11 +170,6 @@ const StudentList = () => {
       setSearchResults(results);
     }
   }, [searchQuery, students]);
-
-  const handleSearchInputChange = (value) => {
-    setSearchQuery(value);
-    setPage(0); // Reset to the first page when the query changes
-  };
 
   // const displayedStudents = searchQuery ? processedSearchResults : students;
   const displayedStudents = searchQuery ? searchResults.map((result) => result.item) : sortedStudents;

@@ -98,16 +98,17 @@ router.post("/", parser.single("picture"), rejectUnauthenticated, (req, res) => 
 
   const queryText = `
     INSERT INTO "students" (
-      "first_name", "last_name", "grade", "gender", "dob", 
+      "first_name", "last_name", "grade", "intake_grade", "gender", "dob", 
       "city", "picture", "school", "on_site", 
       "barton_c", "barton_c_date", "state", "start_date", "is_active", "coach_id"
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
   `;
 
   const values = [
     newStudent.first_name,
     newStudent.last_name,
     newStudent.grade,
+    newStudent.intake_grade,
     newStudent.gender,
     newStudent.dob,
     newStudent.city,
@@ -139,14 +140,15 @@ router.put("/:id", parser.single("picture"), rejectUnauthenticated, (req, res) =
 
   const pictureUrl = req.file ? req.file.path : updatedStudent.picture;
   const queryText = `UPDATE "students" SET
-    "first_name" = $1, "last_name" = $2, "grade" = $3, "gender" = $4, "dob" = $5, 
-    "city" = $6, "school" = $7, "on_site" = $8, 
-    "barton_c" = $9, "barton_c_date" = $10, "state" = $11, "start_date" = $12, "is_active" = $13, "coach_id" = $14 WHERE "id" = $15`;
+    "first_name" = $1, "last_name" = $2, "grade" = $3, "intake_grade" = $4, "gender" = $5, "dob" = $6, 
+    "city" = $7, "school" = $8, "on_site" = $9, 
+    "barton_c" = $10, "barton_c_date" = $11, "state" = $12, "start_date" = $13, "is_active" = $14, "coach_id" = $15 WHERE "id" = $16`;
 
   const values = [
     updatedStudent.first_name,
     updatedStudent.last_name,
     updatedStudent.grade,
+    updatedStudent.intake_grade,
     updatedStudent.gender,
     updatedStudent.dob,
     updatedStudent.city,

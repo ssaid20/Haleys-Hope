@@ -1,33 +1,3 @@
-// import { useParams, useHistory } from "react-router-dom";
-// import { useEffect, useReducer } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { formatDate } from "../../lib/utils";
-// import MiniStudentCard from "../Cards/MiniStudentCard";
-// import { Button, Table, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from "@mui/material";
-// import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
-// import EditIcon from "@mui/icons-material/Edit";
-
-// const KteaResults = () => {
-//   const testId = useParams();
-//   const dispatch = useDispatch();
-//   const history = useHistory();
-//   const examiners = useSelector((store) => store.allUsersReducer.users);
-
-//   useEffect(() => {
-//     dispatch({ type: "FETCH_KTEA_RESULTS", payload: testId.id });
-//   }, [dispatch]);
-
-//   const selectedTest = useSelector((store) => store.kteaReducer.selectedTest[0]);
-
-//   if (!selectedTest || Object.keys(selectedTest).length === 0) {
-//     return <h1>Loading...</h1>;
-//   }
-
-//   // Find the examiner based on examiner_id
-//   const examiner = examiners.find((user) => user.id === selectedTest.examiner_id);
-
-//   const goBack = () => history.push(`/students/${selectedTest.student_id}`);
-
 //   return (
 //     <div style={{ padding: "20px" }}>
 //       <Button variant="contained" color="primary" onClick={goBack} style={{ marginRight: "20px" }}>
@@ -177,8 +147,7 @@
 //   );
 // };
 
-// export default KteaResults;
-
+import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
 import { useParams, useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -203,6 +172,7 @@ const KteaResults = () => {
     return <h1>Loading...</h1>;
   }
 
+  //   // Find the examiner based on examiner_id
   const examiner = examiners.find((user) => user.id === selectedTest.examiner_id);
 
   const goBack = () => history.push(`/students/${selectedTest.student_id}`);

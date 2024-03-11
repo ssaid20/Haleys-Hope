@@ -55,8 +55,14 @@ const ElementaryWistResults = () => {
       </Button>
 
       {/* <h1 className="text-3xl text-center mb-4">WIST Age 7-11 Results </h1> */}
-      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">
-        WIST Age 7-11 Results{" "}
+      <h1 className="text-4xl test-name-print font-bold text-center text-primary-500 my-4">
+      <img
+          src="/assets/images/site-logo.png"
+          width={180}
+          height={180}
+          className="logo-image print-logo"
+          alt="Haley's Hope Logo"
+        /> WIST Age 7-11 Results{" "}
       </h1>
 
       <div style={{ display: "flex", justifyContent: "center", gap: "50px" }}>
@@ -99,7 +105,7 @@ const ElementaryWistResults = () => {
                 padding: "28px",
               }}
             >
-              <Typography variant="h6" style={{ marginBottom: "10px" }}>
+              <Typography variant="h6" style={{ marginBottom: "0px" }}>
                 Date: {formatDate(selectedTest.date)} &nbsp;
               </Typography>
 
@@ -113,7 +119,7 @@ const ElementaryWistResults = () => {
                 </Typography>
               )} */}
               <Typography variant="h6" style={{ marginBottom: "10px" }}>
-                Grade When Given: {selectedTest.grade} &nbsp;
+                Grade Given: {selectedTest.grade} &nbsp;
               </Typography>
             </div>
           </Paper>
@@ -373,13 +379,14 @@ const ElementaryWistResults = () => {
           </Table>
         </Paper>
       </div>
-      <h2
+      
+      <h2 className="break"
         style={{
           textAlign: "center",
           fontWeight: "bold",
           fontSize: "20px",
         }}
-      >
+      > 
         Record of Informal Assessment
       </h2>
       <div

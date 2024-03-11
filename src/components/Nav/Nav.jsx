@@ -26,7 +26,7 @@ function Nav() {
           src="/assets/images/site-logo.png"
           width={180}
           height={180}
-          className="logo-image"
+          className="logo-image noPrint"
           alt="Haley's Hope Logo"
         />
       </Link>

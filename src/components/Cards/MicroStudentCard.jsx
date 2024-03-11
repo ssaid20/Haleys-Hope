@@ -58,7 +58,7 @@ const MiniStudentCard = () => {
       }}
       className="background-light900_dark200 light-border rounded-2xl border p-4 shadow-lg"
     >
-      <h3 className="h3-bold text-dark100_light900 text-center mb-4">{`${student.first_name} ${student.last_name}`}</h3>
+      <h3 className="h3-bold text-dark100_light900 text-center mb-0">{`${student.first_name} ${student.last_name}`}</h3>
       <div className="flex flex-col md:flex-row items-center justify-between">
         <div className="grid grid-cols-2 gap-x-8 gap-y-4 mt-4">
           <p className="body-regular text-dark500_light500 text-lg">

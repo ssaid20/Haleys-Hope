@@ -45,7 +45,8 @@ const GortResults = () => {
 
   const goBack = () => history.push(`/students/${selectedTest.student_id}`);
 
-  return (
+  return (<>
+
     <div style={{ padding: "20px" }}>
       <Button
         className="noPrint"
@@ -58,7 +59,13 @@ const GortResults = () => {
       </Button>
       {/* <h1 className="text-3xl text-center mb-4">Gort Results </h1> */}
       <h1 className="text-4xl font-bold text-center text-primary-500 my-4">
-        GORT Results{" "}
+           <img
+          src="/assets/images/site-logo.png"
+          width={180}
+          height={180}
+          className="logo-image print-logo"
+          alt="Haley's Hope Logo"
+        /> GORT Results{" "}
       </h1>
 
       <div style={{ display: "flex", justifyContent: "center", gap: "50px" }}>
@@ -313,7 +320,7 @@ const GortResults = () => {
         </Paper>
       </div>
     </div>
+</>
   );
 };
-
 export default GortResults;

@@ -3,11 +3,20 @@ import { useEffect, useReducer } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../lib/utils";
 import MiniStudentCard from "../Cards/MiniStudentCard";
-import { Button, Table, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from "@mui/material";
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Paper,
+  Typography,
+} from "@mui/material";
 import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
 import { GetScaledScoreDescription } from "../../lib/GetScaledScoreDescription";
 import EditIcon from "@mui/icons-material/Edit";
-import MicroStudentCard from "../Cards/MicroStudentCard"
+import MicroStudentCard from "../Cards/MicroStudentCard";
 
 const GortResults = () => {
   const testId = useParams();
@@ -21,24 +30,36 @@ const GortResults = () => {
     console.log("GORT TEST ID", testId);
   }, [dispatch]);
 
-  const selectedTest = useSelector((store) => store.gortReducer.selectedTest[0]);
+  const selectedTest = useSelector(
+    (store) => store.gortReducer.selectedTest[0]
+  );
 
   if (!selectedTest || Object.keys(selectedTest).length === 0) {
     return <h1>Loading...</h1>;
   }
 
   // Find the examiner based on examiner_id
-  const examiner = examiners.find((user) => user.id === selectedTest.examiner_id);
+  const examiner = examiners.find(
+    (user) => user.id === selectedTest.examiner_id
+  );
 
   const goBack = () => history.push(`/students/${selectedTest.student_id}`);
 
   return (
     <div style={{ padding: "20px" }}>
-      <Button variant="contained" color="primary" onClick={goBack} style={{ marginRight: "20px" }}>
+      <Button
+        className="noPrint"
+        variant="contained"
+        color="primary"
+        onClick={goBack}
+        style={{ marginRight: "20px" }}
+      >
         Back to Tests List
       </Button>
       {/* <h1 className="text-3xl text-center mb-4">Gort Results </h1> */}
-      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">GORT Results </h1>
+      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">
+        GORT Results{" "}
+      </h1>
 
       <div style={{ display: "flex", justifyContent: "center", gap: "50px" }}>
         <div
@@ -50,12 +71,12 @@ const GortResults = () => {
             marginBottom: "20px",
           }}
         >
-             <div className="screen-view">
-      <MiniStudentCard />
-    </div>
-    <div className="print-view">
-      <MicroStudentCard />
-    </div>
+          <div className="screen-view">
+            <MiniStudentCard />
+          </div>
+          <div className="print-view">
+            <MicroStudentCard />
+          </div>
         </div>
         <div>
           <Paper
@@ -109,6 +130,7 @@ const GortResults = () => {
         }}
       >
         <h2
+          className="noPrint"
           style={{
             textAlign: "center",
 
@@ -120,6 +142,7 @@ const GortResults = () => {
         </h2>
         <div>
           <Button
+            className="noPrint"
             variant="contained"
             color="primary"
             onClick={() => history.push(`/EditGortResults/${selectedTest.id}`)}
@@ -148,17 +171,31 @@ const GortResults = () => {
           <Table>
             <TableHead>
               <TableRow style={{ backgroundColor: "lightgrey" }}>
-                <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Assessment Area</TableCell>
-                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
+                  Assessment Area
+                </TableCell>
+                <TableCell
+                  align="right"
+                  style={{ fontWeight: "bold", fontSize: "16px" }}
+                >
                   Raw Total
                 </TableCell>
-                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <TableCell
+                  align="right"
+                  style={{ fontWeight: "bold", fontSize: "16px" }}
+                >
                   Percentile Rank
                 </TableCell>
-                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <TableCell
+                  align="right"
+                  style={{ fontWeight: "bold", fontSize: "16px" }}
+                >
                   Scaled Score
                 </TableCell>
-                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <TableCell
+                  align="right"
+                  style={{ fontWeight: "bold", fontSize: "16px" }}
+                >
                   Descriptive Term
                 </TableCell>
               </TableRow>
@@ -166,43 +203,79 @@ const GortResults = () => {
             <TableBody>
               <TableRow>
                 <TableCell>Rate Raw Total</TableCell>
-                <TableCell align="right">{selectedTest.rate_raw_total}</TableCell>
-                <TableCell align="right">{selectedTest.rate_percentile_rank}</TableCell>
-                <TableCell align="right">{selectedTest.rate_scaled_score}</TableCell>
+                <TableCell align="right">
+                  {selectedTest.rate_raw_total}
+                </TableCell>
+                <TableCell align="right">
+                  {selectedTest.rate_percentile_rank}
+                </TableCell>
+                <TableCell align="right">
+                  {selectedTest.rate_scaled_score}
+                </TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
-                  <GetScaledScoreDescription scaledScore={selectedTest.rate_scaled_score} />
+                  <GetScaledScoreDescription
+                    scaledScore={selectedTest.rate_scaled_score}
+                  />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Accuracy Raw Total</TableCell>
-                <TableCell align="right">{selectedTest.accuracy_raw_total}</TableCell>
-                <TableCell align="right">{selectedTest.accuracy_percentile_rank}</TableCell>
-                <TableCell align="right">{selectedTest.accuracy_scaled_score}</TableCell>
+                <TableCell align="right">
+                  {selectedTest.accuracy_raw_total}
+                </TableCell>
+                <TableCell align="right">
+                  {selectedTest.accuracy_percentile_rank}
+                </TableCell>
+                <TableCell align="right">
+                  {selectedTest.accuracy_scaled_score}
+                </TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
-                  <GetScaledScoreDescription scaledScore={selectedTest.accuracy_scaled_score} />
+                  <GetScaledScoreDescription
+                    scaledScore={selectedTest.accuracy_scaled_score}
+                  />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Fluency Raw Total</TableCell>
-                <TableCell align="right">{selectedTest.fluency_raw_total}</TableCell>
-                <TableCell align="right">{selectedTest.fluency_percentile_rank}</TableCell>
-                <TableCell align="right">{selectedTest.fluency_scaled_score}</TableCell>
+                <TableCell align="right">
+                  {selectedTest.fluency_raw_total}
+                </TableCell>
+                <TableCell align="right">
+                  {selectedTest.fluency_percentile_rank}
+                </TableCell>
+                <TableCell align="right">
+                  {selectedTest.fluency_scaled_score}
+                </TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
-                  <GetScaledScoreDescription scaledScore={selectedTest.fluency_scaled_score} />
+                  <GetScaledScoreDescription
+                    scaledScore={selectedTest.fluency_scaled_score}
+                  />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Comprehension Raw Total</TableCell>
-                <TableCell align="right">{selectedTest.comprehension_raw_total}</TableCell>
-                <TableCell align="right">{selectedTest.comprehension_percentile_rank}</TableCell>
-                <TableCell align="right">{selectedTest.comprehension_scaled_score}</TableCell>
+                <TableCell align="right">
+                  {selectedTest.comprehension_raw_total}
+                </TableCell>
+                <TableCell align="right">
+                  {selectedTest.comprehension_percentile_rank}
+                </TableCell>
+                <TableCell align="right">
+                  {selectedTest.comprehension_scaled_score}
+                </TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
-                  <GetScaledScoreDescription scaledScore={selectedTest.comprehension_scaled_score} />
+                  <GetScaledScoreDescription
+                    scaledScore={selectedTest.comprehension_scaled_score}
+                  />
                 </TableCell>
               </TableRow>
             </TableBody>
           </Table>
-          <Typography variant="h6" align="center" style={{ marginBottom: "10px", marginTop: "10px" }}>
+          <Typography
+            variant="h6"
+            align="center"
+            style={{ marginBottom: "10px", marginTop: "10px" }}
+          >
             Summary
           </Typography>
           <Table>
@@ -221,11 +294,19 @@ const GortResults = () => {
               </TableRow>
             </TableHead>
             <TableRow>
-              <TableCell align="center">{selectedTest.sum_scaled_score}</TableCell>
-              <TableCell align="center">{selectedTest.oral_reading_percentile_rank}</TableCell>
-              <TableCell align="center">{selectedTest.oral_reading_index}</TableCell>
+              <TableCell align="center">
+                {selectedTest.sum_scaled_score}
+              </TableCell>
+              <TableCell align="center">
+                {selectedTest.oral_reading_percentile_rank}
+              </TableCell>
+              <TableCell align="center">
+                {selectedTest.oral_reading_index}
+              </TableCell>
               <TableCell align="center" style={{ fontWeight: "bold" }}>
-                <GetCompositeScoreDescription compositeScore={selectedTest.oral_reading_index} />
+                <GetCompositeScoreDescription
+                  compositeScore={selectedTest.oral_reading_index}
+                />
               </TableCell>
             </TableRow>
           </Table>

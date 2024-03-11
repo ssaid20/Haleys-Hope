@@ -46,6 +46,7 @@ const OlderCtoppResults = () => {
   return (
     <div style={{ padding: "20px" }}>
       <Button
+        className="noPrint"
         variant="contained"
         color="primary"
         onClick={goBack}
@@ -127,6 +128,7 @@ const OlderCtoppResults = () => {
         }}
       >
         <h2
+          className="noPrint"
           style={{
             textAlign: "center",
 
@@ -138,6 +140,7 @@ const OlderCtoppResults = () => {
         </h2>
         <div>
           <Button
+            className="noPrint"
             variant="contained"
             color="primary"
             onClick={() =>

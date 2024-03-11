@@ -45,6 +45,7 @@ const ElementaryWistResults = () => {
   return (
     <div style={{ padding: "20px" }}>
       <Button
+        className="noPrint"
         variant="contained"
         color="primary"
         onClick={goBack}
@@ -135,6 +136,7 @@ const ElementaryWistResults = () => {
         }}
       >
         <h2
+          className="noPrint"
           style={{
             textAlign: "center",
 
@@ -146,6 +148,7 @@ const ElementaryWistResults = () => {
         </h2>
         <div>
           <Button
+            className="noPrint"
             variant="contained"
             color="primary"
             onClick={() =>

@@ -153,9 +153,17 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../lib/utils";
 import MiniStudentCard from "../Cards/MiniStudentCard";
-import { Button, Table, TableBody, TableCell, TableRow, Paper, Typography } from "@mui/material";
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  Paper,
+  Typography,
+} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import MicroStudentCard from "../Cards/MicroStudentCard"
+import MicroStudentCard from "../Cards/MicroStudentCard";
 
 const KteaResults = () => {
   const { id: testId } = useParams();
@@ -167,39 +175,61 @@ const KteaResults = () => {
     dispatch({ type: "FETCH_KTEA_RESULTS", payload: testId });
   }, [dispatch, testId]);
 
-  const selectedTest = useSelector((store) => store.kteaReducer.selectedTest[0]);
+  const selectedTest = useSelector(
+    (store) => store.kteaReducer.selectedTest[0]
+  );
 
   if (!selectedTest || Object.keys(selectedTest).length === 0) {
     return <h1>Loading...</h1>;
   }
 
   //   // Find the examiner based on examiner_id
-  const examiner = examiners.find((user) => user.id === selectedTest.examiner_id);
+  const examiner = examiners.find(
+    (user) => user.id === selectedTest.examiner_id
+  );
 
   const goBack = () => history.push(`/students/${selectedTest.student_id}`);
 
   return (
     <div style={{ padding: "20px" }}>
-      <Button variant="contained" color="primary" onClick={goBack} style={{ marginBottom: "20px" }}>
+      <Button
+        className="noPrint"
+        variant="contained"
+        color="primary"
+        onClick={goBack}
+        style={{ marginBottom: "20px" }}
+      >
         Back to Tests List
       </Button>
       <Typography variant="h4" align="center" gutterBottom>
         KTEA Results
       </Typography>
 
-      <div style={{ display: "flex", justifyContent: "center", gap: "20px", marginBottom: "20px" }}>
-      <div className="screen-view">
-      <MiniStudentCard />
-    </div>
-    <div className="print-view">
-      <MicroStudentCard />
-    </div>        <Paper style={{ padding: "20px", maxWidth: "400px" }}>
-          <Typography variant="h6">Date: {formatDate(selectedTest.date)}</Typography>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "20px",
+          marginBottom: "20px",
+        }}
+      >
+        <div className="screen-view">
+          <MiniStudentCard />
+        </div>
+        <div className="print-view">
+          <MicroStudentCard />
+        </div>{" "}
+        <Paper style={{ padding: "20px", maxWidth: "400px" }}>
+          <Typography variant="h6">
+            Date: {formatDate(selectedTest.date)}
+          </Typography>
           {/* <Typography variant="h6">
             Examiner:{" "}
             {examiner ? `${examiner.first_name} ${examiner.last_name}` : `ID: ${selectedTest.examiner_id}`}
           </Typography> */}
-          <Typography variant="h6">Grade When Given: {selectedTest.grade}</Typography>
+          <Typography variant="h6">
+            Grade When Given: {selectedTest.grade}
+          </Typography>
         </Paper>
       </div>
 
@@ -208,16 +238,24 @@ const KteaResults = () => {
           <TableBody>
             <TableRow>
               <TableCell>
-                <Typography variant="h6">Letter and Word Recognition Scaled Score</Typography>
+                <Typography variant="h6">
+                  Letter and Word Recognition Scaled Score
+                </Typography>
               </TableCell>
               <TableCell align="right">
-                <Typography variant="h6">{selectedTest.lwr_scaled_score}</Typography>
+                <Typography variant="h6">
+                  {selectedTest.lwr_scaled_score}
+                </Typography>
               </TableCell>
               <TableCell align="right">
-                <Typography variant="h6">Letter and Word Recognition % ile</Typography>
+                <Typography variant="h6">
+                  Letter and Word Recognition % ile
+                </Typography>
               </TableCell>
               <TableCell align="right">
-                <Typography variant="h6">{selectedTest.lwr_percentile}</Typography>
+                <Typography variant="h6">
+                  {selectedTest.lwr_percentile}
+                </Typography>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -225,13 +263,17 @@ const KteaResults = () => {
                 <Typography variant="h6">Spelling Scaled Score</Typography>
               </TableCell>
               <TableCell align="right">
-                <Typography variant="h6">{selectedTest.spelling_scaled_score}</Typography>
+                <Typography variant="h6">
+                  {selectedTest.spelling_scaled_score}
+                </Typography>
               </TableCell>
               <TableCell align="right">
                 <Typography variant="h6">Spelling % ile</Typography>
               </TableCell>
               <TableCell align="right">
-                <Typography variant="h6">{selectedTest.spelling_percentile}</Typography>
+                <Typography variant="h6">
+                  {selectedTest.spelling_percentile}
+                </Typography>
               </TableCell>
             </TableRow>
           </TableBody>
@@ -240,6 +282,7 @@ const KteaResults = () => {
 
       <div style={{ textAlign: "center", marginTop: "20px" }}>
         <Button
+          className="noPrint"
           variant="contained"
           color="primary"
           onClick={() => history.push(`/EditKteaResults/${testId}`)}

@@ -157,7 +157,7 @@ const StudentList = () => {
       ...student,
       full_name: `${student.first_name} ${student.last_name}`,
       // Ensure intake_grade is a string for consistent search behavior
-      intake_grade: student.intake_grade.toString(),
+      intake_grade: student.intake_grade === null ? "none" : student.intake_grade.toString(),
     }));
     const fuse = new Fuse(modifiedStudents, {
       keys: ["full_name", "grade", "intake_grade"], // Include intake_grade in search keys

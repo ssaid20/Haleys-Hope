@@ -76,7 +76,7 @@ const ElementaryWistResults = () => {
                 Date: {formatDate(selectedTest.date)} &nbsp;
               </Typography>
 
-              {examiner ? (
+              {/* {examiner ? (
                 <Typography variant="h6" style={{ marginBottom: "10px" }}>
                   Examiner: {examiner.first_name} {examiner.last_name}
                 </Typography>
@@ -84,9 +84,9 @@ const ElementaryWistResults = () => {
                 <Typography variant="h6" style={{ marginBottom: "10px" }}>
                   Examiner ID: {selectedTest.examiner_id}
                 </Typography>
-              )}
+              )} */}
               <Typography variant="h6" style={{ marginBottom: "10px" }}>
-                Grade When Test Given: {selectedTest.grade} &nbsp;
+                Grade When Given: {selectedTest.grade} &nbsp;
               </Typography>
             </div>
           </Paper>

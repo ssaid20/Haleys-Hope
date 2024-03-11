@@ -190,11 +190,11 @@ const KteaResults = () => {
         <MiniStudentCard />
         <Paper style={{ padding: "20px", maxWidth: "400px" }}>
           <Typography variant="h6">Date: {formatDate(selectedTest.date)}</Typography>
-          <Typography variant="h6">
+          {/* <Typography variant="h6">
             Examiner:{" "}
             {examiner ? `${examiner.first_name} ${examiner.last_name}` : `ID: ${selectedTest.examiner_id}`}
-          </Typography>
-          <Typography variant="h6">Grade When Test Given: {selectedTest.grade}</Typography>
+          </Typography> */}
+          <Typography variant="h6">Grade When Given: {selectedTest.grade}</Typography>
         </Paper>
       </div>
 

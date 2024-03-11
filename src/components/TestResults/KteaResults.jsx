@@ -155,6 +155,7 @@ import { formatDate } from "../../lib/utils";
 import MiniStudentCard from "../Cards/MiniStudentCard";
 import { Button, Table, TableBody, TableCell, TableRow, Paper, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import MicroStudentCard from "../Cards/MicroStudentCard"
 
 const KteaResults = () => {
   const { id: testId } = useParams();
@@ -187,8 +188,12 @@ const KteaResults = () => {
       </Typography>
 
       <div style={{ display: "flex", justifyContent: "center", gap: "20px", marginBottom: "20px" }}>
-        <MiniStudentCard />
-        <Paper style={{ padding: "20px", maxWidth: "400px" }}>
+      <div className="screen-view">
+      <MiniStudentCard />
+    </div>
+    <div className="print-view">
+      <MicroStudentCard />
+    </div>        <Paper style={{ padding: "20px", maxWidth: "400px" }}>
           <Typography variant="h6">Date: {formatDate(selectedTest.date)}</Typography>
           {/* <Typography variant="h6">
             Examiner:{" "}

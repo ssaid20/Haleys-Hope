@@ -36,7 +36,7 @@ const KteaList = () => {
       {tests.map((test) => (
         <div key={test.id} onClick={() => moreDetails(test.id)}>
           <TableRow>
-            <TableCell style={{width: 275}}>
+            <TableCell style={{ width: 275 }}>
               <p>KTEA-3 Date: {formatDate(test.date)}</p>
             </TableCell>
             <TableCell>
@@ -59,14 +59,8 @@ const KteaList = () => {
             <h2>Test Details:</h2>
             <p>Date: {formatDate(selectedTest.date)}</p>
             <p>Examiner ID: {selectedTest.examiner_id}</p>
-            <p>
-              Letter and Word Recognition Scaled Score:{" "}
-              {selectedTest.lwc_scaled_score}
-            </p>
-            <p>
-              Letter and Word Recognition Percentile:{" "}
-              {selectedTest.lwc_percentile}
-            </p>
+            <p>Letter and Word Recognition Scaled Score: {selectedTest.lwc_scaled_score}</p>
+            <p>Letter and Word Recognition Percentile: {selectedTest.lwc_percentile}</p>
             <p>Spelling Scaled Score: {selectedTest.spelling_scaled_score}</p>
             <p>Spelling Percentile: {selectedTest.spelling_percentile}</p>
           </div>
@@ -74,7 +68,6 @@ const KteaList = () => {
       )}
       <hr />
     </div>
-
   );
 };
 

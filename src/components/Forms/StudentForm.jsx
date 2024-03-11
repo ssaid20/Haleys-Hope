@@ -42,6 +42,7 @@ const StudentForm = () => {
     barton_c_date: null,
     coach_id: "",
     is_active: true,
+    intake_grade: "",
   });
   const handleGoBack = () => {
     history.push(`/students`);
@@ -77,6 +78,7 @@ const StudentForm = () => {
       barton_c_date: null,
       coach_id: "",
       is_active: true,
+      intake_grade: "",
     });
     dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Student Added", severity: "success" } });
 
@@ -117,15 +119,27 @@ const StudentForm = () => {
                 onChange={handleChange}
               />
             </Grid>
-            {/* Grade Field */}
+            {/* Current Grade Field */}
             <Grid item xs={12} md={6}>
               <TextField
-                label="Grade"
+                label="Current Grade"
                 variant="outlined"
                 fullWidth
                 name="grade"
                 type="number"
                 value={studentData.grade}
+                onChange={handleChange}
+              />
+            </Grid>
+            {/* Intake Grade Field */}
+            <Grid item xs={12} md={6}>
+              <TextField
+                label="Intake Grade"
+                variant="outlined"
+                fullWidth
+                name="intake_grade"
+                type="number"
+                value={studentData.intake_grade}
                 onChange={handleChange}
               />
             </Grid>
@@ -232,7 +246,7 @@ const StudentForm = () => {
             {/* Barton C Date Field */}
             <Grid item xs={12} md={6}>
               <TextField
-                label="Start Date"
+                label="Intake Date"
                 variant="outlined"
                 fullWidth
                 name="start_date"

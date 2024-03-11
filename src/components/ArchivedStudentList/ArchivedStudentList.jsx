@@ -22,7 +22,7 @@ const columns = [
   { id: "grade", label: "Grade", minWidth: 80 },
   { id: "city", label: "City", minWidth: 150 },
   { id: "state", label: "State", minWidth: 150 },
-  { id: "start_date", label: "Start Date", minWidth: 130 },
+  { id: "start_date", label: "Intake Date", minWidth: 130 },
 ];
 
 const ArchivedStudentList = () => {

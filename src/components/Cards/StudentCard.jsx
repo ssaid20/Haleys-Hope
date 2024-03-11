@@ -56,6 +56,11 @@ const StudentCard = () => {
       errors.grade = "Please enter a grade";
     }
 
+    // Validate intake grade
+    if (!formData.intake_grade) {
+      errors.intake_grade = "Please enter an intake grade";
+    }
+
     // Validate dob, wont work with a date input, need better error display for this
     // if (!formData.dob) {
     //   errors.dob = "Please enter Date of Birth";
@@ -90,6 +95,7 @@ const StudentCard = () => {
     first_name: "",
     last_name: "",
     grade: "",
+    intake_grade: "",
     school: "",
     gender: "",
     dob: "",
@@ -110,6 +116,7 @@ const StudentCard = () => {
         first_name: student.first_name || "",
         last_name: student.last_name || "",
         grade: student.grade || "",
+        intake_grade: student.intake_grade || "",
         school: student.school || "",
         gender: student.gender || "",
         dob: student.dob ? student.dob.split("T")[0] : "",
@@ -252,7 +259,7 @@ const StudentCard = () => {
                   className={validationErrors.last_name ? "error-input" : ""}
                 />
 
-                <Label htmlFor="grade">Grade</Label>
+                <Label htmlFor="currentGrade">Current Grade</Label>
                 <Input
                   id="grade"
                   type="number"
@@ -260,6 +267,16 @@ const StudentCard = () => {
                   onChange={handleInputChange}
                   placeholder={validationErrors.grade || "Grade"}
                   className={validationErrors.grade ? "error-input" : ""}
+                />
+
+                <Label htmlFor="intakeGrade">Intake Grade</Label>
+                <Input
+                  id="intake_grade"
+                  type="number"
+                  value={formData.intake_grade}
+                  onChange={handleInputChange}
+                  placeholder={validationErrors.intake_grade || "Intake Grade"}
+                  className={validationErrors.intake_grade ? "error-input" : ""}
                 />
 
                 <Label htmlFor="school">School</Label>
@@ -304,13 +321,13 @@ const StudentCard = () => {
                   <option value="false">No</option>
                 </select>
 
-                <Label htmlFor="startDate">Start Date</Label>
+                <Label htmlFor="startDate">Intake Date</Label>
                 <Input
                   id="start_date"
                   type="date"
                   value={formData.start_date}
                   onChange={handleInputChange}
-                  placeholder={validationErrors.start_date || "Start Date"}
+                  placeholder={validationErrors.start_date || "Intake Date"}
                   className={validationErrors.start_date ? "error-input" : ""}
                 />
 
@@ -343,7 +360,8 @@ const StudentCard = () => {
         </Sheet>
 
         <div className="grid grid-cols-2 md:grid-cols-2 gap-x-8 gap-y-4 mt-4">
-          <p className="body-regular text-dark500_light500">Grade: {student.grade}</p>
+          <p className="body-regular text-dark500_light500">Current Grade: {student.grade}</p>
+          <p className="body-regular text-dark500_light500">Intake Grade: {student.intake_grade}</p>
           <p className="body-regular text-dark500_light500">School: {student.school}</p>
           <p className="body-regular text-dark500_light500">Gender: {student.gender}</p>
           <p className="body-regular text-dark500_light500">
@@ -354,7 +372,7 @@ const StudentCard = () => {
           <p className="body-regular text-dark500_light500">City: {student.city}</p>
           <p className="body-regular text-dark500_light500">State: {student.state}</p>
           <p className="body-regular text-dark500_light500">
-            Start Date: {new Date(student.start_date).toLocaleDateString()}
+            Intake Date: {new Date(student.start_date).toLocaleDateString()}
           </p>
           <p className="body-regular text-dark500_light500">
             Barton C: {student.barton_c ? "Foundations" : "Barton"}

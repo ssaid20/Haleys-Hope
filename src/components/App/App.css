@@ -152,6 +152,13 @@ input {
 .assessmentCards {
   margin-bottom: 10px;
 }
+.screen-view {
+  display: block;
+}
+.print-view {
+  display: none;
+}
+
 
 @media print {
   @page {
@@ -160,8 +167,14 @@ input {
   }
   .print-header,
   .print-footer,
+  .screen-view {
+    display: none}
   .print-navBar {
     display: none;
+    
+  }
+  .print-view {
+    display: block;
   }
   .noPrint,
   print-button {

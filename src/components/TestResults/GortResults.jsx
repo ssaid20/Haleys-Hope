@@ -7,6 +7,7 @@ import { Button, Table, TableBody, TableCell, TableHead, TableRow, Paper, Typogr
 import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
 import { GetScaledScoreDescription } from "../../lib/GetScaledScoreDescription";
 import EditIcon from "@mui/icons-material/Edit";
+import MicroStudentCard from "../Cards/MicroStudentCard"
 
 const GortResults = () => {
   const testId = useParams();
@@ -49,7 +50,12 @@ const GortResults = () => {
             marginBottom: "20px",
           }}
         >
-          <MiniStudentCard />
+             <div className="screen-view">
+      <MiniStudentCard />
+    </div>
+    <div className="print-view">
+      <MicroStudentCard />
+    </div>
         </div>
         <div>
           <Paper

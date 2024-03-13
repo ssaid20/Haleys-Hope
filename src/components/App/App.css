@@ -179,7 +179,9 @@ input {
     size: auto;
 
   }
-  
+  .print-margin {
+    margin-top: 75px !important;
+  }
 /* .break {
   page-break-before: always;
 } */
@@ -199,7 +201,7 @@ input {
     display: block;
     position: fixed;
     margin-top: -50px;
-    margin-left: 25px;
+    margin-left: 35px;
     padding: 0px; 
 max-width: 150px;  }
 

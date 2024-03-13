@@ -379,12 +379,14 @@ const ElementaryWistResults = () => {
           </Table>
         </Paper>
       </div>
-      
-      <h2 className="break"
+      <div style={{ breakBefore: "page" }}></div>
+
+      <h2 className="break .print-margin"
         style={{
           textAlign: "center",
           fontWeight: "bold",
           fontSize: "20px",
+          marginTop: "75px",
         }}
       > 
         Record of Informal Assessment

@@ -55,7 +55,13 @@ const YoungerCtoppResults = () => {
       </Button>
       {/* <h1 className="text-3xl text-center mb-4">CTOPP 4-6 Results </h1> */}
       <h1 className="text-4xl font-bold text-center text-primary-500 my-4">
-        CTOPP 4-6 Results{" "}
+      <img
+          src="/assets/images/site-logo.png"
+          width={180}
+          height={180}
+          className="logo-image print-logo"
+          alt="Haley's Hope Logo"
+        /> CTOPP 4-6 Results{" "}
       </h1>
 
       <div style={{ display: "flex", justifyContent: "center", gap: "50px" }}>
@@ -315,15 +321,18 @@ const YoungerCtoppResults = () => {
               </TableRow>
             </TableBody>
           </Table>
+          <div style={{ breakBefore: "page" }}></div>
+
           <Typography
             variant="h6"
             align="center"
+            className="print-margin"
             style={{
               marginBottom: "10px",
-              marginTop: "10px",
+              marginTop: "20px",
               fontWeight: "bold",
               fontSize: "20px",
-              textAlign: "left",
+              textAlign: "center",
               marginLeft: "50px",
             }}
           >
@@ -335,6 +344,7 @@ const YoungerCtoppResults = () => {
                 backgroundColor: "#e0e0e0",
                 alignItems: "center",
                 justifyContent: "center",
+                marginTop: "10px",
               }}
             >
               <TableRow>

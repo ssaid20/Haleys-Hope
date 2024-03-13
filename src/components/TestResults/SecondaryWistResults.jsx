@@ -56,7 +56,13 @@ const SecondaryWistResults = () => {
       </Button>
       {/* <h1 className="text-3xl text-center mb-4">WIST Age 11-18 Results </h1> */}
       <h1 className="text-4xl font-bold text-center text-primary-500 my-4">
-        WIST Age 11-18 Results{" "}
+      <img
+          src="/assets/images/site-logo.png"
+          width={180}
+          height={180}
+          className="logo-image print-logo"
+          alt="Haley's Hope Logo"
+        /> WIST Age 11-18 Results{" "}
       </h1>
 
       <div style={{ display: "flex", justifyContent: "center", gap: "50px" }}>
@@ -373,11 +379,14 @@ const SecondaryWistResults = () => {
           </Table>
         </Paper>
       </div>
+      <div style={{ breakBefore: "page" }}></div>
+
       <h2
         style={{
           textAlign: "center",
           fontWeight: "bold",
           fontSize: "20px",
+          marginTop: "75px",
         }}
       >
         Record of Informal Assessment

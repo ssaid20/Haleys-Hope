@@ -202,7 +202,13 @@ const KteaResults = () => {
         Back to Tests List
       </Button>
       <Typography variant="h4" align="center" gutterBottom>
-        KTEA Results
+      <img
+          src="/assets/images/site-logo.png"
+          width={180}
+          height={180}
+          className="logo-image print-logo"
+          alt="Haley's Hope Logo"
+        /> KTEA Results
       </Typography>
 
       <div

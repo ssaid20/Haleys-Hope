@@ -17,81 +17,30 @@ import {
   TableCell,
   Typography,
 } from "@mui/material";
+import { Bold } from "lucide-react";
 const TestTab = () => {
   return (
     <div>
       <Table>
-        <TableHead>
-           
+        <TableHead></TableHead>
+        <TableHead align="center" >
+          <TableRow>
+            <TableCell style={{ width: 250, fontWeight: "bold", fontSize: 18 }}>Test</TableCell>
+            <TableCell style={{ width: 250, fontWeight: "bold", fontSize: 18 }}>Date</TableCell>
+            {/* <TableCell style={{ width: 250 }}>Date</TableCell>
+            <TableCell style={{ width: 250 }}>Date</TableCell> */}
+          </TableRow>
         </TableHead>
-        <TableHead align="center">
-          <TableRow>
-          <TableCell>
-    Test
-</TableCell>
-<TableCell>
-Date
-</TableCell>
-<TableCell>
-Date
-</TableCell>
-<TableCell>
-Date
-</TableCell>
-          </TableRow>
-        
-        </TableHead>
-        <TableBody>
-          <TableRow>
-            <TableCell>
-              Wist 7-11
-            </TableCell>
-            <TableCell>10-10-2010</TableCell>
-
-            <TableCell>11-11-2011</TableCell>
-            <TableCell>12-12-2012</TableCell>
-
-
-            <TableCell>
-
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>
-Wist 11-18         </TableCell>
-<TableCell>11-11-2011</TableCell>
-<TableCell>11-11-2011</TableCell>
-<TableCell>11-11-2011</TableCell>
-
-          </TableRow>         <TableRow>
-            <TableCell>
-Ctopp 4-6        </TableCell>
-<TableCell>11-11-2011</TableCell>
-<TableCell>11-11-2011</TableCell>
-<TableCell>11-11-2011</TableCell>
-
-          </TableRow>
-          <TableRow>
-            <TableCell>
-Ctopp 7-24         </TableCell>
-<TableCell>11-11-2011</TableCell>
-<TableCell>11-11-2011</TableCell>
-<TableCell>11-11-2011</TableCell>
-
-          </TableRow>
-
-        </TableBody>
       </Table>
 
       <Table>
-      
-      <ElementaryWistList />
-      <SecondaryWistList />
-      <GortList />
-      <KteaList />
-      <YoungerCtoppList />
-      <OlderCtoppList />
-      {/* <GortComparisonTable />
+        <ElementaryWistList />
+        <SecondaryWistList />
+        <GortList />
+        <KteaList />
+        <YoungerCtoppList />
+        <OlderCtoppList />
+        {/* <GortComparisonTable />
       <SecondaryWistComparisonTable />
       <ElementaryWistComparisonTable /> */}
       </Table>

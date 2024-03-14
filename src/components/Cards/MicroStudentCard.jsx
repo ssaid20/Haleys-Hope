@@ -16,7 +16,7 @@ import {
 } from "../ui/sheet";
 import { calculateAge } from "../../lib/utils";
 
-const MiniStudentCard = () => {
+const MicroStudentCard = () => {
   const dispatch = useDispatch();
   const student = useSelector((store) => store.studentReducer.Details);
   const studentId = useParams();
@@ -82,4 +82,4 @@ const MiniStudentCard = () => {
   );
 };
 
-export default MiniStudentCard;
+export default MicroStudentCard;

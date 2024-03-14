@@ -17,6 +17,8 @@ import {
 import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
 import EditIcon from "@mui/icons-material/Edit";
 import MicroStudentCard from "../Cards/MicroStudentCard";
+import PrintButton2 from "../PrintButton/PrintButton2";
+
 
 const SecondaryWistResults = () => {
   const testId = useParams();
@@ -54,6 +56,7 @@ const SecondaryWistResults = () => {
       >
         Back to Tests List
       </Button>
+      <PrintButton2 />
       {/* <h1 className="text-3xl text-center mb-4">WIST Age 11-18 Results </h1> */}
       <h1 className="text-4xl font-bold text-center text-primary-500 my-4">
       <img

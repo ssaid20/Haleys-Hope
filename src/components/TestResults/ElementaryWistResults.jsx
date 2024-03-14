@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../lib/utils";
 import MiniStudentCard from "../Cards/MiniStudentCard";
 import WistETable from "../WistTables/WistETable";
+import PrintButton from "../PrintButton/PrintButton";
 import {
   Button,
   Table,
@@ -16,6 +17,7 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import MicroStudentCard from "..//Cards/MicroStudentCard";
+import PrintButton2 from "../PrintButton/PrintButton2";
 
 import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
 
@@ -44,6 +46,8 @@ const ElementaryWistResults = () => {
 
   return (
     <div style={{ padding: "20px" }}>
+           <div style={{ display: "flex" }}>
+
       <Button
         className="noPrint"
         variant="contained"
@@ -53,7 +57,8 @@ const ElementaryWistResults = () => {
       >
         Back to Tests List
       </Button>
-
+      <PrintButton2 />
+</div>
       {/* <h1 className="text-3xl text-center mb-4">WIST Age 7-11 Results </h1> */}
       <h1 className="text-4xl test-name-print font-bold text-center text-primary-500 my-4">
       <img

@@ -17,6 +17,8 @@ import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescrip
 import { GetScaledScoreDescription } from "../../lib/GetScaledScoreDescription";
 import EditIcon from "@mui/icons-material/Edit";
 import MicroStudentCard from "../Cards/MicroStudentCard";
+import PrintButton2 from "../PrintButton/PrintButton2";
+
 
 const GortResults = () => {
   const testId = useParams();
@@ -57,6 +59,7 @@ const GortResults = () => {
       >
         Back to Tests List
       </Button>
+      <PrintButton2 />
       {/* <h1 className="text-3xl text-center mb-4">Gort Results </h1> */}
       <h1 className="text-4xl font-bold text-center text-primary-500 my-4">
            <img

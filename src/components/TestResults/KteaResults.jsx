@@ -164,6 +164,8 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import MicroStudentCard from "../Cards/MicroStudentCard";
+import PrintButton2 from "../PrintButton/PrintButton2";
+
 
 const KteaResults = () => {
   const { id: testId } = useParams();
@@ -182,6 +184,9 @@ const KteaResults = () => {
   if (!selectedTest || Object.keys(selectedTest).length === 0) {
     return <h1>Loading...</h1>;
   }
+  const handlePrint = () => {
+    window.print();
+  };
 
   //   // Find the examiner based on examiner_id
   const examiner = examiners.find(
@@ -190,7 +195,7 @@ const KteaResults = () => {
 
   const goBack = () => history.push(`/students/${selectedTest.student_id}`);
 
-  return (
+  return (<>
     <div style={{ padding: "20px" }}>
       <Button
         className="noPrint"
@@ -200,7 +205,16 @@ const KteaResults = () => {
         style={{ marginBottom: "20px" }}
       >
         Back to Tests List
-      </Button>
+      </Button> 
+      <Button
+      className="noPrint"
+      variant="contained"
+      color="primary"
+      onClick={handlePrint}
+      style={{ marginRight: "20px", marginLeft: "20px", marginTop:"-18px" }}
+    >
+      Print{" "}
+    </Button>
       <Typography variant="h4" align="center" gutterBottom>
       <img
           src="/assets/images/site-logo.png"
@@ -298,6 +312,7 @@ const KteaResults = () => {
         </Button>
       </div>
     </div>
+    </>
   );
 };
 

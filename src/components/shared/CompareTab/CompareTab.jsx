@@ -9,8 +9,9 @@ import PrintButton from "../../PrintButton/PrintButton";
 const CompareTab = () => {
   return (
     <div>
+      
       <PrintButton />
-      <div className="h2-bold" style={{marginTop: "100px"}} >GORT-5 TEST COMPARISON</div>
+      <div className="h2-bold" style={{marginTop: "20px"}} >GORT-5 TEST COMPARISON</div>
       <GortComparisonTable />
       <br />
       <div className="h2-bold" style={{marginTop: "100px"}}>CTOPP-2 AGES 7-24 TEST COMPARISON</div>

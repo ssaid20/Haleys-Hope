@@ -47,7 +47,16 @@ function StudentDetails() {
   return (
     <>
       <div className="container mx-auto px-4 py-6">
+         <img
+          src="/assets/images/site-logo.png"
+          width={180}
+          height={180}
+          className="logo-image print-logo"
+          alt="Haley's Hope Logo"
+        />
+        
         <div className="flex flex-col lg:flex-row gap-6">
+          
           <div className="lg:flex-1 flex justify-center">
             <div className=" flex-1 flex flex-col justify-center">
             <div className="screen-view">

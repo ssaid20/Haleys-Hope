@@ -365,9 +365,9 @@ const StudentCard = () => {
           <p className="body-regular text-dark500_light500">School: {student.school}</p>
           <p className="body-regular text-dark500_light500">Gender: {student.gender}</p>
           <p className="body-regular text-dark500_light500">
-            Date of Birth: {new Date(student.dob).toLocaleDateString()}
+            Date of Birth:<br></br> {new Date(student.dob).toLocaleDateString()}
           </p>
-          <p className="body-regular text-dark500_light500">Age: {calculateAge(student.dob)}</p>
+          <p className="body-regular text-dark500_light500">Age:<br></br> {calculateAge(student.dob)}</p>
 
           <p className="body-regular text-dark500_light500">City: {student.city}</p>
           <p className="body-regular text-dark500_light500">State: {student.state}</p>

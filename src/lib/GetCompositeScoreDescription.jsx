@@ -1,4 +1,9 @@
-export const GetCompositeScoreDescription = ({ compositeScore }) => {
+export const GetCompositeScoreDescription = ({ compositeScore, descriptor }) => {
+  if (descriptor === "<") {
+    return <p>Very Poor</p>;
+  } else if (descriptor === ">") {
+    return <p>Very Superior</p>;
+  }
   if (compositeScore < 70) {
     return <p>Very Poor</p>;
   } else if (compositeScore >= 70 && compositeScore <= 79) {

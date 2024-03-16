@@ -63,6 +63,13 @@ const AddElementaryWist = () => {
     sound_symbol_knowledge: null,
     sound_symbol_knowledge_percentile: null,
     sound_symbol_knowledge_standard_score: null,
+
+    read_regular_words_descriptor: null,
+    read_irregular_words_descriptor: null,
+    spell_regular_words_descriptor: null,
+    spell_irregular_words_descriptor: null,
+    pseudo_words_descriptor: null,
+    letter_sounds_descriptor: null,
   });
 
   const handleExaminerChange = (event) => {
@@ -257,6 +264,30 @@ const AddElementaryWist = () => {
                 />
               </FormControl>
             </Grid>
+
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel> &lt; or &gt; for Read Regular Words</FormLabel>
+
+                <Select
+                  labelId="read-regular-words-label"
+                  id="read_regular_words_descriptor"
+                  value={newWist.read_regular_words_descriptor || ""}
+                  label="read_regular_words_descriptor"
+                  onChange={(event) =>
+                    setNewWist({ ...newWist, read_regular_words_descriptor: event.target.value })
+                  }
+                  variant="outlined"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>{" "}
+                  {/* Optional: Allow no selection */}
+                  <MenuItem value="<">&lt;</MenuItem>
+                  <MenuItem value=">">&gt;</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
             {/* Additional Fields */}
             {/* Read Regular Words Field */}
             <Grid item xs={12} md={4}>
@@ -270,6 +301,29 @@ const AddElementaryWist = () => {
                   onChange={handleChange}
                   variant="outlined"
                 />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel> &lt; or &gt; for Read Irregular Words</FormLabel>
+
+                <Select
+                  labelId="read-irregular-words-label"
+                  id="read_irregular_words_descriptor"
+                  value={newWist.read_irregular_words_descriptor || ""}
+                  label="read_irregular_words_descriptor"
+                  onChange={(event) =>
+                    setNewWist({ ...newWist, read_irregular_words_descriptor: event.target.value })
+                  }
+                  variant="outlined"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>{" "}
+                  {/* Optional: Allow no selection */}
+                  <MenuItem value="<">&lt;</MenuItem>
+                  <MenuItem value=">">&gt;</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
 
@@ -341,6 +395,29 @@ const AddElementaryWist = () => {
                 />
               </FormControl>
             </Grid>
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel> &lt; or &gt; for Spell Regular Words</FormLabel>
+
+                <Select
+                  labelId="spell-regular-words-label"
+                  id="spell_regular_words_descriptor"
+                  value={newWist.spell_regular_words_descriptor || ""}
+                  label="spell_regular_words_descriptor"
+                  onChange={(event) =>
+                    setNewWist({ ...newWist, spell_regular_words_descriptor: event.target.value })
+                  }
+                  variant="outlined"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>{" "}
+                  {/* Optional: Allow no selection */}
+                  <MenuItem value="<">&lt;</MenuItem>
+                  <MenuItem value=">">&gt;</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
 
             {/* Spell Regular Words Field */}
             <Grid item xs={12} md={4}>
@@ -356,7 +433,29 @@ const AddElementaryWist = () => {
                 />
               </FormControl>
             </Grid>
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel> &lt; or &gt; for Spell Irregular Words</FormLabel>
 
+                <Select
+                  labelId="spell-irregular-words-label"
+                  id="spell_irregular_words_descriptor"
+                  value={newWist.spell_irregular_words_descriptor || ""}
+                  label="spell_irregular_words_descriptor"
+                  onChange={(event) =>
+                    setNewWist({ ...newWist, spell_irregular_words_descriptor: event.target.value })
+                  }
+                  variant="outlined"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>{" "}
+                  {/* Optional: Allow no selection */}
+                  <MenuItem value="<">&lt;</MenuItem>
+                  <MenuItem value=">">&gt;</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
             {/* Spell Irregular Words Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -480,6 +579,29 @@ const AddElementaryWist = () => {
               </FormControl>
             </Grid>
 
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel> &lt; or &gt; for Pseudo Words</FormLabel>
+
+                <Select
+                  labelId="pseudo-words-label"
+                  id="pseudo_words_descriptor"
+                  value={newWist.pseudo_words_descriptor || ""}
+                  label="pseudo_words_descriptor"
+                  onChange={(event) =>
+                    setNewWist({ ...newWist, pseudo_words_descriptor: event.target.value })
+                  }
+                  variant="outlined"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>{" "}
+                  {/* Optional: Allow no selection */}
+                  <MenuItem value="<">&lt;</MenuItem>
+                  <MenuItem value=">">&gt;</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
             {/* Pseudo Words Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -495,6 +617,29 @@ const AddElementaryWist = () => {
               </FormControl>
             </Grid>
 
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel> &lt; or &gt; for Letter Sounds</FormLabel>
+
+                <Select
+                  labelId="letter-sounds-descriptor"
+                  id="letter_sounds_descriptor"
+                  value={newWist.letter_sounds_descriptor || ""}
+                  label="letter_sounds_descriptor"
+                  onChange={(event) =>
+                    setNewWist({ ...newWist, letter_sounds_descriptor: event.target.value })
+                  }
+                  variant="outlined"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>{" "}
+                  {/* Optional: Allow no selection */}
+                  <MenuItem value="<">&lt;</MenuItem>
+                  <MenuItem value=">">&gt;</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
             {/* Letter Sounds Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>

@@ -152,16 +152,62 @@ input {
 .assessmentCards {
   margin-bottom: 10px;
 }
+.screen-view {
+  display: block;
+}
+.print-view {
+  display: none;
+}
+
+.print-logo {
+  display: none
+}
+
 
 @media print {
+  body, html, #react-root {
+    margin: 0;
+    padding: 0;
+  }
+  .container, .formPanel, .customMenu, .assessmentCard, .assessmentContainer{
+    padding: 10px; /* Reduced padding */
+    margin: 0; /* Minimize margins */
+  }
   @page {
+    scale: 90%;
     margin: 0;
     size: auto;
+
   }
+  .print-margin {
+    margin-top: 75px !important;
+  }
+  
+/* .break {
+  page-break-before: always;
+} */
   .print-header,
   .print-footer,
+  .screen-view {
+    display: none}
   .print-navBar {
     display: none;
+    
+  }
+  .test-name-print{
+    font-size: 20px !important;
+    text-align: right;
+  }
+  .print-logo {
+    display: block;
+    position: fixed;
+    margin-top: -50px;
+    margin-left: 35px;
+    padding: 0px; 
+max-width: 150px;  }
+
+  .print-view {
+    display: block;
   }
   .noPrint,
   print-button {

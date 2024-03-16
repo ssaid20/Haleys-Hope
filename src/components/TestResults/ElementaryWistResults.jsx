@@ -5,16 +5,7 @@ import { formatDate } from "../../lib/utils";
 import MiniStudentCard from "../Cards/MiniStudentCard";
 import WistETable from "../WistTables/WistETable";
 import PrintButton from "../PrintButton/PrintButton";
-import {
-  Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Button, Table, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import MicroStudentCard from "..//Cards/MicroStudentCard";
 import PrintButton2 from "../PrintButton/PrintButton2";
@@ -31,43 +22,39 @@ const ElementaryWistResults = () => {
     dispatch({ type: "FETCH_ELEMENTARY_WIST_RESULTS", payload: testId.id });
   }, [dispatch]);
 
-  const selectedTest = useSelector(
-    (store) => store.elementaryWistReducer.selectedTest[0]
-  );
+  const selectedTest = useSelector((store) => store.elementaryWistReducer.selectedTest[0]);
   if (!selectedTest || Object.keys(selectedTest).length === 0) {
     return <h1>Loading...</h1>;
   }
   // Find the examiner based on examiner_id
-  const examiner = examiners.find(
-    (user) => user.id === selectedTest.examiner_id
-  );
+  const examiner = examiners.find((user) => user.id === selectedTest.examiner_id);
 
   const goBack = () => history.push(`/students/${selectedTest.student_id}`);
 
   return (
     <div style={{ padding: "20px" }}>
-           <div style={{ display: "flex" }}>
-
-      <Button
-        className="noPrint"
-        variant="contained"
-        color="primary"
-        onClick={goBack}
-        style={{ marginRight: "20px" }}
-      >
-        Back to Tests List
-      </Button>
-      <PrintButton2 />
-</div>
+      <div style={{ display: "flex" }}>
+        <Button
+          className="noPrint"
+          variant="contained"
+          color="primary"
+          onClick={goBack}
+          style={{ marginRight: "20px" }}
+        >
+          Back to Tests List
+        </Button>
+        <PrintButton2 />
+      </div>
       {/* <h1 className="text-3xl text-center mb-4">WIST Age 7-11 Results </h1> */}
       <h1 className="text-4xl test-name-print font-bold text-center text-primary-500 my-4">
-      <img
+        <img
           src="/assets/images/site-logo.png"
           width={180}
           height={180}
           className="logo-image print-logo"
           alt="Haley's Hope Logo"
-        /> WIST Age 7-11 Results{" "}
+        />{" "}
+        WIST Age 7-11 Results{" "}
       </h1>
 
       <div style={{ display: "flex", justifyContent: "center", gap: "50px" }}>
@@ -162,9 +149,7 @@ const ElementaryWistResults = () => {
             className="noPrint"
             variant="contained"
             color="primary"
-            onClick={() =>
-              history.push(`/EditElementaryWistResults/${selectedTest.id}`)
-            }
+            onClick={() => history.push(`/EditElementaryWistResults/${selectedTest.id}`)}
             // style={{ marginTop: "20px", marginRight: "50px" }}
           >
             <EditIcon /> &nbsp; Edit Test
@@ -190,31 +175,17 @@ const ElementaryWistResults = () => {
           <Table>
             <TableHead>
               <TableRow style={{ backgroundColor: "lightgrey" }}>
-                <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
-                  Assessment Area
-                </TableCell>
-                <TableCell
-                  align="right"
-                  style={{ fontWeight: "bold", fontSize: "16px" }}
-                >
+                <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Assessment Area</TableCell>
+                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Raw Score
                 </TableCell>
-                <TableCell
-                  align="right"
-                  style={{ fontWeight: "bold", fontSize: "16px" }}
-                >
+                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Percentile Rank
                 </TableCell>
-                <TableCell
-                  align="right"
-                  style={{ fontWeight: "bold", fontSize: "16px" }}
-                >
+                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Standard Score
                 </TableCell>
-                <TableCell
-                  align="right"
-                  style={{ fontWeight: "bold", fontSize: "16px" }}
-                >
+                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Descriptive Rating
                 </TableCell>
               </TableRow>
@@ -223,6 +194,7 @@ const ElementaryWistResults = () => {
               <TableRow>
                 <TableCell>Read Regular Words</TableCell>
                 <TableCell align="right">
+                  {selectedTest.read_regular_words_descriptor}&nbsp;
                   {selectedTest.read_regular_words}
                 </TableCell>
                 <TableCell align="right">-</TableCell>
@@ -232,7 +204,7 @@ const ElementaryWistResults = () => {
               <TableRow>
                 <TableCell>Read Irregular Words</TableCell>
                 <TableCell align="right">
-                  {selectedTest.read_irregular_words}
+                  {selectedTest.read_irregular_words_descriptor}&nbsp;{selectedTest.read_irregular_words}
                 </TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
                   -
@@ -240,12 +212,8 @@ const ElementaryWistResults = () => {
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
               </TableRow>
-              <TableRow
-                style={{ fontWeight: "bold", backgroundColor: "#F5F5F5" }}
-              >
-                <TableCell style={{ fontWeight: "bold" }}>
-                  Word Identification
-                </TableCell>
+              <TableRow style={{ fontWeight: "bold", backgroundColor: "#F5F5F5" }}>
+                <TableCell style={{ fontWeight: "bold" }}>Word Identification</TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
                   {selectedTest.word_identification}
                 </TableCell>
@@ -257,16 +225,14 @@ const ElementaryWistResults = () => {
                 </TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
                   <GetCompositeScoreDescription
-                    compositeScore={
-                      selectedTest.word_identification_standard_score
-                    }
+                    compositeScore={selectedTest.word_identification_standard_score}
                   />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Spell Regular Words</TableCell>
                 <TableCell align="right">
-                  {selectedTest.spell_regular_words}
+                  {selectedTest.spell_regular_words_descriptor}&nbsp;{selectedTest.spell_regular_words}
                 </TableCell>
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
@@ -275,15 +241,13 @@ const ElementaryWistResults = () => {
               <TableRow>
                 <TableCell>Spell Irregular Words</TableCell>
                 <TableCell align="right">
-                  {selectedTest.spell_irregular_words}
+                  {selectedTest.spell_irregular_words_descriptor}&nbsp;{selectedTest.spell_irregular_words}
                 </TableCell>
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
               </TableRow>
-              <TableRow
-                style={{ fontWeight: "bold", backgroundColor: "#F5F5F5" }}
-              >
+              <TableRow style={{ fontWeight: "bold", backgroundColor: "#F5F5F5" }}>
                 <TableCell style={{ fontWeight: "bold" }}>Spelling</TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
                   {selectedTest.spelling}
@@ -295,16 +259,12 @@ const ElementaryWistResults = () => {
                   {selectedTest.spelling_standard_score}
                 </TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
-                  <GetCompositeScoreDescription
-                    compositeScore={selectedTest.spelling_standard_score}
-                  />
+                  <GetCompositeScoreDescription compositeScore={selectedTest.spelling_standard_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Word Identification</TableCell>
-                <TableCell align="right">
-                  {selectedTest.word_identification}
-                </TableCell>
+                <TableCell align="right">{selectedTest.word_identification}</TableCell>
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
@@ -316,12 +276,8 @@ const ElementaryWistResults = () => {
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
               </TableRow>
-              <TableRow
-                style={{ fontWeight: "bold", backgroundColor: "#F5F5F5" }}
-              >
-                <TableCell style={{ fontWeight: "bold" }}>
-                  Fundamental Literacy Ability Index
-                </TableCell>
+              <TableRow style={{ fontWeight: "bold", backgroundColor: "#F5F5F5" }}>
+                <TableCell style={{ fontWeight: "bold" }}>Fundamental Literacy Ability Index</TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
                   {selectedTest.fundamental_literacy}
                 </TableCell>
@@ -333,15 +289,15 @@ const ElementaryWistResults = () => {
                 </TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
                   <GetCompositeScoreDescription
-                    compositeScore={
-                      selectedTest.fundamental_literacy_standard_score
-                    }
+                    compositeScore={selectedTest.fundamental_literacy_standard_score}
                   />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Pseudo Words</TableCell>
-                <TableCell align="right">{selectedTest.pseudo_words}</TableCell>
+                <TableCell align="right">
+                  {selectedTest.pseudo_words_descriptor}&nbsp;{selectedTest.pseudo_words}
+                </TableCell>
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
@@ -349,18 +305,14 @@ const ElementaryWistResults = () => {
               <TableRow>
                 <TableCell>Letter Sounds</TableCell>
                 <TableCell align="right">
-                  {selectedTest.letter_sounds}
+                  {selectedTest.letter_sounds_descriptor}&nbsp;{selectedTest.letter_sounds}
                 </TableCell>
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
               </TableRow>
-              <TableRow
-                style={{ fontWeight: "bold", backgroundColor: "#F5F5F5" }}
-              >
-                <TableCell style={{ fontWeight: "bold" }}>
-                  Sound Symbol Knowledge
-                </TableCell>
+              <TableRow style={{ fontWeight: "bold", backgroundColor: "#F5F5F5" }}>
+                <TableCell style={{ fontWeight: "bold" }}>Sound Symbol Knowledge</TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
                   {selectedTest.sound_symbol_knowledge}
                 </TableCell>
@@ -372,9 +324,7 @@ const ElementaryWistResults = () => {
                 </TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
                   <GetCompositeScoreDescription
-                    compositeScore={
-                      selectedTest.sound_symbol_knowledge_standard_score
-                    }
+                    compositeScore={selectedTest.sound_symbol_knowledge_standard_score}
                   />
                 </TableCell>
               </TableRow>
@@ -386,14 +336,15 @@ const ElementaryWistResults = () => {
       </div>
       <div style={{ breakBefore: "page" }}></div>
 
-      <h2 className="break .print-margin"
+      <h2
+        className="break .print-margin"
         style={{
           textAlign: "center",
           fontWeight: "bold",
           fontSize: "20px",
           marginTop: "75px",
         }}
-      > 
+      >
         Record of Informal Assessment
       </h2>
       <div

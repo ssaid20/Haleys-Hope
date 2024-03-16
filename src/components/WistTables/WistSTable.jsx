@@ -134,7 +134,7 @@ const WistSTable = ({ test }) => {
             <td style={test.read_regular_words > 96 ? cellStyle1 : cellStyle}>&gt;96</td>
           </tr>
           <tr>
-            <td>Read Irregular Words</td>
+            <td style={cellStyle}>Read Irregular Words</td>
             <td style={cellStyle}>{test.read_irregular_words}</td>
             {/* <td style={cellStyle}> below</td>
             <td style={cellStyle}>at above</td> */}

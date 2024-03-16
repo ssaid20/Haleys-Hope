@@ -239,6 +239,7 @@ export default function GortComparisonTable() {
             </TableBody>
           </Table>
         </TableContainer>
+          <div style={{ breakAfter: 'page' }}></div>
       </>
     );
   }

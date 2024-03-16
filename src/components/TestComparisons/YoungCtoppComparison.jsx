@@ -108,8 +108,9 @@ const YoungCtoppComparison = () => {
    }
   else {
   return (
+    <>
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="GORT-5 Comparison Table">
+      <Table sx={{ minWidth: 700}} aria-label="GORT-5 Comparison Table">
         <TableHead>
           <TableRow>
             <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
@@ -169,6 +170,8 @@ const YoungCtoppComparison = () => {
         </TableBody>
       </Table>
     </TableContainer>
+    <div style={{ breakAfter: 'page' }}></div>
+</>
   );
 };
 }

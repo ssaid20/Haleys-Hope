@@ -18,6 +18,7 @@ const cellStyle1 = {
   padding: "22px",
   textAlign: "center",
   backgroundColor: "#61e2ff",
+
 };
 const cellStyle2 = {
   border: "1px solid black",
@@ -134,7 +135,7 @@ const WistETable = ({ test }) => {
             <td style={test.read_regular_words > 99 ? cellStyle1 : cellStyle}>&gt;99</td>
           </tr>
           <tr>
-            <td>Read Irregular Words</td>
+            <td style={cellStyle}>Read Irregular Words</td>
             <td style={cellStyle}>{test.read_irregular_words}</td>
             {/* <td style={cellStyle}> below</td>
             <td style={cellStyle}>at above</td> */}

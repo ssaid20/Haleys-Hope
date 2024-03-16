@@ -446,13 +446,15 @@ const AddGort = () => {
             {/* Sign Dropdown for Oral Reading Index */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
-                <InputLabel id="ori-descriptor-label">Descriptor</InputLabel>
+                <FormLabel>&lt; or &gt;</FormLabel>
+                {/* <InputLabel id="ori-descriptor-label"> &lt; or &gt; </InputLabel> */}
                 <Select
                   labelId="ori-descriptor-label"
                   id="ori_descriptor"
                   value={newGort.ori_descriptor || ""}
                   label="ori_descriptor"
                   onChange={(event) => setNewGort({ ...newGort, ori_descriptor: event.target.value })}
+                  variant="outlined"
                 >
                   <MenuItem value="">
                     <em>None</em>
@@ -474,7 +476,6 @@ const AddGort = () => {
                   name="oral_reading_index"
                   value={newGort.oral_reading_index}
                   onChange={handleChange}
-                  variant="outlined"
                 />
               </FormControl>
             </Grid>

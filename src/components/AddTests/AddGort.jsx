@@ -62,6 +62,7 @@ const AddGort = () => {
     accuracy_scaled_score: null,
     fluency_scaled_score: null,
     comprehension_scaled_score: null,
+    ori_descriptor: null,
   });
 
   const handleExaminerChange = (event) => {
@@ -97,6 +98,7 @@ const AddGort = () => {
     setNewGort((prevGort) => {
       // Update values based on input type
       let updatedValue;
+
       if (name === "date") {
         updatedValue = value; // For non-numeric fields like date
       } else {
@@ -105,24 +107,15 @@ const AddGort = () => {
 
       const updatedValues = {
         ...prevGort,
-        [name]: updatedValue,
+        [name]: updatedValue, //Changed updatedValue to just value
       };
 
       // Update sum scaled score for relevant changes
-      if (
-        [
-          "rate_scaled_score",
-          "accuracy_scaled_score",
-          "fluency_scaled_score",
-          "comprehension_scaled_score",
-        ].includes(name)
-      ) {
-        const sum = [
-          "rate_scaled_score",
-          "accuracy_scaled_score",
-          "fluency_scaled_score",
-          "comprehension_scaled_score",
-        ].reduce((acc, field) => acc + (updatedValues[field] || 0), 0); // Calculate sum
+      if (["fluency_scaled_score", "comprehension_scaled_score"].includes(name)) {
+        const sum = ["fluency_scaled_score", "comprehension_scaled_score"].reduce(
+          (acc, field) => acc + (updatedValues[field] || 0),
+          0
+        ); // Calculate sum
 
         updatedValues.sum_scaled_score = sum; // Update sum scaled score
       }
@@ -159,7 +152,8 @@ const AddGort = () => {
       ...newGort,
       examiner_id: selectedExaminerId,
     };
-
+    console.log("this is the new gort!!!!!", newGort);
+    console.log("!!!!!!!!Submission data", submissionData);
     dispatch({
       type: "ADD_GORT",
       payload: submissionData,
@@ -429,6 +423,44 @@ const AddGort = () => {
                   onChange={handleChange}
                   variant="outlined"
                 />
+              </FormControl>
+            </Grid>
+
+            {/* <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>ORI Descriptor</FormLabel>
+                <Select
+                  id="ori_descriptor"
+                  name="ori_descriptor"
+                  value={newGort.ori_descriptor || ""} // Fallback to an empty string if null/undefined
+                  onChange={handleChange} // Use handleChange to update
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value="<">&lt;</MenuItem>
+                  <MenuItem value=">">&gt;</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid> */}
+            {/* Sign Dropdown for Oral Reading Index */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <InputLabel id="ori-descriptor-label">Descriptor</InputLabel>
+                <Select
+                  labelId="ori-descriptor-label"
+                  id="ori_descriptor"
+                  value={newGort.ori_descriptor || ""}
+                  label="ori_descriptor"
+                  onChange={(event) => setNewGort({ ...newGort, ori_descriptor: event.target.value })}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>{" "}
+                  {/* Optional: Allow no selection */}
+                  <MenuItem value="<">&lt;</MenuItem>
+                  <MenuItem value=">">&gt;</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
 

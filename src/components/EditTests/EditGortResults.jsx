@@ -60,6 +60,7 @@ const EditGortResults = () => {
     fluency_scaled_score: null,
     comprehension_scaled_score: null,
     grade: "",
+    ori_descriptor: null,
   });
   const [selectedExaminerId, setSelectedExaminerId] = useState("");
   const handleExaminerChange = (event) => {
@@ -262,6 +263,28 @@ const EditGortResults = () => {
                   onChange={handleChange}
                   variant="outlined"
                 />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>&lt; or &gt;</FormLabel>
+                {/* <InputLabel id="ori-descriptor-label"> &lt; or &gt; </InputLabel> */}
+                <Select
+                  labelId="ori-descriptor-label"
+                  id="ori_descriptor"
+                  value={newGort.ori_descriptor || ""}
+                  label="ori_descriptor"
+                  onChange={(event) => setNewGort({ ...newGort, ori_descriptor: event.target.value })}
+                  variant="outlined"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>{" "}
+                  {/* Optional: Allow no selection */}
+                  <MenuItem value="<">&lt;</MenuItem>
+                  <MenuItem value=">">&gt;</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
 

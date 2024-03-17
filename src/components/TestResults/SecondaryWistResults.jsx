@@ -4,21 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../lib/utils";
 import MiniStudentCard from "../Cards/MiniStudentCard";
 import WistSTable from "../WistTables/WistSTable";
-import {
-  Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Button, Table, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from "@mui/material";
 import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
 import EditIcon from "@mui/icons-material/Edit";
 import MicroStudentCard from "../Cards/MicroStudentCard";
 import PrintButton2 from "../PrintButton/PrintButton2";
-
 
 const SecondaryWistResults = () => {
   const testId = useParams();
@@ -30,18 +20,14 @@ const SecondaryWistResults = () => {
     dispatch({ type: "FETCH_SECONDARY_WIST_RESULTS", payload: testId.id });
   }, [dispatch]);
 
-  const selectedTest = useSelector(
-    (store) => store.secondaryWistReducer.selectedTest[0]
-  );
+  const selectedTest = useSelector((store) => store.secondaryWistReducer.selectedTest[0]);
 
   if (!selectedTest || Object.keys(selectedTest).length === 0) {
     return <h1>Loading...</h1>;
   }
 
   // Find the examiner based on examiner_id
-  const examiner = examiners.find(
-    (user) => user.id === selectedTest.examiner_id
-  );
+  const examiner = examiners.find((user) => user.id === selectedTest.examiner_id);
 
   const goBack = () => history.push(`/students/${selectedTest.student_id}`);
 
@@ -59,13 +45,14 @@ const SecondaryWistResults = () => {
       <PrintButton2 />
       {/* <h1 className="text-3xl text-center mb-4">WIST Age 11-18 Results </h1> */}
       <h1 className="text-4xl font-bold text-center text-primary-500 my-4">
-      <img
+        <img
           src="/assets/images/site-logo.png"
           width={180}
           height={180}
           className="logo-image print-logo"
           alt="Haley's Hope Logo"
-        /> WIST Age 11-18 Results{" "}
+        />{" "}
+        WIST Age 11-18 Results{" "}
       </h1>
 
       <div style={{ display: "flex", justifyContent: "center", gap: "50px" }}>
@@ -160,9 +147,7 @@ const SecondaryWistResults = () => {
             className="noPrint"
             variant="contained"
             color="primary"
-            onClick={() =>
-              history.push(`/EditSecondaryWistResults/${selectedTest.id}`)
-            }
+            onClick={() => history.push(`/EditSecondaryWistResults/${selectedTest.id}`)}
             // style={{ marginTop: "20px", marginRight: "50px" }}
           >
             <EditIcon /> &nbsp; Edit Test
@@ -188,31 +173,17 @@ const SecondaryWistResults = () => {
           <Table>
             <TableHead>
               <TableRow style={{ backgroundColor: "lightgrey" }}>
-                <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
-                  Assessment Area
-                </TableCell>
-                <TableCell
-                  align="right"
-                  style={{ fontWeight: "bold", fontSize: "16px" }}
-                >
+                <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Assessment Area</TableCell>
+                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Raw Score
                 </TableCell>
-                <TableCell
-                  align="right"
-                  style={{ fontWeight: "bold", fontSize: "16px" }}
-                >
+                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Percentile Rank
                 </TableCell>
-                <TableCell
-                  align="right"
-                  style={{ fontWeight: "bold", fontSize: "16px" }}
-                >
+                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Standard Score
                 </TableCell>
-                <TableCell
-                  align="right"
-                  style={{ fontWeight: "bold", fontSize: "16px" }}
-                >
+                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Descriptive Rating
                 </TableCell>
               </TableRow>
@@ -221,6 +192,7 @@ const SecondaryWistResults = () => {
               <TableRow>
                 <TableCell>Read Regular Words</TableCell>
                 <TableCell align="right">
+                  {selectedTest.read_regular_words_descriptor}&nbsp;
                   {selectedTest.read_regular_words}
                 </TableCell>
                 <TableCell align="right">-</TableCell>
@@ -230,6 +202,7 @@ const SecondaryWistResults = () => {
               <TableRow>
                 <TableCell>Read Irregular Words</TableCell>
                 <TableCell align="right">
+                  {selectedTest.read_irregular_words_descriptor}&nbsp;
                   {selectedTest.read_irregular_words}
                 </TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
@@ -238,12 +211,8 @@ const SecondaryWistResults = () => {
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
               </TableRow>
-              <TableRow
-                style={{ fontWeight: "bold", backgroundColor: "#F5F5F5" }}
-              >
-                <TableCell style={{ fontWeight: "bold" }}>
-                  Word Identification
-                </TableCell>
+              <TableRow style={{ fontWeight: "bold", backgroundColor: "#F5F5F5" }}>
+                <TableCell style={{ fontWeight: "bold" }}>Word Identification</TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
                   {selectedTest.word_identification}
                 </TableCell>
@@ -255,15 +224,14 @@ const SecondaryWistResults = () => {
                 </TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
                   <GetCompositeScoreDescription
-                    compositeScore={
-                      selectedTest.word_identification_standard_score
-                    }
+                    compositeScore={selectedTest.word_identification_standard_score}
                   />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Spell Regular Words</TableCell>
                 <TableCell align="right">
+                  {selectedTest.spell_regular_words_descriptor}&nbsp;
                   {selectedTest.spell_regular_words}
                 </TableCell>
                 <TableCell align="right">-</TableCell>
@@ -273,15 +241,15 @@ const SecondaryWistResults = () => {
               <TableRow>
                 <TableCell>Spell Irregular Words</TableCell>
                 <TableCell align="right">
+                  {" "}
+                  {selectedTest.spell_irregular_words_descriptor}&nbsp;
                   {selectedTest.spell_irregular_words}
                 </TableCell>
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
               </TableRow>
-              <TableRow
-                style={{ fontWeight: "bold", backgroundColor: "#F5F5F5" }}
-              >
+              <TableRow style={{ fontWeight: "bold", backgroundColor: "#F5F5F5" }}>
                 <TableCell style={{ fontWeight: "bold" }}>Spelling</TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
                   {selectedTest.spelling}
@@ -293,16 +261,12 @@ const SecondaryWistResults = () => {
                   {selectedTest.spelling_standard_score}
                 </TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
-                  <GetCompositeScoreDescription
-                    compositeScore={selectedTest.spelling_standard_score}
-                  />
+                  <GetCompositeScoreDescription compositeScore={selectedTest.spelling_standard_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Word Identification</TableCell>
-                <TableCell align="right">
-                  {selectedTest.word_identification}
-                </TableCell>
+                <TableCell align="right">{selectedTest.word_identification}</TableCell>
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
@@ -314,12 +278,8 @@ const SecondaryWistResults = () => {
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
               </TableRow>
-              <TableRow
-                style={{ fontWeight: "bold", backgroundColor: "#F5F5F5" }}
-              >
-                <TableCell style={{ fontWeight: "bold" }}>
-                  Fundamental Literacy Ability Index
-                </TableCell>
+              <TableRow style={{ fontWeight: "bold", backgroundColor: "#F5F5F5" }}>
+                <TableCell style={{ fontWeight: "bold" }}>Fundamental Literacy Ability Index</TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
                   {selectedTest.fundamental_literacy}
                 </TableCell>
@@ -331,15 +291,15 @@ const SecondaryWistResults = () => {
                 </TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
                   <GetCompositeScoreDescription
-                    compositeScore={
-                      selectedTest.fundamental_literacy_standard_score
-                    }
+                    compositeScore={selectedTest.fundamental_literacy_standard_score}
                   />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Pseudo Words</TableCell>
-                <TableCell align="right">{selectedTest.pseudo_words}</TableCell>
+                <TableCell align="right">
+                  {selectedTest.pseudo_words_descriptor}&nbsp;{selectedTest.pseudo_words}
+                </TableCell>
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
@@ -347,18 +307,16 @@ const SecondaryWistResults = () => {
               <TableRow>
                 <TableCell>Letter Sounds</TableCell>
                 <TableCell align="right">
+                  {" "}
+                  {selectedTest.letter_sounds_descriptor}&nbsp;
                   {selectedTest.letter_sounds}
                 </TableCell>
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>
               </TableRow>
-              <TableRow
-                style={{ fontWeight: "bold", backgroundColor: "#F5F5F5" }}
-              >
-                <TableCell style={{ fontWeight: "bold" }}>
-                  Sound Symbol Knowledge
-                </TableCell>
+              <TableRow style={{ fontWeight: "bold", backgroundColor: "#F5F5F5" }}>
+                <TableCell style={{ fontWeight: "bold" }}>Sound Symbol Knowledge</TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
                   {selectedTest.sound_symbol_knowledge}
                 </TableCell>
@@ -370,9 +328,7 @@ const SecondaryWistResults = () => {
                 </TableCell>
                 <TableCell align="right" style={{ fontWeight: "bold" }}>
                   <GetCompositeScoreDescription
-                    compositeScore={
-                      selectedTest.sound_symbol_knowledge_standard_score
-                    }
+                    compositeScore={selectedTest.sound_symbol_knowledge_standard_score}
                   />
                 </TableCell>
               </TableRow>

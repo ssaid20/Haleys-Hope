@@ -60,15 +60,16 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
       fluency_scaled_score,
       comprehension_scaled_score,
       grade,
+      ori_descriptor,
     } = req.body;
     const query = ` INSERT INTO gort (
             student_id, date, examiner_id, sum_scaled_score, oral_reading_percentile_rank, 
             oral_reading_index, rate_raw_total, accuracy_raw_total, fluency_raw_total, 
             comprehension_raw_total, rate_percentile_rank, accuracy_percentile_rank, 
             fluency_percentile_rank, comprehension_percentile_rank, rate_scaled_score, 
-            accuracy_scaled_score, fluency_scaled_score, comprehension_scaled_score, grade
+            accuracy_scaled_score, fluency_scaled_score, comprehension_scaled_score, grade, ori_descriptor
         ) VALUES (
-            $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19
+            $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20
         );`;
     const values = [
       student_id,
@@ -90,6 +91,7 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
       fluency_scaled_score,
       comprehension_scaled_score,
       grade,
+      ori_descriptor,
     ];
     await pool.query(query, values);
 

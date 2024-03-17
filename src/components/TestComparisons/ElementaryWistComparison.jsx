@@ -36,6 +36,7 @@ function createRowData(category, tests) {
     "Word Identification": {
       percentile: "word_identification_percentile",
       standard: "word_identification_standard_score",
+      descriptor: "word_identification_descriptor"
     },
     Spelling: {
       percentile: "spelling_percentile",

@@ -207,6 +207,28 @@ const StudentCard = () => {
     return `${ageYears} years, ${ageMonths} months, ${ageDays} days`;
   };
 
+  /// calculate the intake age using intake date and current age
+  const calculateIntakeAge = (dob, intakeDate) => {
+    const intake = new Date(intakeDate);
+    const birthDate = new Date(dob);
+    let ageYears = intake.getFullYear() - birthDate.getFullYear();
+    let ageMonths = intake.getMonth() - birthDate.getMonth();
+
+    if (ageMonths < 0 || (ageMonths === 0 && intake.getDate() < birthDate.getDate())) {
+      ageYears--;
+      ageMonths = 12 + ageMonths;
+    }
+
+    let ageDays = intake.getDate() - birthDate.getDate();
+    if (ageDays < 0) {
+      const lastMonth = new Date(intake.getFullYear(), intake.getMonth(), 0);
+      ageDays = lastMonth.getDate() + ageDays;
+    }
+
+    return `${ageYears} years, ${ageMonths} months, ${ageDays} days`;
+  }; //end calculateIntakeAge
+  const intakeAge = calculateIntakeAge(student.dob, student.start_date);
+
   return (
     <article className="background-light900_dark200 light-border rounded-2xl border p-8 shadow-md relative flex flex-col items-center">
       {/* <h2 className="h2-bold text-dark100_light900 text-center mb-4">{`${student.first_name} ${student.last_name}`}</h2> */}
@@ -360,29 +382,34 @@ const StudentCard = () => {
         </Sheet>
 
         <div className="grid grid-cols-2 md:grid-cols-2 gap-x-8 gap-y-4 mt-4">
-          <p className="body-regular text-dark500_light500">Current Grade: {student.grade}</p>
           <p className="body-regular text-dark500_light500">Intake Grade: {student.intake_grade}</p>
-          <p className="body-regular text-dark500_light500">School: {student.school}</p>
           <p className="body-regular text-dark500_light500">Gender: {student.gender}</p>
+          <p className="body-regular text-dark500_light500">Intake Age: {intakeAge}</p>
+          <p className="body-regular text-dark500_light500">School: {student.school}</p>
           <p className="body-regular text-dark500_light500">
-            Date of Birth:<br></br> {new Date(student.dob).toLocaleDateString()}
+            Date of Birth: {new Date(student.dob).toLocaleDateString()}
           </p>
-          <p className="body-regular text-dark500_light500">Age:<br></br> {calculateAge(student.dob)}</p>
-
           <p className="body-regular text-dark500_light500">City: {student.city}</p>
+          <p className="body-regular text-dark500_light500">Current Grade: {student.grade}</p>
           <p className="body-regular text-dark500_light500">State: {student.state}</p>
-          <p className="body-regular text-dark500_light500">
-            Intake Date: {new Date(student.start_date).toLocaleDateString()}
+          <p className="body-regular text-dark500_light500">Current Age: {calculateAge(student.dob)}</p>
+          <p className="body-regular text-dark500_light500">Coach: {coachName}</p>
+          <p>
+            assess date???????? is this the last <br /> assessment date or what?
           </p>
+          {/* <p className="body-regular text-dark500_light500">
+            On Site: ***Change to onsite or virtual {student.on_site ? "Yes" : "No"}
+          </p> */}
+          <p className="body-regular text-dark500_light500">
+            Site: {student.on_site ? "Haley's Hope" : "Virtual"}
+          </p>
+
           <p className="body-regular text-dark500_light500">
             Barton C: {student.barton_c ? "Foundations" : "Barton"}
           </p>
-
           <p className="body-regular text-dark500_light500">
-            Coach: <br></br>
-            {coachName}
+            Intake/Assess Date: {new Date(student.start_date).toLocaleDateString()}
           </p>
-          <p className="body-regular text-dark500_light500">On Site: {student.on_site ? "Yes" : "No"}</p>
           <p className="body-regular text-dark500_light500">
             Barton C Date:{" "}
             {isDateValid(student.barton_c_date)

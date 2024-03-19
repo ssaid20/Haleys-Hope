@@ -11,10 +11,10 @@ const Tests = () => {
   };
 
   const testButtons = [
-    { text: "WIST 7-11", path: "addElementaryWist" },
     { text: "WIST 11-18", path: "addSecondaryWist" },
-    { text: "CTOPP 4-6", path: "addYoungerCtopp" },
+    { text: "WIST 7-11", path: "addElementaryWist" },
     { text: "CTOPP 7-24", path: "addOlderCtopp" },
+    { text: "CTOPP 4-6", path: "addYoungerCtopp" },
     { text: "GORT - 5", path: "addGort" },
     { text: "KTEA - 3", path: "addKtea" },
   ];

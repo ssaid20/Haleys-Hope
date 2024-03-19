@@ -154,7 +154,7 @@ export default function GortComparisonTable() {
     return (
       <>
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 700 }} aria-label="GORT-5 Comparison Table">
+          <Table size="small" sx={{ minWidth: 700 }} aria-label="GORT-5 Comparison Table">
             <TableHead>
               <TableRow>
                 <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
@@ -217,7 +217,7 @@ export default function GortComparisonTable() {
         <br />
         {/* GORT Summary Table */}
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 400 }} aria-label="GORT Summary Table">
+          <Table size="small" sx={{ minWidth: 400 }} aria-label="GORT Summary Table">
             <TableHead>
               <TableRow>
                 <DarkBlueHeaderCell>Test</DarkBlueHeaderCell>

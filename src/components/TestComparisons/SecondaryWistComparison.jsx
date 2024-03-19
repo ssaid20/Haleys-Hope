@@ -127,7 +127,7 @@ export default function SecondaryWistComparisonTable() {
     return (
       <>
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 700 }} aria-label="WIST 11-18 Comparison Table">
+          <Table size="small" sx={{ minWidth: 700 }} aria-label="WIST 11-18 Comparison Table">
             <TableHead>
               <TableRow>
                 <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>

@@ -208,7 +208,7 @@ const StudentForm = () => {
             {/* Barton C Field - Using Radio Buttons */}
             <Grid item xs={12} md={6}>
               <FormControl component="fieldset">
-                <FormLabel component="legend">Barton C</FormLabel>
+                <FormLabel component="legend">Program Start</FormLabel>
                 <RadioGroup
                   row
                   name="barton_c"

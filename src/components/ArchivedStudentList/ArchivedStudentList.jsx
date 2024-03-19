@@ -18,11 +18,12 @@ import { Button } from "@mui/material";
 const columns = [
   { id: "picture", label: "Picture", minWidth: 170 },
   { id: "name", label: "Name", minWidth: 170 },
-  { id: "age", label: "Age", minWidth: 80 },
-  { id: "grade", label: "Grade", minWidth: 80 },
-  { id: "city", label: "City", minWidth: 150 },
-  { id: "state", label: "State", minWidth: 150 },
+  { id: "intake_grade", label: "Intake Grade", minWidth: 80 },
+  // { id: "age", label: "Current Age", minWidth: 80 },
+  { id: "grade", label: "Current Grade", minWidth: 80 },
   { id: "start_date", label: "Intake Date", minWidth: 130 },
+  { id: "city", label: "City", minWidth: 150 },
+  // { id: "state", label: "State", minWidth: 150 },
 ];
 
 const ArchivedStudentList = () => {

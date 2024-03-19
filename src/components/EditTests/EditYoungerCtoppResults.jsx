@@ -46,25 +46,29 @@ const EditYoungerCtoppResults = () => {
     student_id: student.id,
     date: "",
     examiner_id: "",
-    elison_scaled_score: "",
-    blending_words_scaled_score: "",
-    sound_matching_scaled_score: "",
-    memory_for_digits_scaled_score: "",
-    nonword_repetition_scaled_score: "",
-    rapid_digit_naming_scaled_score: "",
-    rapid_letter_naming_scaled_score: "",
-    rapid_color_naming_scaled_score: "",
-    rapid_object_naming: "",
-    blending_nonwords_scaled_score: "",
-    phonological_awareness_composite: "",
-    phonological_memory_composite: "",
-    rapid_symbolic_naming_composite: "",
-    rapid_non_symbolic_naming_composite: "",
-    phonological_awareness_percentile: "",
-    phonological_memory_percentile: "",
-    rapid_symbolic_naming_percentile: "",
-    rapid_non_symbolic_naming_percentile: "",
+    elison_scaled_score: null,
+    blending_words_scaled_score: null,
+    sound_matching_scaled_score: null,
+    memory_for_digits_scaled_score: null,
+    nonword_repetition_scaled_score: null,
+    rapid_digit_naming_scaled_score: null,
+    rapid_letter_naming_scaled_score: null,
+    rapid_color_naming_scaled_score: null,
+    rapid_object_naming: null,
+    blending_nonwords_scaled_score: null,
+    phonological_awareness_composite: null,
+    phonological_memory_composite: null,
+    rapid_symbolic_naming_composite: null,
+    rapid_non_symbolic_naming_composite: null,
+    phonological_awareness_percentile: null,
+    phonological_memory_percentile: null,
+    rapid_symbolic_naming_percentile: null,
+    rapid_non_symbolic_naming_percentile: null,
     grade: "",
+    phonological_awareness_descriptor: null,
+    phonological_memory_descriptor: null,
+    rapid_symbolic_naming_descriptor: null,
+    rapid_non_symbolic_naming_composite: null,
   });
   const [selectedExaminerId, setSelectedExaminerId] = useState("");
   const handleExaminerChange = (event) => {
@@ -366,6 +370,29 @@ const EditYoungerCtoppResults = () => {
                 />
               </FormControl>
             </Grid>
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>&lt; or &gt; for Phonological Awareness</FormLabel>
+                <Select
+                  labelId="phonological-awareness-label"
+                  id="phonological_awareness_descriptor"
+                  value={newCtopp.phonological_awareness_descriptor || ""}
+                  label="phonological_awareness_descriptor"
+                  onChange={(event) =>
+                    setNewCtopp({ ...newCtopp, phonological_awareness_descriptor: event.target.value })
+                  }
+                  variant="outlined"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>{" "}
+                  {/* Optional: Allow no selection */}
+                  <MenuItem value="<">&lt;</MenuItem>
+                  <MenuItem value=">">&gt;</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+
             {/* Phonological Awareness Composite Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -380,6 +407,29 @@ const EditYoungerCtoppResults = () => {
                 />
               </FormControl>
             </Grid>
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel> &lt; or &gt; for Phonological Memory</FormLabel>
+
+                <Select
+                  labelId="phonological-memory-label"
+                  id="phonological_memory_descriptor"
+                  value={newCtopp.phonological_memory_descriptor || ""}
+                  label="phonological_memory_descriptor"
+                  onChange={(event) =>
+                    setNewCtopp({ ...newCtopp, phonological_memory_descriptor: event.target.value })
+                  }
+                  variant="outlined"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>{" "}
+                  {/* Optional: Allow no selection */}
+                  <MenuItem value="<">&lt;</MenuItem>
+                  <MenuItem value=">">&gt;</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
             {/* Phonological Memory Composite Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -392,6 +442,52 @@ const EditYoungerCtoppResults = () => {
                   onChange={handleChange}
                   variant="outlined"
                 />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel> &lt; or &gt; for Rapid Symbolic Naming</FormLabel>
+
+                <Select
+                  labelId="rapid-symbolic-label"
+                  id="rapid_symbolic_naming_descriptor"
+                  value={newCtopp.rapid_symbolic_naming_descriptor || ""}
+                  label="rapid_symbolic_naming_descriptor"
+                  onChange={(event) =>
+                    setNewCtopp({ ...newCtopp, rapid_symbolic_naming_descriptor: event.target.value })
+                  }
+                  variant="outlined"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>{" "}
+                  {/* Optional: Allow no selection */}
+                  <MenuItem value="<">&lt;</MenuItem>
+                  <MenuItem value=">">&gt;</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel> &lt; or &gt; for Rapid Non-Symbolic Naming</FormLabel>
+
+                <Select
+                  labelId="rapid-nonsymbolic-label"
+                  id="rapid_non_symbolic_naming_descriptor"
+                  value={newCtopp.rapid_non_symbolic_naming_descriptor || ""}
+                  label="rapid_non_symbolic_naming_descriptor"
+                  onChange={(event) =>
+                    setNewCtopp({ ...newCtopp, rapid_non_symbolic_naming_descriptor: event.target.value })
+                  }
+                  variant="outlined"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>{" "}
+                  {/* Optional: Allow no selection */}
+                  <MenuItem value="<">&lt;</MenuItem>
+                  <MenuItem value=">">&gt;</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
             {/* Rapid Symbolic Naming Composite Field */}

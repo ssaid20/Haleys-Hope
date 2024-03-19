@@ -3,22 +3,12 @@ import { useEffect, useReducer } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../lib/utils";
 import MiniStudentCard from "../Cards/MiniStudentCard";
-import {
-  Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Button, Table, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from "@mui/material";
 import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
 import { GetScaledScoreDescription } from "../../lib/GetScaledScoreDescription";
 import EditIcon from "@mui/icons-material/Edit";
 import MicroStudentCard from "../Cards/MicroStudentCard";
 import PrintButton2 from "../PrintButton/PrintButton2";
-
 
 const YoungerCtoppResults = () => {
   const testId = useParams();
@@ -31,23 +21,19 @@ const YoungerCtoppResults = () => {
     dispatch({ type: "FETCH_YOUNGER_CTOPP_RESULTS", payload: testId.id });
   }, [dispatch]);
 
-  const selectedTest = useSelector(
-    (store) => store.youngerCtoppReducer.selectedTest[0]
-  );
+  const selectedTest = useSelector((store) => store.youngerCtoppReducer.selectedTest[0]);
 
   if (!selectedTest || Object.keys(selectedTest).length === 0) {
     return <h1>Loading...</h1>;
   }
   // Find the examiner based on examiner_id
-  const examiner = examiners.find(
-    (user) => user.id === selectedTest.examiner_id
-  );
+  const examiner = examiners.find((user) => user.id === selectedTest.examiner_id);
   const goBack = () => history.push(`/students/${selectedTest.student_id}`);
 
   return (
     <div style={{ padding: "20px" }}>
       <Button
-      className="noPrint"
+        className="noPrint"
         variant="contained"
         color="primary"
         onClick={goBack}
@@ -58,13 +44,14 @@ const YoungerCtoppResults = () => {
       <PrintButton2 />
       {/* <h1 className="text-3xl text-center mb-4">CTOPP 4-6 Results </h1> */}
       <h1 className="text-4xl font-bold text-center text-primary-500 my-4">
-      <img
+        <img
           src="/assets/images/site-logo.png"
           width={180}
           height={180}
           className="logo-image print-logo"
           alt="Haley's Hope Logo"
-        /> CTOPP 4-6 Results{" "}
+        />{" "}
+        CTOPP 4-6 Results{" "}
       </h1>
 
       <div style={{ display: "flex", justifyContent: "center", gap: "50px" }}>
@@ -135,8 +122,7 @@ const YoungerCtoppResults = () => {
         }}
       >
         <h2
-              className="noPrint"
-
+          className="noPrint"
           style={{
             textAlign: "center",
 
@@ -148,13 +134,10 @@ const YoungerCtoppResults = () => {
         </h2>
         <div>
           <Button
-                className="noPrint"
-
+            className="noPrint"
             variant="contained"
             color="primary"
-            onClick={() =>
-              history.push(`/EditYoungerCtoppResults/${selectedTest.id}`)
-            }
+            onClick={() => history.push(`/EditYoungerCtoppResults/${selectedTest.id}`)}
             // style={{ marginTop: "20px", marginRight: "50px" }}
           >
             <EditIcon /> &nbsp; Edit Test
@@ -180,19 +163,11 @@ const YoungerCtoppResults = () => {
           <Table>
             <TableHead>
               <TableRow style={{ backgroundColor: "lightgrey" }}>
-                <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
-                  Subtest
-                </TableCell>
-                <TableCell
-                  align="right"
-                  style={{ fontWeight: "bold", fontSize: "16px" }}
-                >
+                <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Subtest</TableCell>
+                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Scaled Score
                 </TableCell>
-                <TableCell
-                  align="right"
-                  style={{ fontWeight: "bold", fontSize: "16px" }}
-                >
+                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Descriptive Term
                 </TableCell>
               </TableRow>
@@ -207,101 +182,65 @@ const YoungerCtoppResults = () => {
               </TableRow>
               <TableRow>
                 <TableCell>Elison Scaled Score (EL)</TableCell>
+                <TableCell align="right">{selectedTest.elison_scaled_score}</TableCell>
                 <TableCell align="right">
-                  {selectedTest.elison_scaled_score}
-                </TableCell>
-                <TableCell align="right">
-                  <GetScaledScoreDescription
-                    scaledScore={selectedTest.elison_scaled_score}
-                  />
+                  <GetScaledScoreDescription scaledScore={selectedTest.elison_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Blending Words (BW)</TableCell>
+                <TableCell align="right">{selectedTest.blending_words_scaled_score}</TableCell>
                 <TableCell align="right">
-                  {selectedTest.blending_words_scaled_score}
-                </TableCell>
-                <TableCell align="right">
-                  <GetScaledScoreDescription
-                    scaledScore={selectedTest.blending_words_scaled_score}
-                  />
+                  <GetScaledScoreDescription scaledScore={selectedTest.blending_words_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Sound Matching (SM)</TableCell>
+                <TableCell align="right">{selectedTest.sound_matching_scaled_score}</TableCell>
                 <TableCell align="right">
-                  {selectedTest.sound_matching_scaled_score}
-                </TableCell>
-                <TableCell align="right">
-                  <GetScaledScoreDescription
-                    scaledScore={selectedTest.sound_matching_scaled_score}
-                  />
+                  <GetScaledScoreDescription scaledScore={selectedTest.sound_matching_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Memory For Digits (MD)</TableCell>
+                <TableCell align="right">{selectedTest.memory_for_digits_scaled_score}</TableCell>
                 <TableCell align="right">
-                  {selectedTest.memory_for_digits_scaled_score}
-                </TableCell>
-                <TableCell align="right">
-                  <GetScaledScoreDescription
-                    scaledScore={selectedTest.memory_for_digits_scaled_score}
-                  />
+                  <GetScaledScoreDescription scaledScore={selectedTest.memory_for_digits_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Non-Word Repitition (NR)</TableCell>
+                <TableCell align="right">{selectedTest.nonword_repetition_scaled_score}</TableCell>
                 <TableCell align="right">
-                  {selectedTest.nonword_repetition_scaled_score}
-                </TableCell>
-                <TableCell align="right">
-                  <GetScaledScoreDescription
-                    scaledScore={selectedTest.nonword_repetition_scaled_score}
-                  />
+                  <GetScaledScoreDescription scaledScore={selectedTest.nonword_repetition_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Rapid Digit Naming (RD)</TableCell>
+                <TableCell align="right">{selectedTest.rapid_digit_naming_scaled_score}</TableCell>
                 <TableCell align="right">
-                  {selectedTest.rapid_digit_naming_scaled_score}
-                </TableCell>
-                <TableCell align="right">
-                  <GetScaledScoreDescription
-                    scaledScore={selectedTest.rapid_digit_naming_scaled_score}
-                  />
+                  <GetScaledScoreDescription scaledScore={selectedTest.rapid_digit_naming_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Rapid Letter Naming (RL)</TableCell>
+                <TableCell align="right">{selectedTest.rapid_letter_naming_scaled_score}</TableCell>
                 <TableCell align="right">
-                  {selectedTest.rapid_letter_naming_scaled_score}
-                </TableCell>
-                <TableCell align="right">
-                  <GetScaledScoreDescription
-                    scaledScore={selectedTest.rapid_letter_naming_scaled_score}
-                  />
+                  <GetScaledScoreDescription scaledScore={selectedTest.rapid_letter_naming_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Rapid Color Naming (RC)</TableCell>
+                <TableCell align="right">{selectedTest.rapid_color_naming_scaled_score}</TableCell>
                 <TableCell align="right">
-                  {selectedTest.rapid_color_naming_scaled_score}
-                </TableCell>
-                <TableCell align="right">
-                  <GetScaledScoreDescription
-                    scaledScore={selectedTest.rapid_color_naming_scaled_score}
-                  />
+                  <GetScaledScoreDescription scaledScore={selectedTest.rapid_color_naming_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Rapid Object Naming (RO)</TableCell>
+                <TableCell align="right">{selectedTest.rapid_object_naming}</TableCell>
                 <TableCell align="right">
-                  {selectedTest.rapid_object_naming}
-                </TableCell>
-                <TableCell align="right">
-                  <GetScaledScoreDescription
-                    scaledScore={selectedTest.rapid_object_naming}
-                  />
+                  <GetScaledScoreDescription scaledScore={selectedTest.rapid_object_naming} />
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -313,13 +252,9 @@ const YoungerCtoppResults = () => {
               </TableRow>
               <TableRow>
                 <TableCell>Blending Non-Words (BN)</TableCell>
+                <TableCell align="right">{selectedTest.blending_nonwords_scaled_score}</TableCell>
                 <TableCell align="right">
-                  {selectedTest.blending_nonwords_scaled_score}
-                </TableCell>
-                <TableCell align="right">
-                  <GetScaledScoreDescription
-                    scaledScore={selectedTest.blending_nonwords_scaled_score}
-                  />
+                  <GetScaledScoreDescription scaledScore={selectedTest.blending_nonwords_scaled_score} />
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -351,87 +286,74 @@ const YoungerCtoppResults = () => {
               }}
             >
               <TableRow>
-                <TableCell
-                  align="center"
-                  style={{ fontWeight: "bold", fontSize: "16px" }}
-                >
+                <TableCell align="center" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Composite
                 </TableCell>
-                <TableCell
-                  align="center"
-                  style={{ fontWeight: "bold", fontSize: "16px" }}
-                >
+                <TableCell align="center" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   %ile Rank
                 </TableCell>
-                <TableCell
-                  align="center"
-                  style={{ fontWeight: "bold", fontSize: "16px" }}
-                >
+                <TableCell align="center" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Composite Score
                 </TableCell>
-                <TableCell
-                  align="center"
-                  style={{ fontWeight: "bold", fontSize: "16px" }}
-                >
+                <TableCell align="center" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Descriptive Term
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableRow>
               <TableCell>Phonological Awareness</TableCell>
+              <TableCell align="right">{selectedTest.phonological_awareness_percentile}</TableCell>
               <TableCell align="right">
-                {selectedTest.phonological_awareness_percentile}
-              </TableCell>
-              <TableCell align="right">
-                {selectedTest.phonological_awareness_composite}
+                {selectedTest.phonological_awareness_descriptor}
+                {""} {selectedTest.phonological_awareness_composite}
               </TableCell>
               <TableCell align="right">
                 <GetCompositeScoreDescription
                   compositeScore={selectedTest.phonological_awareness_composite}
+                  descriptor={selectedTest.phonological_awareness_descriptor}
                 />
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Phonological Memory</TableCell>
+              <TableCell align="right">{selectedTest.phonological_memory_percentile}</TableCell>
               <TableCell align="right">
-                {selectedTest.phonological_memory_percentile}
-              </TableCell>
-              <TableCell align="right">
-                {selectedTest.phonological_memory_composite}
+                {selectedTest.phonological_memory_descriptor}
+                {""} {selectedTest.phonological_memory_composite}
               </TableCell>
               <TableCell align="right">
                 <GetCompositeScoreDescription
                   compositeScore={selectedTest.phonological_memory_composite}
+                  descriptor={selectedTest.phonological_memory_descriptor}
                 />
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Rapid Symbolic Naming</TableCell>
+              <TableCell align="right">{selectedTest.rapid_symbolic_naming_percentile}</TableCell>
               <TableCell align="right">
-                {selectedTest.rapid_symbolic_naming_percentile}
-              </TableCell>
-              <TableCell align="right">
+                {selectedTest.rapid_symbolic_naming_descriptor}
+                &nbsp;
                 {selectedTest.rapid_symbolic_naming_composite}
               </TableCell>
               <TableCell align="right">
                 <GetCompositeScoreDescription
                   compositeScore={selectedTest.rapid_symbolic_naming_composite}
+                  descriptor={selectedTest.rapid_symbolic_naming_descriptor}
                 />
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Rapid Non-Symbolic Naming</TableCell>
+              <TableCell align="right">{selectedTest.rapid_non_symbolic_naming_percentile}</TableCell>
               <TableCell align="right">
-                {selectedTest.rapid_non_symbolic_naming_percentile}
-              </TableCell>
-              <TableCell align="right">
-                {selectedTest.rapid_non_symbolic_naming_composite}
+                {selectedTest.rapid_non_symbolic_naming_descriptor}
+                {""} {selectedTest.rapid_non_symbolic_naming_composite}
               </TableCell>
               <TableCell align="right">
                 <GetCompositeScoreDescription
-                  compositeScore={
-                    selectedTest.rapid_non_symbolic_naming_composite
-                  }
+                  compositeScore={selectedTest.rapid_non_symbolic_naming_composite}
+                  descriptor={selectedTest.rapid_non_symbolic_naming_descriptor}
                 />
               </TableCell>
             </TableRow>

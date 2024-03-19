@@ -106,7 +106,7 @@ const testHeaderColors = [
 ];
 
 const DottedBorderTableCell = styled(TableCell)(({ theme }) => ({
-  borderRight: "1px dotted #000", // Adjust color as needed
+  bordercenter: "1px dotted #000", // Adjust color as needed
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
@@ -195,17 +195,17 @@ export default function GortComparisonTable() {
                     {row.category}
                   </StyledTableCell>
                   {row.percentiles.map((percentile, index) => (
-                    <StyledTableCell key={`percentile-${index}`} align="right">
+                    <StyledTableCell key={`percentile-${index}`} align="center">
                       {percentile}
                     </StyledTableCell>
                   ))}
                   {row.scaledScores.map((score, index) => (
-                    <StyledTableCell key={`score-${index}`} align="right">
+                    <StyledTableCell key={`score-${index}`} align="center">
                       {score}
                     </StyledTableCell>
                   ))}
                   {row.descriptiveTerms.map((term, index) => (
-                    <StyledTableCell key={`descriptive-${index}`} align="right">
+                    <StyledTableCell key={`descriptive-${index}`} align="center">
                       {term}
                     </StyledTableCell>
                   ))}
@@ -221,11 +221,11 @@ export default function GortComparisonTable() {
             <TableHead>
               <TableRow>
                 <DarkBlueHeaderCell>Test</DarkBlueHeaderCell>
-                <DarkBlueHeaderCell align="right">Date</DarkBlueHeaderCell>
-                <DarkBlueHeaderCell align="right">Sum Scaled Score</DarkBlueHeaderCell>
-                <DarkBlueHeaderCell align="right">Oral Reading %ile Rank</DarkBlueHeaderCell>
-                <DarkBlueHeaderCell align="right">Oral Reading Index</DarkBlueHeaderCell>
-                <DarkBlueHeaderCell align="right">Descriptive Term</DarkBlueHeaderCell>
+                <DarkBlueHeaderCell align="center">Date</DarkBlueHeaderCell>
+                <DarkBlueHeaderCell align="center">Sum Scaled Score</DarkBlueHeaderCell>
+                <DarkBlueHeaderCell align="center">Oral Reading %ile Rank</DarkBlueHeaderCell>
+                <DarkBlueHeaderCell align="center">Oral Reading Index</DarkBlueHeaderCell>
+                <DarkBlueHeaderCell align="center">Descriptive Term</DarkBlueHeaderCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -234,13 +234,13 @@ export default function GortComparisonTable() {
                   <StyledTableCell component="th" scope="row">
                     {`Test ${index + 1}`}
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.date}</StyledTableCell>
-                  <StyledTableCell align="right">{row.sumScaledScore}</StyledTableCell>
-                  <StyledTableCell align="right">{row.oralReadingPercentileRank}</StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">{row.date}</StyledTableCell>
+                  <StyledTableCell align="center">{row.sumScaledScore}</StyledTableCell>
+                  <StyledTableCell align="center">{row.oralReadingPercentileRank}</StyledTableCell>
+                  <StyledTableCell align="center">
                     {row.ori_descriptor} &nbsp; {row.oralReadingIndex}
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.compositeTerms}</StyledTableCell>
+                  <StyledTableCell align="center">{row.compositeTerms}</StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>

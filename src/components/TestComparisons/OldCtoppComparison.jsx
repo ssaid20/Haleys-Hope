@@ -168,13 +168,13 @@ const OldCtoppComparison = () => {
                   {row.category}
                 </StyledTableCell>
                 {row.percentiles.map((percentile, index) => (
-                  <StyledTableCell key={`percentile-${index}`} align="right">
+                  <StyledTableCell key={`percentile-${index}`} align="center">
                     {percentile}
                   </StyledTableCell>
                 ))}
 
                 {row.scaledScores.map((scoreObj, index) => (
-                  <StyledTableCell key={`score-${index}`} align="right">
+                  <StyledTableCell key={`score-${index}`} align="center">
                     {scoreObj.descriptor ? `${scoreObj.descriptor} ${scoreObj.score}` : scoreObj.score}
                   </StyledTableCell>
                 ))}
@@ -185,14 +185,14 @@ const OldCtoppComparison = () => {
                   const descriptor = [index].descriptor; // Adjust this line to access the actual descriptor from your tests data structure
 
                   return (
-                    <StyledTableCell key={`score-${index}`} align="right">
+                    <StyledTableCell key={`score-${index}`} align="center">
                       {descriptor ? `${descriptor}${score}` : score}
                     </StyledTableCell>
                   );
                 })} */}
 
                 {row.descriptiveTerms.map((term, index) => (
-                  <StyledTableCell key={`descriptive-${index}`} align="right">
+                  <StyledTableCell key={`descriptive-${index}`} align="center">
                     {term}
                   </StyledTableCell>
                 ))}

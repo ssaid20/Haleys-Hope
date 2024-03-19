@@ -168,15 +168,15 @@ export default function PrimaryWistComparisonTable() {
                     {row.category}
                   </StyledTableCell>
                   {row.percentiles.map((percentile, index) => (
-                    <StyledTableCell align="right">{percentile}</StyledTableCell>
+                    <StyledTableCell align="center">{percentile}</StyledTableCell>
                   ))}
                   {row.standardScores.map((score, index) => (
-                    <StyledTableCell key={`score-${index}`} align="right">
+                    <StyledTableCell key={`score-${index}`} align="center">
                       {score}
                     </StyledTableCell>
                   ))}
                   {row.descriptiveTerms.map((term, index) => (
-                    <StyledTableCell align="right">{term} </StyledTableCell>
+                    <StyledTableCell align="center">{term} </StyledTableCell>
                   ))}
                 </StyledTableRow>
               ))}

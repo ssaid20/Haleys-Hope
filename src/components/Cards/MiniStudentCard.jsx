@@ -21,9 +21,9 @@ const MiniStudentCard = () => {
   const student = useSelector((store) => store.studentReducer.Details);
   const studentId = useParams();
   console.log("student and id in card", student, studentId);
-  useEffect(() => {
-    dispatch({ type: "FETCH_STUDENT", payload: studentId });
-  }, [dispatch, studentId]);
+  // useEffect(() => {
+  //   dispatch({ type: "FETCH_STUDENT", payload: studentId });
+  // }, [dispatch, studentId]);
 
   if (!student) {
     return <div>Loading...</div>;

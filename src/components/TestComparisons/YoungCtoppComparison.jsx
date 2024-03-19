@@ -162,17 +162,17 @@ const YoungCtoppComparison = () => {
                     {row.category}
                   </StyledTableCell>
                   {row.percentiles.map((percentile, index) => (
-                    <StyledTableCell key={`percentile-${index}`} align="right">
+                    <StyledTableCell key={`percentile-${index}`} align="center">
                       {percentile}
                     </StyledTableCell>
                   ))}
                   {row.scaledScores.map((scoreObj, index) => (
-                    <StyledTableCell key={`score-${index}`} align="right">
+                    <StyledTableCell key={`score-${index}`} align="center">
                       {scoreObj.descriptor ? `${scoreObj.descriptor}${scoreObj.score}` : scoreObj.score}
                     </StyledTableCell>
                   ))}
                   {row.descriptiveTerms.map((term, index) => (
-                    <StyledTableCell key={`descriptive-${index}`} align="right">
+                    <StyledTableCell key={`descriptive-${index}`} align="center">
                       {term}
                     </StyledTableCell>
                   ))}

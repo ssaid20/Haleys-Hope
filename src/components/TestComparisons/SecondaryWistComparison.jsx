@@ -167,15 +167,15 @@ export default function SecondaryWistComparisonTable() {
                     {row.category}
                   </StyledTableCell>
                   {row.percentiles.map((percentile, index) => (
-                    <StyledTableCell align="right">{percentile}</StyledTableCell>
+                    <StyledTableCell align="center">{percentile}</StyledTableCell>
                   ))}
                   {row.standardScores.map((score, index) => (
-                    <StyledTableCell key={`score-${index}`} align="right">
+                    <StyledTableCell key={`score-${index}`} align="center">
                       {score}
                     </StyledTableCell>
                   ))}
                   {row.descriptiveTerms.map((term, index) => (
-                    <StyledTableCell align="right" key={`descriptive-${index}`}>
+                    <StyledTableCell align="center" key={`descriptive-${index}`}>
                       {term}
                     </StyledTableCell>
                   ))}

@@ -300,6 +300,7 @@ const YoungerCtoppResults = () => {
                 </TableCell>
               </TableRow>
             </TableHead>
+            <TableBody>
             <TableRow>
               <TableCell>Phonological Awareness</TableCell>
               <TableCell align="center">{selectedTest.phonological_awareness_percentile}</TableCell>
@@ -357,6 +358,7 @@ const YoungerCtoppResults = () => {
                 />
               </TableCell>
             </TableRow>
+            </TableBody>
           </Table>
         </Paper>
       </div>

@@ -164,10 +164,10 @@ const YoungerCtoppResults = () => {
             <TableHead>
               <TableRow style={{ backgroundColor: "lightgrey" }}>
                 <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Subtest</TableCell>
-                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <TableCell align="center" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Scaled Score
                 </TableCell>
-                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <TableCell align="center" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Descriptive Term
                 </TableCell>
               </TableRow>
@@ -177,69 +177,69 @@ const YoungerCtoppResults = () => {
                 <TableCell>
                   <strong>Core</strong>
                 </TableCell>
-                <TableCell align="right"></TableCell>
-                <TableCell align="right"></TableCell>
+                <TableCell align="center"></TableCell>
+                <TableCell align="center"></TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Elison Scaled Score (EL)</TableCell>
-                <TableCell align="right">{selectedTest.elison_scaled_score}</TableCell>
-                <TableCell align="right">
+                <TableCell align="center">{selectedTest.elison_scaled_score}</TableCell>
+                <TableCell align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.elison_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Blending Words (BW)</TableCell>
-                <TableCell align="right">{selectedTest.blending_words_scaled_score}</TableCell>
-                <TableCell align="right">
+                <TableCell align="center">{selectedTest.blending_words_scaled_score}</TableCell>
+                <TableCell align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.blending_words_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Sound Matching (SM)</TableCell>
-                <TableCell align="right">{selectedTest.sound_matching_scaled_score}</TableCell>
-                <TableCell align="right">
+                <TableCell align="center">{selectedTest.sound_matching_scaled_score}</TableCell>
+                <TableCell align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.sound_matching_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Memory For Digits (MD)</TableCell>
-                <TableCell align="right">{selectedTest.memory_for_digits_scaled_score}</TableCell>
-                <TableCell align="right">
+                <TableCell align="center">{selectedTest.memory_for_digits_scaled_score}</TableCell>
+                <TableCell align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.memory_for_digits_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Non-Word Repitition (NR)</TableCell>
-                <TableCell align="right">{selectedTest.nonword_repetition_scaled_score}</TableCell>
-                <TableCell align="right">
+                <TableCell align="center">{selectedTest.nonword_repetition_scaled_score}</TableCell>
+                <TableCell align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.nonword_repetition_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Rapid Digit Naming (RD)</TableCell>
-                <TableCell align="right">{selectedTest.rapid_digit_naming_scaled_score}</TableCell>
-                <TableCell align="right">
+                <TableCell align="center">{selectedTest.rapid_digit_naming_scaled_score}</TableCell>
+                <TableCell align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.rapid_digit_naming_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Rapid Letter Naming (RL)</TableCell>
-                <TableCell align="right">{selectedTest.rapid_letter_naming_scaled_score}</TableCell>
-                <TableCell align="right">
+                <TableCell align="center">{selectedTest.rapid_letter_naming_scaled_score}</TableCell>
+                <TableCell align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.rapid_letter_naming_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Rapid Color Naming (RC)</TableCell>
-                <TableCell align="right">{selectedTest.rapid_color_naming_scaled_score}</TableCell>
-                <TableCell align="right">
+                <TableCell align="center">{selectedTest.rapid_color_naming_scaled_score}</TableCell>
+                <TableCell align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.rapid_color_naming_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Rapid Object Naming (RO)</TableCell>
-                <TableCell align="right">{selectedTest.rapid_object_naming}</TableCell>
-                <TableCell align="right">
+                <TableCell align="center">{selectedTest.rapid_object_naming}</TableCell>
+                <TableCell align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.rapid_object_naming} />
                 </TableCell>
               </TableRow>
@@ -247,13 +247,13 @@ const YoungerCtoppResults = () => {
                 <TableCell>
                   <strong>Supplemental</strong>
                 </TableCell>
-                <TableCell align="right"></TableCell>
-                <TableCell align="right"></TableCell>
+                <TableCell align="center"></TableCell>
+                <TableCell align="center"></TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Blending Non-Words (BN)</TableCell>
-                <TableCell align="right">{selectedTest.blending_nonwords_scaled_score}</TableCell>
-                <TableCell align="right">
+                <TableCell align="center">{selectedTest.blending_nonwords_scaled_score}</TableCell>
+                <TableCell align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.blending_nonwords_scaled_score} />
                 </TableCell>
               </TableRow>
@@ -286,7 +286,7 @@ const YoungerCtoppResults = () => {
               }}
             >
               <TableRow>
-                <TableCell align="center" style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <TableCell align="left" style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Composite
                 </TableCell>
                 <TableCell align="center" style={{ fontWeight: "bold", fontSize: "16px" }}>
@@ -302,12 +302,12 @@ const YoungerCtoppResults = () => {
             </TableHead>
             <TableRow>
               <TableCell>Phonological Awareness</TableCell>
-              <TableCell align="right">{selectedTest.phonological_awareness_percentile}</TableCell>
-              <TableCell align="right">
+              <TableCell align="center">{selectedTest.phonological_awareness_percentile}</TableCell>
+              <TableCell align="center">
                 {selectedTest.phonological_awareness_descriptor}
                 {""} {selectedTest.phonological_awareness_composite}
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="center">
                 <GetCompositeScoreDescription
                   compositeScore={selectedTest.phonological_awareness_composite}
                   descriptor={selectedTest.phonological_awareness_descriptor}
@@ -316,12 +316,12 @@ const YoungerCtoppResults = () => {
             </TableRow>
             <TableRow>
               <TableCell>Phonological Memory</TableCell>
-              <TableCell align="right">{selectedTest.phonological_memory_percentile}</TableCell>
-              <TableCell align="right">
+              <TableCell align="center">{selectedTest.phonological_memory_percentile}</TableCell>
+              <TableCell align="center">
                 {selectedTest.phonological_memory_descriptor}
                 {""} {selectedTest.phonological_memory_composite}
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="center">
                 <GetCompositeScoreDescription
                   compositeScore={selectedTest.phonological_memory_composite}
                   descriptor={selectedTest.phonological_memory_descriptor}
@@ -330,13 +330,13 @@ const YoungerCtoppResults = () => {
             </TableRow>
             <TableRow>
               <TableCell>Rapid Symbolic Naming</TableCell>
-              <TableCell align="right">{selectedTest.rapid_symbolic_naming_percentile}</TableCell>
-              <TableCell align="right">
+              <TableCell align="center">{selectedTest.rapid_symbolic_naming_percentile}</TableCell>
+              <TableCell align="center">
                 {selectedTest.rapid_symbolic_naming_descriptor}
                 &nbsp;
                 {selectedTest.rapid_symbolic_naming_composite}
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="center">
                 <GetCompositeScoreDescription
                   compositeScore={selectedTest.rapid_symbolic_naming_composite}
                   descriptor={selectedTest.rapid_symbolic_naming_descriptor}
@@ -345,12 +345,12 @@ const YoungerCtoppResults = () => {
             </TableRow>
             <TableRow>
               <TableCell>Rapid Non-Symbolic Naming</TableCell>
-              <TableCell align="right">{selectedTest.rapid_non_symbolic_naming_percentile}</TableCell>
-              <TableCell align="right">
+              <TableCell align="center">{selectedTest.rapid_non_symbolic_naming_percentile}</TableCell>
+              <TableCell align="center">
                 {selectedTest.rapid_non_symbolic_naming_descriptor}
                 {""} {selectedTest.rapid_non_symbolic_naming_composite}
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="center">
                 <GetCompositeScoreDescription
                   compositeScore={selectedTest.rapid_non_symbolic_naming_composite}
                   descriptor={selectedTest.rapid_non_symbolic_naming_descriptor}

@@ -82,7 +82,7 @@ const MiniStudentCard = () => {
             Date of Birth: {new Date(student.dob).toLocaleDateString()}
           </p>
           <p className="body-regular text-dark500_light500 text-lg">
-            Age:<br></br> {calculateAge(student.dob)}
+            Age:<br/> {calculateAge(student.dob)}
           </p>
         </div>
       </div>

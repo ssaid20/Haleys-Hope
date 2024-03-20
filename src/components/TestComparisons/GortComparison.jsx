@@ -19,7 +19,7 @@ const StyledTableCell = styled(TableCell)(({ theme, color }) => ({
     color: theme.palette.common.black,
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    fontSize: 12,
   },
 }));
 
@@ -68,7 +68,7 @@ const DarkBlueHeaderCell = styled(TableCell)(({ theme }) => ({
   backgroundColor: "#0f3c5c", // Dark blue color
   color: theme.palette.common.white,
   [`&.${tableCellClasses.head}`]: {
-    fontSize: 16,
+    fontSize: 12,
   },
 }));
 
@@ -95,7 +95,9 @@ const TestHeaderCell = styled(TableCell)(({ theme, color }) => ({
   backgroundColor: color ? color : theme.palette.primary.main,
   color: theme.palette.common.white,
   [`&.${tableCellClasses.head}`]: {
-    fontSize: 16,
+    fontSize: 12,
+    maxWidth: "65px"
+
   },
 }));
 
@@ -108,7 +110,8 @@ const testHeaderColors = [
 const DottedBorderTableCell = styled(TableCell)(({ theme }) => ({
   bordercenter: "1px dotted #000", // Adjust color as needed
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    fontSize: 12,
+    
   },
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.white,
@@ -164,7 +167,9 @@ export default function GortComparisonTable() {
                     color={sectionHeaderColors.percentile}
                     key={`percentile-header-${index}`}
                   >
-                    {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`}
+                                        {`Test ${index + 1} %ile`}
+
+                    {/* {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`} */}
                   </TestHeaderCell>
                 ))}
                 {gortTests.map((test, index) => (
@@ -173,7 +178,9 @@ export default function GortComparisonTable() {
                     color={sectionHeaderColors.scaledScore}
                     key={`scaled-score-header-${index}`}
                   >
-                    {`Test ${index + 1} (${formatDate3(test.date)}) Scaled Score`}
+                                        {`Test ${index + 1} SS`}
+
+                    {/* {`Test ${index + 1} (${formatDate3(test.date)}) Scaled Score`} */}
                   </TestHeaderCell>
                 ))}
                 {gortTests.map((test, index) => (
@@ -182,7 +189,9 @@ export default function GortComparisonTable() {
                     color={sectionHeaderColors.descriptiveTerm}
                     key={`descriptive-term-header-${index}`}
                   >
-                    {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive Term`}
+                                        {`Test ${index + 1} Desc.`}
+
+                    {/* {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive Term`} */}
                   </TestHeaderCell>
                 ))}
               </TableRow>

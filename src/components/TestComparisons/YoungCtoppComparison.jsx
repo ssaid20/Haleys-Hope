@@ -17,7 +17,7 @@ const StyledTableCell = styled(TableCell)(({ theme, color }) => ({
     color: theme.palette.common.black,
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    fontSize: 12,
   },
 }));
 
@@ -81,13 +81,16 @@ const TestHeaderCell = styled(TableCell)(({ theme, color }) => ({
   backgroundColor: color ? color : theme.palette.primary.main,
   color: theme.palette.common.white,
   [`&.${tableCellClasses.head}`]: {
-    fontSize: 16,
+    fontSize: 12,
+    maxWidth: "65px",
   },
 }));
 
 const YoungCtoppComparison = () => {
   const dispatch = useDispatch();
-  const youngerCtoppTests = useSelector((store) => store.youngerCtoppReducer.list); // Get data from store
+  const youngerCtoppTests = useSelector(
+    (store) => store.youngerCtoppReducer.list
+  ); // Get data from store
   console.log("youngerCtoppTests", youngerCtoppTests);
   const student = useParams();
 
@@ -96,7 +99,9 @@ const YoungCtoppComparison = () => {
   }, [dispatch, student.id]);
 
   // Create rows based on the fetched data
-  const rows = categories.map((category) => createRowData(category, youngerCtoppTests));
+  const rows = categories.map((category) =>
+    createRowData(category, youngerCtoppTests)
+  );
   console.log("rows", rows);
 
   const sectionHeaderColors = {
@@ -121,17 +126,25 @@ const YoungCtoppComparison = () => {
     return (
       <>
         <TableContainer component={Paper}>
-          <Table size="small" sx={{ minWidth: 700 }} aria-label="Ctopp age 4-16 Comparison Table">
+          <Table
+            size="small"
+            sx={{ minWidth: 700 }}
+            aria-label="Ctopp age 4-16 Comparison Table"
+          >
             <TableHead>
               <TableRow>
-                <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
+                <StyledTableCell color={lightGreyColor}>
+                  Category
+                </StyledTableCell>
                 {youngerCtoppTests.map((test, index) => (
                   <TestHeaderCell
                     align="center"
                     color={sectionHeaderColors.percentile}
                     key={`percentile-header-${index}`}
                   >
-                    {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`}
+                    {`Test ${index + 1} %ile`}
+
+                    {/* {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`} */}
                   </TestHeaderCell>
                 ))}
                 {youngerCtoppTests.map((test, index) => (
@@ -140,7 +153,9 @@ const YoungCtoppComparison = () => {
                     color={sectionHeaderColors.scaledScore}
                     key={`scaled-score-header-${index}`}
                   >
-                    {`Test ${index + 1} (${formatDate3(test.date)}) Scaled Score`}
+                    {`Test ${index + 1} SS`}
+
+                    {/* {`Test ${index + 1} (${formatDate3(test.date)}) Scaled Score`} */}
                   </TestHeaderCell>
                 ))}
                 {youngerCtoppTests.map((test, index) => (
@@ -149,7 +164,9 @@ const YoungCtoppComparison = () => {
                     color={sectionHeaderColors.descriptiveTerm}
                     key={`descriptive-term-header-${index}`}
                   >
-                    {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive`}
+                    {`Test ${index + 1}  Desc.`}
+
+                    {/* {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive`} */}
                   </TestHeaderCell>
                 ))}
               </TableRow>
@@ -168,11 +185,16 @@ const YoungCtoppComparison = () => {
                   ))}
                   {row.scaledScores.map((scoreObj, index) => (
                     <StyledTableCell key={`score-${index}`} align="center">
-                      {scoreObj.descriptor ? `${scoreObj.descriptor}${scoreObj.score}` : scoreObj.score}
+                      {scoreObj.descriptor
+                        ? `${scoreObj.descriptor}${scoreObj.score}`
+                        : scoreObj.score}
                     </StyledTableCell>
                   ))}
                   {row.descriptiveTerms.map((term, index) => (
-                    <StyledTableCell key={`descriptive-${index}`} align="center">
+                    <StyledTableCell
+                      key={`descriptive-${index}`}
+                      align="center"
+                    >
                       {term}
                     </StyledTableCell>
                   ))}

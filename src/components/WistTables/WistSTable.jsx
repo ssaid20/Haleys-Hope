@@ -47,7 +47,7 @@ const WistSTable = ({ test }) => {
       <Typography variant="h6" gutterBottom>
         Raw Score Intervals for Grade Levels
       </Typography>
-      <table style={tableStyle}>
+      <table style={tableStyle} >
         <thead>
           <tr>
             <th style={cellStyle}>Item Sets</th>

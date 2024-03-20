@@ -9,6 +9,7 @@ import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescrip
 import EditIcon from "@mui/icons-material/Edit";
 import MicroStudentCard from "../Cards/MicroStudentCard";
 import PrintButton2 from "../PrintButton/PrintButton2";
+import DescriptiveTable from "../DescriptiveTable/DescriptiveTable";
 
 const SecondaryWistResults = () => {
   const testId = useParams();
@@ -170,7 +171,7 @@ const SecondaryWistResults = () => {
             justifyContent: "center",
           }}
         >
-          <Table>
+          <Table  size="small">
             <TableHead>
               <TableRow style={{ backgroundColor: "lightgrey" }}>
                 <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Assessment Area</TableCell>
@@ -338,6 +339,7 @@ const SecondaryWistResults = () => {
           </Table>
         </Paper>
       </div>
+      <DescriptiveTable />
       <div style={{ breakBefore: "page" }}></div>
 
       <h2

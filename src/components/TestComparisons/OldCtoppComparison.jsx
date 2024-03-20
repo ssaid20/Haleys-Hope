@@ -18,7 +18,8 @@ const StyledTableCell = styled(TableCell)(({ theme, color }) => ({
     color: theme.palette.common.black,
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    fontSize: 12,
+
   },
 }));
 
@@ -84,6 +85,8 @@ const TestHeaderCell = styled(TableCell)(({ theme, color }) => ({
   color: theme.palette.common.white,
   [`&.${tableCellClasses.head}`]: {
     fontSize: 16,
+    maxWidth: "65px"
+
   },
 }));
 
@@ -146,7 +149,9 @@ const OldCtoppComparison = () => {
                     color={sectionHeaderColors.percentile}
                     key={`percentile-header-${index}`}
                   >
-                    {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`}
+                                        {`Test ${index + 1}  %ile`}
+
+                    {/* {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`} */}
                   </TestHeaderCell>
                 ))}
                 {olderCtoppTests.map((test, index) => (
@@ -155,9 +160,10 @@ const OldCtoppComparison = () => {
                     color={sectionHeaderColors.scaledScore}
                     key={`scaled-score-header-${index}`}
                   >
-                    {`Test ${index + 1} (${formatDate3(
+                        {`Test ${index + 1} SS`}
+                    {/* {`Test ${index + 1} (${formatDate3(
                       test.date
-                    )}) Scaled Score`}
+                    )}) Scaled Score`} */}
                   </TestHeaderCell>
                 ))}
                 {olderCtoppTests.map((test, index) => (
@@ -166,9 +172,10 @@ const OldCtoppComparison = () => {
                     color={sectionHeaderColors.descriptiveTerm}
                     key={`descriptive-term-header-${index}`}
                   >
-                    {`Test ${index + 1} (${formatDate3(
+                        {`Test ${index + 1}  Desc.`}
+                    {/* {`Test ${index + 1} (${formatDate3(
                       test.date
-                    )}) Descriptive`}
+                    )}) Descriptive`} */}
                   </TestHeaderCell>
                 ))}
               </TableRow>

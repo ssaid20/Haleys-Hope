@@ -9,6 +9,7 @@ import { Button, Table, TableBody, TableCell, TableHead, TableRow, Paper, Typogr
 import EditIcon from "@mui/icons-material/Edit";
 import MicroStudentCard from "..//Cards/MicroStudentCard";
 import PrintButton2 from "../PrintButton/PrintButton2";
+import DescriptiveTable from "../DescriptiveTable/DescriptiveTable";
 
 import { GetCompositeScoreDescription } from "../../lib/GetCompositeScoreDescription";
 
@@ -172,7 +173,7 @@ const ElementaryWistResults = () => {
             justifyContent: "center",
           }}
         >
-          <Table>
+          <Table size="small">
             <TableHead>
               <TableRow style={{ backgroundColor: "lightgrey" }}>
                 <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Assessment Area</TableCell>
@@ -334,6 +335,7 @@ const ElementaryWistResults = () => {
           </Table>
         </Paper>
       </div>
+      <DescriptiveTable />
       <div style={{ breakBefore: "page" }}></div>
 
       <h2

@@ -9,6 +9,7 @@ import { GetScaledScoreDescription } from "../../lib/GetScaledScoreDescription";
 import EditIcon from "@mui/icons-material/Edit";
 import MicroStudentCard from "../Cards/MicroStudentCard";
 import PrintButton2 from "../PrintButton/PrintButton2";
+import DescriptiveTable from "../DescriptiveTable/DescriptiveTable";
 
 const GortResults = () => {
   const testId = useParams();
@@ -165,7 +166,7 @@ const GortResults = () => {
               justifyContent: "center",
             }}
           >
-            <Table>
+            <Table size="small">
               <TableHead>
                 <TableRow style={{ backgroundColor: "lightgrey" }}>
                   <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Assessment Area</TableCell>
@@ -185,7 +186,7 @@ const GortResults = () => {
               </TableHead>
               <TableBody>
                 <TableRow>
-                  <TableCell>Rate Raw Total</TableCell>
+                  <TableCell>Rate </TableCell>
                   <TableCell align="center">{selectedTest.rate_raw_total}</TableCell>
                   <TableCell align="center">{selectedTest.rate_percentile_rank}</TableCell>
                   <TableCell align="center">{selectedTest.rate_scaled_score}</TableCell>
@@ -194,7 +195,7 @@ const GortResults = () => {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>Accuracy Raw Total</TableCell>
+                  <TableCell>Accuracy </TableCell>
                   <TableCell align="center">{selectedTest.accuracy_raw_total}</TableCell>
                   <TableCell align="center">{selectedTest.accuracy_percentile_rank}</TableCell>
                   <TableCell align="center">{selectedTest.accuracy_scaled_score}</TableCell>
@@ -203,7 +204,7 @@ const GortResults = () => {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>Fluency Raw Total</TableCell>
+                  <TableCell>Fluency </TableCell>
                   <TableCell align="center">{selectedTest.fluency_raw_total}</TableCell>
                   <TableCell align="center">{selectedTest.fluency_percentile_rank}</TableCell>
                   <TableCell align="center">{selectedTest.fluency_scaled_score}</TableCell>
@@ -212,7 +213,7 @@ const GortResults = () => {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>Comprehension Raw Total</TableCell>
+                  <TableCell>Comprehension </TableCell>
                   <TableCell align="center">{selectedTest.comprehension_raw_total}</TableCell>
                   <TableCell align="center">{selectedTest.comprehension_percentile_rank}</TableCell>
                   <TableCell align="center">{selectedTest.comprehension_scaled_score}</TableCell>
@@ -225,7 +226,7 @@ const GortResults = () => {
             <Typography variant="h6" align="center" style={{ marginBottom: "10px", marginTop: "10px" }}>
               Summary
             </Typography>
-            <Table>
+            <Table size="small">
               <TableHead
                 style={{
                   backgroundColor: "#e0e0e0",
@@ -252,6 +253,7 @@ const GortResults = () => {
                 </TableCell>
               </TableRow>
             </Table>
+            <DescriptiveTable />
           </Paper>
         </div>
       </div>

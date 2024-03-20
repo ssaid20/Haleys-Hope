@@ -18,7 +18,7 @@ const StyledTableCell = styled(TableCell)(({ theme, color }) => ({
     color: theme.palette.common.black,
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    fontSize: 12,
   },
 }));
 
@@ -30,7 +30,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
-const categories = ["Word Identification", "Spelling", "Literacy Ability", "Sound-Symbol Recognition"];
+const categories = [
+  "Word Identification",
+  "Spelling",
+  "Literacy Ability",
+  "Sound-Symbol Recognition",
+];
 function createRowData(category, tests) {
   const categoryMap = {
     "Word Identification": {
@@ -65,7 +70,7 @@ const DarkBlueHeaderCell = styled(TableCell)(({ theme }) => ({
   backgroundColor: "#0f3c5c", // Dark blue color
   color: theme.palette.common.white,
   [`&.${tableCellClasses.head}`]: {
-    fontSize: 16,
+    fontSize: 12,
   },
 }));
 
@@ -73,7 +78,8 @@ const TestHeaderCell = styled(TableCell)(({ theme, color }) => ({
   backgroundColor: color ? color : theme.palette.primary.main,
   color: theme.palette.common.white,
   [`&.${tableCellClasses.head}`]: {
-    fontSize: 16,
+    fontSize: 12,
+    maxWidth: "65px",
   },
 }));
 
@@ -94,7 +100,9 @@ const DottedBorderTableCell = styled(TableCell)(({ theme }) => ({
 }));
 export default function SecondaryWistComparisonTable() {
   const dispatch = useDispatch();
-  const secondaryWistTests = useSelector((store) => store.secondaryWistReducer.list); // Get data from store
+  const secondaryWistTests = useSelector(
+    (store) => store.secondaryWistReducer.list
+  ); // Get data from store
   const student = useParams();
   console.log("AllSecWist tests maybe?", secondaryWistTests);
 
@@ -103,7 +111,9 @@ export default function SecondaryWistComparisonTable() {
   }, [dispatch, student.id]);
 
   // Create rows based on the fetched data
-  const rows = categories.map((category) => createRowData(category, secondaryWistTests));
+  const rows = categories.map((category) =>
+    createRowData(category, secondaryWistTests)
+  );
   console.log("rows", rows);
   const sectionHeaderColors = {
     percentile: "#778899", // Example color for Percentile Section
@@ -127,17 +137,25 @@ export default function SecondaryWistComparisonTable() {
     return (
       <>
         <TableContainer component={Paper}>
-          <Table size="small" sx={{ minWidth: 700 }} aria-label="WIST 11-18 Comparison Table">
+          <Table
+            size="small"
+            sx={{ minWidth: 700 }}
+            aria-label="WIST 11-18 Comparison Table"
+          >
             <TableHead>
               <TableRow>
-                <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
+                <StyledTableCell color={lightGreyColor}>
+                  Category
+                </StyledTableCell>
                 {secondaryWistTests.map((test, index) => (
                   <TestHeaderCell
                     key={`percentile-header-${index}`}
                     align="center"
                     color={sectionHeaderColors.percentile}
                   >
-                    {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`}
+                    {`Test ${index + 1}  %ile`}
+
+                    {/* {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`} */}
                   </TestHeaderCell>
                 ))}
                 {secondaryWistTests.map((test, index) => (
@@ -146,7 +164,10 @@ export default function SecondaryWistComparisonTable() {
                     color={sectionHeaderColors.standardScore}
                     key={`standard-score-header-${index}`}
                   >
-                    {`Test ${index + 1} (${formatDate3(test.date)}) Standard Score`}
+                     {`Test ${index + 1} SS`}
+                    {/* {`Test ${index + 1} (${formatDate3(
+                      test.date
+                    )}) Standard Score`} */}
                   </TestHeaderCell>
                 ))}
                 {secondaryWistTests.map((test, index) => (
@@ -155,7 +176,10 @@ export default function SecondaryWistComparisonTable() {
                     color={sectionHeaderColors.descriptiveTerm}
                     key={`descriptive-term-header-${index}`}
                   >
-                    {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive Term`}
+                       {`Test ${index + 1} Desc.`}
+                    {/* {`Test ${index + 1} (${formatDate3(
+                      test.date
+                    )}) Descriptive Term`} */}
                   </TestHeaderCell>
                 ))}
               </TableRow>
@@ -167,7 +191,9 @@ export default function SecondaryWistComparisonTable() {
                     {row.category}
                   </StyledTableCell>
                   {row.percentiles.map((percentile, index) => (
-                    <StyledTableCell align="center">{percentile}</StyledTableCell>
+                    <StyledTableCell align="center">
+                      {percentile}
+                    </StyledTableCell>
                   ))}
                   {row.standardScores.map((score, index) => (
                     <StyledTableCell key={`score-${index}`} align="center">
@@ -175,7 +201,10 @@ export default function SecondaryWistComparisonTable() {
                     </StyledTableCell>
                   ))}
                   {row.descriptiveTerms.map((term, index) => (
-                    <StyledTableCell align="center" key={`descriptive-${index}`}>
+                    <StyledTableCell
+                      align="center"
+                      key={`descriptive-${index}`}
+                    >
                       {term}
                     </StyledTableCell>
                   ))}

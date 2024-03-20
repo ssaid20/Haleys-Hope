@@ -18,7 +18,7 @@ const StyledTableCell = styled(TableCell)(({ theme, color }) => ({
     color: theme.palette.common.black,
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    fontSize: 12,
   },
 }));
 
@@ -66,7 +66,7 @@ const DarkBlueHeaderCell = styled(TableCell)(({ theme }) => ({
   backgroundColor: "#0f3c5c", // Dark blue color
   color: theme.palette.common.white,
   [`&.${tableCellClasses.head}`]: {
-    fontSize: 16,
+    fontSize: 12,
   },
 }));
 
@@ -74,7 +74,9 @@ const TestHeaderCell = styled(TableCell)(({ theme, color }) => ({
   backgroundColor: color ? color : theme.palette.primary.main,
   color: theme.palette.common.white,
   [`&.${tableCellClasses.head}`]: {
-    fontSize: 16,
+    fontSize: 12,
+    maxWidth: "65px"
+
   },
 }));
 
@@ -138,7 +140,9 @@ export default function PrimaryWistComparisonTable() {
                     align="center"
                     color={sectionHeaderColors.percentile}
                   >
-                    {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`}
+                                        {`Test ${index + 1} %ile`}
+
+                    {/* {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`} */}
                   </TestHeaderCell>
                 ))}
                 {primaryWistTests.map((test, index) => (
@@ -147,7 +151,9 @@ export default function PrimaryWistComparisonTable() {
                     color={sectionHeaderColors.standardScore}
                     key={`standard-score-header-${index}`}
                   >
-                    {`Test ${index + 1} (${formatDate3(test.date)}) Standard Score`}
+                                        {`Test ${index + 1} SS`}
+
+                    {/* {`Test ${index + 1} (${formatDate3(test.date)}) Standard Score`} */}
                   </TestHeaderCell>
                 ))}
                 {primaryWistTests.map((test, index) => (
@@ -156,7 +162,9 @@ export default function PrimaryWistComparisonTable() {
                     color={sectionHeaderColors.descriptiveTerm}
                     key={`descriptive-term-header-${index}`}
                   >
-                    {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive Term`}
+                                        {`Test ${index + 1} Desc.`}
+
+                    {/* {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive Term`} */}
                   </TestHeaderCell>
                 ))}
               </TableRow>

@@ -99,8 +99,21 @@ function Nav() {
                 Manage Users
               </MenuItem>
 
-              <MenuItem onClick={handleClose} component={Link} to="/admin/coaches" className="customMenuItem">
+              <MenuItem
+                onClick={handleClose}
+                component={Link}
+                to="/admin/coaches"
+                className="customMenuItem"
+              >
                 Coaches
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                component={Link}
+                to="/admin/incrementGrade"
+                className="customMenuItem"
+              >
+                Increment Grade{" "}
               </MenuItem>
               {/* <MenuItem
                 onClick={handleClose}

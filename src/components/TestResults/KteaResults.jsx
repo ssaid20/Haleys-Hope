@@ -258,7 +258,7 @@ const KteaResults = () => {
             <TableRow>
               <TableCell>
                 <Typography variant="h6">
-                  Letter and Word Recognition Scaled Score
+                  Letter and Word Recognition SS
                 </Typography>
               </TableCell>
               <TableCell align="center">
@@ -279,7 +279,7 @@ const KteaResults = () => {
             </TableRow>
             <TableRow>
               <TableCell>
-                <Typography variant="h6">Spelling Scaled Score</Typography>
+                <Typography variant="h6">Spelling SS</Typography>
               </TableCell>
               <TableCell align="center">
                 <Typography variant="h6">

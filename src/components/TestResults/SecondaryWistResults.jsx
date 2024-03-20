@@ -174,17 +174,17 @@ const SecondaryWistResults = () => {
           <Table  size="small">
             <TableHead>
               <TableRow style={{ backgroundColor: "lightgrey" }}>
-                <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Assessment Area</TableCell>
-                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <TableCell style={{ fontWeight: "bold", fontSize: "16px", textAlign: "center" }}>Assessment Area</TableCell>
+                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px", textAlign: "center" }}>
                   Raw Score
                 </TableCell>
-                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px", textAlign: "center" }}>
                   Percentile Rank
                 </TableCell>
-                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px", textAlign: "center" }}>
                   Standard Score
                 </TableCell>
-                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px", textAlign: "center" }}>
                   Descriptive Rating
                 </TableCell>
               </TableRow>

@@ -394,9 +394,7 @@ const StudentCard = () => {
           <p className="body-regular text-dark500_light500">State: {student.state}</p>
           <p className="body-regular text-dark500_light500">Current Age: {calculateAge(student.dob)}</p>
           <p className="body-regular text-dark500_light500">Coach: {coachName}</p>
-          <p>
-            assess date???????? is this the last <br /> assessment date or what?
-          </p>
+
           {/* <p className="body-regular text-dark500_light500">
             On Site: ***Change to onsite or virtual {student.on_site ? "Yes" : "No"}
           </p> */}
@@ -408,7 +406,7 @@ const StudentCard = () => {
             Barton C: {student.barton_c ? "Foundations" : "Barton"}
           </p>
           <p className="body-regular text-dark500_light500">
-            Intake/Assess Date: {new Date(student.start_date).toLocaleDateString()}
+            Intake Date: {new Date(student.start_date).toLocaleDateString()}
           </p>
           <p className="body-regular text-dark500_light500">
             Barton C Date:{" "}

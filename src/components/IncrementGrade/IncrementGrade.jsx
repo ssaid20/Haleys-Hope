@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
+import { useDispatch } from "react-redux";
 
 const IncrementGrade = () => {
+    dispatch=useDispatch();
+
+    useEffect(() => {
+        dispatch({ type: "FETCH_CRON" });
+      }, []);
+
     const handleChange = (event) => {
         setNewDate(event.target.value);
     };

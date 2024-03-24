@@ -13,6 +13,7 @@ import assessmentSaga from "./assessment.saga";
 import coachSaga from "./coach.saga";
 import commentsSaga from "./comments.saga";
 import { snackbarSaga } from "./snackbar.saga";
+import cronJobSaga from "./cronJobSaga";
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -34,7 +35,7 @@ export default function* rootSaga() {
     studentSaga(),
     kteaSaga(),
     assessmentSaga(),
-
+    cronJobSaga(),
     coachSaga(),
     commentsSaga(),
     snackbarSaga(),

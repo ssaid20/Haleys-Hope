@@ -6,7 +6,7 @@ const { rejectUnauthenticated } = require("../modules/authentication-middleware"
 // GET route to fetch younger ctopp tests for a specific student
 router.get("/:student_id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id;
-  const queryText = 'SELECT * FROM "younger_ctopp" WHERE "student_id" = $1';
+  const queryText = 'SELECT * FROM "younger_ctopp" WHERE "student_id" = $1 ORDER BY date ASC';
 
   pool
     .query(queryText, [studentId])
@@ -20,7 +20,7 @@ router.get("/:student_id", rejectUnauthenticated, (req, res) => {
 //router to get a specific test
 router.get("/youngerCtoppResults/:testId", rejectUnauthenticated, (req, res) => {
   const testId = req.params.testId;
-  const queryText = 'SELECT * FROM "younger_ctopp" WHERE "id" = $1';
+  const queryText = 'SELECT * FROM "younger_ctopp" WHERE "id" = $1 ORDER BY date ASC';
   pool
     .query(queryText, [testId])
     .then((result) => {

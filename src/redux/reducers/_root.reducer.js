@@ -13,6 +13,7 @@ import allUsersReducer from "./allUsers.reducer";
 import coachReducer from "./coach.reducer";
 import commentsReducer from "./comments.reducer";
 import snackbarReducer from "./snackbar.reducer";
+import cronJobReducer from "./cronJobReducer";
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   allUsersReducer,
   commentsReducer, // manages state for student comments
   snackbar: snackbarReducer, // manages snackbar notifications
+  cronJobReducer,
 });
 
 export default rootReducer;

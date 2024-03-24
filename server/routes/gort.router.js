@@ -10,7 +10,7 @@ router.get("/:studentId", rejectUnauthenticated, async (req, res) => {
     const studentId = req.params.studentId;
 
     // Query to fetch all GORT-5 items for the given student ID
-    const query = "SELECT * FROM gort WHERE student_id = $1";
+    const query = "SELECT * FROM gort WHERE student_id = $1 ORDER BY date ASC";
     const { rows } = await pool.query(query, [studentId]);
 
     // Sending the response with the GORT items
@@ -25,7 +25,7 @@ module.exports = router;
 //router to get a specific test for gort
 router.get("/gortResults/:testId", rejectUnauthenticated, (req, res) => {
   const testId = req.params.testId;
-  const queryText = 'SELECT * FROM "gort" WHERE "id" = $1';
+  const queryText = 'SELECT * FROM "gort" WHERE "id" = $1 ORDER BY date ASC"';
   pool
     .query(queryText, [testId])
     .then((result) => {

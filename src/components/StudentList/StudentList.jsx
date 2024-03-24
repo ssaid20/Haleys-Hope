@@ -252,7 +252,8 @@ const StudentList = () => {
                 {columns.map((column) => (
                   <TableCell
                     key={column.id}
-                    align={column.align}
+                    align="center"
+                    // align={column.align}
                     style={{ minWidth: column.minWidth }}
                     onClick={() => handleSort(column.id)}
                   >
@@ -292,7 +293,10 @@ const StudentList = () => {
                       {columns.map((column) => {
                         const value = formattedStudent[column.id];
                         return (
-                          <TableCell key={column.id} align={column.align}>
+                          <TableCell key={column.id} 
+                          // align={column.align}
+                          align="center"
+                          >
                             {value}
                           </TableCell>
                         );

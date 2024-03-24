@@ -36,10 +36,10 @@ const TestTab = () => {
       <Table>
         <ElementaryWistList />
         <SecondaryWistList />
-        <GortList />
-        <KteaList />
         <YoungerCtoppList />
         <OlderCtoppList />
+        <GortList />
+        <KteaList />
         {/* <GortComparisonTable />
       <SecondaryWistComparisonTable />
       <ElementaryWistComparisonTable /> */}

@@ -9,6 +9,7 @@ import { GetScaledScoreDescription } from "../../lib/GetScaledScoreDescription";
 import EditIcon from "@mui/icons-material/Edit";
 import MicroStudentCard from "../Cards/MicroStudentCard";
 import PrintButton2 from "../PrintButton/PrintButton2";
+import DescriptiveTable from "../DescriptiveTable/DescriptiveTable";
 
 const YoungerCtoppResults = () => {
   const testId = useParams();
@@ -74,7 +75,7 @@ const YoungerCtoppResults = () => {
         <div>
           <Paper
             style={{
-              fontSize: "18px",
+              fontSize: "12px",
               alignItems: "center",
               justifyContent: "center",
 
@@ -121,17 +122,17 @@ const YoungerCtoppResults = () => {
           // paddingRight: "150px",
         }}
       >
-        <h2
+        {/* <h2
           className="noPrint"
           style={{
             textAlign: "center",
 
             fontWeight: "bold",
-            fontSize: "20px",
+            fontSize: "12px",
           }}
         >
           Sub-test Performance
-        </h2>
+        </h2> */}
         <div>
           <Button
             className="noPrint"
@@ -160,114 +161,114 @@ const YoungerCtoppResults = () => {
             justifyContent: "center",
           }}
         >
-          <Table>
+          <Table size="small">
             <TableHead>
               <TableRow style={{ backgroundColor: "lightgrey" }}>
-                <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Subtest</TableCell>
-                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <TableCell style={{ fontWeight: "bold", fontSize: "12px" }}>Subtest</TableCell>
+                <TableCell align="center" style={{ fontWeight: "bold", fontSize: "12px" }}>
                   Scaled Score
                 </TableCell>
-                <TableCell align="right" style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <TableCell align="center" style={{ fontWeight: "bold", fontSize: "12px" }}>
                   Descriptive Term
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow>
-                <TableCell>
+                <TableCell style={{fontSize: "12px" }}>
                   <strong>Core</strong>
                 </TableCell>
-                <TableCell align="right"></TableCell>
-                <TableCell align="right"></TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center"></TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center"></TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>Elison Scaled Score (EL)</TableCell>
-                <TableCell align="right">{selectedTest.elison_scaled_score}</TableCell>
-                <TableCell align="right">
+                <TableCell style={{fontSize: "12px" }}>Elison Scaled Score (EL)</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">{selectedTest.elison_scaled_score}</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.elison_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>Blending Words (BW)</TableCell>
-                <TableCell align="right">{selectedTest.blending_words_scaled_score}</TableCell>
-                <TableCell align="right">
+                <TableCell style={{fontSize: "12px" }}>Blending Words (BW)</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">{selectedTest.blending_words_scaled_score}</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.blending_words_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>Sound Matching (SM)</TableCell>
-                <TableCell align="right">{selectedTest.sound_matching_scaled_score}</TableCell>
-                <TableCell align="right">
+                <TableCell style={{fontSize: "12px" }}>Sound Matching (SM)</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">{selectedTest.sound_matching_scaled_score}</TableCell>
+                <TableCell  style={{fontSize: "12px" }} align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.sound_matching_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>Memory For Digits (MD)</TableCell>
-                <TableCell align="right">{selectedTest.memory_for_digits_scaled_score}</TableCell>
-                <TableCell align="right">
+                <TableCell style={{fontSize: "12px" }}>Memory For Digits (MD)</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">{selectedTest.memory_for_digits_scaled_score}</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.memory_for_digits_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>Non-Word Repitition (NR)</TableCell>
-                <TableCell align="right">{selectedTest.nonword_repetition_scaled_score}</TableCell>
-                <TableCell align="right">
+                <TableCell style={{fontSize: "12px" }}>Non-Word Repitition (NR)</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">{selectedTest.nonword_repetition_scaled_score}</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.nonword_repetition_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>Rapid Digit Naming (RD)</TableCell>
-                <TableCell align="right">{selectedTest.rapid_digit_naming_scaled_score}</TableCell>
-                <TableCell align="right">
+                <TableCell style={{fontSize: "12px" }}>Rapid Digit Naming (RD)</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">{selectedTest.rapid_digit_naming_scaled_score}</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.rapid_digit_naming_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>Rapid Letter Naming (RL)</TableCell>
-                <TableCell align="right">{selectedTest.rapid_letter_naming_scaled_score}</TableCell>
-                <TableCell align="right">
+                <TableCell style={{fontSize: "12px" }}>Rapid Letter Naming (RL)</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">{selectedTest.rapid_letter_naming_scaled_score}</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.rapid_letter_naming_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>Rapid Color Naming (RC)</TableCell>
-                <TableCell align="right">{selectedTest.rapid_color_naming_scaled_score}</TableCell>
-                <TableCell align="right">
+                <TableCell style={{fontSize: "12px" }}>Rapid Color Naming (RC)</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">{selectedTest.rapid_color_naming_scaled_score}</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.rapid_color_naming_scaled_score} />
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>Rapid Object Naming (RO)</TableCell>
-                <TableCell align="right">{selectedTest.rapid_object_naming}</TableCell>
-                <TableCell align="right">
+                <TableCell style={{fontSize: "12px" }}>Rapid Object Naming (RO)</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">{selectedTest.rapid_object_naming}</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.rapid_object_naming} />
                 </TableCell>
               </TableRow>
-              <TableRow>
-                <TableCell>
+              {/* <TableRow>
+                <TableCell style={{fontSize: "12px" }}>
                   <strong>Supplemental</strong>
                 </TableCell>
-                <TableCell align="right"></TableCell>
-                <TableCell align="right"></TableCell>
-              </TableRow>
+                <TableCell style={{fontSize: "12px" }} align="center"></TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center"></TableCell>
+              </TableRow> */}
               <TableRow>
-                <TableCell>Blending Non-Words (BN)</TableCell>
-                <TableCell align="right">{selectedTest.blending_nonwords_scaled_score}</TableCell>
-                <TableCell align="right">
+                <TableCell style={{fontSize: "12px" }}>Blending Non-Words (BN)</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">{selectedTest.blending_nonwords_scaled_score}</TableCell>
+                <TableCell style={{fontSize: "12px" }} align="center">
                   <GetScaledScoreDescription scaledScore={selectedTest.blending_nonwords_scaled_score} />
                 </TableCell>
               </TableRow>
             </TableBody>
           </Table>
-          <div style={{ breakBefore: "page" }}></div>
-
+          {/* <div style={{ breakBefore: "page" }}></div> */}
+{/* 
           <Typography
             variant="h6"
             align="center"
             className="print-margin"
             style={{
               marginBottom: "10px",
-              marginTop: "20px",
+              // marginTop: "20px",
               fontWeight: "bold",
               fontSize: "20px",
               textAlign: "center",
@@ -275,39 +276,40 @@ const YoungerCtoppResults = () => {
             }}
           >
             Composite Performance
-          </Typography>
-          <Table>
+          </Typography> */}
+          <Table size="small">
             <TableHead
               style={{
                 backgroundColor: "#e0e0e0",
                 alignItems: "center",
                 justifyContent: "center",
-                marginTop: "10px",
+                marginTop: "5px",
               }}
             >
               <TableRow>
-                <TableCell align="center" style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <TableCell align="left" style={{ fontWeight: "bold", fontSize: "12px" }}>
                   Composite
                 </TableCell>
-                <TableCell align="center" style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <TableCell align="center" style={{ fontWeight: "bold", fontSize: "12px" }}>
                   %ile Rank
                 </TableCell>
-                <TableCell align="center" style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <TableCell align="center" style={{ fontWeight: "bold", fontSize: "12px" }}>
                   Composite Score
                 </TableCell>
-                <TableCell align="center" style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <TableCell align="center" style={{ fontWeight: "bold", fontSize: "12px" }}>
                   Descriptive Term
                 </TableCell>
               </TableRow>
             </TableHead>
+            <TableBody>
             <TableRow>
-              <TableCell>Phonological Awareness</TableCell>
-              <TableCell align="right">{selectedTest.phonological_awareness_percentile}</TableCell>
-              <TableCell align="right">
+              <TableCell style={{fontSize: "12px" }}>Phonological Awareness</TableCell>
+              <TableCell style={{fontSize: "12px" }} align="center">{selectedTest.phonological_awareness_percentile}</TableCell>
+              <TableCell style={{fontSize: "12px" }} align="center">
                 {selectedTest.phonological_awareness_descriptor}
                 {""} {selectedTest.phonological_awareness_composite}
               </TableCell>
-              <TableCell align="right">
+              <TableCell style={{fontSize: "12px" }} align="center">
                 <GetCompositeScoreDescription
                   compositeScore={selectedTest.phonological_awareness_composite}
                   descriptor={selectedTest.phonological_awareness_descriptor}
@@ -315,13 +317,13 @@ const YoungerCtoppResults = () => {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Phonological Memory</TableCell>
-              <TableCell align="right">{selectedTest.phonological_memory_percentile}</TableCell>
-              <TableCell align="right">
+              <TableCell style={{fontSize: "12px" }}>Phonological Memory</TableCell>
+              <TableCell style={{fontSize: "12px" }} align="center">{selectedTest.phonological_memory_percentile}</TableCell>
+              <TableCell style={{fontSize: "12px" }} align="center">
                 {selectedTest.phonological_memory_descriptor}
                 {""} {selectedTest.phonological_memory_composite}
               </TableCell>
-              <TableCell align="right">
+              <TableCell style={{fontSize: "12px" }} align="center">
                 <GetCompositeScoreDescription
                   compositeScore={selectedTest.phonological_memory_composite}
                   descriptor={selectedTest.phonological_memory_descriptor}
@@ -329,14 +331,14 @@ const YoungerCtoppResults = () => {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Rapid Symbolic Naming</TableCell>
-              <TableCell align="right">{selectedTest.rapid_symbolic_naming_percentile}</TableCell>
-              <TableCell align="right">
+              <TableCell style={{fontSize: "12px" }}>Rapid Symbolic Naming</TableCell>
+              <TableCell style={{fontSize: "12px" }} align="center">{selectedTest.rapid_symbolic_naming_percentile}</TableCell>
+              <TableCell style={{fontSize: "12px" }} align="center">
                 {selectedTest.rapid_symbolic_naming_descriptor}
                 &nbsp;
                 {selectedTest.rapid_symbolic_naming_composite}
               </TableCell>
-              <TableCell align="right">
+              <TableCell style={{fontSize: "12px" }} align="center">
                 <GetCompositeScoreDescription
                   compositeScore={selectedTest.rapid_symbolic_naming_composite}
                   descriptor={selectedTest.rapid_symbolic_naming_descriptor}
@@ -344,20 +346,22 @@ const YoungerCtoppResults = () => {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Rapid Non-Symbolic Naming</TableCell>
-              <TableCell align="right">{selectedTest.rapid_non_symbolic_naming_percentile}</TableCell>
-              <TableCell align="right">
+              <TableCell style={{fontSize: "12px" }}>Rapid Non-Symbolic Naming</TableCell>
+              <TableCell style={{fontSize: "12px" }} align="center">{selectedTest.rapid_non_symbolic_naming_percentile}</TableCell>
+              <TableCell style={{fontSize: "12px" }} align="center">
                 {selectedTest.rapid_non_symbolic_naming_descriptor}
                 {""} {selectedTest.rapid_non_symbolic_naming_composite}
               </TableCell>
-              <TableCell align="right">
+              <TableCell style={{fontSize: "12px" }} align="center">
                 <GetCompositeScoreDescription
                   compositeScore={selectedTest.rapid_non_symbolic_naming_composite}
                   descriptor={selectedTest.rapid_non_symbolic_naming_descriptor}
                 />
               </TableCell>
             </TableRow>
+            </TableBody>
           </Table>
+          <DescriptiveTable />
         </Paper>
       </div>
     </div>

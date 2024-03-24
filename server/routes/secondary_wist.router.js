@@ -7,7 +7,7 @@ const { rejectUnauthenticated } = require("../modules/authentication-middleware"
 // Tested and working in Postman
 router.get("/:student_id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id;
-  const queryText = 'SELECT * FROM "secondary_wist" WHERE "student_id" = $1';
+  const queryText = 'SELECT * FROM "secondary_wist" WHERE "student_id" = $1 ORDER BY date ASC';
   pool
     .query(queryText, [studentId])
     .then((result) => {
@@ -22,7 +22,7 @@ router.get("/:student_id", rejectUnauthenticated, (req, res) => {
 //router to get a specific test
 router.get("/secondaryWistResults/:testId", rejectUnauthenticated, (req, res) => {
   const testId = req.params.testId;
-  const queryText = 'SELECT * FROM "secondary_wist" WHERE "id" = $1';
+  const queryText = 'SELECT * FROM "secondary_wist" WHERE "id" = $1 ORDER BY date ASC';
   pool
     .query(queryText, [testId])
     .then((result) => {

@@ -18,7 +18,8 @@ const StyledTableCell = styled(TableCell)(({ theme, color }) => ({
     color: theme.palette.common.black,
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    fontSize: 12,
+
   },
 }));
 
@@ -84,6 +85,8 @@ const TestHeaderCell = styled(TableCell)(({ theme, color }) => ({
   color: theme.palette.common.white,
   [`&.${tableCellClasses.head}`]: {
     fontSize: 16,
+    maxWidth: "65px"
+
   },
 }));
 
@@ -103,7 +106,9 @@ const OldCtoppComparison = () => {
   }, [dispatch, student.id]);
 
   // Create rows based on the fetched data
-  const rows = categories.map((category) => createRowData(category, olderCtoppTests));
+  const rows = categories.map((category) =>
+    createRowData(category, olderCtoppTests)
+  );
   console.log("rows", rows);
 
   const sectionHeaderColors = {
@@ -126,81 +131,103 @@ const OldCtoppComparison = () => {
     );
   } else {
     return (
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="GORT-5 Comparison Table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
-              {olderCtoppTests.map((test, index) => (
-                <TestHeaderCell
-                  align="center"
-                  color={sectionHeaderColors.percentile}
-                  key={`percentile-header-${index}`}
-                >
-                  {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`}
-                </TestHeaderCell>
-              ))}
-              {olderCtoppTests.map((test, index) => (
-                <TestHeaderCell
-                  align="center"
-                  color={sectionHeaderColors.scaledScore}
-                  key={`scaled-score-header-${index}`}
-                >
-                  {`Test ${index + 1} (${formatDate3(test.date)}) Scaled Score`}
-                </TestHeaderCell>
-              ))}
-              {olderCtoppTests.map((test, index) => (
-                <TestHeaderCell
-                  align="center"
-                  color={sectionHeaderColors.descriptiveTerm}
-                  key={`descriptive-term-header-${index}`}
-                >
-                  {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive`}
-                </TestHeaderCell>
-              ))}
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {rows.map((row, rowIndex) => (
-              <StyledTableRow key={rowIndex}>
-                <StyledTableCell component="th" scope="row">
-                  {row.category}
+      <>
+        <TableContainer component={Paper}>
+          <Table
+            size="small"
+            sx={{ minWidth: 700 }}
+            aria-label="Ctopp age 7-24 Comparison Table"
+          >
+            <TableHead>
+              <TableRow>
+                <StyledTableCell color={lightGreyColor}>
+                  Category
                 </StyledTableCell>
-                {row.percentiles.map((percentile, index) => (
-                  <StyledTableCell key={`percentile-${index}`} align="right">
-                    {percentile}
-                  </StyledTableCell>
-                ))}
+                {olderCtoppTests.map((test, index) => (
+                  <TestHeaderCell
+                    align="center"
+                    color={sectionHeaderColors.percentile}
+                    key={`percentile-header-${index}`}
+                  >
+                                        {`Test ${index + 1}  %ile`}
 
-                {row.scaledScores.map((scoreObj, index) => (
-                  <StyledTableCell key={`score-${index}`} align="right">
-                    {scoreObj.descriptor ? `${scoreObj.descriptor} ${scoreObj.score}` : scoreObj.score}
-                  </StyledTableCell>
+                    {/* {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`} */}
+                  </TestHeaderCell>
                 ))}
+                {olderCtoppTests.map((test, index) => (
+                  <TestHeaderCell
+                    align="center"
+                    color={sectionHeaderColors.scaledScore}
+                    key={`scaled-score-header-${index}`}
+                  >
+                        {`Test ${index + 1} SS`}
+                    {/* {`Test ${index + 1} (${formatDate3(
+                      test.date
+                    )}) Scaled Score`} */}
+                  </TestHeaderCell>
+                ))}
+                {olderCtoppTests.map((test, index) => (
+                  <TestHeaderCell
+                    align="center"
+                    color={sectionHeaderColors.descriptiveTerm}
+                    key={`descriptive-term-header-${index}`}
+                  >
+                        {`Test ${index + 1}  Desc.`}
+                    {/* {`Test ${index + 1} (${formatDate3(
+                      test.date
+                    )}) Descriptive`} */}
+                  </TestHeaderCell>
+                ))}
+              </TableRow>
+            </TableHead>
 
-                {/* {row.scaledScores.map((score, index) => {
+            <TableBody>
+              {rows.map((row, rowIndex) => (
+                <StyledTableRow key={rowIndex}>
+                  <StyledTableCell component="th" scope="row">
+                    {row.category}
+                  </StyledTableCell>
+                  {row.percentiles.map((percentile, index) => (
+                    <StyledTableCell key={`percentile-${index}`} align="center">
+                      {percentile}
+                    </StyledTableCell>
+                  ))}
+
+                  {row.scaledScores.map((scoreObj, index) => (
+                    <StyledTableCell key={`score-${index}`} align="center">
+                      {scoreObj.descriptor
+                        ? `${scoreObj.descriptor} ${scoreObj.score}`
+                        : scoreObj.score}
+                    </StyledTableCell>
+                  ))}
+
+                  {/* {row.scaledScores.map((score, index) => {
                   // Assuming you have a way to get the descriptor for each score here. You might need to adjust this based on your actual data structure.
                   // If your tests include a descriptor (e.g., `<` or `>`) for each score, make sure to include that in your data passed to the component.
                   const descriptor = [index].descriptor; // Adjust this line to access the actual descriptor from your tests data structure
 
                   return (
-                    <StyledTableCell key={`score-${index}`} align="right">
+                    <StyledTableCell key={`score-${index}`} align="center">
                       {descriptor ? `${descriptor}${score}` : score}
                     </StyledTableCell>
                   );
                 })} */}
 
-                {row.descriptiveTerms.map((term, index) => (
-                  <StyledTableCell key={`descriptive-${index}`} align="right">
-                    {term}
-                  </StyledTableCell>
-                ))}
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                  {row.descriptiveTerms.map((term, index) => (
+                    <StyledTableCell
+                      key={`descriptive-${index}`}
+                      align="center"
+                    >
+                      {term}
+                    </StyledTableCell>
+                  ))}
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <div style={{ breakAfter: "page" }}></div>
+      </>
     );
   }
 };

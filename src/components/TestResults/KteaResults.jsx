@@ -164,8 +164,7 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import MicroStudentCard from "../Cards/MicroStudentCard";
-import PrintButton2 from "../PrintButton/PrintButton2";
-
+import DescriptiveTable from "../DescriptiveTable/DescriptiveTable";
 
 const KteaResults = () => {
   const { id: testId } = useParams();
@@ -259,10 +258,10 @@ const KteaResults = () => {
             <TableRow>
               <TableCell>
                 <Typography variant="h6">
-                  Letter and Word Recognition Scaled Score
+                  Letter and Word Recognition SS
                 </Typography>
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="center">
                 <Typography variant="h6">
                   {selectedTest.lwr_scaled_score}
                 </Typography>
@@ -272,7 +271,7 @@ const KteaResults = () => {
                   Letter and Word Recognition % ile
                 </Typography>
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="center">
                 <Typography variant="h6">
                   {selectedTest.lwr_percentile}
                 </Typography>
@@ -280,9 +279,9 @@ const KteaResults = () => {
             </TableRow>
             <TableRow>
               <TableCell>
-                <Typography variant="h6">Spelling Scaled Score</Typography>
+                <Typography variant="h6">Spelling SS</Typography>
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="center">
                 <Typography variant="h6">
                   {selectedTest.spelling_scaled_score}
                 </Typography>
@@ -290,7 +289,7 @@ const KteaResults = () => {
               <TableCell align="right">
                 <Typography variant="h6">Spelling % ile</Typography>
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="center">
                 <Typography variant="h6">
                   {selectedTest.spelling_percentile}
                 </Typography>
@@ -299,7 +298,8 @@ const KteaResults = () => {
           </TableBody>
         </Table>
       </Paper>
-
+      <hr style={{marginTop: "40px"}} />
+<DescriptiveTable />
       <div style={{ textAlign: "center", marginTop: "20px" }}>
         <Button
           className="noPrint"

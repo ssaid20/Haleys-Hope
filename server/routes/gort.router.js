@@ -25,7 +25,7 @@ module.exports = router;
 //router to get a specific test for gort
 router.get("/gortResults/:testId", rejectUnauthenticated, (req, res) => {
   const testId = req.params.testId;
-  const queryText = 'SELECT * FROM "gort" WHERE "id" = $1 ORDER BY date ASC"';
+  const queryText = 'SELECT * FROM "gort" WHERE "id" = $1 ORDER BY date ASC';
   pool
     .query(queryText, [testId])
     .then((result) => {

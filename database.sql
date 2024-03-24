@@ -240,7 +240,8 @@ CREATE TABLE
     "grade" INTEGER
   );
 
-CREATE TABLE "cron" ("last_updated" DATE);
+CREATE TABLE "cron" (   "id" SERIAL PRIMARY KEY,
+"scheduled_date" DATE, "is_completed" bool);
   
 Insert test coach records for the students
 INSERT INTO

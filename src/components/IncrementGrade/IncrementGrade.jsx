@@ -17,6 +17,8 @@ const IncrementGrade = () => {
   const cronJobs = useSelector((state) => state.cronJobReducer?.list ?? []);
   const [editingJobId, setEditingJobId] = useState(null);
   const [editedDates, setEditedDates] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
 
   const [date, setDate] = useState(() => {
     const currentDate = new Date();
@@ -28,6 +30,7 @@ const IncrementGrade = () => {
 
   useEffect(() => {
     dispatch({ type: "FETCH_CRON_JOBS" });
+    setIsLoading(false);
   }, [dispatch]);
 
   const handleChange = (event) => {
@@ -58,7 +61,7 @@ const IncrementGrade = () => {
   const handleChangeSubmit = async (jobId) => {
     const updatedDate = editedDates[jobId];
     dispatch({ type: "UPDATE_CRON_JOB", payload: { jobId, updatedDate } });
-    console.log("update cron payload", jobId, updatedDate );
+    console.log("update cron payload", jobId, updatedDate);
     setEditingJobId(null);
   };
 
@@ -89,6 +92,9 @@ const IncrementGrade = () => {
     ? `${currentYear + 1}-08-01`
     : `${currentYear}-08-01`;
 
+  if (isLoading) {
+    return <div>Loading cron jobs...</div>;
+  }
   return (
     <Paper elevation={3} className="p-8">
       <h1>Set Date for Annual Grade Increase</h1>

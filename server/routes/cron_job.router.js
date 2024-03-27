@@ -18,9 +18,11 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 
 //POST ROUTE:
 router.post("/", rejectUnauthenticated, (req, res) => {
+  console.log("req.body", req.body);
   const newCron = req.body;
   const queryText = `INSERT INTO "cron" ("scheduled_date") VALUES ($1)`;
-  const values = [newCron.scheduled_date];
+  const values = [newCron.date];
+  console.log("values", values);
   pool
     .query(queryText, values)
     .then(() => res.sendStatus(201))
@@ -33,8 +35,9 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 //PUT ROUTE:
 router.put("/update", rejectUnauthenticated, (req, res) => {
   const updatedCron = req.body;
+  console.log(req.body);
   const queryText = `UPDATE "cron" SET "scheduled_date" = $1 where "id" = $2`;
-  const values = [updatedCron.scheduled_date, updatedCron.id];
+  const values = [updatedCron.updatedDate, updatedCron.jobId];
   pool
     .query(queryText, values)
     .then(() => res.sendStatus(204))

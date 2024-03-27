@@ -163,8 +163,8 @@ const AddElementaryWist = () => {
     const newErrors = {};
     if (!newWist.date) {
       newErrors.date = "Date is required";
-    } else if (new Date(newWist.date) > new Date()) {
-      newErrors.date = "Date cannot be in the future";
+    } else if (new Date(newWist.date) < new Date()) {
+      newErrors.date = "Date cannot be in the past";
     }
 
     if (!newWist.examiner_id) {

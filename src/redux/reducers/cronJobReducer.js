@@ -1,10 +1,7 @@
 // cronJobReducer.js
 
 const initialState = {
-    date_updated: null,
-    scheduled_date: null,
-    scheduled_year: null,
-    is_completed: false,
+   list: [],
   };
   
   const cronJobReducer = (state = initialState, action) => {
@@ -12,12 +9,12 @@ const initialState = {
       case 'SET_CRON_JOB':
         return {
           ...state,
-          ...action.payload,
+          list: action.payload,
         };
       case 'LOCK_CRON_JOB':
         return {
           ...state,
-          is_completed: true,
+          is_completed: True,
         };
       default:
         return state;

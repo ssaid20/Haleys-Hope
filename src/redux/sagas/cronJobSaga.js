@@ -6,7 +6,7 @@ import axios from "axios";
 function* fetchCronJobSaga() {
   try {
     const cronJob = yield axios.get("/api/cron");
-    console.log("getting cronJob");
+    console.log("getting cronJob", cronJob.data);
     yield put({ type: "SET_CRON_JOB", payload: cronJob.data });
   } catch (error) {
     console.log("error in fetchCronJobSaga", error);
@@ -26,7 +26,7 @@ function* addCronJob(action) {
 
 function* updateCronJob(action) {
   try {
-    yield call(axios.put, `/api/cron/`, action.payload);
+    yield call(axios.put, `/api/cron/update`, action.payload);
     yield put({
       type: "FETCH_CRON_JOB",
     });

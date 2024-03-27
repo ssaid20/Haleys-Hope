@@ -88,12 +88,13 @@ CREATE TABLE
     "accuracy_scaled_score" INTEGER,
     "fluency_scaled_score" INTEGER,
     "comprehension_scaled_score" INTEGER,
-    "grade" INTEGER
+    "grade" INTEGER,
+    "ori_descriptor" VARCHAR(4)
   );
-ALTER TABLE "gort" ADD rate_descriptor CHAR(1);
-ALTER TABLE "gort" ADD accuracy_descriptor CHAR(1);
-ALTER TABLE "gort" ADD fluency_descriptor CHAR(1);
-ALTER TABLE "gort" ADD comprehension_descriptor CHAR(1);
+ALTER TABLE "gort" ADD rate_descriptor VARCHAR(4);
+ALTER TABLE "gort" ADD accuracy_descriptor VARCHAR(4);
+ALTER TABLE "gort" ADD fluency_descriptor VARCHAR(4);
+ALTER TABLE "gort" ADD comprehension_descriptor VARCHAR(4);
 
 CREATE TABLE
   IF NOT EXISTS "elementary_wist" (
@@ -122,12 +123,12 @@ CREATE TABLE
     "grade" INTEGER
   );
 
-ALTER TABLE "elementary_wist" ADD read_regular_words_descriptor CHAR(1);
-ALTER TABLE "elementary_wist" ADD read_irregular_words_descriptor CHAR(1);
-ALTER TABLE "elementary_wist" ADD spell_regular_words_descriptor CHAR(1);
-ALTER TABLE "elementary_wist" ADD spell_irregular_words_descriptor CHAR(1);
-ALTER TABLE "elementary_wist" ADD pseudo_words_descriptor CHAR(1);
-ALTER TABLE "elementary_wist" ADD letter_sounds_descriptor CHAR(1);
+ALTER TABLE "elementary_wist" ADD read_regular_words_descriptor VARCHAR(4);
+ALTER TABLE "elementary_wist" ADD read_irregular_words_descriptor VARCHAR(4);
+ALTER TABLE "elementary_wist" ADD spell_regular_words_descriptor VARCHAR(4);
+ALTER TABLE "elementary_wist" ADD spell_irregular_words_descriptor VARCHAR(4);
+ALTER TABLE "elementary_wist" ADD pseudo_words_descriptor VARCHAR(4);
+ALTER TABLE "elementary_wist" ADD letter_sounds_descriptor VARCHAR(4);
 
 CREATE TABLE
   IF NOT EXISTS "younger_ctopp" (
@@ -156,10 +157,10 @@ CREATE TABLE
     "grade" INTEGER
   );
 
-ALTER TABLE "younger_ctopp" ADD phonological_awareness_descriptor CHAR(1);
-ALTER TABLE "younger_ctopp" ADD phonological_memory_descriptor CHAR(1);
-ALTER TABLE "younger_ctopp" ADD rapid_symbolic_naming_descriptor CHAR(1);
-ALTER TABLE "younger_ctopp" ADD rapid_non_symbolic_naming_descriptor CHAR(1);
+ALTER TABLE "younger_ctopp" ADD phonological_awareness_descriptor VARCHAR(4);
+ALTER TABLE "younger_ctopp" ADD phonological_memory_descriptor VARCHAR(4);
+ALTER TABLE "younger_ctopp" ADD rapid_symbolic_naming_descriptor VARCHAR(4);
+ALTER TABLE "younger_ctopp" ADD rapid_non_symbolic_naming_descriptor VARCHAR(4);
 
 CREATE TABLE
   IF NOT EXISTS "secondary_wist" (
@@ -188,12 +189,12 @@ CREATE TABLE
     "grade" INTEGER
   );
 
-ALTER TABLE "secondary_wist" ADD read_regular_words_descriptor CHAR(1);
-ALTER TABLE "secondary_wist" ADD read_irregular_words_descriptor CHAR(1);
-ALTER TABLE "secondary_wist" ADD spell_regular_words_descriptor CHAR(1);
-ALTER TABLE "secondary_wist" ADD spell_irregular_words_descriptor CHAR(1);
-ALTER TABLE "secondary_wist" ADD pseudo_words_descriptor CHAR(1);
-ALTER TABLE "secondary_wist" ADD letter_sounds_descriptor CHAR(1);
+ALTER TABLE "secondary_wist" ADD read_regular_words_descriptor VARCHAR(4);
+ALTER TABLE "secondary_wist" ADD read_irregular_words_descriptor VARCHAR(4);
+ALTER TABLE "secondary_wist" ADD spell_regular_words_descriptor VARCHAR(4);
+ALTER TABLE "secondary_wist" ADD spell_irregular_words_descriptor VARCHAR(4);
+ALTER TABLE "secondary_wist" ADD pseudo_words_descriptor VARCHAR(4);
+ALTER TABLE "secondary_wist" ADD letter_sounds_descriptor VARCHAR(4);
 
 CREATE TABLE
   IF NOT EXISTS "older_ctopp" (
@@ -221,10 +222,10 @@ CREATE TABLE
     "grade" INTEGER
   );
 
-ALTER TABLE "older_ctopp" ADD phonological_awareness_descriptor CHAR(1);
-ALTER TABLE "older_ctopp" ADD phonological_memory_descriptor CHAR(1);
-ALTER TABLE "older_ctopp" ADD rapid_symbolic_naming_descriptor CHAR(1);
-ALTER TABLE "older_ctopp" ADD alt_phonological_awareness_descriptor CHAR(1);
+ALTER TABLE "older_ctopp" ADD phonological_awareness_descriptor VARCHAR(4);
+ALTER TABLE "older_ctopp" ADD phonological_memory_descriptor VARCHAR(4);
+ALTER TABLE "older_ctopp" ADD rapid_symbolic_naming_descriptor VARCHAR(4);
+ALTER TABLE "older_ctopp" ADD alt_phonological_awareness_descriptor VARCHAR(4);
 
 
 CREATE TABLE

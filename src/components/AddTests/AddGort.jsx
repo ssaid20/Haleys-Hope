@@ -501,7 +501,7 @@ const AddGort = () => {
 
 {/* PROTOTYPE TABLE STARTS HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
 
-{/* <Paper elevation={3} className="p-8">
+ <Paper elevation={3} className="p-8">
 
 <Table>
         <TableRow>
@@ -815,7 +815,7 @@ const AddGort = () => {
               </TableCell>
           </TableRow>
       </Table>
-</Paper> */}
+</Paper> 
 
 
     </>

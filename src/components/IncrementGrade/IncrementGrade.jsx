@@ -97,7 +97,7 @@ const IncrementGrade = () => {
   }
   return (
     <Paper elevation={3} className="p-8">
-      <h1>Set Date for Annual Grade Increase</h1>
+      <h1>Set Date for Annual Grade Increase. Only 1 Per Year is Allowed</h1>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
           <Grid item xs={12}>

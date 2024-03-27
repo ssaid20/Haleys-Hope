@@ -20,5 +20,5 @@ const incrementGrades = async () => {
     console.error('Error during grade increment:', err.message);
   }
 };
-
+ 
 module.exports = { incrementGrades };

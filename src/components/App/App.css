@@ -182,7 +182,16 @@ input {
   .print-margin {
     margin-top: 75px !important;
   }
-  
+  .Paper {
+    background-color: #f7f7f7; /* Light grey background */
+    padding: 24px; /* Increased padding */
+    box-shadow: 0px 4px 6px rgba(0,0,0,0.1); /* Subtle shadow */
+  }
+ 
+  .TextField:focus {
+    border-color: #6db3f2; /* Highlight color on focus */
+    box-shadow: 0 0 0 2px rgba(109, 179, 242, 0.5); /* Subtle shadow */
+  }
 /* .break {
   page-break-before: always;
 } */

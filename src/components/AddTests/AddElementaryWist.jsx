@@ -163,8 +163,8 @@ const AddElementaryWist = () => {
     const newErrors = {};
     if (!newWist.date) {
       newErrors.date = "Date is required";
-    } else if (new Date(newWist.date) > new Date()) {
-      newErrors.date = "Date cannot be in the future";
+    } else if (new Date(newWist.date) < new Date()) {
+      newErrors.date = "Date cannot be in the past";
     }
 
     if (!newWist.examiner_id) {
@@ -400,6 +400,7 @@ const AddElementaryWist = () => {
                 <FormLabel> &lt; or &gt; for Spell Regular Words</FormLabel>
 
                 <Select
+                //  style={{ width: '50%'}} TODO: DELETE THIS OR USE THIS!
                   labelId="spell-regular-words-label"
                   id="spell_regular_words_descriptor"
                   value={newWist.spell_regular_words_descriptor || ""}

@@ -400,6 +400,7 @@ const AddElementaryWist = () => {
                 <FormLabel> &lt; or &gt; for Spell Regular Words</FormLabel>
 
                 <Select
+                //  style={{ width: '50%'}} TODO: DELETE THIS OR USE THIS!
                   labelId="spell-regular-words-label"
                   id="spell_regular_words_descriptor"
                   value={newWist.spell_regular_words_descriptor || ""}

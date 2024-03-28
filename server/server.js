@@ -18,6 +18,7 @@ const studentRouter = require("./routes/student.router");
 const assessmentRouter = require("./routes/assessment_results.router");
 const coachRouter = require("./routes/coach.router");
 const commentsRouter = require("./routes/comments.router");
+const cronJobRouter = require("./routes/cron_job.router");
 
 // Increments Grade +1 Every August
 setupCronJobs();
@@ -45,6 +46,7 @@ app.use("/api/students", studentRouter);
 app.use("/api/assessment", assessmentRouter);
 app.use("/api/coaches", coachRouter);
 app.use("/api/comments", commentsRouter);
+app.use("/api/cron", cronJobRouter);
 
 // Serve static files
 app.use(express.static("build"));

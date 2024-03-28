@@ -37,27 +37,21 @@ const GortList = () => {
 
   return (
     <div>
+      <TableCell style={{width: 250}}>
+Gort - 5
+      </TableCell>
       {tests.map((test) => (
-        <div key={test.id} onClick={() => moreDetails(test.id)}>
-         <TableRow>
-          <TableCell style={{width: 275}}>
-          <p>
-            GORT Date: {formatDate(test.date)}
-          </p>
-          </TableCell>
-          <TableCell>
+          <TableCell key={test.id} style={{width: 250}}>
            <Button
                 variant="outline"
                 className=" text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
                 onClick={() => moreDetails(test.id)}
               >
-                Details
+                {formatDate(test.date)}
               </Button>
             </TableCell>
      
-      </TableRow>
       
-        </div>
       ))}
       {selectedTest && (
         <div>

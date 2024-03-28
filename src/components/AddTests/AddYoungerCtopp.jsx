@@ -64,6 +64,10 @@ const AddYoungerCtopp = () => {
     phonological_memory_percentile: null,
     rapid_symbolic_naming_percentile: null,
     rapid_non_symbolic_naming_percentile: null,
+    phonological_awareness_descriptor: null,
+    phonological_memory_descriptor: null,
+    rapid_symbolic_naming_descriptor: null,
+    rapid_non_symbolic_naming_descriptor: null,
   });
 
   const handleExaminerChange = (event) => {
@@ -328,6 +332,28 @@ const AddYoungerCtopp = () => {
                 />
               </FormControl>
             </Grid>
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel>&lt; or &gt; for Phonological Awareness</FormLabel>
+                <Select
+                  labelId="phonological-awareness-label"
+                  id="phonological_awareness_descriptor"
+                  value={newCtopp.phonological_awareness_descriptor || ""}
+                  label="phonological_awareness_descriptor"
+                  onChange={(event) =>
+                    setNewCtopp({ ...newCtopp, phonological_awareness_descriptor: event.target.value })
+                  }
+                  variant="outlined"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>{" "}
+                  {/* Optional: Allow no selection */}
+                  <MenuItem value="<">&lt;</MenuItem>
+                  <MenuItem value=">">&gt;</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
             {/* Phonological Awareness Composite Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -340,6 +366,29 @@ const AddYoungerCtopp = () => {
                   onChange={handleChange}
                   variant="outlined"
                 />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel> &lt; or &gt; for Phonological Memory</FormLabel>
+
+                <Select
+                  labelId="phonological-memory-label"
+                  id="phonological_memory_descriptor"
+                  value={newCtopp.phonological_memory_descriptor || ""}
+                  label="phonological_memory_descriptor"
+                  onChange={(event) =>
+                    setNewCtopp({ ...newCtopp, phonological_memory_descriptor: event.target.value })
+                  }
+                  variant="outlined"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>{" "}
+                  {/* Optional: Allow no selection */}
+                  <MenuItem value="<">&lt;</MenuItem>
+                  <MenuItem value=">">&gt;</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
             {/* Phonological Memory Composite Field */}
@@ -356,6 +405,29 @@ const AddYoungerCtopp = () => {
                 />
               </FormControl>
             </Grid>
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel> &lt; or &gt; for Rapid Symbolic Naming</FormLabel>
+
+                <Select
+                  labelId="rapid-symbolic-label"
+                  id="rapid_symbolic_naming_descriptor"
+                  value={newCtopp.rapid_symbolic_naming_descriptor || ""}
+                  label="rapid_symbolic_naming_descriptor"
+                  onChange={(event) =>
+                    setNewCtopp({ ...newCtopp, rapid_symbolic_naming_descriptor: event.target.value })
+                  }
+                  variant="outlined"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>{" "}
+                  {/* Optional: Allow no selection */}
+                  <MenuItem value="<">&lt;</MenuItem>
+                  <MenuItem value=">">&gt;</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
             {/* Rapid Symbolic Naming Composite Field */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
@@ -368,6 +440,29 @@ const AddYoungerCtopp = () => {
                   onChange={handleChange}
                   variant="outlined"
                 />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <FormLabel> &lt; or &gt; for Rapid Non-Symbolic Naming</FormLabel>
+
+                <Select
+                  labelId="rapid-nonsymbolic-label"
+                  id="rapid_non_symbolic_naming_descriptor"
+                  value={newCtopp.rapid_non_symbolic_naming_descriptor || ""}
+                  label="rapid_non_symbolic_naming_descriptor"
+                  onChange={(event) =>
+                    setNewCtopp({ ...newCtopp, rapid_non_symbolic_naming_descriptor: event.target.value })
+                  }
+                  variant="outlined"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>{" "}
+                  {/* Optional: Allow no selection */}
+                  <MenuItem value="<">&lt;</MenuItem>
+                  <MenuItem value=">">&gt;</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
             {/* Rapid Non-symbolic Naming Composite */}

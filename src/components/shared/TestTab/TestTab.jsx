@@ -17,17 +17,30 @@ import {
   TableCell,
   Typography,
 } from "@mui/material";
+import { Bold } from "lucide-react";
 const TestTab = () => {
   return (
     <div>
       <Table>
-      <ElementaryWistList />
-      <SecondaryWistList />
-      <GortList />
-      <KteaList />
-      <YoungerCtoppList />
-      <OlderCtoppList />
-      {/* <GortComparisonTable />
+        <TableHead></TableHead>
+        <TableHead align="center" >
+          <TableRow>
+            <TableCell style={{ width: 250, fontWeight: "bold", fontSize: 18 }}>Test</TableCell>
+            <TableCell style={{ width: 250, fontWeight: "bold", fontSize: 18 }}>Date</TableCell>
+            {/* <TableCell style={{ width: 250 }}>Date</TableCell>
+            <TableCell style={{ width: 250 }}>Date</TableCell> */}
+          </TableRow>
+        </TableHead>
+      </Table>
+
+      <Table>
+        <ElementaryWistList />
+        <SecondaryWistList />
+        <YoungerCtoppList />
+        <OlderCtoppList />
+        <GortList />
+        <KteaList />
+        {/* <GortComparisonTable />
       <SecondaryWistComparisonTable />
       <ElementaryWistComparisonTable /> */}
       </Table>

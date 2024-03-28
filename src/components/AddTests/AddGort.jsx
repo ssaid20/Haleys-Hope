@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 import {
   TextField,
   Button,
@@ -11,6 +14,9 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Table,
+  TableRow,
+  TableCell,
 } from "@mui/material";
 
 //component to add a new Gort test
@@ -18,7 +24,9 @@ const AddGort = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const student = useParams();
-  const studentGrade = useSelector((store) => store.studentReducer.Details.grade);
+  const studentGrade = useSelector(
+    (store) => store.studentReducer.Details.grade
+  );
 
   const users = useSelector((store) => store.allUsersReducer.users);
 
@@ -62,6 +70,7 @@ const AddGort = () => {
     accuracy_scaled_score: null,
     fluency_scaled_score: null,
     comprehension_scaled_score: null,
+    ori_descriptor: null,
   });
 
   const handleExaminerChange = (event) => {
@@ -97,6 +106,7 @@ const AddGort = () => {
     setNewGort((prevGort) => {
       // Update values based on input type
       let updatedValue;
+
       if (name === "date") {
         updatedValue = value; // For non-numeric fields like date
       } else {
@@ -105,21 +115,14 @@ const AddGort = () => {
 
       const updatedValues = {
         ...prevGort,
-        [name]: updatedValue,
+        [name]: updatedValue, //Changed updatedValue to just value
       };
 
       // Update sum scaled score for relevant changes
       if (
-        [
-          "rate_scaled_score",
-          "accuracy_scaled_score",
-          "fluency_scaled_score",
-          "comprehension_scaled_score",
-        ].includes(name)
+        ["fluency_scaled_score", "comprehension_scaled_score"].includes(name)
       ) {
         const sum = [
-          "rate_scaled_score",
-          "accuracy_scaled_score",
           "fluency_scaled_score",
           "comprehension_scaled_score",
         ].reduce((acc, field) => acc + (updatedValues[field] || 0), 0); // Calculate sum
@@ -159,12 +162,16 @@ const AddGort = () => {
       ...newGort,
       examiner_id: selectedExaminerId,
     };
-
+    console.log("this is the new gort!!!!!", newGort);
+    console.log("!!!!!!!!Submission data", submissionData);
     dispatch({
       type: "ADD_GORT",
       payload: submissionData,
     });
-    dispatch({ type: "SHOW_SNACKBAR", payload: { message: "Test added", severity: "success" } });
+    dispatch({
+      type: "SHOW_SNACKBAR",
+      payload: { message: "Test added", severity: "success" },
+    });
 
     history.push(`/students/${student.id}`);
     //history.push back to student details
@@ -175,13 +182,17 @@ const AddGort = () => {
       <Button variant="outlined" onClick={handleGoBack} className="mb-4">
         GO BACK
       </Button>
-      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">Add GORT </h1>
+      <h1 className="text-4xl font-bold text-center text-primary-500 my-4">
+        Add GORT{" "}
+      </h1>
+      {/* PROTOTYPE TABLE STARTS HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
 
       <Paper elevation={3} className="p-8">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <Grid container spacing={3}>
-            {/* Date Field */}
-            <Grid item xs={12} md={4}>
+      <form onSubmit={handleSubmit} className="space-y-6">
+
+        <Table size="small">
+          <TableRow>
+            <TableCell>
               <FormControl fullWidth>
                 <FormLabel>Date:</FormLabel>
                 <TextField
@@ -193,26 +204,13 @@ const AddGort = () => {
                   variant="outlined"
                 />
                 {validationErrors.date && (
-                  <div className="text-red-500 text-xs italic">{validationErrors.date}</div>
+                  <div className="text-red-500 text-xs italic">
+                    {validationErrors.date}
+                  </div>
                 )}
               </FormControl>
-            </Grid>
-
-            {/* Examiner ID Field */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <FormLabel>Examiner</FormLabel>
-                <Select value={selectedExaminerId} onChange={handleExaminerChange}>
-                  {users.map((user) => (
-                    <MenuItem key={user.id} value={user.id}>
-                      {user.first_name} {user.last_name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-            {/* Grade Field */}
-            <Grid item xs={12} md={4}>
+            </TableCell>
+            <TableCell>
               <FormControl fullWidth>
                 <FormLabel>Grade:</FormLabel>
                 <TextField
@@ -224,9 +222,35 @@ const AddGort = () => {
                   variant="outlined"
                 />
               </FormControl>
-            </Grid>
-            {/* Rate Raw Total */}
-            <Grid item xs={12} md={4}>
+            </TableCell>
+            <TableCell>
+              <FormControl fullWidth>
+                <FormLabel>Examiner</FormLabel>
+                <Select
+                  value={selectedExaminerId}
+                  onChange={handleExaminerChange}
+                >
+                  {users.map((user) => (
+                    <MenuItem key={user.id} value={user.id}>
+                      {user.first_name} {user.last_name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>GORT-5</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Assessment Area</TableCell>
+            <TableCell>Raw Score</TableCell>
+            <TableCell>Percentile</TableCell>
+            <TableCell>Scaled Score</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Rate</TableCell>
+            <TableCell>
               <FormControl fullWidth>
                 <FormLabel>Rate Raw Total:</FormLabel>
                 <TextField
@@ -237,10 +261,9 @@ const AddGort = () => {
                   onChange={handleChange}
                   variant="outlined"
                 />
-              </FormControl>
-            </Grid>
-            {/* Rate Percentile Rank */}
-            <Grid item xs={12} md={4}>
+              </FormControl>{" "}
+            </TableCell>
+            <TableCell>
               <FormControl fullWidth>
                 <FormLabel>Rate Percentile Rank:</FormLabel>
                 <TextField
@@ -252,9 +275,8 @@ const AddGort = () => {
                   variant="outlined"
                 />
               </FormControl>
-            </Grid>
-            {/* Rate Scaled Score */}
-            <Grid item xs={12} md={4}>
+            </TableCell>
+            <TableCell>
               <FormControl fullWidth>
                 <FormLabel>Rate Scaled Score:</FormLabel>
                 <TextField
@@ -266,9 +288,11 @@ const AddGort = () => {
                   variant="outlined"
                 />
               </FormControl>
-            </Grid>
-            {/* Accuracy Raw Total */}
-            <Grid item xs={12} md={4}>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Accuracy</TableCell>
+            <TableCell>
               <FormControl fullWidth>
                 <FormLabel>Accuracy Raw Total:</FormLabel>
                 <TextField
@@ -280,9 +304,8 @@ const AddGort = () => {
                   variant="outlined"
                 />
               </FormControl>
-            </Grid>
-            {/* Accuracy Percentile Rank */}
-            <Grid item xs={12} md={4}>
+            </TableCell>
+            <TableCell>
               <FormControl fullWidth>
                 <FormLabel>Accuracy Percentile Rank:</FormLabel>
                 <TextField
@@ -294,9 +317,8 @@ const AddGort = () => {
                   variant="outlined"
                 />
               </FormControl>
-            </Grid>
-            {/* Accuracy Scaled Score */}
-            <Grid item xs={12} md={4}>
+            </TableCell>
+            <TableCell>
               <FormControl fullWidth>
                 <FormLabel>Accuracy Scaled Score:</FormLabel>
                 <TextField
@@ -308,9 +330,11 @@ const AddGort = () => {
                   variant="outlined"
                 />
               </FormControl>
-            </Grid>
-            {/* Fluency Raw Total */}
-            <Grid item xs={12} md={4}>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Fluency</TableCell>
+            <TableCell>
               <FormControl fullWidth>
                 <FormLabel>Fluency Raw Total:</FormLabel>
                 <TextField
@@ -322,9 +346,8 @@ const AddGort = () => {
                   variant="outlined"
                 />
               </FormControl>
-            </Grid>
-            {/* Fluency Percentile Rank */}
-            <Grid item xs={12} md={4}>
+            </TableCell>
+            <TableCell>
               <FormControl fullWidth>
                 <FormLabel>Fluency Percentile Rank:</FormLabel>
                 <TextField
@@ -336,9 +359,8 @@ const AddGort = () => {
                   variant="outlined"
                 />
               </FormControl>
-            </Grid>
-            {/* Fluency Scaled Score */}
-            <Grid item xs={12} md={4}>
+            </TableCell>
+            <TableCell>
               <FormControl fullWidth>
                 <FormLabel>Fluency Scaled Score:</FormLabel>
                 <TextField
@@ -350,9 +372,11 @@ const AddGort = () => {
                   variant="outlined"
                 />
               </FormControl>
-            </Grid>
-            {/* Comprehension Raw Total */}
-            <Grid item xs={12} md={4}>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Comprehension</TableCell>
+            <TableCell>
               <FormControl fullWidth>
                 <FormLabel>Comprehension Raw Total:</FormLabel>
                 <TextField
@@ -364,9 +388,8 @@ const AddGort = () => {
                   variant="outlined"
                 />
               </FormControl>
-            </Grid>
-            {/* Comprehension Percentile Rank */}
-            <Grid item xs={12} md={4}>
+            </TableCell>
+            <TableCell>
               <FormControl fullWidth>
                 <FormLabel>Comprehension Percentile Rank:</FormLabel>
                 <TextField
@@ -378,9 +401,8 @@ const AddGort = () => {
                   variant="outlined"
                 />
               </FormControl>
-            </Grid>
-            {/* Comprehension Scaled Score */}
-            <Grid item xs={12} md={4}>
+            </TableCell>
+            <TableCell>
               <FormControl fullWidth>
                 <FormLabel>Comprehension Scaled Score:</FormLabel>
                 <TextField
@@ -392,9 +414,24 @@ const AddGort = () => {
                   variant="outlined"
                 />
               </FormControl>
-            </Grid>
-            {/* Sum Scaled Score */}
-            <Grid item xs={12} md={4}>
+            </TableCell>
+          </TableRow>
+          <TableRow></TableRow>
+          <TableRow>
+          <TableCell>
+          
+          </TableCell>
+            <TableCell>SUM SS</TableCell>
+            <TableCell>ORI %ile</TableCell>
+            <TableCell>ORI</TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+          <TableRow>
+          <TableCell>
+
+          </TableCell>
+
+            <TableCell>
               <FormControl fullWidth>
                 <FormLabel>Sum Scaled Score:</FormLabel>
                 <TextField
@@ -415,10 +452,8 @@ const AddGort = () => {
                   }}
                 />
               </FormControl>
-            </Grid>
-
-            {/* Oral Reading Percentile Rank */}
-            <Grid item xs={12} md={4}>
+            </TableCell>
+            <TableCell>
               <FormControl fullWidth>
                 <FormLabel>Oral Reading Percentile Rank:</FormLabel>
                 <TextField
@@ -430,11 +465,31 @@ const AddGort = () => {
                   variant="outlined"
                 />
               </FormControl>
-            </Grid>
-
-            {/* Oral Reading Index */}
-            <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
+            </TableCell>
+            <TableCell>
+              <FormControl style={{ width: "50%" }}>
+                <FormLabel>&lt; or &gt;</FormLabel>
+                <Select
+                  labelId="ori-descriptor-label"
+                  id="ori_descriptor"
+                  value={newGort.ori_descriptor || ""}
+                  label="ori_descriptor"
+                  onChange={(event) =>
+                    setNewGort({
+                      ...newGort,
+                      ori_descriptor: event.target.value,
+                    })
+                  }
+                  variant="outlined"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>{" "}
+                  <MenuItem value="<">&lt;</MenuItem>
+                  <MenuItem value=">">&gt;</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl style={{ width: "50%" }}>
                 <FormLabel>Oral Reading Index:</FormLabel>
                 <TextField
                   type="number"
@@ -442,14 +497,20 @@ const AddGort = () => {
                   name="oral_reading_index"
                   value={newGort.oral_reading_index}
                   onChange={handleChange}
-                  variant="outlined"
                 />
               </FormControl>
-            </Grid>
-          </Grid>
-          <Button type="submit" variant="contained" color="primary" className="mt-4">
+            </TableCell>
+            <TableCell>
+            <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className="mt-4"
+          >
             Submit
-          </Button>
+          </Button>            </TableCell>
+          </TableRow>
+        </Table>
         </form>
       </Paper>
     </>

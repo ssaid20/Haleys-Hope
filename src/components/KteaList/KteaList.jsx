@@ -33,23 +33,20 @@ const KteaList = () => {
 
   return (
     <div>
+      <TableCell style={{ width: 250}}>
+KTEA - 3
+      </TableCell>
       {tests.map((test) => (
-        <div key={test.id} onClick={() => moreDetails(test.id)}>
-          <TableRow>
-            <TableCell style={{width: 275}}>
-              <p>KTEA-3 Date: {formatDate(test.date)}</p>
-            </TableCell>
-            <TableCell>
+            <TableCell style={{ width: 250 }} key={test.id}>
+      
               <Button
                 variant="outline"
                 className=" text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
                 onClick={() => moreDetails(test.id)}
               >
-                Details
+                {formatDate(test.date)}
               </Button>
             </TableCell>
-          </TableRow>
-        </div>
       ))}
 
       {selectedTest && (
@@ -59,14 +56,8 @@ const KteaList = () => {
             <h2>Test Details:</h2>
             <p>Date: {formatDate(selectedTest.date)}</p>
             <p>Examiner ID: {selectedTest.examiner_id}</p>
-            <p>
-              Letter and Word Recognition Scaled Score:{" "}
-              {selectedTest.lwc_scaled_score}
-            </p>
-            <p>
-              Letter and Word Recognition Percentile:{" "}
-              {selectedTest.lwc_percentile}
-            </p>
+            <p>Letter and Word Recognition Scaled Score: {selectedTest.lwc_scaled_score}</p>
+            <p>Letter and Word Recognition Percentile: {selectedTest.lwc_percentile}</p>
             <p>Spelling Scaled Score: {selectedTest.spelling_scaled_score}</p>
             <p>Spelling Percentile: {selectedTest.spelling_percentile}</p>
           </div>
@@ -74,7 +65,6 @@ const KteaList = () => {
       )}
       <hr />
     </div>
-
   );
 };
 

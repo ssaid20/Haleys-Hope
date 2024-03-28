@@ -11,16 +11,16 @@ const Tests = () => {
   };
 
   const testButtons = [
-    { text: "WIST 7-11", path: "addElementaryWist" },
     { text: "WIST 11-18", path: "addSecondaryWist" },
-    { text: "CTOPP 4-6", path: "addYoungerCtopp" },
+    { text: "WIST 7-11", path: "addElementaryWist" },
     { text: "CTOPP 7-24", path: "addOlderCtopp" },
+    { text: "CTOPP 4-6", path: "addYoungerCtopp" },
     { text: "GORT - 5", path: "addGort" },
     { text: "KTEA - 3", path: "addKtea" },
   ];
 
   return (
-    <div className="background-light900_dark200 light-border rounded-2xl border p-8 shadow-md relative flex flex-col items-center">
+    <div className="background-light900_dark200 light-border rounded-2xl border p-8 shadow-md relative flex flex-col items-center noPrint">
       {/* <h4 className="h3-semibold text-dark200_light900">ADMINISTER TEST</h4> */}
       <h4 className="text-3xl font-bold text-center text-primary-500 my-4">Administer Test</h4>
       <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-10">

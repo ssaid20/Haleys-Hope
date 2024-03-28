@@ -27,7 +27,7 @@ router.get("/:studentId", rejectUnauthenticated, async (req, res) => {
 //router to get a specific test
 router.get("/kteaResults/:testId", rejectUnauthenticated, (req, res) => {
   const testId = req.params.testId;
-  const queryText = 'SELECT * FROM "ktea" WHERE "id" = $1';
+  const queryText = 'SELECT * FROM "ktea" WHERE "id" = $1 ORDER BY date ASC';
   pool
     .query(queryText, [testId])
     .then((result) => {
@@ -112,7 +112,7 @@ router.put("/:student_id/:id", rejectUnauthenticated, (req, res) => {
 }); // end router.put
 // router.put("/:student_id/:id", async (req, res) => {
 //   try {
-//     const studentId = req.params.student_id; // TODO: may just be id from front end
+//     const studentId = req.params.student_id; //
 //     const testId = req.params.id;
 //     const {
 //       date,

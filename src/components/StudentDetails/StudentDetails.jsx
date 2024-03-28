@@ -14,7 +14,7 @@ import CommentsTab from "../shared/CommentsTab/CommentsTab";
 import CloudifyUploadForm from "../Cloudinary/CloudinaryUploadForm";
 import { useState } from "react";
 import CompareTab from "../shared/CompareTab/CompareTab";
-
+import MicroStudentCard from "../Cards/MicroStudentCard";
 function StudentDetails() {
   const dispatch = useDispatch();
   const student = useSelector((store) => store.studentReducer.Details);
@@ -47,16 +47,31 @@ function StudentDetails() {
   return (
     <>
       <div className="container mx-auto px-4 py-6">
+         <img
+          src="/assets/images/site-logo.png"
+          width={180}
+          height={180}
+          className="logo-image print-logo"
+          alt="Haley's Hope Logo"
+        />
+        
         <div className="flex flex-col lg:flex-row gap-6">
+          
           <div className="lg:flex-1 flex justify-center">
             <div className=" flex-1 flex flex-col justify-center">
+            <div className="screen-view">
+
               <StudentCard />
+              </div>
+              <div className="print-view">
+            <MicroStudentCard />
+            </div>
             </div>
             {/* Button to open the upload dialog */}
             {/* <button onClick={handleOpenUploadDialog}>Upload Student Image</button> */}
           </div>
           {/* Image upload form */}
-          <div className="absolute top-17 right-30  ">
+          <div className="absolute top-17 right-30 noPrint ">
             <CloudifyUploadForm onImageUpload={handleImageUpload} />
           </div>
           <div className="lg:flex-1 flex justify-center">
@@ -70,7 +85,7 @@ function StudentDetails() {
           {/* Rest of the content like Tabs, Graphs, etc. */}
 
           <Tabs defaultValue="test" className="flex-1">
-            <TabsList className="background-light800_dark400 min-h-[42px] p-1 rounded-t-lg">
+            <TabsList className="background-light800_dark400 min-h-[42px] p-1 rounded-t-lg noPrint">
               {["test", "graph", "assessment", "notes", "compare"].map((tab) => (
                 <TabsTrigger
                   key={tab}

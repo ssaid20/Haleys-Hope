@@ -6,7 +6,7 @@ const { rejectUnauthenticated } = require("../modules/authentication-middleware"
 // GET route to fetch old_ctopp tests for a specific student
 router.get("/:student_id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id;
-  const queryText = 'SELECT * FROM "older_ctopp" WHERE "student_id" = $1';
+  const queryText = 'SELECT * FROM "older_ctopp" WHERE "student_id" = $1 ORDER BY date ASC';
 
   pool
     .query(queryText, [studentId])
@@ -20,7 +20,7 @@ router.get("/:student_id", rejectUnauthenticated, (req, res) => {
 //router to get a specific test
 router.get("/olderCtoppResults/:testId", rejectUnauthenticated, (req, res) => {
   const testId = req.params.testId;
-  const queryText = 'SELECT * FROM "older_ctopp" WHERE "id" = $1';
+  const queryText = 'SELECT * FROM "older_ctopp" WHERE "id" = $1 ORDER BY date ASC';
   pool
     .query(queryText, [testId])
     .then((result) => {
@@ -48,8 +48,9 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       "phonological_awareness_composite", "phonological_memory_composite", 
       "rapid_symbolic_naming_composite", "alt_phonological_awareness_composite", 
       "phonological_awareness_percentile", "phonological_memory_percentile", 
-      "rapid_symbolic_naming_percentile", "alt_phonological_awareness_percentile", "grade"
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21)`;
+      "rapid_symbolic_naming_percentile", "alt_phonological_awareness_percentile", "grade", "phonological_awareness_descriptor", "phonological_memory_descriptor", 
+      "rapid_symbolic_naming_descriptor", "alt_phonological_awareness_descriptor"
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25)`;
 
   const values = [
     newOCtopp.student_id,
@@ -73,6 +74,10 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     newOCtopp.rapid_symbolic_naming_percentile,
     newOCtopp.alt_phonological_awareness_percentile,
     newOCtopp.grade,
+    newOCtopp.phonological_awareness_descriptor,
+    newOCtopp.phonological_memory_descriptor,
+    newOCtopp.rapid_symbolic_naming_descriptor,
+    newOCtopp.alt_phonological_awareness_descriptor,
   ];
 
   pool

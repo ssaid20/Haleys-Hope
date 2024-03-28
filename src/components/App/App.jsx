@@ -39,6 +39,7 @@ import EditGortResults from "../EditTests/EditGortResults";
 import EditKteaResults from "../EditTests/EditKteaResults";
 import ArchivedStudentList from "../ArchivedStudentList/ArchivedStudentList";
 import CustomSnackbar from "../../lib/CustomSnackbar";
+import IncrementGrade from "../IncrementGrade/IncrementGrade";
 
 function App() {
   const dispatch = useDispatch();
@@ -154,6 +155,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact path="/admin/addCoach">
             <AddCoach />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/admin/incrementGrade">
+            <IncrementGrade />
           </ProtectedRoute>
           <ProtectedRoute exact path="/AssessmentResults/:date">
             <AssessmentContainer />

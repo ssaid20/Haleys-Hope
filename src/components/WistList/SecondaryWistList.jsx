@@ -5,7 +5,6 @@ import { useParams, useHistory } from "react-router-dom";
 import { Button } from "../ui/button";
 import { TableRow, TableCell } from "@mui/material";
 
-
 const SecondaryWistList = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -38,31 +37,21 @@ const SecondaryWistList = () => {
 
   return (
     <div>
-      {tests.map((test) => (
-        <div key={test.id} onClick={() => moreDetails(test.id)}>
-         <TableRow>
-          <TableCell style={{width: 275}}>
-          <p>
-            Wist Age 11-18 Date: {formatDate(test.date)}
-          </p>
-          </TableCell>
-          <TableCell>
-          <Button
+      <TableRow>
+        <TableCell style={{ width: 250 }}>Wist Age 11-18</TableCell>
+        {tests.map((test) => (
+            <TableCell key={test.id} style={{ width: 250 }}>
+              <Button
                 variant="outline"
                 className=" text-xs px-2 py-1 col-span-1 lg:col-span-5 bg-primary-500 hover:bg-primary-100 text-white font-bold rounded focus:outline-none focus:shadow-outline m-2 transition duration-300 ease-in-out flex items-center justify-center space-x-2"
                 onClick={() => moreDetails(test.id)}
               >
-                Details
+                {formatDate(test.date)}
               </Button>
             </TableCell>
-            <TableCell>
-           
-          </TableCell>
-          </TableRow>
-        </div>
-      ))}
-            <hr />
-
+        ))}
+        <hr />
+      </TableRow>
     </div>
   );
 };

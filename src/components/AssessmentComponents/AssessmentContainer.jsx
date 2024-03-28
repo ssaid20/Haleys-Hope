@@ -12,14 +12,7 @@ import MicroStudentCard from "../Cards/MicroStudentCard";
 import { Paper, Typography } from "@mui/material";
 import PrintButton from "../PrintButton/PrintButton";
 import CombinedGraph from "../Graph/CombinedGraph";
-// TODO: CHANGE ROUTE FOR GET TO DO EACH TEST SEPARATELY TO
-// MAKE SURE IF ONE DOES NOT EXIST, IT WILL STILL WORK
-/*  
-WILL NEED TO CHANGE THE SAGAS AND REDUCERS AS WELL AS GET REQUESTS
-TO GET EACH TEST SEPARATELY (IF THEY EXIST) AND SAVE IN STORE. THAT WAY 
-CONDITIONALLY RENDERING EACH OF THESE COMPONENTS WILL BE EASIER AND THE CTOPP AND WIST
-TESTS CAN BE DIFFERENTIATED UNLIKE NOW.
-*/
+
 const AssessmentContainer = () => {
   const { date } = useParams();
   const allGort = useSelector((store) => store.gortReducer.list);
@@ -32,7 +25,6 @@ const AssessmentContainer = () => {
   const selectedTest = useSelector((store) => store);
   console.log(selectedTest);
   useEffect(() => {}, []);
-  //TODO FIX THIS HISTORY.PUSH TO GO TO THE STUDENTS DETAIL PAGE
   const history = useHistory();
   const goBack = () => history.goBack();
 
@@ -80,7 +72,9 @@ const AssessmentContainer = () => {
   }));
   return (
     <>
+    
       <div style={{ display: "flex" }}>
+
         {/* FIGURE OUT HOW TO GET BACK TO THE STUDENT DETAIL VIEW */}
         <Button
           onClick={goBack}
@@ -90,8 +84,17 @@ const AssessmentContainer = () => {
           Back to Student
         </Button>
         <PrintButton />
+        
       </div>
+      <img
+            src="/assets/images/site-logo.png"
+            width={180}
+            height={180}
+            className="logo-image print-logo"
+            alt="Haley's Hope Logo"
+          />
       <div style={{ display: "flex", justifyContent: "center", gap: "50px" }}>
+        
         <div
           style={{
             display: "flex",
@@ -126,10 +129,7 @@ const AssessmentContainer = () => {
                 padding: "28px",
               }}
             >
-              <Typography
-                variant="h6"
-                style={{ marginBottom: "10px", textAlign: "center" }}
-              >
+              <Typography variant="h6" style={{ marginBottom: "10px", textAlign: "center" }}>
                 Date of Assessment: <br /> {formatDate(date)} &nbsp;
               </Typography>
             </div>

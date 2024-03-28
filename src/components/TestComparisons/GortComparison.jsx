@@ -19,7 +19,7 @@ const StyledTableCell = styled(TableCell)(({ theme, color }) => ({
     color: theme.palette.common.black,
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    fontSize: 12,
   },
 }));
 
@@ -68,7 +68,7 @@ const DarkBlueHeaderCell = styled(TableCell)(({ theme }) => ({
   backgroundColor: "#0f3c5c", // Dark blue color
   color: theme.palette.common.white,
   [`&.${tableCellClasses.head}`]: {
-    fontSize: 16,
+    fontSize: 12,
   },
 }));
 
@@ -82,8 +82,10 @@ function createSummaryRowData(tests) {
       sumScaledScore: test.sum_scaled_score,
       oralReadingPercentileRank: test.oral_reading_percentile_rank,
       oralReadingIndex: test.oral_reading_index,
+      ori_descriptor: test.ori_descriptor,
       compositeTerms: GetCompositeScoreDescription({
         compositeScore: test.oral_reading_index,
+        descriptor: test.ori_descriptor,
       }), // Assuming you calculate descriptive terms based on scaled scores
     }));
   }
@@ -93,7 +95,9 @@ const TestHeaderCell = styled(TableCell)(({ theme, color }) => ({
   backgroundColor: color ? color : theme.palette.primary.main,
   color: theme.palette.common.white,
   [`&.${tableCellClasses.head}`]: {
-    fontSize: 16,
+    fontSize: 12,
+    maxWidth: "65px"
+
   },
 }));
 
@@ -104,9 +108,10 @@ const testHeaderColors = [
 ];
 
 const DottedBorderTableCell = styled(TableCell)(({ theme }) => ({
-  borderRight: "1px dotted #000", // Adjust color as needed
+  bordercenter: "1px dotted #000", // Adjust color as needed
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    fontSize: 12,
+    
   },
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.white,
@@ -138,50 +143,59 @@ export default function GortComparisonTable() {
   const lightGreyColor = "#F5F5F5"; // Light grey color
   if (gortTests.length === 0) {
     return (
-    <div><p>No GORT Assessments for this student </p></div>)
-  
-  }
-  else if (gortTests.length === 1){
-    return( <div><p>Only 1 GORT Test exists  </p></div>)
- 
-   }
-  else {
-  return (
-    <>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="GORT-5 Comparison Table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
-              {gortTests.map((test, index) => (
-                <TestHeaderCell
-                  align="center"
-                  color={sectionHeaderColors.percentile}
-                  key={`percentile-header-${index}`}
-                >
-                  {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`}
-                </TestHeaderCell>
-              ))}
-              {gortTests.map((test, index) => (
-                <TestHeaderCell
-                  align="center"
-                  color={sectionHeaderColors.scaledScore}
-                  key={`scaled-score-header-${index}`}
-                >
-                  {`Test ${index + 1} (${formatDate3(test.date)}) Scaled Score`}
-                </TestHeaderCell>
-              ))}
-              {gortTests.map((test, index) => (
-                <TestHeaderCell
-                  align="center"
-                  color={sectionHeaderColors.descriptiveTerm}
-                  key={`descriptive-term-header-${index}`}
-                >
-                  {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive Term`}
-                </TestHeaderCell>
-              ))}
-            </TableRow>
-          </TableHead>
+      <div>
+        <p>No GORT Assessments for this student </p>
+      </div>
+    );
+  } else if (gortTests.length === 1) {
+    return (
+      <div>
+        <p>Only 1 GORT Test exists </p>
+      </div>
+    );
+  } else {
+    return (
+      <>
+        <TableContainer component={Paper}>
+          <Table size="small" sx={{ minWidth: 700 }} aria-label="GORT-5 Comparison Table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell color={lightGreyColor}>Category</StyledTableCell>
+                {gortTests.map((test, index) => (
+                  <TestHeaderCell
+                    align="center"
+                    color={sectionHeaderColors.percentile}
+                    key={`percentile-header-${index}`}
+                  >
+                                        {`Test ${index + 1} %ile`}
+
+                    {/* {`Test ${index + 1} (${formatDate3(test.date)}) Percentile`} */}
+                  </TestHeaderCell>
+                ))}
+                {gortTests.map((test, index) => (
+                  <TestHeaderCell
+                    align="center"
+                    color={sectionHeaderColors.scaledScore}
+                    key={`scaled-score-header-${index}`}
+                  >
+                                        {`Test ${index + 1} SS`}
+
+                    {/* {`Test ${index + 1} (${formatDate3(test.date)}) Scaled Score`} */}
+                  </TestHeaderCell>
+                ))}
+                {gortTests.map((test, index) => (
+                  <TestHeaderCell
+                    align="center"
+                    color={sectionHeaderColors.descriptiveTerm}
+                    key={`descriptive-term-header-${index}`}
+                  >
+                                        {`Test ${index + 1} Desc.`}
+
+                    {/* {`Test ${index + 1} (${formatDate3(test.date)}) Descriptive Term`} */}
+                  </TestHeaderCell>
+                ))}
+              </TableRow>
+            </TableHead>
 
             <TableBody>
               {rows.map((row, rowIndex) => (
@@ -190,17 +204,17 @@ export default function GortComparisonTable() {
                     {row.category}
                   </StyledTableCell>
                   {row.percentiles.map((percentile, index) => (
-                    <StyledTableCell key={`percentile-${index}`} align="right">
+                    <StyledTableCell key={`percentile-${index}`} align="center">
                       {percentile}
                     </StyledTableCell>
                   ))}
                   {row.scaledScores.map((score, index) => (
-                    <StyledTableCell key={`score-${index}`} align="right">
+                    <StyledTableCell key={`score-${index}`} align="center">
                       {score}
                     </StyledTableCell>
                   ))}
                   {row.descriptiveTerms.map((term, index) => (
-                    <StyledTableCell key={`descriptive-${index}`} align="right">
+                    <StyledTableCell key={`descriptive-${index}`} align="center">
                       {term}
                     </StyledTableCell>
                   ))}
@@ -212,15 +226,15 @@ export default function GortComparisonTable() {
         <br />
         {/* GORT Summary Table */}
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 400 }} aria-label="GORT Summary Table">
+          <Table size="small" sx={{ minWidth: 400 }} aria-label="GORT Summary Table">
             <TableHead>
               <TableRow>
                 <DarkBlueHeaderCell>Test</DarkBlueHeaderCell>
-                <DarkBlueHeaderCell align="right">Date</DarkBlueHeaderCell>
-                <DarkBlueHeaderCell align="right">Sum Scaled Score</DarkBlueHeaderCell>
-                <DarkBlueHeaderCell align="right">Oral Reading %ile Rank</DarkBlueHeaderCell>
-                <DarkBlueHeaderCell align="right">Oral Reading Index</DarkBlueHeaderCell>
-                <DarkBlueHeaderCell align="right">Descriptive Term</DarkBlueHeaderCell>
+                <DarkBlueHeaderCell align="center">Date</DarkBlueHeaderCell>
+                <DarkBlueHeaderCell align="center">Sum Scaled Score</DarkBlueHeaderCell>
+                <DarkBlueHeaderCell align="center">Oral Reading %ile Rank</DarkBlueHeaderCell>
+                <DarkBlueHeaderCell align="center">Oral Reading Index</DarkBlueHeaderCell>
+                <DarkBlueHeaderCell align="center">Descriptive Term</DarkBlueHeaderCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -229,16 +243,19 @@ export default function GortComparisonTable() {
                   <StyledTableCell component="th" scope="row">
                     {`Test ${index + 1}`}
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.date}</StyledTableCell>
-                  <StyledTableCell align="right">{row.sumScaledScore}</StyledTableCell>
-                  <StyledTableCell align="right">{row.oralReadingPercentileRank}</StyledTableCell>
-                  <StyledTableCell align="right">{row.oralReadingIndex}</StyledTableCell>
-                  <StyledTableCell align="right">{row.compositeTerms}</StyledTableCell>
+                  <StyledTableCell align="center">{row.date}</StyledTableCell>
+                  <StyledTableCell align="center">{row.sumScaledScore}</StyledTableCell>
+                  <StyledTableCell align="center">{row.oralReadingPercentileRank}</StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.ori_descriptor} &nbsp; {row.oralReadingIndex}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">{row.compositeTerms}</StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
+        <div style={{ breakAfter: "page" }}></div>
       </>
     );
   }

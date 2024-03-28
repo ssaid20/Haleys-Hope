@@ -7,10 +7,10 @@ const { rejectUnauthenticated } = require("../modules/authentication-middleware"
 //GORT GET ROUTE
 router.get("/:studentId", rejectUnauthenticated, async (req, res) => {
   try {
-    const studentId = req.params.studentId; // TODO: may just be id from front end
+    const studentId = req.params.studentId;
 
     // Query to fetch all GORT-5 items for the given student ID
-    const query = "SELECT * FROM gort WHERE student_id = $1";
+    const query = "SELECT * FROM gort WHERE student_id = $1 ORDER BY date ASC";
     const { rows } = await pool.query(query, [studentId]);
 
     // Sending the response with the GORT items
@@ -25,7 +25,7 @@ module.exports = router;
 //router to get a specific test for gort
 router.get("/gortResults/:testId", rejectUnauthenticated, (req, res) => {
   const testId = req.params.testId;
-  const queryText = 'SELECT * FROM "gort" WHERE "id" = $1';
+  const queryText = 'SELECT * FROM "gort" WHERE "id" = $1 ORDER BY date ASC';
   pool
     .query(queryText, [testId])
     .then((result) => {
@@ -60,15 +60,16 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
       fluency_scaled_score,
       comprehension_scaled_score,
       grade,
+      ori_descriptor,
     } = req.body;
     const query = ` INSERT INTO gort (
             student_id, date, examiner_id, sum_scaled_score, oral_reading_percentile_rank, 
             oral_reading_index, rate_raw_total, accuracy_raw_total, fluency_raw_total, 
             comprehension_raw_total, rate_percentile_rank, accuracy_percentile_rank, 
             fluency_percentile_rank, comprehension_percentile_rank, rate_scaled_score, 
-            accuracy_scaled_score, fluency_scaled_score, comprehension_scaled_score, grade
+            accuracy_scaled_score, fluency_scaled_score, comprehension_scaled_score, grade, ori_descriptor
         ) VALUES (
-            $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19
+            $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20
         );`;
     const values = [
       student_id,
@@ -90,6 +91,7 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
       fluency_scaled_score,
       comprehension_scaled_score,
       grade,
+      ori_descriptor,
     ];
     await pool.query(query, values);
 

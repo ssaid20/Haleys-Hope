@@ -20,13 +20,13 @@ function Nav() {
   };
 
   return (
-    <div className="smallPrint flex-between background-light900_dark200 w-full gap-5 p-6 dark:shadow-none sm:px-12 bg-primary-500 navBar">
+    <div className="smallPrint flex-between background-light900_dark200 w-full gap-5 p-6 dark:shadow-none sm:px-12 bg-primary-500 navBar navPrint">
       <Link to="/students" className="flex items-center gap-1">
         <img
           src="/assets/images/site-logo.png"
           width={180}
           height={180}
-          className="logo-image"
+          className="logo-image noPrint"
           alt="Haley's Hope Logo"
         />
       </Link>
@@ -99,8 +99,21 @@ function Nav() {
                 Manage Users
               </MenuItem>
 
-              <MenuItem onClick={handleClose} component={Link} to="/admin/coaches" className="customMenuItem">
+              <MenuItem
+                onClick={handleClose}
+                component={Link}
+                to="/admin/coaches"
+                className="customMenuItem"
+              >
                 Coaches
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                component={Link}
+                to="/admin/incrementGrade"
+                className="customMenuItem"
+              >
+                Increment Grade{" "}
               </MenuItem>
               {/* <MenuItem
                 onClick={handleClose}

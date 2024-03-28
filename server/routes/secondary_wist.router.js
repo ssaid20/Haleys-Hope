@@ -7,7 +7,7 @@ const { rejectUnauthenticated } = require("../modules/authentication-middleware"
 // Tested and working in Postman
 router.get("/:student_id", rejectUnauthenticated, (req, res) => {
   const studentId = req.params.student_id;
-  const queryText = 'SELECT * FROM "secondary_wist" WHERE "student_id" = $1';
+  const queryText = 'SELECT * FROM "secondary_wist" WHERE "student_id" = $1 ORDER BY date ASC';
   pool
     .query(queryText, [studentId])
     .then((result) => {
@@ -22,7 +22,7 @@ router.get("/:student_id", rejectUnauthenticated, (req, res) => {
 //router to get a specific test
 router.get("/secondaryWistResults/:testId", rejectUnauthenticated, (req, res) => {
   const testId = req.params.testId;
-  const queryText = 'SELECT * FROM "secondary_wist" WHERE "id" = $1';
+  const queryText = 'SELECT * FROM "secondary_wist" WHERE "id" = $1 ORDER BY date ASC';
   pool
     .query(queryText, [testId])
     .then((result) => {
@@ -66,8 +66,14 @@ router.post("/", rejectUnauthenticated, (req, res) => {
         "sound_symbol_knowledge", 
         "sound_symbol_knowledge_percentile", 
         "sound_symbol_knowledge_standard_score",
-        "grade"
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22)`;
+        "grade",
+        "read_regular_words_descriptor",
+        "read_irregular_words_descriptor",
+        "spell_regular_words_descriptor",
+        "spell_irregular_words_descriptor",
+        "pseudo_words_descriptor",
+        "letter_sounds_descriptor"
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28)`;
 
   const values = [
     newWist.student_id,
@@ -92,6 +98,12 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     newWist.sound_symbol_knowledge_percentile,
     newWist.sound_symbol_knowledge_standard_score,
     newWist.grade,
+    newWist.read_regular_words_descriptor,
+    newWist.read_irregular_words_descriptor,
+    newWist.spell_regular_words_descriptor,
+    newWist.spell_irregular_words_descriptor,
+    newWist.pseudo_words_descriptor,
+    newWist.letter_sounds_descriptor,
   ];
 
   pool

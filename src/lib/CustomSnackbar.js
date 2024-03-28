@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
@@ -10,6 +10,8 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 const CustomSnackbar = () => {
   // const { open, message, severity } = useSelector((state) => state.snackbar);
   const { open, message, severity } = useSelector((state) => state.snackbar ?? {});
+
+  const dispatch = useDispatch();
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
